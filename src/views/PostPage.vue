@@ -197,10 +197,8 @@
 <script>
 import { mapGetters, mapState } from "vuex";
 import moment from "moment";
-import LoginVue from "../components/Login.vue";
-import store from "@/store/index.js";
 
-const axios = require("axios");
+
 const FormData = require("form-data");
 
 let user = $cookies.get("user");
