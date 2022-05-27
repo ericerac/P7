@@ -18,7 +18,7 @@ const sequelize = new Sequelize(
 
 module.exports = async (req, res, next) => {
   console.log("HEADERS------>>>", req.headers );
-  console.log("HEADERS-AUTHO----->>>", req.headers.authorization );
+  // console.log("HEADERS-AUTHO----->>>", req.headers.authorization );
 
   if(!req.headers.authorization){
     console.log("HEADERS AUTH------>>>", req.headers.authorization );

@@ -1,4 +1,5 @@
 <template>
+<link href="https://fonts.googleapis.com/css2?family=Blaka+Hollow&display=swap" rel="stylesheet">
     <div class="container-fluid posts-content">
         <div class="row">
             <!-- ---------------------TOP-------------------- -->
@@ -63,10 +64,10 @@
                         <div class="media post-head mb-3">
                             <img v-if="article.user.media" alt="ImageProfil" :src="article.user.media"
                                 class="d-block ui-w-40 rounded-circle" />
-                            <div class="media-body fw-bold ml-3">
+                            <div class="media-body fw-bold ml-3 txt-user">
                                 {{ article.user.lastName }}
                                 {{}} {{ article.user.firstName }}
-                                <div class="text-muted small">
+                                <div class="text-muted small txt-user">
                                     le: {{ date(article.createdAt) }}
                                 </div>
                             </div>
@@ -88,8 +89,10 @@
                             <!-- ------------ICON COMMENTAIRE------------- -->
                             <div class="com-com">
 
+                                <span class="txt-user">Donnez votre avis</span>
 
-                                <span>Donnez votre avis
+
+                                <span >
                                     <fa class="d-inline-block text-muted ml-1" :icon="['far', 'comment']"
                                         @click="commentInput = !commentInput" v-model="PostLiked" />
                                 </span>
@@ -444,6 +447,8 @@ export default {
 //**********************************************// */
 
 <style scoped>
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond&family=Patrick+Hand&display=swap');
+
 .select-wrapper {
     background: url("../assets/camera-solid.svg  ") no-repeat;
     background-size: cover;
@@ -517,8 +522,12 @@ li {
     color: white;
     position: absolute;
     bottom: 0.15rem;
+    font-family: 'EB Garamond', serif;
 }
+.txt-user {
+    font-family: 'EB Garamond', serif;
 
+}
 .navbar {
     display: flex;
     justify-content: space-between;
@@ -635,8 +644,8 @@ span {
 } */
 .com-com {
     display: flex;
-    width: 30%;
-    justify-content: space-between;
+    width: 50%;
+    justify-content: flex-start;
 }
 
 .ui-w-40 {

@@ -1,5 +1,7 @@
 <template>
-
+<div v-if="erreurMessage">
+<ModalMessage/>
+</div>
     <div class="wrapper">
         <div class="container">
             <form class="login-form">
@@ -12,41 +14,33 @@
                     <label for="nom">Nom</label>
                     <input v-model="firstName" type="text" name="nom" class="form-control" placeholder="Nom" required />
                 </div>
-                <div class="error" v-if="errorFirstName.length">
-                    {{ errorFirstName }}
-                </div>
+                
                 <div class="form-group" v-if="mode == 'signup'">
                     <label for="prenom">Prénom</label>
                     <input v-model="lastName" type="text" name="prenom" class="form-control" placeholder="Prénom"
                         required />
                 </div>
-                <div class="error" v-if="errorLastName.length">
-                    {{ errorlastName }}
-                </div>
+                
                 <div class="form-group">
                     <label for="email">Email</label>
                     <input v-model="Email" type="email" name="email" class="form-control" placeholder="Email"
                         required />
                 </div>
-                <div class="error" v-if="errorEmail.length">
-                    {{ errorEmail }}
-                </div>
+                
                 <div class="form-group">
                     <label for="password">Mot de passe</label>
 
                     <input v-model="password" type="password" name="password" class="form-control"
                         placeholder=" Votre mot de passe" required>
                 </div>
-<div class="error" v-if="errorPassword.length">
-                    {{ errorPassword }}
-                </div>
+
                 <div class="form-group">
-                    <label class="btn-label">Se connecter</label>
+                    <label for="submit" class="btn-label">Se connecter</label>
                     <input v-if="mode == 'login'" name="submit" class="btn btn-primary btn-lg btn-block" :keyUp="enter"
                         value="Se connecter" @click="loginPost()">
                 </div>
                 <div class="form-group" v-if="mode == 'signup'">
-                    <label class="btn-label">S'enregistrer</label>
+                    <label  for="submit" class="btn-label">S'enregistrer</label>
                     <input name="submit" class="btn btn-primary btn-lg btn-block" keyUp="enter" value="S'enregistrer"
                         @click="checkForm()">
                 </div>
@@ -62,7 +56,8 @@
 <script>
 
 import { mapState } from "vuex";
-import { Vue } from "vue";
+
+import ModalMessage from "./ModalMessage.vue";
 
 
 export default {
@@ -72,13 +67,9 @@ export default {
     data: function () {
         return {
             mode: "login",
-
-            errorFirstName: [],
-            errorLastName: [],
-            errorEmail: [],
-            errorPassword: [],
-
-            lastNameErrorMsg:"",
+           
+           
+           
 
             firstName: "",
             lastName: "",
@@ -86,22 +77,26 @@ export default {
             password: "",
         };
     },
+    components: {
+    ModalMessage,
+    
+},
+watch: {
+    
+},
     
     computed: {
-        ...mapState(["status"]),
-    },
-    // watch:{
-    //     lastName:(val)=>{
-    //         const that = this;
-    // console.log(val);
-    // if(val.match(/^[a-zA-Z-._àâéèêô´`¨ ñÑî'ùûïÏäëüöÖÄçÀÂÉÈÔÙÛÇ]*$/)){
-    // // that.lastNameErrorMsg="veuillez saisir uniquement des lettres et tirets (pas de chiffres ni caractères spéciaux).";
-    // that.lastNameErrorMsg=val;
-    //     }
-    // },
+        ...mapState({
+            
+      
+        }),
+        
 
-    // },
+
+    },
+    
     methods: {
+        
         goToSignup: function () {
             this.mode = "signup";
         },
@@ -113,41 +108,42 @@ export default {
         
         // --------------- VALIDATION FORM-------------------//
         checkForm: function () {
-            const errorFirstName = [];
-            const errorlastName = [];
-            const errorEmail = [];
+            
 
 
             if (!this.firstName) {
-                this.errorFirstName.push(" * Le nom doit être renseigné.");
+                 alert(" * Le nom doit être renseigné.");
+               
                 return false
             } else if (!this.validFirstName(this.firstName)) {
-                this.errorFirstName.push(' * Le nom ne doit pas contenir de caractères spéciaux');
+                alert(' * Le nom ne doit pas contenir de caractères spéciaux');
                 return false
             }
 
             if (!this.lastName) {
-                this.errorLastName.push(" * Le prénom doit être renseigné.");
+                alert(" * Le prénom doit être renseigné.");
                 return false
             } else if (!this.validLastName(this.lastName)) {
-                this.errorLastName.push('* Le prénom ne doit pas contenir de caractères spéciaux');
+                alert('* Le prénom ne doit pas contenir de caractères spéciaux');
                 return false
             }
             
             if (!this.Email) {
-                this.errorEmail.push("* l'adresse Email doit être renseignée.");
+                alert("* l'adresse Email doit être renseignée.");
                 return false
             } else if (!this.validEmail(this.Email)) {
                 console.log("THIS:EMAIL", this.Email);
-                this.errorEmail.push('* Adresse email non valide');
+                alert('* Adresse email non valide');
                 return false
             }
             if (!this.password) {
-                this.errorPassword.push("* l'adresse Email doit être renseignée.");
+               alert("* l'adresse Email doit être renseignée.");
                 return false
             } else if (!this.validPassword(this.password)) {
+                
                 console.log("THIS:PASSWORD", this.password);
-                this.errorPassword.push('* Mot de passe de 8 a 20 caractères dont 1 special et 1 chiffre * ');
+                alert('* Mot de passe doit contenir entre 8 a 20 caractères dont 1 caractère special et 1 chiffre * ');
+                
                 return false
             }
 
@@ -172,7 +168,7 @@ export default {
         },
         validPassword: function (password) {
             console.log("VALIDATION PASSWORD", password);
-            var re = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[*.!@$%^&(){}[]:;<>,.?~_+-=|\]).{8,32}$/g;
+            var re = /^(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/g;
             return re.test(password);
         },
 
@@ -180,6 +176,9 @@ export default {
 
         signupPost: function () {
             const self = this;
+            
+
+
 
             this.$store
                 .dispatch("signupPost", {   // dispatch ("nom de la fonction dans ./store/index.js ")

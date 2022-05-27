@@ -48,6 +48,8 @@
           </div>
         </div>
 
+        <!-- <div><ModalMessage/></div> -->
+
  <div class="avis-media mt-1 mb-0 ">
 <p  v-if="!userData.media">Choisissez une photo de profil</p>
 </div>
@@ -99,6 +101,8 @@ import { axios } from "axios";
 import moment from "moment";
 let userId="";
 let userToken="";
+let data ={};
+import ModalMessage from "@/components/ModalMessage.vue";
 
 let userCookies = $cookies.get("user");
 if(!userCookies){
@@ -120,9 +124,12 @@ export default {
     console.log("USER COOKIES", userCookies);
     this.userId = userCookies.userId;
     this.userToken = userCookies.token;
-
+data={
+        userId:this.userId,
+        token:this.userToken
+      }
     console.log("USER-DATA-->", this.userData);
-    this.getUserData(this.userId);
+    this.getUserData(data);
   },
   
   beforeCreate: function () {
@@ -138,7 +145,10 @@ export default {
 
   },
 
-  
+  components: {
+    
+    ModalMessage
+},
 
 
   data: () => {
@@ -147,7 +157,7 @@ export default {
       fileSelected: null,
       name: "",
 
-      
+      ModalMessage:true,
 
       userId: "",
       firstName: "",
@@ -210,9 +220,10 @@ goToUsersData: function () {
     },
 
     //-----------------GET USER DATA-----------------------//
-    getUserData(UserId) {
+    getUserData(data) {
+      
       this.$store
-        .dispatch("getUserData", UserId)
+        .dispatch("getUserData", data)
         .then((response) => {
           console.log("REPONSE USER DATA Profil", response);
         })

@@ -28,7 +28,7 @@ const store = createStore({
     status: "",
     user: "",
     userId: "",
-
+token:"",
 logoutErr:"",
 
     PostData: {},
@@ -60,14 +60,10 @@ logoutErr:"",
     
   },
   mutations: {
-    setStatus: (state, status) => {
-      state.status = status;
-    },
-    LikeArr: (state, likeArr) => {
-      state.likeArr = likeArr;
-    },
+    
+    
     logUser: (state, user) => {
-      // localStorage.setItem("user", JSON.stringify(user));
+      
       console.log("COOKIES", user);
       state.user = user;
       $cookies.set("user", JSON.stringify(user));
@@ -84,9 +80,7 @@ logoutErr:"",
     UseData: (state, useData) => {
       state.useData = useData;
     },
-    Comment: (state, comment) => {
-      state.comment = comment;
-    },
+    
     AllData: (state, alldata) => {
       state.alldata = alldata;
     },
@@ -94,10 +88,7 @@ logoutErr:"",
     logoutErr: (state, logoutErr) => {
       state.logoutErr = logoutErr;
     },
-    // dat_Post:(state,data)=>{
-
-    // PostData.set(state.PostData, data.property, data.value)
-    // },
+    
     FormData: (state, formData) => {
       state.formData = formData;
     },
@@ -116,7 +107,11 @@ logoutErr:"",
 
   actions: {
     
+erreurSignupForm:({commit})=>{
+  console.log("ERREUR SIGNUP FORM");
+  commit("erreurMessage",true)
 
+},
     
     //------------- SIGNUP LOGIN-------------------_//
 
@@ -142,20 +137,20 @@ logoutErr:"",
      },
 
     loginPost: ({ commit }, userData) => {
-      commit("setStatus", "loading");
+     
       console.log("USER-DATA LOGIN INDEX", userData);
       return new Promise((resolve, reject) => {
         instance
           .post("/login", userData)
           .then((response) => {
             //  setHeaders(response.data.token)
-            commit("setStatus", "");
+          
             commit("logUser", response.data);
             resolve(response);
-            console.log("logUser", logUser);
+            
           })
           .catch((err) => {
-            commit("setStatus", "error_login");
+           
 
             console.log("ERREUR", err);
             reject(err);
@@ -233,12 +228,17 @@ logoutErr:"",
     },
 
     //-----------------GET ONE USER DATA----------------(())
-    getUserData: ({ commit }, data) => {
-      const token = userToken;
+    getUserData: async ({ commit }, data) => {
+      // const token = userToken;
+      const token = data.token;
       console.log("TOKEN", token);
-      const userId = data;
-      console.log(data);
-      instance
+      // const userId = data;
+      const userId = data.userId;
+      
+      console.log("DATA",data,token,userId);
+      
+
+      await instance
         .get(`/user?id=${userId}`,{
           headers: {
             Authorization: `Bearer ${token}`,
