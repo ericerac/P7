@@ -100,13 +100,9 @@ export default {
     // console.log("USER-DATA-->", user)
   },
   
-  mounted: function () {
-
-
-    
-
-    this.getUserData(userId);
-  },
+  // mounted: function () {
+  //   this.getUserData(userId);
+  // },
 
 
   data: () => {
