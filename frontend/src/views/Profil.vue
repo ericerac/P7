@@ -39,20 +39,20 @@
 
         <div class="upper">
           <div class="profile">
-            <img v-if="!userData.media" id="userImg" src="../assets/icon.png " class="rounded-circle" width="80"
+            <img v-if="!userData.media" id="userImg" src="../assets/icon.svg " class="rounded-circle" width="80"
               alt="logo groupomanias" />
-      
+
             <img v-if="userData.media" id="userImg" v-bind:src="userData.media" class="rounded-circle" width="80"
               alt="Photo de profil" />
-            
+
           </div>
         </div>
 
         <!-- <div><ModalMessage/></div> -->
 
- <div class="avis-media mt-1 mb-0 ">
-<p  v-if="!userData.media">Choisissez une photo de profil</p>
-</div>
+        <div class="avis-media mt-1 mb-0 ">
+          <p v-if="!userData.media">Choisissez une photo de profil</p>
+        </div>
         <div class="mt-1 text-center">
 
           <h4 class="mt-3">{{ userData.firstName }} {{ userData.lastName }}</h4>
@@ -74,7 +74,7 @@
               <h6 class="mt-3">Inscrit le:</h6>
               <span class="stat">{{ dateTime(userData.createdAt) }}</span>
             </div>
-            
+
           </div>
         </div>
       </div>
@@ -83,7 +83,7 @@
         <img class="logoTop" src="../assets/icon-left-font-monochrome-white.svg" alt="logo groupomania">
 
         <ul class="footerList">
-          <li><a class="contact" href="mailto:contact@groupomania.com" >Contact</a></li>
+          <li><a class="contact" href="mailto:contact@groupomania.com">Contact</a></li>
           <li>Avis légal</li>
 
         </ul>
@@ -99,18 +99,19 @@ import { mapState } from "vuex";
 const FormData = require("form-data");
 import { axios } from "axios";
 import moment from "moment";
-let userId="";
-let userToken="";
-let data ={};
+let userId = "";
+let userToken = "";
+let data = {};
 import ModalMessage from "@/components/ModalMessage.vue";
 
 let userCookies = $cookies.get("user");
-if(!userCookies){
-  
-}else{
-console.log("USER COOKIES", userCookies);
- userId = userCookies.userId;
- userToken = userCookies.token;}
+if (!userCookies) {
+
+} else {
+  console.log("USER COOKIES", userCookies);
+  userId = userCookies.userId;
+  userToken = userCookies.token;
+}
 
 
 
@@ -124,31 +125,31 @@ export default {
     console.log("USER COOKIES", userCookies);
     this.userId = userCookies.userId;
     this.userToken = userCookies.token;
-data={
-        userId:this.userId,
-        token:this.userToken
-      }
+    data = {
+      userId: this.userId,
+      token: this.userToken
+    }
     console.log("USER-DATA-->", this.userData);
     this.getUserData(data);
   },
-  
+
   beforeCreate: function () {
     console.log("BEFORE CREATED");
     console.log("USER-DATA-->", this.userData);
-    
+
 
   },
   created: function () {
     console.log("CREATED");
     console.log("USER-DATA-->", this.userData);
-    
+
 
   },
 
   components: {
-    
+
     ModalMessage
-},
+  },
 
 
   data: () => {
@@ -157,7 +158,7 @@ data={
       fileSelected: null,
       name: "",
 
-      ModalMessage:true,
+      ModalMessage: true,
 
       userId: "",
       firstName: "",
@@ -177,10 +178,10 @@ data={
       UpdateData: "formData",
       usersId: "userId",
     }),
-goToUsersData: function () {
+    goToUsersData: function () {
       //  this.$store.dispatch("getAllUsersData")
 
-       this.$router.push("/UserList");
+      this.$router.push("/UserList");
     },
   },
   methods: {
@@ -204,8 +205,8 @@ goToUsersData: function () {
     disconnect() {
       console.log("DISCONNECT");
       $cookies.remove("user");
-      userId="";
-      userToken="";
+      userId = "";
+      userToken = "";
       this.$router.push("/");
     },
 
@@ -221,7 +222,7 @@ goToUsersData: function () {
 
     //-----------------GET USER DATA-----------------------//
     getUserData(data) {
-      
+
       this.$store
         .dispatch("getUserData", data)
         .then((response) => {
@@ -241,7 +242,7 @@ goToUsersData: function () {
       bodyFormData.append("lastName", this.lastName);
       bodyFormData.append("email", this.email);
       bodyFormData.append("userId", userId);
-      
+
       console.table("this.firstName ", ...bodyFormData.entries());
       this.$store
         .dispatch("updateUser", bodyFormData)
@@ -270,7 +271,7 @@ goToUsersData: function () {
           if (res) {
             console.log("RES PROFIL PAGE DELETE ------>", res.data.message);
             alert("votre compte a été supprimé")
-            
+
             this.disconnect()
           }
         }).catch((err) => {
@@ -278,14 +279,12 @@ goToUsersData: function () {
 
         })
     }
-    
+
   },
 };
 </script>
 
 <style>
-
-
 body {
   background-color: #545454;
   font-family: "Poppins", sans-serif;
@@ -294,21 +293,23 @@ body {
 
 #app {
   background-image: url("../assets/fondNavRed.png");
-  background-repeat:repeat;
+  background-repeat: repeat;
   background-position: center;
   background-attachment: fixed;
- 
-} 
+
+}
 
 
 .container {
   height: 100vh;
 }
+
 .container {
-    background-color: rgb(252, 217, 164);
-    max-width: 1200px;
-    
+  background-color: rgb(252, 217, 164);
+  max-width: 1200px;
+
 }
+
 .navBar {
   display: flex;
   justify-content: space-between;
@@ -335,7 +336,7 @@ body {
   background-color: #fff;
   position: relative;
   height: auto;
-  
+
 }
 
 .upper {
@@ -363,13 +364,15 @@ body {
 
   border-radius: 50%;
 }
-.avis-media{
- 
+
+.avis-media {
+
   width: 100%;
-  
+
   text-align: center;
 
 }
+
 .follow {
   border-radius: 15px;
   padding-left: 20px;
@@ -386,25 +389,29 @@ body {
   align-items: center;
 
 }
-.ul{
+
+.ul {
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
 }
-.list-Foot{
+
+.list-Foot {
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
 }
+
 ul li {
   margin-left: 2rem;
   font-size: 1rem;
   margin-top: 1rem;
 }
+
 .contact {
-    
-    color: white;
-    font-weight: bold;
-    right: 2rem;
+
+  color: white;
+  font-weight: bold;
+  right: 2rem;
 }
 </style>

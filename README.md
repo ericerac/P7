@@ -29,5 +29,11 @@ router "pages"
 
 # backend
 ```
+## Project setup
+```
+npm install
+```
+### Hot-reloads for development
+```
 nodemon
 ```

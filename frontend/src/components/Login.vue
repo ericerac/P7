@@ -212,7 +212,7 @@ watch: {
                     self.$router.push("profil");
                 })
                 .catch((err) => {
-                    console.log("Restons calme login", err);
+                    console.log("Erreur:", err);
                 });
         },
     },

@@ -171,7 +171,7 @@ erreurSignupForm:({commit})=>{
       const body = {
         id:data
       }
-      commit("setStatus", "loading");
+     
       return new Promise((resolve, reject) => {
         instance
           .put(`/user/delete`,body,{
@@ -180,14 +180,14 @@ erreurSignupForm:({commit})=>{
             },
           })
           .then((response) => {
-            commit("setStatus", "");
+           
             if (response) {
               localStorage.removeItem("user");
             }
             resolve(response);
           })
           .catch((err) => {
-            commit("setStatus", "error_login");
+         
             console.log("ça deconne delete index store");
             reject(err);
           });

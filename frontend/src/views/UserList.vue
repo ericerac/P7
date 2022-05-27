@@ -15,7 +15,8 @@
                                 <i class="fa fa-arrow-left  text-95"></i>
                                 Retour
                             </span>
-<img class="logoTop" src="../assets/icon-left-font-monochrome-black.svg" alt="logo groupomania">
+                            <img class="logoTop" src="../assets/icon-left-font-monochrome-black.svg"
+                                alt="logo groupomania">
 
                         </div>
                         <div>
@@ -56,8 +57,9 @@
                             </span>
                             <span
                                 class="mr-25 w-4 h-4 overflow-hidden text-center border-1 brc-secondary-m2 radius-round shadow-sm d-zoom-2">
-                                <img v-if="user.media" alt="avatar" :src="user.media" class="h-4 w-4" />
-                                <img v-else alt="avatar" src="../assets/icon.svg" class="h-4 w-4" />
+                                <img v-if="user.media" alt="photo profil des utilisateurs" :src="user.media"
+                                    class="h-4 w-4" />
+                                <img v-else alt="logo groupomania" src="../assets/icon.svg" class="h-4 w-4" />
                             </span>
 
                             <span class="text-default-d3 text-90 text-600">
@@ -78,7 +80,7 @@
             </div>
         </div>
 
-        
+
     </div>
 
 
@@ -87,7 +89,7 @@
 <script>
 
 import { mapState } from "vuex";
- console.log(" BEFORE tout");
+console.log(" BEFORE tout");
 import moment from "moment"
 import store from "@/store/index.js";
 
@@ -105,29 +107,34 @@ export default {
     },
 
 
-beforeCreate:()=>{
-    // console.log(" BEFORE CREATE",userId);
-    
-},
-created:()=>{
-    console.log("  CREATED");
-},
-mounted:()=>{
-    console.log("  MOUNTED", userId);
-},
+    beforeCreate: () => {
+        console.log(" BEFORE CREATE");
+        //  this.$store
+        //          .dispatch("getAllUsersData")
+    },
+    created: () => {
+        console.log("  CREATED");
+        // this.$store
+        //     .dispatch("getAllUsersData")
+    },
+     mounted:()=>{
+         console.log("  MOUNTED", userId);
+    // this.$store
+    //         .dispatch("getAllUsersData")
+      },
 
-// beforeRouteEnter:()=>{
-//     console.log(" BEFORE ROUTE");
-// },
-//     beforeMount:()=>{
-//         // location.reload();
-//          console.log(" BEFORE MOUNT");
-//     },
-//     mounted: function () {
-       
-//         console.log(" MOUNTED USER-LIST ARTICLES");
-//     },
-     created: function () {
+    // beforeRouteEnter:()=>{
+    //     console.log(" BEFORE ROUTE");
+    // },
+    //     beforeMount:()=>{
+    //         // location.reload();
+    //          console.log(" BEFORE MOUNT");
+    //     },
+    //     mounted: function () {
+
+    //         console.log(" MOUNTED USER-LIST ARTICLES");
+    //     },
+    created: function () {
          console.log("CREATED");
         this.$store
             .dispatch("getAllUsersData")
@@ -139,17 +146,20 @@ mounted:()=>{
             AllUsers: "allsUsersData",
             dataArt: "artData",
             OneUserData: "useData",
-           
-        }),
 
+        }),
         filterUser() {
+            console.log("ALLS USERS",this.AllUsers);
             return this.AllUsers.filter((a) => {
                 return a.firstName.toLowerCase().includes(this.searchUser.toLowerCase());
             })
-        }
+        },
+
     },
 
     methods: {
+
+
         UserDetail: async function (userId) {
             this.detailUser === true;
             console.log("this.DetailUser", this.detailUser);
@@ -216,15 +226,23 @@ body {
     border-radius: 20px;
 }
 
-.retour {
-    cursor: pointer;
-    text-align: start;
-}
+
 .head-left {
     display: flex;
     flex-direction: column;
+    width: 30%;
     justify-content: space-around;
     align-content: flex-start;
+}
+
+.retour {
+    width: 100%;
+    cursor: pointer;
+    text-align: start;
+}
+
+.logoTop {
+    width: 80%;
 }
 
 .card-header {

@@ -6,9 +6,9 @@
             <div class="col-12 col-lg-12 col-xl-12">
                 <div class="card card-nav mb-4">
                     <div class="card-footer">
-                        <img class="fondLogoNavbar" src="../assets/Fondnav.png" alt="" title="Page Profil" />
+                        <img class="fondLogoNavbar" src="../assets/Fondnav.png" alt="Fond image" title="Page Profil" />
                         <img class="logo col-md-0" src="../assets/icon-left-font-monochrome-white.svg" alt="" />
-                        <img class="userMedia avatar" :src="user.media" alt="" />
+                        <img class="userMedia avatar" :src="user.media" alt="Photo profil" />
                         <span class="NameUser">
                             {{ user.firstName }} {{ user.lastName }}</span>
                     </div>
@@ -62,7 +62,7 @@
                 <div class="card mb-4">
                     <div class="card-body">
                         <div class="media post-head mb-3">
-                            <img v-if="article.user.media" alt="ImageProfil" :src="article.user.media"
+                            <img v-if="article.user.media" alt="photo Profil" :src="article.user.media"
                                 class="d-block ui-w-40 rounded-circle" />
                             <div class="media-body fw-bold ml-3 txt-user">
                                 {{ article.user.lastName }}
@@ -77,7 +77,7 @@
                             {{ article.content }}
                         </p>
                         <div class="">
-                            <img v-if="article.media" class="postImg" alt="Image" :src="article.media" />
+                            <img v-if="article.media" class="postImg" alt="Image de l'article" :src="article.media" />
                         </div>
                     </div>
 
@@ -159,7 +159,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <img v-if="commKey.media" class="imgComment" alt="Image" :src="commKey.media" />
+                                <img v-if="commKey.media" class="imgComment" alt="Image du commentaire" :src="commKey.media" />
                                 <div class="bloc-comment">
                                     <div class="fleche"></div>
                                     <p class="p_comment">
@@ -180,7 +180,7 @@
             <div class="col-12 col-lg-12 col-xl-12">
                 <div class="card card-nav card-foot mb-4">
                     <div class="card-footer">
-                        <img class="fondLogoNavbar footer-blue" src="../assets/Fondnav.png" alt=""
+                        <img class="fondLogoNavbar footer-blue" src="../assets/Fondnav.png" alt="fond image footer"
                             title="Page Profil" />
                         <img class="logo col-md-0" src="../assets/icon-left-font-monochrome-white.svg"
                             alt="logo groupomania" />
@@ -200,7 +200,7 @@
 <script>
 import { mapGetters, mapState } from "vuex";
 import moment from "moment";
-import LoginVue from "../components/Login.vue";
+
 import store from "@/store/index.js";
 
 const axios = require("axios");
