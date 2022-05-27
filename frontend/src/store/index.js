@@ -118,7 +118,7 @@ erreurSignupForm:({commit})=>{
     
     
      signupPost: ({ commit }, userData) => {
-       commit("setStatus", "loading");
+       
        return new Promise((resolve, reject,response) => {
          instance
            .post("/signup", userData)
@@ -201,7 +201,7 @@ erreurSignupForm:({commit})=>{
     updateUser: ({ commit }, Data) => {
       const token = userToken;
       console.log("TOKEN", token);
-      commit("setStatus", "loading");
+     
       console.log("UPDATE USER INDEX", Data.entries());
 
       return new Promise((resolve, reject) => {
@@ -214,12 +214,12 @@ erreurSignupForm:({commit})=>{
           .then((response) => {
             console.log("RESPONSE INDEX -->", response);
 
-            commit("setStatus", "loading");
+           
             resolve(response);
             console.log("REPONSE UPDATE", response);
           })
           .catch((err) => {
-            commit("setStatus", "error_create");
+          
             reject(err);
             console.log("ERREUR", err);
             console.log("ça ne fonctionne pas");
@@ -296,7 +296,7 @@ erreurSignupForm:({commit})=>{
     //-----------UPLOAD POST-----------------//
     uploadPost: ({ commit }, data) => {
       console.log("UPLOAD-POST INDEX", ...data.entries());
-      commit("setStatus", "loading");
+     
       const token = userToken;
       console.log("TOKEN", token);
       return new Promise((resolve, reject) => {
@@ -309,12 +309,12 @@ erreurSignupForm:({commit})=>{
           .then((response) => {
             console.log("RESPONSE INDEX -->", response);
 
-            commit("setStatus", "loading");
+        
             commit("ArtData", response.data);
             resolve(response);
           })
           .catch((err) => {
-            commit("setStatus", "error_create");
+           
             reject(err);
             console.log("ça ne fonctionne pas");
           });
@@ -326,7 +326,7 @@ erreurSignupForm:({commit})=>{
     updatePost: ({ commit }, Data) => {
       const token = userToken;
       console.log("TOKEN", token);
-      commit("setStatus", "loading");
+      
       console.log("UPDATE USER INDEX", Data.entries());
 
       return new Promise((resolve, reject) => {
@@ -339,12 +339,12 @@ erreurSignupForm:({commit})=>{
           .then((response) => {
             console.log("RESPONSE INDEX -->", response);
 
-            commit("setStatus", "loading");
+            
             resolve(response);
             console.log("REPONSE UPDATE", response);
           })
           .catch((err) => {
-            commit("setStatus", "error_create");
+            
             reject(err);
             console.log("ERREUR", err);
             console.log("ça ne fonctionne pas");
@@ -354,7 +354,7 @@ erreurSignupForm:({commit})=>{
     //-----------UPLOAD COMMENT-----------------//uploadComment
     uploadComment: ({ commit }, data) => {
       console.log("UPLOAD-POST INDEX", ...data.entries());
-      commit("setStatus", "loading");
+      
       const token = userToken;
       console.log("TOKEN", token);
       return new Promise((resolve, reject) => {
@@ -367,11 +367,11 @@ erreurSignupForm:({commit})=>{
           .then((response) => {
             console.log("RESPONSE INDEX -->", response);
 
-            commit("setStatus", "loading");
+            
             resolve(response);
           })
           .catch((err) => {
-            commit("setStatus", "error_create");
+           
             reject(err);
             console.log("ça ne fonctionne pas");
           });
@@ -383,7 +383,7 @@ erreurSignupForm:({commit})=>{
       const Us = userId;
 
       console.log("TOKEN", token);
-      commit("setStatus", "loading");
+      
       const self = this;
       console.log("getAllArticle");
       return new Promise((resolve, reject) => {
@@ -396,7 +396,7 @@ erreurSignupForm:({commit})=>{
           .then((res) => {
             // console.log("ALL ARTICLES INDEX RES", res);
             const usersId = [];
-            commit("setStatus", "loading");
+           
             const Artrevers = res.data.reverse();
             commit("ArtData", Artrevers);
             const resData = res.data;
@@ -428,7 +428,7 @@ erreurSignupForm:({commit})=>{
           })
 
           .catch((err) => {
-            commit("setStatus", "error_create");
+            
             reject(err);
             console.log("ça ne fonctionne pas post art");
           });
@@ -443,7 +443,7 @@ erreurSignupForm:({commit})=>{
 
       console.log("INDEX-TOKEN-DELETE ARTICLE------->", token);
       console.log("INDEX-ID-DELETE ARTICLE------>", data);
-      commit("setStatus", "loading");
+      
       return new Promise((resolve, reject) => {
         instance
           .put(`/article/delete`, data, {
@@ -452,12 +452,12 @@ erreurSignupForm:({commit})=>{
             },
           })
           .then((response) => {
-            commit("setStatus", "");
+          
 
             resolve(response);
           })
           .catch((err) => {
-            commit("setStatus", "error_login");
+           
             console.log("ça deconne delete index store");
             reject(err);
           });
@@ -471,7 +471,7 @@ erreurSignupForm:({commit})=>{
 
       console.log("INDEX-TOKEN-DELETE COMMENT------->", token);
       console.log("INDEX-ID-DELETE COMMENT------>", data);
-      commit("setStatus", "loading");
+      
       return new Promise((resolve, reject) => {
         instance
           .put(`/comment/delete`, data,{
@@ -480,12 +480,12 @@ erreurSignupForm:({commit})=>{
             },
           })
           .then((response) => {
-            commit("setStatus", "");
+           
 
             resolve(response);
           })
           .catch((err) => {
-            commit("setStatus", "error_login");
+          
             console.log("ça deconne delete index store");
             reject(err);
           });
@@ -499,7 +499,7 @@ erreurSignupForm:({commit})=>{
       // const userId = userId
       console.log("INDEX-TOKEN-LIKE-POST------->", token);
       console.log("INDEX-ID-LIKE-POST------>", data);
-      commit("setStatus", "loading");
+      
       return new Promise((resolve, reject) => {
         instance
           .post(`/like/post`, data, {
@@ -515,55 +515,15 @@ erreurSignupForm:({commit})=>{
             resolve(response);
           })
           .catch((err) => {
-            commit("setStatus", "error_login");
-            commit("errorLike", err);
+            
+           
             console.log("Erreur 401 LIKE-POST index store",err);
             reject(err);
           });
       });
     },
 
-    // ------------------MULTI LIKE------------------//
-    // likePost: ({ commit }, data) => {
-    //   const token = userToken;
-    //   // const userId = userId;
-
-    //   console.log("INDEX-TOKEN-DELETE COMMENT------->", token);
-    //   console.log("INDEX-ID-DELETE COMMENT------>", data);
-    //   commit("setStatus", "loading");
-
-    // // const url = "http://localhost:3000/like/post";
-
-    // // const reqDislikeTable = "http://localhost:3000/like/post";
-    // // const One = axios.put(reqDislikeTable);
-
-    // // const reqArtLike = `http://localhost:3000/art/like,`;
-    // //  const Two = axios.post(reqArtLike);
-
-    // //  const likeDislike = (axios.all([One, Two]).then(
-    // //    // reste a definir les conditions de réponses pour chaque requete
-    // //    axios.spread((...response) => {
-    // //      console.log("---------RESPONSE----------", response.data);
-
-    // //      console.log("---------REQUETE----------",  One, Two);
-
-    // //      console.log("---------Response Type----------", One.blob);
-
-    // //      const ResponseOne = response[0];
-
-    // //      const ResponseTwo = response[1];
-
-    // //      console.log(
-    // //        "ResponseOne",
-    // //        ResponseOne.data,
-    // //        "ResponseTWo",
-    // //        ResponseTwo.data
-    // //      );
-    // //    })
-    // //  ).catch = () => {
-    // //    res.json({message:"ça marche pas"})
-    // //  })
-    // },
+    
   }, // fin actions
 });
 

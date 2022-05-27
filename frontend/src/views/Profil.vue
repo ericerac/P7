@@ -133,12 +133,7 @@ export default {
     this.getUserData(data);
   },
 
-  beforeCreate: function () {
-    console.log("BEFORE CREATED");
-    console.log("USER-DATA-->", this.userData);
-
-
-  },
+  
   created: function () {
     console.log("CREATED");
     console.log("USER-DATA-->", this.userData);

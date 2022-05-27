@@ -109,31 +109,9 @@ export default {
 
     beforeCreate: () => {
         console.log(" BEFORE CREATE");
-        //  this.$store
-        //          .dispatch("getAllUsersData")
+        
     },
-    created: () => {
-        console.log("  CREATED");
-        // this.$store
-        //     .dispatch("getAllUsersData")
-    },
-     mounted:()=>{
-         console.log("  MOUNTED", userId);
-    // this.$store
-    //         .dispatch("getAllUsersData")
-      },
-
-    // beforeRouteEnter:()=>{
-    //     console.log(" BEFORE ROUTE");
-    // },
-    //     beforeMount:()=>{
-    //         // location.reload();
-    //          console.log(" BEFORE MOUNT");
-    //     },
-    //     mounted: function () {
-
-    //         console.log(" MOUNTED USER-LIST ARTICLES");
-    //     },
+    
     created: function () {
          console.log("CREATED");
         this.$store

@@ -209,6 +209,11 @@ const FormData = require("form-data");
 let user = $cookies.get("user");
 let userId = user.userId;
 let userToken = user.token;
+console.log("USER ID",userId);
+let data = {
+    userId:userId,
+    token:userToken,
+}
 
 //***************    ******************// */
 
@@ -217,7 +222,7 @@ export default {
     components: {},
     props: {},
     mounted: function () {
-        this.userData(userId);
+        this.userData(data);
     },
 
     data: function () {
