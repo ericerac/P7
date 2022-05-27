@@ -63,21 +63,33 @@ import { mapState } from "vuex";
 const FormData = require("form-data");
 import { axios } from "axios";
 import moment from "moment";
+let data = {};
+// let userCookies = $cookies.get("user");
+// console.log("USER COOKIES", userCookies);
+// let userId = userCookies.userId;
+// let userToken = userCookies.token;
+// const data = {
+//       userId: this.userId,
+//       token: this.userToken
+//     }
 
-let userCookies = $cookies.get("user");
-console.log("USER COOKIES", userCookies);
-let userId = userCookies.userId;
-let userToken = userCookies.token;
 
 
-console.log(userId, userToken);
 
 export default {
   name: "profil",
   beforeMount: function () {
-
     console.log("BEFORE MOUNT");
-    // console.log("USER-DATA-->", user)
+    let userCookies = $cookies.get("user");
+    console.log("USER COOKIES", userCookies);
+    this.userId = userCookies.userId;
+    this.userToken = userCookies.token;
+    data = {
+      userId: this.userId,
+      token: this.userToken
+    }
+    console.log("USER-DATA-->", this.userData);
+    this.getUserData(data);
   },
   onMounted: function () {
     console.log("ON MOUNTED");
@@ -105,10 +117,10 @@ export default {
 
       url: "http://localhost:3000",
 
-      userId: userId,
+      // userId: userId,
      
 
-      token: userToken,
+      // token: userToken,
     };
   },
   
@@ -135,9 +147,9 @@ export default {
     },
 
     //-----------------GET USER DATA-----------------------//
-    getUserData(UserId) {
+    getUserData(data) {
       this.$store
-        .dispatch("getUserData", UserId)
+        .dispatch("getUserData", data)
         .then(function (response) {
           console.log("reponse Get USER DATA Profil", response);
         })
