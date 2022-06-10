@@ -189,11 +189,7 @@ export default {
       this.$router.push("/updateProfil");
     },
 
-    goToUsersData: function () {
-      //  this.$store.dispatch("getAllUsersData")
-
-      // this.$router.push("/UserList");
-    },
+    
     goToUsersData: function () {
       this.$store.dispatch("getAllUsersData")
 
@@ -283,7 +279,7 @@ console.log("DATA GET-USER",data);
 };
 </script>
 
-<style>
+<style scoped>
 body {
   background-color: #545454;
   font-family: "Poppins", sans-serif;

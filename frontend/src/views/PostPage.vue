@@ -149,7 +149,7 @@
                         <div class="card card-comment mb-1">
                             <div class="card-body">
                                 <div class="media media-comment mb-1">
-                                    <img src="https://bootdey.com/img/Content/avatar/avatar3.png"
+                                    <img :src="commKey.user.media"
                                         class="d-block ui-w-40 rounded-circle avatar-comment" alt="" />
                                     <div class="media-body ml-3 mt-0">
                                         <span>{{ commKey.user.lastName }}</span><span>{{ commKey.user.firstName
@@ -222,7 +222,8 @@ export default {
     components: {},
     props: {},
     mounted: function () {
-        let userId = $cookies.get("user.userId");
+       const AuthUser = $cookies.get("user");
+     const userId = AuthUser.userId;
         this.userData(userId);
     },
 
@@ -537,6 +538,7 @@ li {
 .navbar {
     display: flex;
     justify-content: space-between;
+    color: white;
 }
 
 /* // ------------------  TOP------------------- */

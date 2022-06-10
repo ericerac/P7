@@ -96,6 +96,7 @@ console.log(" BEFORE tout");
 import moment from "moment"
 import store from "@/store/index.js";
 import detailUserVue from "@/components/detailUser.vue";
+import modalSucces from "@/components/ModalSucces.vue";
 //  if(user = undefined || user.role != "admin"){
 //      alert("Vous n'êtes pas autorisée")
 //  }
@@ -109,7 +110,10 @@ export default {
         };
     },
 components:{
-detailUserVue
+detailUserVue,
+
+modalSucces,
+
 },
 
     beforeCreate: () => {
@@ -130,6 +134,8 @@ detailUserVue
             dataArt: "artData",
             UserData: "userData",
             detailUser:"detailUser",
+            modalSucces:"modalSucces",
+            succesMessage: "succesMessage",
 
         }),
         filterUser() {

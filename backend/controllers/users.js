@@ -70,7 +70,7 @@ exports.login = async (req, res, next) => {
     );
     if (password_valid) {
       token = jwt.sign({ id: user.id }, `${process.env.TOKEN}`, {
-        expiresIn: "12h",
+        expiresIn: "1h",
       });
       res
         .status(200)

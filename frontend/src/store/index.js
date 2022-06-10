@@ -51,8 +51,14 @@ instance.interceptors.request.use(function (config) {
 instance.interceptors.response.use(function (response) {
   console.log("INTER RESP OK",response);
   console.log("INTER RESP OK DATA",response.data);
+  console.log("INTER RESP OK DATA",response.data.message);
+  const supp = response.data.message
   // console.log("INTER RESP OK",response);
   // console.log("INTER RESP OK",response);
+  if(supp ){
+store.commit("SuccesMessage",supp),
+store.commit("ModalSucces",true)
+  }
   return response;
 }, function (error) {
   // console.log("INTER RESP ERREUR TO-JSON",error.toJSON());
@@ -83,6 +89,8 @@ logoutErr:"",
 detailUser:false,
 modal:false,
     modalMessage:"",
+    modalSucces:false,
+    succesMessage:"",
 
     PostData: {},
     
@@ -138,6 +146,15 @@ modal:false,
     },
     OpenDetailUser: (state, val) => {
       state.detailUser = val;
+    },
+    ModalSucces: (state, val) => {
+      state.modalSucces = val;
+    },
+    OpenModalSucces: (state, val) => {
+      state.modalSucces = val;
+    },
+    SuccesMessage: (state, val) => {
+      state.succesMessage = val;
     },
     
     UserData: (state, userData) => {
@@ -196,6 +213,8 @@ commit("CloseDetailUser",true)
 CloseDetailUser:({commit})=>{
 commit("CloseDetailUser",false)
 },
+
+
     //------------- SIGNUP LOGIN-------------------_//
 
     
@@ -290,7 +309,7 @@ commit("CloseDetailUser",false)
       //  const id = userId;
       const userDel = data;
       
-      console.log("INDEX-TOKEN-USER CONNECT------->", token);
+      // console.log("INDEX-TOKEN-USER CONNECT------->", token);
       console.log("INDEX-ID-DELETE------>", data);
       console.log("INDEX-ID-USUR CONNECT------>", userId);
       const body = {
@@ -307,7 +326,7 @@ commit("CloseDetailUser",false)
           .then((response) => {
            
             if (response) {
-              localStorage.removeItem("user");
+              commit("CloseDetailUser",false)
             }
             resolve(response);
           })

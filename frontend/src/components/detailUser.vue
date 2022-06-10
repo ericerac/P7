@@ -42,7 +42,7 @@
 
 <div class="button">
                 <span>
-                    <button class="btn btn-danger btn-sm follow mt-0">
+                    <button  @click="delUser(UserData.id)"  class="btn btn-danger btn-sm follow mt-0">
                         Supprimer ce compte
                     </button>
                     </span>
@@ -80,6 +80,10 @@ this.$store.dispatch("CloseDetailUser")
     dateTime(value) {
       return moment(value).format("DD-MM-YYYY à HH-mm");
     },
+
+    delUser(user){
+this.$store.dispatch("deleteUser",user)
+    }
 
 },
 computed:{
