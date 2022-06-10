@@ -1,5 +1,5 @@
 <template>
-<div v-if="erreurMessage">
+<div v-if="modal">
 <ModalMessage/>
 </div>
     <div class="wrapper">
@@ -80,6 +80,7 @@ export default {
     components: {
     ModalMessage,
     
+    
 },
 watch: {
     
@@ -87,8 +88,8 @@ watch: {
     
     computed: {
         ...mapState({
-            
-      
+            modal:"modal",
+      modalMessage:"modalMessage"
         }),
         
 

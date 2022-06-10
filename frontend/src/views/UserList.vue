@@ -29,7 +29,7 @@
 
                         </div>
                     </div>
-                    <div role="button"
+                    <div role="button" 
                         class="d-flex flex-wrap align-items-center my-2 bgc-secondary-l4 bgc-h-secondary-l3 radius-1 p-25 d-style">
                         <span class="text-default-d3 text-90 text-600">
                             Avatar
@@ -48,12 +48,15 @@
 
 
                     </div>
+<div v-if="detailUser">
+                    <detailUserVue/>
+                    </div>
                     <div class="card-body pl-1 pt-1 pb-1" v-for="user in filterUser">
                         <div role="button" @click="UserDetail(user.id)"
                             class="d-flex flex-wrap align-items-center my-2 bgc-secondary-l4 bgc-h-secondary-l3 radius-1 p-25 d-style">
                             <span
                                 class="mr-25 w-4 h-4 overflow-hidden text-center border-3 text-default-d3 text-90 text-600 radius-round shadow-sm d-zoom-1">
-                                <fa :icon="['far', 'trash-alt']" @click="deleteUser(user.id)" />
+                                <fa :icon="['far', 'trash-alt']" @click="DelUser(user.id)" />
                             </span>
                             <span
                                 class="mr-25 w-4 h-4 overflow-hidden text-center border-1 brc-secondary-m2 radius-round shadow-sm d-zoom-2">
@@ -92,7 +95,7 @@ import { mapState } from "vuex";
 console.log(" BEFORE tout");
 import moment from "moment"
 import store from "@/store/index.js";
-
+import detailUserVue from "@/components/detailUser.vue";
 //  if(user = undefined || user.role != "admin"){
 //      alert("Vous n'êtes pas autorisée")
 //  }
@@ -101,11 +104,13 @@ export default {
     name: "userList",
     data: function () {
         return {
-            detailUser: true,
+            // detailUser: "",
             searchUser: "",
         };
     },
-
+components:{
+detailUserVue
+},
 
     beforeCreate: () => {
         console.log(" BEFORE CREATE");
@@ -123,14 +128,18 @@ export default {
         ...mapState({
             AllUsers: "allsUsersData",
             dataArt: "artData",
-            OneUserData: "useData",
+            UserData: "userData",
+            detailUser:"detailUser",
 
         }),
         filterUser() {
-            console.log("ALLS USERS",this.AllUsers);
-            return this.AllUsers.filter((a) => {
-                return a.firstName.toLowerCase().includes(this.searchUser.toLowerCase());
-            })
+            if(this.AllUsers){
+
+                console.log("ALLS USERS",this.AllUsers);
+                return this.AllUsers.filter((a) => {
+                    return a.firstName.toLowerCase().includes(this.searchUser.toLowerCase());
+                })
+            }
         },
 
     },
@@ -139,8 +148,8 @@ export default {
 
 
         UserDetail: async function (userId) {
-            this.detailUser === true;
-            console.log("this.DetailUser", this.detailUser);
+            this.$store.commit("OpenDetailUser",true) ;
+            console.log("USER-ID", userId);
             await this.$store
                 .dispatch("getUserData", userId)
                 .then((res) => {
@@ -162,7 +171,7 @@ export default {
             this.$router.push("../user/admin");
         },
 
-        deleteUser(data) {
+        DelUser(data) {
             const result = window.confirm("Voulez-vous vraiment supprimer ce compte ?")
             if (!result) {
                 return

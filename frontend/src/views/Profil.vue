@@ -40,7 +40,7 @@
         <div class="upper">
           <div class="profile">
             <img v-if="!userData.media" id="userImg" src="../assets/icon.svg " class="rounded-circle" width="80"
-              alt="logo groupomanias" />
+              alt="logo groupomania" />
 
             <img v-if="userData.media" id="userImg" v-bind:src="userData.media" class="rounded-circle" width="80"
               alt="Photo de profil" />
@@ -100,7 +100,7 @@ const FormData = require("form-data");
 import { axios } from "axios";
 import moment from "moment";
 let userId = "";
-let userToken = "";
+let token = "";
 let data = {};
 import ModalMessage from "@/components/ModalMessage.vue";
 
@@ -110,7 +110,7 @@ if (!userCookies) {
 } else {
   console.log("USER COOKIES", userCookies);
   userId = userCookies.userId;
-  userToken = userCookies.token;
+  token = userCookies.token;
 }
 
 
@@ -124,13 +124,13 @@ export default {
     let userCookies = $cookies.get("user");
     console.log("USER COOKIES", userCookies);
     this.userId = userCookies.userId;
-    this.userToken = userCookies.token;
+    this.token = userCookies.token;
     data = {
       userId: this.userId,
-      token: this.userToken
+      token: this.token
     }
-    console.log("USER-DATA-->", this.userData);
-    this.getUserData(data);
+    console.log("USER-DATA-->", data, userId, token);
+    this.getUserData(userId);
   },
 
   
@@ -162,6 +162,7 @@ export default {
       password: "",
 
       userToken: "",
+      // token:"",
     };
   },
   props: {},
@@ -172,12 +173,9 @@ export default {
       CountComment: "comments",
       UpdateData: "formData",
       usersId: "userId",
+      token:"token"
     }),
-    goToUsersData: function () {
-      //  this.$store.dispatch("getAllUsersData")
-
-      this.$router.push("/UserList");
-    },
+    
   },
   methods: {
     goToProfil: function () {
@@ -191,17 +189,22 @@ export default {
       this.$router.push("/updateProfil");
     },
 
-    // goToUsersData: function () {
-    //   //  this.$store.dispatch("getAllUsersData")
+    goToUsersData: function () {
+      //  this.$store.dispatch("getAllUsersData")
 
-    //    this.$router.push("/UserList");
-    // },
+      // this.$router.push("/UserList");
+    },
+    goToUsersData: function () {
+      this.$store.dispatch("getAllUsersData")
+
+       this.$router.push("/UserList");
+    },
     //----------------DISCONNECT-----------------//
     disconnect() {
       console.log("DISCONNECT");
       $cookies.remove("user");
       userId = "";
-      userToken = "";
+      token = "";
       this.$router.push("/");
     },
 
@@ -216,8 +219,9 @@ export default {
     },
 
     //-----------------GET USER DATA-----------------------//
-    getUserData(data) {
-
+    getUserData() {
+      const data = this.userId;
+console.log("DATA GET-USER",data);
       this.$store
         .dispatch("getUserData", data)
         .then((response) => {

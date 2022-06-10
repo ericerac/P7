@@ -1,4 +1,4 @@
-import { _ } from "core-js";
+
 import { createStore } from "vuex";
 const axios = require("axios");
 import setHeaders from "../utils/setHaeaders";
@@ -6,9 +6,7 @@ const mapState = require("vuex");
 import Vue from "vue";
 import VueCookies from "vue-cookies";
 
-const instance = axios.create({
-  baseURL: "http://localhost:3000/",
-});
+
 
 let userId="";
 let userToken="";
@@ -21,7 +19,59 @@ console.log("USER COOKIES", userCookies);
  userId = userCookies.userId;
  userToken = userCookies.token;}
 
+ const instance = axios.create({
+   
+  baseURL: "http://localhost:3000/",
+  //  headers: {
+  //    Authorization: `Bearer ${userToken}`,
+  //  },
+});
 // console.log(userId, userToken);
+
+instance.interceptors.request.use(function (config) {
+  console.log("INTER REQ CONFIG",config);
+  
+     const AuthUser = $cookies.get("user");
+     const token = AuthUser.token;
+
+     console.log("INTER REQ TOKEN",token);
+    if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+    }
+  
+  return config;
+}, function (error) {
+  console.log("INTER REQ ERREUR",error);
+  // Do something with request error
+  return Promise.reject(error);
+});
+
+// ----------- INTERCEPTORS -----------------//
+
+instance.interceptors.response.use(function (response) {
+  console.log("INTER RESP OK",response);
+  console.log("INTER RESP OK DATA",response.data);
+  // console.log("INTER RESP OK",response);
+  // console.log("INTER RESP OK",response);
+  return response;
+}, function (error) {
+  // console.log("INTER RESP ERREUR TO-JSON",error.toJSON());
+  console.log("INTER RESP ERREUR RESPONSE",error.response);
+  console.log("INTER RESP ERREUR RESPONSE.DATA",error.response.data.error); // Txt resp erreur function
+  console.log("INTER RESP ERREUR RESPONSE.DATA",error.response.data.message); // Txt resp erreur function
+  console.log("INTER RESP ERREUR RESPONSE.STATUS",error.response.status);
+
+  store.commit("ModalError",true)
+  if(error.response.data.error){
+    store.commit("ModalMessage",error.response.data.error)
+  }else if(error.response.data.message){
+    store.commit("ModalMessage",error.response.data.message)
+  }
+
+  return Promise.reject(error);
+});
+
+
 
 const store = createStore({
   state: {
@@ -30,6 +80,9 @@ const store = createStore({
     userId: "",
 token:"",
 logoutErr:"",
+detailUser:false,
+modal:false,
+    modalMessage:"",
 
     PostData: {},
     
@@ -64,10 +117,29 @@ logoutErr:"",
     
     logUser: (state, user) => {
       
-      console.log("COOKIES", user);
+      console.log("RESP MUT LOG-USER", user);
       state.user = user;
       $cookies.set("user", JSON.stringify(user));
     },
+    logToken: (state, token) => {
+      
+      console.log("RESP MUT TOKEN LOG-USER", token);
+      state.token = token;
+      
+    },
+    ModalError: (state, val) => {
+      state.modal = val;
+    },
+    ModalMessage: (state, val) => {
+      state.modalMessage = val;
+    },
+    CloseDetailUser: (state, val) => {
+      state.detailUser = val;
+    },
+    OpenDetailUser: (state, val) => {
+      state.detailUser = val;
+    },
+    
     UserData: (state, userData) => {
       state.userData = userData;
     },
@@ -112,7 +184,18 @@ erreurSignupForm:({commit})=>{
   commit("erreurMessage",true)
 
 },
+
+modalErrorClose:({commit})=>{
+  console.log("MODAL-CLOSE");
+  commit("ModalError", false)
+},
     
+OpenDetailUser:({commit})=>{
+commit("CloseDetailUser",true)
+},
+CloseDetailUser:({commit})=>{
+commit("CloseDetailUser",false)
+},
     //------------- SIGNUP LOGIN-------------------_//
 
     
@@ -144,8 +227,9 @@ erreurSignupForm:({commit})=>{
           .post("/login", userData)
           .then((response) => {
             //  setHeaders(response.data.token)
-          
+          console.log("RESP LOGIN INDEX", response.data);
             commit("logUser", response.data);
+            commit("logToken", response.data.token);
             resolve(response);
             
           })
@@ -158,11 +242,52 @@ erreurSignupForm:({commit})=>{
       });
     },
 
+    //-----------------GET ONE USER DATA----------------(())
+    getUserData: async ({ commit }, data) => {
+      // const token = userToken;
+      //  const token = this.token;
+      // console.log("TOKEN", token);
+       const userId = data;     
+       console.log("DATA", data)     // version UserList
+      //const userId = data.userId;
+      
+      console.log("DATA",data,userId);
+      
+
+      await instance
+        .get(`/user?id=${userId}`,{
+          // headers: {
+          //   Authorization: `Bearer ${token}`,
+          // },
+        })
+        .then((res) => {
+          console.log("REPONSE USER-DATA INDEX STORE", res.data);
+
+          const countArticle = res.data.article.length;
+          commit("Articles", countArticle);
+          const countComment = res.data.comment.length;
+          console.log("Articles", countComment);
+          commit("Comments", countComment);
+
+          if (res) {
+            commit("UserData", res.data);
+            console.log("REPONSE USER-DATA INDEX STORE IF", res.data);
+          } else {
+            console.log("pas de data");
+          }
+        })
+        .catch((err) => {
+          console.log("reponse err", err);
+
+          //console.log("ça m'énerve encore");
+        });
+    },
+
     //-----------------DELETE USER--------------------//
 
     deleteUser: ({ commit }, data) => {
-      const token = userToken;
-       const id = userId;
+      // const token = userToken;
+      //  const id = userId;
       const userDel = data;
       
       console.log("INDEX-TOKEN-USER CONNECT------->", token);
@@ -174,10 +299,10 @@ erreurSignupForm:({commit})=>{
      
       return new Promise((resolve, reject) => {
         instance
-          .put(`/user/delete`,body,{
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
+          .put(`/user/delete?id=${data}`,body,{
+            // headers: {
+            //   Authorization: `Bearer ${token}`,
+            // },
           })
           .then((response) => {
            
@@ -207,9 +332,9 @@ erreurSignupForm:({commit})=>{
       return new Promise((resolve, reject) => {
         instance
           .put("/user/update", Data,{
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
+            // headers: {
+            //   Authorization: `Bearer ${token}`,
+            // },
           })
           .then((response) => {
             console.log("RESPONSE INDEX -->", response);
@@ -227,54 +352,16 @@ erreurSignupForm:({commit})=>{
       });
     },
 
-    //-----------------GET ONE USER DATA----------------(())
-    getUserData: async ({ commit }, data) => {
-      // const token = userToken;
-      const token = data.token;
-      console.log("TOKEN", token);
-      // const userId = data;
-      const userId = data.userId;
-      
-      console.log("DATA",data,token,userId);
-      
-
-      await instance
-        .get(`/user?id=${userId}`,{
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
-        .then((res) => {
-          console.log("REPONSE USER-DATA INDEX STORE", res.data);
-
-          const countArticle = res.data.article.length;
-          commit("Articles", countArticle);
-          const countComment = res.data.comment.length;
-          console.log("Articles", countComment);
-          commit("Comments", countComment);
-
-          if (res) {
-            commit("UserData", res.data);
-            console.log("REPONSE USER-DATA INDEX STORE IF", res.data);
-          } else {
-            console.log("pas de data");
-          }
-        })
-        .catch((err) => {
-          console.log("reponse err", err);
-
-          //console.log("ça m'énerve encore");
-        });
-    },
+    
     //-----------------GET ALL USERS DATA----------------(())
     getAllUsersData: async ({ commit }, usersId) => {
       const token = userToken;
       console.log("TOKEN", token);
       await instance
         .get(`/user/all`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+          // headers: {
+          //   Authorization: `Bearer ${token}`,
+          // },
         })
         .then((res) => {
           console.log("reponse", res.data);
@@ -302,9 +389,9 @@ erreurSignupForm:({commit})=>{
       return new Promise((resolve, reject) => {
         instance
           .post("/article/post", data, {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
+            // headers: {
+            //   Authorization: `Bearer ${token}`,
+            // },
           })
           .then((response) => {
             console.log("RESPONSE INDEX -->", response);
@@ -332,9 +419,9 @@ erreurSignupForm:({commit})=>{
       return new Promise((resolve, reject) => {
         instance
           .put("/article/update", Data,{
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
+            // headers: {
+            //   Authorization: `Bearer ${token}`,
+            // },
           })
           .then((response) => {
             console.log("RESPONSE INDEX -->", response);
@@ -360,9 +447,9 @@ erreurSignupForm:({commit})=>{
       return new Promise((resolve, reject) => {
         instance
           .post("/comment/post", data, {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
+            // headers: {
+            //   Authorization: `Bearer ${token}`,
+            // },
           })
           .then((response) => {
             console.log("RESPONSE INDEX -->", response);
@@ -389,9 +476,9 @@ erreurSignupForm:({commit})=>{
       return new Promise((resolve, reject) => {
         instance
           .get(`/article/all`, {
-            headers: {
-              Authorization: `Basic ${token}`,
-            },
+            // headers: {
+            //   Authorization: `Basic ${token}`,
+            // },
           })
           .then((res) => {
             // console.log("ALL ARTICLES INDEX RES", res);
@@ -447,9 +534,9 @@ erreurSignupForm:({commit})=>{
       return new Promise((resolve, reject) => {
         instance
           .put(`/article/delete`, data, {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
+            // headers: {
+            //   Authorization: `Bearer ${token}`,
+            // },
           })
           .then((response) => {
           
@@ -475,9 +562,9 @@ erreurSignupForm:({commit})=>{
       return new Promise((resolve, reject) => {
         instance
           .put(`/comment/delete`, data,{
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
+            // headers: {
+            //   Authorization: `Bearer ${token}`,
+            // },
           })
           .then((response) => {
            
@@ -503,9 +590,9 @@ erreurSignupForm:({commit})=>{
       return new Promise((resolve, reject) => {
         instance
           .post(`/like/post`, data, {
-            headers: {
-              Authorization: `Bearer + ${token}`,
-            },
+            // headers: {
+            //   Authorization: `Bearer + ${token}`,
+            // },
           })
           .then((response) => {
             

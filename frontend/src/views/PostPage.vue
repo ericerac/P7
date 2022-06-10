@@ -222,7 +222,8 @@ export default {
     components: {},
     props: {},
     mounted: function () {
-        this.userData(data);
+        let userId = $cookies.get("user.userId");
+        this.userData(userId);
     },
 
     data: function () {
