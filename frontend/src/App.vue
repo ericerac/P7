@@ -1,21 +1,50 @@
 <template>
 
-  <router-view />
+
+<!-- <routerView/>
+<div v-if="modal">
+<ModalMessageVue />
+</div>
+<routerView/> -->
+<router-view class="view"></router-view>
+ 
 </template>
 
 <script>
-
+import { mapState } from 'vuex';
+import ModalMessageVue from './components/ModalMessage.vue'
 
 
 export default {
   name: 'App',
+   data: function () {
+        return {
+            // detailUser: "",
+            // modalMessageVue: "modalMessage",
+        };
+    },
   components: {
+ModalMessageVue
+  },
 
+  computed:{
+    ...mapState({
+      modalMessageVue: "modalMessage",
+      modal:"modal",
+    })
   }
+
+
 }
 </script>
 
-<style>
+<style >
+
+.view{
+  margin: auto;
+  background-color: black;
+  height: 100%;
+}
 html {
   background-color: rgb(252, 217, 164);
 }
@@ -31,9 +60,11 @@ html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  /* background-color: rgb(252, 217, 164);
+  background-color: rgb(252, 217, 164);
   margin-top: 0px;
-  background-attachment: fixed; */
+  background-attachment: fixed;
+  margin:auto;
 
 }
+
 </style>

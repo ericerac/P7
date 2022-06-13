@@ -78,8 +78,9 @@
                         </div>
 
 
-                    </div>
                 </div>
+                    </div>
+                    
             </div>
         </div>
 
@@ -204,19 +205,25 @@ modalSucces,
 </script>
 
 <style scoped>
+
+
 html {
     background: rgb(252, 85, 85);
+      min-height: 600px;
 }
 
 body {
-    margin-top: 0px;
+    margin: auto;
     background: #eee;
+        height: 100%;
+      
 }
 
 .row {
 
     background: rgb(252, 85, 85);
     border-radius: 20px;
+      
 }
 
 

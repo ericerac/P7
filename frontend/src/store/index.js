@@ -28,25 +28,57 @@ console.log("USER COOKIES", userCookies);
 });
 // console.log(userId, userToken);
 
-instance.interceptors.request.use(function (config) {
-  console.log("INTER REQ CONFIG",config);
-  
-     const AuthUser = $cookies.get("user");
-     const token = AuthUser.token;
+// ----------- INTERCEPTORS REquest -----------------//
 
-     console.log("INTER REQ TOKEN",token);
-    if (token) {
-        config.headers.Authorization = `Bearer ${token}`;
-    }
+instance.interceptors.request.use(function (config) {
+  // console.log("INTER REQ CONFIG",config);
+  // console.log("INTER COOKIES",$cookies.get("user"));
   
-  return config;
-}, function (error) {
+  
+    //  const SiToken =  ()=>{
+    //    if($cookies.get("user") ){
+    //      console.log(" SI TOKEN IF INTER");
+    //     return config
+    //    }else{
+    //      let t = $cookies.get("user");
+    //      const token = t.token;
+        
+    //      config.headers.Authorization = `Bearer ${token}`;
+    //     }
+    
+    //       return config;
+    //   }
+    
+
+       
+  
+    //    console.log("INTER REQ TOKEN",token);
+     
+    //  if (token) {
+       
+    //  }
+    //-------------- ANCIEN-----------------_//
+    console.log("INTER REQ CONFIG",config);
+  if($cookies.get("user")){
+
+    const AuthUser = $cookies.get("user");
+    const token = AuthUser.token;
+
+    console.log("INTER REQ TOKEN",token);
+   if (token) {
+       config.headers.Authorization = `Bearer ${token}`;
+   }
+  }
+ 
+ return config;
+ 
+},  (error) => {
   console.log("INTER REQ ERREUR",error);
-  // Do something with request error
+ 
   return Promise.reject(error);
 });
 
-// ----------- INTERCEPTORS -----------------//
+// ----------- INTERCEPTORS RESPONSE -----------------//
 
 instance.interceptors.response.use(function (response) {
   console.log("INTER RESP OK",response);
@@ -60,8 +92,11 @@ store.commit("SuccesMessage",supp),
 store.commit("ModalSucces",true)
   }
   return response;
-}, function (error) {
+},  (error) =>  {
   // console.log("INTER RESP ERREUR TO-JSON",error.toJSON());
+  console.log("INTER RESP ERROR ",error);
+  console.log("INTER RESP ERROR ",error.data);
+
   console.log("INTER RESP ERREUR RESPONSE",error.response);
   console.log("INTER RESP ERREUR RESPONSE.DATA",error.response.data.error); // Txt resp erreur function
   console.log("INTER RESP ERREUR RESPONSE.DATA",error.response.data.message); // Txt resp erreur function

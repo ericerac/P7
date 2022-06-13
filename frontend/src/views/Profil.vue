@@ -2,6 +2,7 @@
   <div class="container  d-flex justify-content-center align-items-center">
 
     <div class="row col-12 col-lg-10 col-xl-10">
+    <div class="fond_bg">
       <div class="navBar mb-3 pd-3 d-flex justify-content-between align-items-center">
         <img class="logoTop" src="../assets/icon-left-font-monochrome-white.svg" alt="logo groupomania">
         <div .class="powerOff">
@@ -87,7 +88,7 @@
           <li>Avis légal</li>
 
         </ul>
-
+</div>
       </div>
     </div>
   </div>
@@ -284,10 +285,11 @@ body {
   background-color: #545454;
   font-family: "Poppins", sans-serif;
   font-weight: 300;
+  
 }
 
 #app {
-  background-image: url("../assets/fondNavRed.png");
+  /* background-image: url("../assets/fondNavRed.png"); */
   background-repeat: repeat;
   background-position: center;
   background-attachment: fixed;
@@ -297,13 +299,25 @@ body {
 
 .container {
   height: 100vh;
+  
+  
 }
 
 .container {
   background-color: rgb(252, 217, 164);
   max-width: 1200px;
+  min-width: none;
 
 }
+
+.fond_bg{
+/* background-image: url("../assets/fondNavRed.png"); */
+background-image:url("../assets/Fondnav.png ");
+padding: 5% ;
+border-radius: 20px ;
+height: auto;
+}
+
 
 .navBar {
   display: flex;

@@ -188,7 +188,7 @@ ul li {
     list-style-type: none;
     margin-left: 2rem;
     font-size: 1rem;
-    margin-top: 1rem;
+    margin-top: 0;
 
 }
 .button{
