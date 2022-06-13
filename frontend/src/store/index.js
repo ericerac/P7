@@ -31,34 +31,10 @@ console.log("USER COOKIES", userCookies);
 // ----------- INTERCEPTORS REquest -----------------//
 
 instance.interceptors.request.use(function (config) {
-  // console.log("INTER REQ CONFIG",config);
-  // console.log("INTER COOKIES",$cookies.get("user"));
   
-  
-    //  const SiToken =  ()=>{
-    //    if($cookies.get("user") ){
-    //      console.log(" SI TOKEN IF INTER");
-    //     return config
-    //    }else{
-    //      let t = $cookies.get("user");
-    //      const token = t.token;
-        
-    //      config.headers.Authorization = `Bearer ${token}`;
-    //     }
-    
-    //       return config;
-    //   }
-    
-
-       
-  
-    //    console.log("INTER REQ TOKEN",token);
-     
-    //  if (token) {
-       
-    //  }
-    //-------------- ANCIEN-----------------_//
+   
     console.log("INTER REQ CONFIG",config);
+
   if($cookies.get("user")){
 
     const AuthUser = $cookies.get("user");
@@ -354,9 +330,7 @@ commit("CloseDetailUser",false)
       return new Promise((resolve, reject) => {
         instance
           .put(`/user/delete?id=${data}`,body,{
-            // headers: {
-            //   Authorization: `Bearer ${token}`,
-            // },
+            
           })
           .then((response) => {
            
