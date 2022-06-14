@@ -70,8 +70,15 @@ exports.login = async (req, res, next) => {
     );
     if (password_valid) {
       token = jwt.sign({ id: user.id }, `${process.env.TOKEN}`, {
-        expiresIn: "1h",
+        expiresIn: ".01h",
       });
+      let userId = user.id;
+      await User.update({
+        logon:Date.now(),
+      },
+      {where:{
+        id: userId
+      }});
       res
         .status(200)
         .json({ token: token, userId: user.id, userRole: user.role });
@@ -80,7 +87,7 @@ exports.login = async (req, res, next) => {
       res.status(400).json({ error: "Mot de passe incorrect !" });
     }
   } else {
-    res.status(404).json({ error: "Le compte n'existe pas" });
+    res.status(404).json({ error: "Ce compte n'existe pas" });
   }
 };
 
@@ -110,6 +117,7 @@ exports.GetOneUser = async (req, res, next) => {
     distinct: true,
     col: "articleId",
   });
+  console.log("ONE USER BACK RES",oneUser);
   res.json(oneUser);
 };
 

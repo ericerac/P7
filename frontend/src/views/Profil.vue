@@ -52,7 +52,7 @@
         <!-- <div><ModalMessage/></div> -->
 
         <div class="avis-media mt-1 mb-0 ">
-          <p v-if="!userData.media">Choisissez une photo de profil</p>
+          <p v-if="!userData.media" @click="goToUpdateProfil">Completez votre profil</p>
         </div>
         <div class="mt-1 text-center">
 
@@ -105,14 +105,14 @@ let token = "";
 let data = {};
 import ModalMessage from "@/components/ModalMessage.vue";
 
-let userCookies = $cookies.get("user");
-if (!userCookies) {
+// let userCookies = $cookies.get("user");
+// if (!userCookies) {
 
-} else {
-  console.log("USER COOKIES", userCookies);
-  userId = userCookies.userId;
-  token = userCookies.token;
-}
+// } else {
+//   console.log("USER COOKIES", userCookies);
+//   userId = userCookies.userId;
+//   token = userCookies.token;
+// }
 
 
 
@@ -125,12 +125,12 @@ export default {
     let userCookies = $cookies.get("user");
     console.log("USER COOKIES", userCookies);
     this.userId = userCookies.userId;
-    this.token = userCookies.token;
+    // this.token = userCookies.token;
     data = {
       userId: this.userId,
-      token: this.token
+      // token: this.token
     }
-    console.log("USER-DATA-->", data, userId, token);
+    console.log("USER-DATA-->", data, userId,);
     this.getUserData(userId);
   },
 
@@ -189,7 +189,9 @@ export default {
     goToUpdateProfil: function () {
       this.$router.push("/updateProfil");
     },
-
+goToLogin(){
+      this.$router.push("/");
+    },
     
     goToUsersData: function () {
       this.$store.dispatch("getAllUsersData")

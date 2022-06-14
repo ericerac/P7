@@ -11,13 +11,13 @@ import VueCookies from "vue-cookies";
 let userId="";
 let userToken="";
 
-let userCookies = $cookies.get("user");
-if(!userCookies){
+// let userCookies = $cookies.get("user");
+// if(!userCookies){
   
-}else{
-console.log("USER COOKIES", userCookies);
- userId = userCookies.userId;
- userToken = userCookies.token;}
+// }else{
+// console.log("USER COOKIES", userCookies);
+//  userId = userCookies.userId;
+//  userToken = userCookies.token;}
 
  const instance = axios.create({
    
@@ -59,13 +59,18 @@ instance.interceptors.request.use(function (config) {
 instance.interceptors.response.use(function (response) {
   console.log("INTER RESP OK",response);
   console.log("INTER RESP OK DATA",response.data);
-  console.log("INTER RESP OK DATA",response.data.message);
+  console.log("INTER RESP OK DATA MESSAGE",response.data.message);
   const supp = response.data.message
   // console.log("INTER RESP OK",response);
   // console.log("INTER RESP OK",response);
-  if(supp ){
-store.commit("SuccesMessage",supp),
-store.commit("ModalSucces",true)
+  if(supp == "jwt expired"){
+    console.log("JWT EXPIRED");
+// store.commit("SuccesMessage",supp),
+// store.commit("ModalSucces",true)
+store.commit("ModalMessage","Votre temps de session à expiré. Reconnectez-vous.",response.data.message);
+store.commit("ModalError",true)
+
+
   }
   return response;
 },  (error) =>  {
@@ -221,8 +226,17 @@ modalErrorClose:({commit})=>{
 OpenDetailUser:({commit})=>{
 commit("CloseDetailUser",true)
 },
+
 CloseDetailUser:({commit})=>{
 commit("CloseDetailUser",false)
+},
+
+disconnect() {
+  console.log("DISCONNECT");
+  $cookies.remove("user");
+  userId = "";
+  token = "";
+  this.$router.push("/");
 },
 
 
@@ -499,14 +513,12 @@ commit("CloseDetailUser",false)
 
       console.log("TOKEN", token);
       
-      const self = this;
+     
       console.log("getAllArticle");
       return new Promise((resolve, reject) => {
         instance
-          .get(`/article/all`, {
-            // headers: {
-            //   Authorization: `Basic ${token}`,
-            // },
+          .get(`/article/all`, Us,{
+            
           })
           .then((res) => {
             // console.log("ALL ARTICLES INDEX RES", res);
@@ -521,18 +533,13 @@ commit("CloseDetailUser",false)
             // console.log(" LIKE-LENGTH  INDEX");
             const comments = resData.map((a) => a.comment);
             const sommeLike = resData.map((item) => item.dislike);
-            commit("LikeArr", sommeLike);
+            
             const liked = sommeLike.map((l) => l.like).reduce((a, b) => a + b);
             commit("Comments", comments);
             // commit("ALL COMMENTS", comments);
             console.log("RESDATA  COMMENTS", res.data);
 
-            // console.log("res GET INDEX LIKE", sommeLike);
-            // for (let l of sommeLike)  {
-            //   const liked = sommeLike.map(l => l[0]);
-            //   // .reduce((a, b) => a + b);
-            //   likeData.push(liked)
-            // }
+            
             console.table("RES.DATA LIKE INDEX 1", sommeLike);
             commit
             console.table("RES.DATA LIKE INDEX 2", sommeLike[2]);

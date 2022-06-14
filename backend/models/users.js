@@ -38,6 +38,11 @@ module.exports = (sequelize,type) => {
       type: type.STRING,
       allowNull: false,
       defaultValue: 'user',
+    },
+   logon:{
+      type: type.DATE,
+      allowNull: true,
+     defaultValue: null,
     }
     
   });

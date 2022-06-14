@@ -1,13 +1,16 @@
 <template>
+<transition name="modal">
   <div class="modal-mask">
     <div class="modal-wrapper">
       <div class="modal-container">
         <div class="modal-nou">
           <div class="mod">
             <img class="check" src="" alt="" />
-            <h6>Erreur</h6>
+            <h6 v-if="modalMessage ==  'Votre temps de session à expiré. Reconnectez-vous.' ">Désolé</h6>
+            <h6 v-else >Erreur</h6>
             <p>{{ modalMessage }}</p>
-            <button @click="modalClose()">fermer</button>
+            <button v-if="modalMessage ==  'Votre temps de session à expiré. Reconnectez-vous.' " @click="goToLogin">Login</button>
+            <button v-else @click="modalClose()">fermer</button>
           </div>
           <div class="close">
             <img class="close-img" src="" alt="" />
@@ -16,37 +19,9 @@
       </div>
     </div>
   </div>
+</transition>
 
-
-  <!-- <transition name="modal">
-        <div class="modal-mask">
-          <div class="modal-wrapper">
-            <div class="modal-container">
-
-              <div class="modal-header">
-                <slot name="header">
-                  default header
-                </slot>
-              </div>
-
-              <div class="modal-body">
-                <slot name="body">
-                  default body
-                </slot>
-              </div>
-
-              <div class="modal-footer">
-                <slot name="footer">
-                  default footer
-                  <button class="modal-default-button" @click="$emit('close')">
-                    OK
-                  </button>
-                </slot>
-              </div>
-            </div>
-          </div>
-        </div>
-      </transition> -->
+  
 </template>
 
 
@@ -63,6 +38,12 @@ export default {
   methods: {
     modalClose: function () {
       this.$store.dispatch("modalErrorClose");
+    },
+    goToLogin(){
+
+      this.$router.push("/");
+      this.modalClose();
+      this.$store.dispatch("disconnect")
     }
   }
 

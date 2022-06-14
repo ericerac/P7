@@ -1,12 +1,12 @@
 <template>
 
 
-<!-- <routerView/>
+
 <div v-if="modal">
 <ModalMessageVue />
 </div>
-<routerView/> -->
-<router-view class="view"></router-view>
+<routerView/>
+<!-- <router-view class="view"> </router-view> -->
  
 </template>
 
@@ -31,6 +31,7 @@ ModalMessageVue
     ...mapState({
       modalMessageVue: "modalMessage",
       modal:"modal",
+
     })
   }
 

@@ -14,14 +14,11 @@ const sequelize = new Sequelize(
   }
 );
 
-
-
 // module.exports = async (req, res, next) => {
 //   console.log("HEADERS------>>>", req.headers );
 //   // console.log("HEADERS-AUTHO----->>>", req.headers.authorization );
 // const decodedToken ="";
 //   //---------------------------TEST------------------------//
-
 
 // //   if (req.headers.authorization) {
 //     console.log("---- IF------>>>", req.headers.authorization );
@@ -66,16 +63,16 @@ const sequelize = new Sequelize(
 //     console.log("on est là try auth");
 //     //console.log(userId);
 
-//     console.log("oneUser", oneUser); 
+//     console.log("oneUser", oneUser);
 
 //     if (req.body.id && req.body.id === userId  ) { // compare l'id du token avec l'id utilisateur
 //       if (oneUser = true){
 //         next();
 //       }
-      
+
 //       throw "Id utilisateur invalide";
 //     }  else {
-      
+
 //       next(); // si Id identhique ça continu " la route est protégée"
 //     }
 //   } catch {
@@ -84,9 +81,9 @@ const sequelize = new Sequelize(
 //       message: "Requete non autorisée",
 //     });
 //   }
-       
+
 //        //--------   ---------- FIN ANCIEN  -------------  --------------//
-       
+
 //        return next();
 
 //       }
@@ -104,13 +101,10 @@ const sequelize = new Sequelize(
 //     // });
 //   }
 
-
-
 //   //----------************-_______________****************
 //   // if(req.headers.authorization == undefined || !req.headers.authorization){
 //     // console.log("HEADERS AUTH------>>>", req.headers.authorization );
 
-   
 //     // res.status(401).json({
 //     //   error: new Error(),
 //     //   message: "Requete Non authorisée",
@@ -152,16 +146,16 @@ const sequelize = new Sequelize(
 //     console.log("on est là try auth");
 //     //console.log(userId);
 
-//     console.log("oneUser", oneUser); 
+//     console.log("oneUser", oneUser);
 
 //     if (req.body.id && req.body.id === userId  ) { // compare l'id du token avec l'id utilisateur
 //       if (oneUser = true){
 //         next();
 //       }
-      
+
 //       throw "Id utilisateur invalide";
 //     }  else {
-      
+
 //       next(); // si Id identhique ça continu " la route est protégée"
 //     }
 //   } catch {
@@ -176,28 +170,41 @@ const sequelize = new Sequelize(
 // _______________ ANCIEN AUTH _______________
 
 module.exports = async (req, res, next) => {
-  console.log("HEADERS------>>>", req.headers );
+  console.log("HEADERS------>>>", req.headers);
   //
- console.log("BODY----->>>", req.body );
+  console.log("BODY----->>>", req.body);
 
-  if(req.headers.authorization == undefined || !req.headers.authorization){
-    console.log("HEADERS AUTH------>>>", req.headers.authorization );
+  if (req.headers.authorization == undefined || !req.headers.authorization) {
+    console.log("HEADERS AUTH------>>>", req.headers.authorization);
 
-   
     res.status(401).json({
       error: new Error(),
       message: "Requete Non authorisée",
     });
-    return
+    return;
   }
   const token = req.headers.authorization.split(" ")[1]; // récupère le token dans le header
   console.log("-----token-----", token);
-  const decodedToken = jwt.verify(token, `${process.env.TOKEN}`); // décrypte le token
+  const decodedToken = jwt.verify(token, `${process.env.TOKEN}`,function(err, user) {
+    if (err) { 
+    console.log("ERREUR",err);
+     res.json(err);
+     return 
+  } else {
+    next();
+    
+  }
+  });
+  if(decodedToken){
+
+    
+  
   const userIdTok = decodedToken.id; // récupère l'id du token
 
-  console.log("-----verify token-------", decodedToken);
+  // console.log("-----verify token-------", decodedToken);
   console.log("-----userId-------", userIdTok);
   console.log("-----req.query.id-------", req.query.id); // **+* changer a body  ****
+  console.log("-----req.query.id-------", req.body.id); 
 
   const oneUser = await user
     .findOne({
@@ -209,12 +216,13 @@ module.exports = async (req, res, next) => {
       let admin = "admin";
       console.log("ONE USER ROLE", role);
 
-      if (role === admin) {  // reponse si UserId  correspond a l'admin
+      if (role === admin) {
+        // reponse si UserId  correspond a l'admin
         console.log(" ADMIN");
-        return true;
+       
       } else {
         console.log(" NON ADMIN");
-        return false;
+      
       }
     });
 
@@ -222,18 +230,16 @@ module.exports = async (req, res, next) => {
     console.log("on est là try auth");
     //console.log(userId);
 
-    console.log("oneUser", oneUser); 
+    console.log("oneUser", oneUser);
+    console.log("REQ.BODY.ID", req.body.id);
 
-    if (req.body.id && req.body.id === userIdTok  || oneUser == true) { // compare l'id du token avec l'id utilisateur
-      console.log("REQ:BODY === USER-ID TOK", ); 
-      // if (oneUser = true){
-      //   next();
-      // }
-      
-      // throw "Id utilisateur invalide";
-    // }  else {
-      
+    if ((req.body.id && req.body.id === userIdTok) || oneUser == true) {
+      // compare l'id du token avec l'id utilisateur
+      console.log("REQ:BODY === USER-ID TOK");
+
       next(); // si Id identhique ça continu " la route est protégée"
+    } else if (req.query.id && req.query.id === userIdTok) {
+      next();
     }
   } catch {
     res.status(401).json({
@@ -241,5 +247,5 @@ module.exports = async (req, res, next) => {
       message: "Erreur: Requete non autorisée",
     });
   }
+}
 };
-

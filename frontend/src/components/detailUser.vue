@@ -15,7 +15,9 @@
 
                         <div class="upper">
                             <div class="profile">
-                                <img id="userImg" src="../assets/icon.svg " class="rounded-circle" width="80"
+                                <img  v-if="!UserData.media" id="userImg" src="../assets/icon.svg " class="rounded-circle" width="80"
+                                    alt="logo groupomania" />
+                                    <img v-else id="userImg" :src="UserData.media" class="rounded-circle" width="80"
                                     alt="logo groupomania" />
 
                                 <!-- <img  id="userImg"  class="rounded-circle" width="80"
@@ -28,12 +30,12 @@
                         <ul class="list">
                             <li>Nom:{{UserData.firstName}}</li>
                             <li>Prénom:{{UserData.lastName}}</li>
-                            <li>Inscrit depuis le:{{dateTime(UserData.createdAt)}}</li>
+                            <li>Inscrit depuis le:{{date(UserData.createdAt)}}</li>
                             <!-- <li>article publié:{{UserData.article.length}}</li>  -->
-                             <li>articles publiés:{{}}</li>
+                             <li>articles publiés:{{CountArticles}}</li>
                             <!-- <li>commentaire:{{UserData.comment.length}}</li> -->
-                            <li>commentaires:{{}}</li>
-                            <li>Dernière connection :{{}}</li>
+                            <li>commentaires:{{CountComment}}</li>
+                            <li>Dernière connection :{{date(UserData.logon)}}</li>
 
                         </ul>
                     </div>
@@ -77,9 +79,9 @@ methods: {
 this.$store.dispatch("CloseDetailUser")
     },
 
-    dateTime(value) {
-      return moment(value).format("DD-MM-YYYY à HH-mm");
-    },
+    date(value) {
+            return moment(value).format("DD/MM/YYYY à HH:mm ");
+        },
 
     delUser(user){
 this.$store.dispatch("deleteUser",user)
@@ -90,6 +92,9 @@ computed:{
     ...mapState({
 
  UserData: "userData",
+ CountArticles:"articles",
+ CountComment: "comments",
+
     })
 }
 }

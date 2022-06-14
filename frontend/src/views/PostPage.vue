@@ -257,6 +257,7 @@ export default {
         };
     },
     beforeMount: function () {
+        console.log("BEFORE MOUNT");
         this.getAllArticle();
 
     },
@@ -585,8 +586,9 @@ li {
 .postImg {
     width: 98%;
     height: auto;
+    max-height: 600px;
     border: 1px solid black;
-    object-fit: cover;
+    object-fit:contain;
     object-position: top;
     border-radius: 5px;
     margin: 5px auto;
