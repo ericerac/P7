@@ -9,7 +9,8 @@
                 <span class="form-title">Bienvenue sur votre reseau social Groupomania</span>
 
 
-                <span class="form-title">Se connecter</span>
+                <span v-if="mode == 'signup'" class="form-title">S'enregistrer</span>
+                <span v-else  class="form-title">Se connecter</span>
                 <div class="form-group" v-if="mode == 'signup'">
                     <label for="nom">Nom</label>
                     <input v-model="firstName" type="text" name="nom" class="form-control" placeholder="Nom" required />
@@ -283,7 +284,7 @@ body :-ms-input-placeholder {
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    padding: 5px 250px;
+    /* padding: 5px 250px; */
 }
 
 .container {

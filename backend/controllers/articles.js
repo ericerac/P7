@@ -63,8 +63,8 @@ exports.OnePublished = async (req, res, next) => {
   console.log("-------req.query One--------", req.query.id);
   console.log("-------Comment--------", Comment);
   const params = req.query.id;
-  const oneArticle = await articles.findOne({
-    where: { id: `${params}` },
+  const oneArticle = await articles.findAll({
+    where: { userId: `${params}` },
     include: [
       {
         model: Comment,

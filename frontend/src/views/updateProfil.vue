@@ -66,7 +66,7 @@ import moment from "moment";
 let data = {};
 // let userCookies = $cookies.get("user");
 // console.log("USER COOKIES", userCookies);
-// let userId = userCookies.userId;
+ let userId = "";
 // let userToken = userCookies.token;
 // const data = {
 //       userId: this.userId,
@@ -80,16 +80,21 @@ export default {
   name: "profil",
   beforeMount: function () {
     console.log("BEFORE MOUNT");
-    let userCookies = $cookies.get("user");
-    console.log("USER COOKIES", userCookies);
+    if($cookies.get("user")){
+
+      let userCookies = $cookies.get("user");
+    console.log("USER COOKIES UPDATE", userCookies);
     this.userId = userCookies.userId;
-    this.userToken = userCookies.token;
+    // this.token = userCookies.token;
     data = {
       userId: this.userId,
-      token: this.userToken
+      // token: this.token
     }
-    console.log("USER-DATA-->", this.userData);
-    this.getUserData(data);
+    console.log("USER-DATA-->", data, userId,);
+    this.getUserData(userId);
+      }else{
+        this.$router.push("/");
+      }
   },
   onMounted: function () {
     console.log("ON MOUNTED");
@@ -113,10 +118,7 @@ export default {
 
       url: "http://localhost:3000",
 
-      // userId: userId,
-     
-
-      // token: userToken,
+      
     };
   },
   
@@ -186,7 +188,7 @@ export default {
 
         })
         .catch((response) => {
-          //handle error
+         
           console.log(response);
         });
     },
@@ -205,7 +207,7 @@ return
           if(resolve){
             console.log("RESOLVE PROFIL PAGE DELETE ------>",resolve.data.message);
             alert("votre compte a été supprimé")
-            // response.json({ message: "Compte supprimé" })
+            
           this.$router.push("/");
             }
         }).catch((err)=>{

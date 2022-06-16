@@ -52,6 +52,7 @@
         <!-- <div><ModalMessage/></div> -->
 
         <div class="avis-media mt-1 mb-0 ">
+        <p class="bienvenue" v-if="status">Bienvenue sur votre reseau social</p>
           <p v-if="!userData.media" @click="goToUpdateProfil">Completez votre profil</p>
         </div>
         <div class="mt-1 text-center">
@@ -59,6 +60,7 @@
           <h4 class="mt-3">{{ userData.firstName }} {{ userData.lastName }}</h4>
 
           <p id="adminUser" v-if="userData.role == 'admin'">Compte administrateur</p>
+          
 
           <div class="d-flex list-Foot justify-content-evently align-items-center px-1">
             <div class="stats">
@@ -105,14 +107,7 @@ let token = "";
 let data = {};
 import ModalMessage from "@/components/ModalMessage.vue";
 
-// let userCookies = $cookies.get("user");
-// if (!userCookies) {
 
-// } else {
-//   console.log("USER COOKIES", userCookies);
-//   userId = userCookies.userId;
-//   token = userCookies.token;
-// }
 
 
 
@@ -122,7 +117,9 @@ export default {
 
   beforeMount: function () {
     console.log("BEFORE MOUNT");
-    let userCookies = $cookies.get("user");
+    if($cookies.get("user")){
+
+      let userCookies = $cookies.get("user");
     console.log("USER COOKIES", userCookies);
     this.userId = userCookies.userId;
     // this.token = userCookies.token;
@@ -132,6 +129,9 @@ export default {
     }
     console.log("USER-DATA-->", data, userId,);
     this.getUserData(userId);
+      }else{
+        this.$router.push("/");
+      }
   },
 
   
@@ -162,8 +162,7 @@ export default {
       email: "",
       password: "",
 
-      userToken: "",
-      // token:"",
+      
     };
   },
   props: {},
@@ -174,7 +173,8 @@ export default {
       CountComment: "comments",
       UpdateData: "formData",
       usersId: "userId",
-      token:"token"
+      
+      status: "status",
     }),
     
   },
@@ -268,7 +268,7 @@ console.log("DATA GET-USER",data);
         .then((res) => {
           if (res) {
             console.log("RES PROFIL PAGE DELETE ------>", res.data.message);
-            alert("votre compte a été supprimé")
+           
 
             this.disconnect()
           }
@@ -318,18 +318,22 @@ background-image:url("../assets/Fondnav.png ");
 padding: 5% ;
 border-radius: 20px ;
 height: auto;
+
 }
 
 
 .navBar {
   display: flex;
   justify-content: space-between;
-  border: 1px solid black;
+  /* border: 1px solid black; */
   width: 100%;
   height: 50px;
+  box-shadow: 1px 1px 5px 1px white;
   background-image: url("../assets/Fondnav.png ");
   border-radius: .7rem;
   color: white;
+  padding-left: 1rem;
+  padding-right: 1rem;
 
 }
 
@@ -390,7 +394,10 @@ height: auto;
   padding-right: 20px;
   height: 35px;
 }
-
+.bienvenue{
+  font-size: 25px;
+  color:green;
+}
 
 
 .footerList {

@@ -29,7 +29,7 @@
 
                         </div>
                     </div>
-                    <div role="button" 
+                    <div role="button"
                         class="d-flex flex-wrap align-items-center my-2 bgc-secondary-l4 bgc-h-secondary-l3 radius-1 p-25 d-style">
                         <span class="text-default-d3 text-90 text-600">
                             Avatar
@@ -48,16 +48,16 @@
 
 
                     </div>
-<div v-if="detailUser">
-                    <detailUserVue/>
+                    <div v-if="detailUser">
+                        <detailUserVue />
                     </div>
                     <div class="card-body pl-1 pt-1 pb-1" v-for="user in filterUser">
                         <div role="button" @click="UserDetail(user.id)"
                             class="d-flex flex-wrap align-items-center my-2 bgc-secondary-l4 bgc-h-secondary-l3 radius-1 p-25 d-style">
-                            <span
+                            <!-- <span
                                 class="mr-25 w-4 h-4 overflow-hidden text-center border-3 text-default-d3 text-90 text-600 radius-round shadow-sm d-zoom-1">
                                 <fa :icon="['far', 'trash-alt']" @click="DelUser(user.id)" />
-                            </span>
+                            </span> -->
                             <span
                                 class="mr-25 w-4 h-4 overflow-hidden text-center border-1 brc-secondary-m2 radius-round shadow-sm d-zoom-2">
                                 <img v-if="user.media" alt="photo profil des utilisateurs" :src="user.media"
@@ -78,9 +78,9 @@
                         </div>
 
 
-                </div>
                     </div>
-                    
+                </div>
+
             </div>
         </div>
 
@@ -110,39 +110,39 @@ export default {
             searchUser: "",
         };
     },
-components:{
-detailUserVue,
+    components: {
+        detailUserVue,
 
-modalSucces,
+        modalSucces,
 
-},
+    },
 
     beforeCreate: () => {
         console.log(" BEFORE CREATE");
-        
+
     },
-    
+
     created: function () {
-         console.log("CREATED");
+        console.log("CREATED");
         this.$store
             .dispatch("getAllUsersData")
-             // location.reload();
-     },
+       
+    },
 
     computed: {
         ...mapState({
             AllUsers: "allsUsersData",
             dataArt: "artData",
             UserData: "userData",
-            detailUser:"detailUser",
-            modalSucces:"modalSucces",
+            detailUser: "detailUser",
+            modalSucces: "modalSucces",
             succesMessage: "succesMessage",
 
         }),
         filterUser() {
-            if(this.AllUsers){
+            if (this.AllUsers) {
 
-                console.log("ALLS USERS",this.AllUsers);
+                console.log("ALLS USERS", this.AllUsers);
                 return this.AllUsers.filter((a) => {
                     return a.firstName.toLowerCase().includes(this.searchUser.toLowerCase());
                 })
@@ -155,7 +155,7 @@ modalSucces,
 
 
         UserDetail: async function (userId) {
-            this.$store.commit("OpenDetailUser",true) ;
+            this.$store.commit("OpenDetailUser", true);
             console.log("USER-ID", userId);
             await this.$store
                 .dispatch("getUserData", userId)
@@ -190,7 +190,7 @@ modalSucces,
                     if (resolve) {
                         console.log("RESOLVE PROFIL PAGE DELETE ------>", resolve.data.message);
                         alert("le compte a bien été supprimé")
-                        // response.json({ message: "Compte supprimé" })
+
                         this.$router.push("/profil");
                     }
                 }).catch((err) => {
@@ -205,25 +205,23 @@ modalSucces,
 </script>
 
 <style scoped>
-
-
 html {
     background: rgb(252, 85, 85);
-      min-height: 600px;
+    min-height: 600px;
 }
 
 body {
     margin: auto;
     background: #eee;
-        height: 100%;
-      
+    height: 100%;
+
 }
 
 .row {
 
     background: rgb(252, 85, 85);
     border-radius: 20px;
-      
+
 }
 
 

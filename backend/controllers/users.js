@@ -6,7 +6,7 @@ const { QueryTypes } = require("@sequelize/core");
 const UserModel = require("../models/users");
 
 const Sequelize = require("sequelize");
-
+const fs = require("fs");
 const db = require("../models");
 const { use } = require("../app");
 
@@ -32,14 +32,12 @@ const sequelize = new Sequelize(
 const User = UserModel(sequelize, Sequelize);
 //---------------------------------------------//
 
-
-
 // -----------------SIGNUP-----------------------//
 
 exports.signup = async (req, res, next) => {
   console.log("req.body", req.body.email);
   const hash = await bcrypt.hash(req.body.password, 10);
-  const [project, created] = await User.findOrCreate({
+  const [user, created] = await User.findOrCreate({
     where: { email: req.body.email },
     defaults: {
       firstName: req.body.firstName,
@@ -49,12 +47,10 @@ exports.signup = async (req, res, next) => {
     },
   });
   if (created) {
-    res.status(201).json(project);
-
+    res.status(201).json(user);
     console.log(User);
   } else {
-     res.status(404).json({ message: "Email utilisateur existant" });
-    
+    res.status(404).json({ message: "Email utilisateur existant" });
   }
 };
 
@@ -70,15 +66,19 @@ exports.login = async (req, res, next) => {
     );
     if (password_valid) {
       token = jwt.sign({ id: user.id }, `${process.env.TOKEN}`, {
-        expiresIn: ".01h",
+        expiresIn: `${process.env.TOKEN_VALIDITY}`,
       });
       let userId = user.id;
-      await User.update({
-        logon:Date.now(),
-      },
-      {where:{
-        id: userId
-      }});
+      await User.update(
+        {
+          logon: Date.now(),
+        },
+        {
+          where: {
+            id: userId,
+          },
+        }
+      );
       res
         .status(200)
         .json({ token: token, userId: user.id, userRole: user.role });
@@ -117,7 +117,7 @@ exports.GetOneUser = async (req, res, next) => {
     distinct: true,
     col: "articleId",
   });
-  console.log("ONE USER BACK RES",oneUser);
+  console.log("ONE USER BACK RES", oneUser);
   res.json(oneUser);
 };
 
@@ -184,34 +184,41 @@ exports.updateUser = async (req, res) => {
   const id = formData.userId;
 
   console.log("req.body.userId-->", id);
-if(!req.file){
-  Data={
-  firstName: formData.firstName,
-  lastName: formData.lastName,
-  email: formData.email,
-  // password:formData.password,
-  userId: formData.userId,}
-}else{
-  Data={
 
-    firstName: formData.firstName,
-    lastName: formData.lastName,
-    email: formData.email,
-    // password:formData.password,
-    userId: formData.userId,
-    media: `${req.protocol}://${req.get("host")}/images/${req.file.filename}`,
+  const UserOne = await user.findOne({
+    where: { id: `${id}` },
+  });
+
+  if (!req.file) {
+    Data = {
+      firstName: formData.firstName,
+      lastName: formData.lastName,
+      email: formData.email,
+      // password:formData.password,
+      userId: formData.userId,
+    };
+  } else if (UserOne.media){
+    const filename = UserOne.media.split("/images/")[1];
+    fs.unlink(`images/${filename}`, () => {}),
+
+    Data = {
+      firstName: formData.firstName,
+      lastName: formData.lastName,
+      email: formData.email,
+      // password:formData.password,
+      userId: formData.userId,
+      media: `${req.protocol}://${req.get("host")}/images/${req.file.filename}`,
+    };
   }
-
-}
   const response = await User.update(
     {
-      ...Data
+      ...Data,
     },
     {
       where: { id: id },
     }
   )
-  .then((data) => {
+    .then((data) => {
       console.log("REUSSI");
       const res = {
         success: true,
@@ -232,8 +239,6 @@ if(!req.file){
   res.json(response);
 };
 
-
-
 exports.destroyUser = async (req, res) => {
   const params = req.query.id;
   const params1 = req.body.id;
@@ -243,30 +248,37 @@ exports.destroyUser = async (req, res) => {
   const UserTo = await user.findOne({
     where: { id: `${params}` },
   });
-  console.log("USER-TO",UserTo);
+  console.log("USER-TO", UserTo);
   if (!UserTo) {
-     res.json({ message: "l'utilisateur n'existe pas" });
-     return
+    res.json({ message: "l'utilisateur n'existe pas" });
+    return;
   } else {
     console.log("REQ.BODY.ID", params1);
-    
-      
-      const UserOne = await user.findOne({
-        where: { id: `${params1}` },
-      });
-      console.log("USER-ONE",UserOne);
-      console.log("USER-TO",UserTo);
-      if (!UserOne.role === "admin" || UserOne.id != UserTo.id) {
-        res.status(401).json({message:" requete non autorisée"})
-        
-        } else {
-          const suprimmer = await User.destroy({ where: { id: params } });
-          if (suprimmer) {
-            res.json({ message: "Compte utilisateur supprimé" });
-        }
+
+    const UserOne = await user.findOne({
+      where: { id: `${params1}` },
+    });
+    let supprimer ="";
+    console.log("USER-ONE", UserOne);
+    console.log("USER-TO", UserTo);
+    if (!UserOne.role === "admin" || UserOne.id != UserTo.id) {
+      res.status(401).json({ message: " requete non autorisée" });
+    } else {
+      if(UserOne.media){
+
+        const filename = UserOne.media.split("/images/")[1];
+        fs.unlink(`images/${filename}`, () => {
+           supprimer = User.destroy({ where: { id: params } });
+          
+          
+        });
+      } else{
+         supprimer = User.destroy({ where: { id: params } });
+
       }
-    
+      if (supprimer) {
+        res.json({ message: "Compte utilisateur supprimé" });
+      }
+    }
   }
 };
-
-

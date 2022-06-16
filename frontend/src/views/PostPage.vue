@@ -8,7 +8,7 @@
                     <div class="card-footer">
                         <img class="fondLogoNavbar" src="../assets/Fondnav.png" alt="Fond image" title="Page Profil" />
                         <img class="logo col-md-0" src="../assets/icon-left-font-monochrome-white.svg" alt="" />
-                        <img class="userMedia avatar" :src="user.media" alt="Photo profil" />
+                        <img v-if="user.media"  class="userMedia avatar" :src="user.media" alt="Photo profil" />
                         <span class="NameUser">
                             {{ user.firstName }} {{ user.lastName }}</span>
                     </div>
@@ -369,14 +369,14 @@ export default {
                 var bodyFormData = new FormData();
                 bodyFormData.append("media", this.fileSelected, this.fileSelected.name);
                 bodyFormData.append("comment", this.CommentContent);
-                bodyFormData.append("userId", userId);
+                bodyFormData.append("userId", this.userId);
                 bodyFormData.append("articleId", Aid);
 
                 console.table("FORM DATA AVEC IMAGE 2", ...bodyFormData.entries());
             } else {
                 var bodyFormData = new FormData();
                 bodyFormData.append("comment", this.CommentContent);
-                bodyFormData.append("userId", userId);
+                bodyFormData.append("userId", this.userId);
                 bodyFormData.append("articleId", Aid);
 
                 console.table("FORM DATA SANS IMAGE ", ...bodyFormData.entries());
@@ -501,11 +501,7 @@ body {
     background-attachment: fixed;
 }
 
-.erreurMessageLike {
-    width: 100%;
-    display: flex;
-    color: red;
-}
+
 
 /* // ------------------ ASIDE LEFT------------------- */
 li {
@@ -517,10 +513,7 @@ li {
     width: 90%;
 }
 
-.list-aside {
-    text-align: left;
-    padding-left: 0;
-}
+
 
 .card-nav {
     background-image: url("../assets/fondNavRed.png");
@@ -540,6 +533,7 @@ li {
     display: flex;
     justify-content: space-between;
     color: white;
+    padding-left: 1rem;
 }
 
 /* // ------------------  TOP------------------- */
@@ -631,14 +625,7 @@ li {
     text-align: left;
 }
 
-.like {
-    display: flex;
-    flex-direction: row;
 
-    justify-content: space-around;
-    position: relative;
-    padding-left: 0.5rem;
-}
 
 span {
     margin-right: 1rem;
