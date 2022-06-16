@@ -2,95 +2,95 @@
   <div class="container  d-flex justify-content-center align-items-center">
 
     <div class="row col-12 col-lg-10 col-xl-10">
-    <div class="fond_bg">
-      <div class="navBar mb-3 pd-3 d-flex justify-content-between align-items-center">
-        <img class="logoTop" src="../assets/icon-left-font-monochrome-white.svg" alt="logo groupomania">
-        <div .class="powerOff">
-          <fa :icon="['fas', 'power-off']" @click="disconnect()" />
-        </div>
-      </div>
-      <div class="card  ">
-        <div class=" col-md-12 mt-2 text-center">
-          <div class="user text-center">
-
-          </div>
-          <div class="user text-center">
-            <span v-if="userData.role == 'admin'">
-              <button class="btn btn-sm follow mt-0" @click="goToUsersData">
-                Liste Des utilsateurs
-              </button>
-            </span>
-
-            <span>
-              <button class="btn btn-sm follow mt-0" @click="goToUpdateProfil">Modifier mon profil</button>
-            </span>
-            <span>
-              <button class="btn btn-sm follow mt-0" @click="goToFilActu">
-                Allez au fil d'actualité
-              </button>
-            </span>
-            <span>
-              <button class="btn btn-danger btn-sm follow mt-0" @click="deleteUser(userData.id)">
-                Effacer mon compte
-              </button>
-            </span>
-          </div>
-
-        </div>
-
-        <div class="upper">
-          <div class="profile">
-            <img v-if="!userData.media" id="userImg" src="../assets/icon.svg " class="rounded-circle" width="80"
-              alt="logo groupomania" />
-
-            <img v-if="userData.media" id="userImg" v-bind:src="userData.media" class="rounded-circle" width="80"
-              alt="Photo de profil" />
-
+      <div class="fond_bg">
+        <div class="navBar mb-3 pd-3 d-flex justify-content-between align-items-center">
+          <img class="logoTop" src="../assets/icon-left-font-monochrome-white.svg" alt="logo groupomania">
+          <div .class="powerOff">
+            <fa :icon="['fas', 'power-off']" @click="disconnect()" />
           </div>
         </div>
+        <div class="card  ">
+          <div class=" col-md-12 mt-2 text-center">
+            <div class="user text-center">
 
-        <!-- <div><ModalMessage/></div> -->
-
-        <div class="avis-media mt-1 mb-0 ">
-        <p class="bienvenue" v-if="status">Bienvenue sur votre reseau social</p>
-          <p v-if="!userData.media" @click="goToUpdateProfil">Completez votre profil</p>
-        </div>
-        <div class="mt-1 text-center">
-
-          <h4 class="mt-3">{{ userData.firstName }} {{ userData.lastName }}</h4>
-
-          <p id="adminUser" v-if="userData.role == 'admin'">Compte administrateur</p>
-          
-
-          <div class="d-flex list-Foot justify-content-evently align-items-center px-1">
-            <div class="stats">
-              <h6 class="mt-3">Articles</h6>
-              <span class="stat">{{ CountArticle }}</span>
             </div>
+            <div class="user text-center">
+              <span v-if="userData.role == 'admin'">
+                <button class="btn btn-sm follow mt-0" @click="goToUsersData">
+                  Liste Des utilsateurs
+                </button>
+              </span>
 
-            <div class="stats">
-              <h6 class="mt-3">Commentaires</h6>
-              <span class="stat">{{ CountComment }}</span>
-            </div>
-
-            <div class="stats">
-              <h6 class="mt-3">Inscrit le:</h6>
-              <span class="stat">{{ dateTime(userData.createdAt) }}</span>
+              <span>
+                <button class="btn btn-sm follow mt-0" @click="goToUpdateProfil">Modifier mon profil</button>
+              </span>
+              <span>
+                <button class="btn btn-sm follow mt-0" @click="goToFilActu">
+                  Allez au fil d'actualité
+                </button>
+              </span>
+              <span>
+                <button class="btn btn-danger btn-sm follow mt-0" @click="deleteUser(userData.id)">
+                  Effacer mon compte
+                </button>
+              </span>
             </div>
 
           </div>
+
+          <div class="upper">
+            <div class="profile">
+              <img v-if="!userData.media" id="userImg" src="../assets/icon.svg " class="rounded-circle" width="80"
+                alt="logo groupomania" />
+
+              <img v-if="userData.media" id="userImg" v-bind:src="userData.media" class="rounded-circle" width="80"
+                alt="Photo de profil" />
+
+            </div>
+          </div>
+
+          <!-- <div><ModalMessage/></div> -->
+
+          <div class="avis-media mt-1 mb-0 ">
+            <p class="bienvenue" v-if="status">Bienvenue sur votre reseau social</p>
+            <p v-if="!userData.media" @click="goToUpdateProfil">Completez votre profil</p>
+          </div>
+          <div class="mt-1 text-center">
+
+            <h4 class="mt-3">{{ userData.firstName }} {{ userData.lastName }}</h4>
+
+            <p id="adminUser" v-if="userData.role == 'admin'">Compte administrateur</p>
+
+
+            <div class="d-flex list-Foot justify-content-evently align-items-center px-1">
+              <div class="stats">
+                <h6 class="mt-3">Articles</h6>
+                <span class="stat">{{ CountArticle }}</span>
+              </div>
+
+              <div class="stats">
+                <h6 class="mt-3">Commentaires</h6>
+                <span class="stat">{{ CountComment }}</span>
+              </div>
+
+              <div class="stats">
+                <h6 class="mt-3">Inscrit le:</h6>
+                <span class="stat">{{ dateTime(userData.createdAt) }}</span>
+              </div>
+
+            </div>
+          </div>
         </div>
-      </div>
 
-      <div class="navBar mt-3  d-flex justify-content-between ">
-        <img class="logoTop" src="../assets/icon-left-font-monochrome-white.svg" alt="logo groupomania">
+        <div class="navBar mt-3  d-flex justify-content-between ">
+          <img class="logoTop" src="../assets/icon-left-font-monochrome-white.svg" alt="logo groupomania">
 
-        <ul class="footerList">
-          <li><a class="contact" href="mailto:contact@groupomania.com">Contact</a></li>
-          <li>Avis légal</li>
+          <ul class="footerList">
+            <li><a class="contact" href="mailto:contact@groupomania.com">Contact</a></li>
+            <li>Avis légal</li>
 
-        </ul>
-</div>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
@@ -117,24 +117,24 @@ export default {
 
   beforeMount: function () {
     console.log("BEFORE MOUNT");
-    if($cookies.get("user")){
+    if ($cookies.get("user")) {
 
       let userCookies = $cookies.get("user");
-    console.log("USER COOKIES", userCookies);
-    this.userId = userCookies.userId;
-    // this.token = userCookies.token;
-    data = {
-      userId: this.userId,
-      // token: this.token
-    }
-    console.log("USER-DATA-->", data, userId,);
-    this.getUserData(userId);
-      }else{
-        this.$router.push("/");
+      console.log("USER COOKIES", userCookies);
+      this.userId = userCookies.userId;
+      // this.token = userCookies.token;
+      data = {
+        userId: this.userId,
+        // token: this.token
       }
+      console.log("USER-DATA-->", data, userId,);
+      this.getUserData(userId);
+    } else {
+      this.$router.push("/");
+    }
   },
 
-  
+
   created: function () {
     console.log("CREATED");
     console.log("USER-DATA-->", this.userData);
@@ -162,7 +162,7 @@ export default {
       email: "",
       password: "",
 
-      
+
     };
   },
   props: {},
@@ -173,10 +173,10 @@ export default {
       CountComment: "comments",
       UpdateData: "formData",
       usersId: "userId",
-      
+
       status: "status",
     }),
-    
+
   },
   methods: {
     goToProfil: function () {
@@ -189,14 +189,14 @@ export default {
     goToUpdateProfil: function () {
       this.$router.push("/updateProfil");
     },
-goToLogin(){
+    goToLogin() {
       this.$router.push("/");
     },
-    
+
     goToUsersData: function () {
       this.$store.dispatch("getAllUsersData")
 
-       this.$router.push("/UserList");
+      this.$router.push("/UserList");
     },
     //----------------DISCONNECT-----------------//
     disconnect() {
@@ -220,7 +220,7 @@ goToLogin(){
     //-----------------GET USER DATA-----------------------//
     getUserData() {
       const data = this.userId;
-console.log("DATA GET-USER",data);
+      console.log("DATA GET-USER", data);
       this.$store
         .dispatch("getUserData", data)
         .then((response) => {
@@ -268,7 +268,7 @@ console.log("DATA GET-USER",data);
         .then((res) => {
           if (res) {
             console.log("RES PROFIL PAGE DELETE ------>", res.data.message);
-           
+
 
             this.disconnect()
           }
@@ -287,7 +287,7 @@ body {
   background-color: #545454;
   font-family: "Poppins", sans-serif;
   font-weight: 300;
-  
+
 }
 
 #app {
@@ -301,8 +301,8 @@ body {
 
 .container {
   height: 100vh;
-  
-  
+
+
 }
 
 .container {
@@ -312,12 +312,12 @@ body {
 
 }
 
-.fond_bg{
-/* background-image: url("../assets/fondNavRed.png"); */
-background-image:url("../assets/Fondnav.png ");
-padding: 5% ;
-border-radius: 20px ;
-height: auto;
+.fond_bg {
+  /* background-image: url("../assets/fondNavRed.png"); */
+  background-image: url("../assets/Fondnav.png ");
+  padding: 5%;
+  border-radius: 20px;
+  height: auto;
 
 }
 
@@ -394,9 +394,10 @@ height: auto;
   padding-right: 20px;
   height: 35px;
 }
-.bienvenue{
+
+.bienvenue {
   font-size: 25px;
-  color:green;
+  color: green;
 }
 
 

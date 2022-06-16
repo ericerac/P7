@@ -194,7 +194,7 @@ exports.updateUser = async (req, res) => {
       firstName: formData.firstName,
       lastName: formData.lastName,
       email: formData.email,
-      // password:formData.password,
+     
       userId: formData.userId,
     };
   } else if (UserOne.media){
@@ -205,7 +205,7 @@ exports.updateUser = async (req, res) => {
       firstName: formData.firstName,
       lastName: formData.lastName,
       email: formData.email,
-      // password:formData.password,
+      
       userId: formData.userId,
       media: `${req.protocol}://${req.get("host")}/images/${req.file.filename}`,
     };

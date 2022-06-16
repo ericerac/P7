@@ -149,8 +149,9 @@
                         <div class="card card-comment mb-1">
                             <div class="card-body">
                                 <div class="media media-comment mb-1">
-                                    <img :src="commKey.user.media"
+                                    <img v-if="commKey.user.media" :src="commKey.user.media"
                                         class="d-block ui-w-40 rounded-circle avatar-comment" alt="" />
+                                    
                                     <div class="media-body ml-3 mt-0">
                                         <span>{{ commKey.user.lastName }}</span><span>{{ commKey.user.firstName
                                         }}</span>
@@ -262,8 +263,6 @@ export default {
 
     },
 
-
-    props: {},
     computed: {
         ...mapState({
 
@@ -311,12 +310,7 @@ export default {
             this.$store.dispatch("getUserData", ud).then((res) => {
                 console.log(" RES-DATA-USER-CONNECT", res);
             });
-            console.log("DATA-USER-CONNECT 1", ud);
-            let self = this;
-            const UserId = [];
-            const comm = [];
-
-            console.log("UserId", UserId);
+            console.log("DATA-USER-CONNECT 1", ud);          
         },
 
         //------------ UPLOAD POST-----------------------//
