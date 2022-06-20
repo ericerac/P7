@@ -99,6 +99,9 @@ exports.GetOneUser = async (req, res, next) => {
   const params = req.query.id;
   //const params = req.body.id;
   const oneUser = await user.findOne({
+    attributes: {
+      exclude: ['password']
+  },
     where: { id: `${params}` },
     include: [
       {
@@ -125,6 +128,9 @@ exports.GetOneUser = async (req, res, next) => {
 
 exports.GetAllUsers = async (req, res, next) => {
   const allUsers = await user.findAll({
+    attributes: {
+      exclude: ['password']
+  },
     include: [
       {
         model: articles,
@@ -149,6 +155,9 @@ exports.GetMultiUsers = async (req, res, next) => {
   //const params = req.query.id;
   for (let i of params) {
     const allUsers = await user.findAll({
+      attributes: {
+        exclude: ['password']
+    },
       where: { id: params },
       include: [
         {
@@ -197,9 +206,12 @@ exports.updateUser = async (req, res) => {
      
       userId: formData.userId,
     };
-  } else if (UserOne.media){
-    const filename = UserOne.media.split("/images/")[1];
-    fs.unlink(`images/${filename}`, () => {}),
+  } else if (req.file){
+    if(UserOne.media){
+
+      const filename = UserOne.media.split("/images/")[1];
+      fs.unlink(`images/${filename}`, () => {})
+    }
 
     Data = {
       firstName: formData.firstName,

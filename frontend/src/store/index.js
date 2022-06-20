@@ -13,7 +13,7 @@ const instance = axios.create({
   baseURL: "http://localhost:3000/",
 });
 
-// ----------- INTERCEPTORS REquest -----------------//
+// ----------- INTERCEPTORS REQUEST -----------------//
 
 instance.interceptors.request.use(
   function (config) {

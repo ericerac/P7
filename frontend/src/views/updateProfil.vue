@@ -376,8 +376,8 @@ body :-ms-input-placeholder {
     font-weight: 700;
     font-size: 15px;
 }
-.form-group {
-    margin-bottom: 1rem;
+input:hover {
+    box-shadow: 3px 3px  5px #7f141c ;
 }
 .form-group {
     width: 100%;
@@ -387,6 +387,7 @@ body :-ms-input-placeholder {
     display: -ms-flexbox;
     display: flex;
     flex-wrap: wrap;
+    margin-bottom: 1rem;
 }
 button, input, optgroup, select, textarea {
     margin: 0;

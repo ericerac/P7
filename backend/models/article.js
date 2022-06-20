@@ -8,7 +8,7 @@ module.exports = (sequelize, type) => {
         autoIncrement:true,
       },
       content: {
-        type: type.STRING(255)
+        type: type.STRING(1000)
       },
       media:{
         type:type.CHAR(255)

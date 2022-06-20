@@ -15,46 +15,45 @@
 
                         <div class="upper">
                             <div class="profile">
-                                <img  v-if="!UserData.media" id="userImg" src="../assets/icon.svg " class="rounded-circle" width="80"
-                                    alt="logo groupomania" />
-                                    <img v-else id="userImg" :src="UserData.media" class="rounded-circle" width="80"
+                                <img v-if="!UserData.media" id="userImg" src="../assets/icon.svg "
+                                    class="rounded-circle" width="80" alt="logo groupomania" />
+                                <img v-else id="userImg" :src="UserData.media" class="rounded-circle" width="80"
                                     alt="logo groupomania" />
 
-                                <!-- <img  id="userImg"  class="rounded-circle" width="80"
-              alt="Photo de profil" /> -->
 
                             </div>
                         </div>
 
 
                         <ul class="list">
-                            <li>Nom:{{UserData.firstName}}</li>
-                            <li>Prénom:{{UserData.lastName}}</li>
-                            <li>Inscrit depuis le:{{date(UserData.createdAt)}}</li>
+                            <li>Nom:{{ UserData.firstName }}</li>
+                            <li>Prénom:{{ UserData.lastName }}</li>
+                            <li>Inscrit depuis le:{{ date(UserData.createdAt) }}</li>
                             <!-- <li>article publié:{{UserData.article.length}}</li>  -->
-                             <li>articles publiés:{{CountArticles}}</li>
+                            <li>articles publiés:{{ CountArticles }}</li>
                             <!-- <li>commentaire:{{UserData.comment.length}}</li> -->
-                            <li>commentaires:{{CountComment}}</li>
-                            <li>Dernière connection :{{date(UserData.logon)}}</li>
+                            <li>commentaires:{{ CountComment }}</li>
+                            <li>Dernière connection :</li>
+                            <li>{{ date(UserData.logon) }}</li>
 
                         </ul>
                     </div>
 
                 </div>
 
-<div class="button">
-                <span>
-                    <button  @click="delUser(UserData.id)"  class="btn btn-danger btn-sm follow mt-0">
-                        Supprimer ce compte
-                    </button>
+                <div class="button">
+                    <span>
+                        <button @click="delUser(UserData.id)" class="btn btn-danger btn-sm follow mt-0">
+                            Supprimer ce compte
+                        </button>
                     </span>
                     <span>
-                    <button class="btn btn-primary btn-sm follow mt-0 " @click="CloseDetailUser">
-                        Fermer
-                    </button>
-                </span>
+                        <button class="btn btn-primary btn-sm follow mt-0 " @click="CloseDetailUser">
+                            Fermer
+                        </button>
+                    </span>
 
-</div>
+                </div>
 
             </div>
 
@@ -67,36 +66,36 @@
 
 <script>
 import { mapState } from 'vuex'
- import moment from "moment";
+import moment from "moment";
 
 
 export default {
 
     name: "detailUserVue",
 
-methods: {
-    CloseDetailUser(){
-this.$store.dispatch("CloseDetailUser")
-    },
+    methods: {
+        CloseDetailUser() {
+            this.$store.dispatch("CloseDetailUser")
+        },
 
-    date(value) {
+        date(value) {
             return moment(value).format("DD/MM/YYYY à HH:mm ");
         },
 
-    delUser(user){
-this.$store.dispatch("deleteUser",user)
+        delUser(user) {
+            this.$store.dispatch("deleteUser", user)
+        }
+
+    },
+    computed: {
+        ...mapState({
+
+            UserData: "userData",
+            CountArticles: "articles",
+            CountComment: "comments",
+
+        })
     }
-
-},
-computed:{
-    ...mapState({
-
- UserData: "userData",
- CountArticles:"articles",
- CountComment: "comments",
-
-    })
-}
 }
 
 </script>
@@ -113,24 +112,18 @@ body {
     background-repeat: repeat;
     background-position: center;
     background-attachment: fixed;
-
 }
-
 
 .container {
     height: auto;
-   
 }
 
 .container {
-    background-color: rgb(252, 217, 164);
-    max-width: 1200px;
+    background-image: url("../assets/Fondnav.png ");
+    max-width: 1000px;
+ border-radius: 30px;
 
 }
-
-
-
-
 
 .card {
     /* width: 380px; */
@@ -147,8 +140,6 @@ body {
     height: 70px;
 }
 
-
-
 .user {
     position: relative;
 }
@@ -160,7 +151,9 @@ body {
 }
 
 .profile {
-
+    position: absolute;
+    top: 0rem;
+    right: 1rem;
     height: 90px;
     width: 90px;
     border: 3px solid #fff;
@@ -196,7 +189,8 @@ ul li {
     margin-top: 0;
 
 }
-.button{
+
+.button {
     display: flex;
     flex-direction: row;
     justify-content: space-around;

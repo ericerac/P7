@@ -31,11 +31,10 @@
                     <form id="formPost" @submit.prevent="articlePost">
                         <div id="articleUser">
                             <div id="postText">
-                                <!-- <input v-model="CommentContent" class="commentaire" type="text" size="4"
-                                        placeholder="Ecrire" /> -->
+                                
                                 <textarea v-model="content" class="commentaire mt-3 form-control" col="6" rows="2"
-                                    type="text" size="6" placeholder="Une petite pensée à partager  ?"></textarea>
-                                <!-- <div class="imagePreview" :style="{'background-image': url`(${previewImg})`}" ></div> -->
+                                    type="text" size="6" placeholder="Une petite pensée à partager  ?" maxlength="1000"  ></textarea>
+                                
                                 <div class="iconComment pt-1">
                                     <div class="ico">
                                         <span class="select-wrapper">
@@ -93,8 +92,13 @@
 
 
                                 <span >
+                                    <!-- <fa class="d-inline-block text-muted ml-1" :icon="['far', 'comment']"
+                                        @click="commentInput = !commentInput"  /> -->
                                     <fa class="d-inline-block text-muted ml-1" :icon="['far', 'comment']"
-                                        @click="commentInput = !commentInput" v-model="PostLiked" />
+                                        @click="commentInput = !commentInput"  />
+                                </span>
+                                <span >
+                                    {{article.comment.length}}
                                 </span>
                             </div>
 
@@ -110,17 +114,15 @@
 
                     <!--  **   -------- ** COMMENT  FORM ** HIDDEN -------   **  -->
 
-                    <div class="col-lg-12 col-xl-3">
+                    <div class="col-lg-12 col-xl-3" >
                         <form id="formPost" @submit.prevent="articleComment" v-show="commentInput">
                             <div id="articleUser">
                                 <div id="postText">
-                                    <!-- <input v-model="CommentContent" class="commentaire" type="text" size="4"
-                                        placeholder="Ecrire" /> -->
+                                    
                                     <textarea v-model="CommentContent" class="commentaire form-control" col="6" rows="2"
-                                        type="text" size="6" placeholder="Ecrire"></textarea>
+                                        type="text" size="6" placeholder="Ecrire" maxlength="1000"></textarea>
                                     <div class="iconComment">
-                                        <!-- <input type="file" id="mediaPost" ref="file" @change="FileUploadCom"
-                                        accept="image/png, image/jpeg" /> -->
+                                        
                                         <div class="ico">
                                             <span class="select-wrapper">
                                                 <label class="labelImgUpload" for="image_src">i</label>
@@ -144,7 +146,7 @@
 
                     <!--  **   -------- ** COMMENT   ** -------   **  -->
 
-                    <div class="col-lg-12" v-for="commKey in article.comment" :key="commKey.id">
+                    <div class="col-lg-12 body_comment" v-for="commKey in article.comment" :key="commKey.id">
                         <div class="card-line-top"></div>
                         <div class="card card-comment mb-1">
                             <div class="card-body">
@@ -282,7 +284,15 @@ export default {
         user: function (val) {
             console.log("WATCH USER ", val);
         },
-
+        content: function (txt) {
+             if(txt.length === 950){
+                 let text = txt.length;
+                 let font = 1000 - text;
+alert(` Il ne vous reste plus que  ${font}   caractères`)
+                
+             }
+        },
+    
     },
 
     methods: {
@@ -323,7 +333,7 @@ export default {
                 var bodyFormData = new FormData();
                 bodyFormData.append("media", this.fileSelected, this.fileSelected.name);
                 bodyFormData.append("content", this.content);
-                bodyFormData.append("userId", userId);
+                bodyFormData.append("userId", this.user.id);
                 bodyFormData.append("likes", 0);
                 bodyFormData.append("dislikes", 0);
 
@@ -331,7 +341,7 @@ export default {
             } else {
                 var bodyFormData = new FormData();
                 bodyFormData.append("content", this.content);
-                bodyFormData.append("userId", userId);
+                bodyFormData.append("userId", this.user.id);
                 bodyFormData.append("likes", 0);
                 bodyFormData.append("dislikes", 0);
 
@@ -363,14 +373,14 @@ export default {
                 var bodyFormData = new FormData();
                 bodyFormData.append("media", this.fileSelected, this.fileSelected.name);
                 bodyFormData.append("comment", this.CommentContent);
-                bodyFormData.append("userId", this.userId);
+                bodyFormData.append("userId", this.user.id);
                 bodyFormData.append("articleId", Aid);
 
                 console.table("FORM DATA AVEC IMAGE 2", ...bodyFormData.entries());
             } else {
                 var bodyFormData = new FormData();
                 bodyFormData.append("comment", this.CommentContent);
-                bodyFormData.append("userId", this.userId);
+                bodyFormData.append("userId", this.user.id);
                 bodyFormData.append("articleId", Aid);
 
                 console.table("FORM DATA SANS IMAGE ", ...bodyFormData.entries());
@@ -380,7 +390,7 @@ export default {
 
                 .then(function (response) {
                     //handle success
-                    location.reload();
+                    // location.reload();
                     console.log(response);
                 })
                 .catch(function (response) {
@@ -607,7 +617,6 @@ li {
 
 .media {
     display: flex;
-    padding-bottom: 1rem;
     flex-direction: row;
     justify-content: space-around;
     /* border-bottom: 1px solid black; */
@@ -635,7 +644,7 @@ span {
 } */
 .com-com {
     display: flex;
-    width: 50%;
+    width: 60%;
     justify-content: flex-start;
 }
 
@@ -732,6 +741,12 @@ span {
 
 /* // -----------------COMMENT ------------------ */
 
+
+.body_comment{
+width: 95%;
+margin: .5rem auto;
+
+}
 .card-line-top {
     width: 90%;
     margin: 10px auto 5px;
@@ -786,6 +801,7 @@ span {
 
 .card-comment {
     box-shadow: 2px 2px 20px 2px rgba(24, 28, 33, 0.3);
+    border-radius: 20px;
 }
 
 .IconEditTrash {
