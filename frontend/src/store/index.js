@@ -1,10 +1,10 @@
 import { createStore } from "vuex";
 const axios = require("axios");
-import setHeaders from "../utils/setHaeaders";
+
 const mapState = require("vuex");
 import Vue from "vue";
 import VueCookies from "vue-cookies";
-import users from "./users";
+
 
 let userId = "";
 let userToken = "";
@@ -134,9 +134,7 @@ const store = createStore({
     alldata: "",
     artData: "", // contenu des articles
   },
-  modules: {
-    users,
-  },
+  
   mutations: {
     logUser: (state, user) => {
       state.user = user;
