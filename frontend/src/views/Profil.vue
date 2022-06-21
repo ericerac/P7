@@ -49,11 +49,11 @@
             </div>
           </div>
 
-          <!-- <div><ModalMessage/></div> -->
+          
 
           <div class="avis-media mt-1 mb-0 ">
             <p class="bienvenue" v-if="status">Bienvenue sur votre reseau social</p>
-            <p v-if="!userData.media" @click="goToUpdateProfil">Completez votre profil</p>
+            <button class="btn btn-sm follow mt-0" v-if= "!userData.media" @click="goToUpdateProfil">Completez votre profil</button>
           </div>
           <div class="mt-1 text-center">
 
@@ -116,18 +116,18 @@ export default {
   name: "profil",
 
   beforeMount: function () {
-    console.log("BEFORE MOUNT");
+   
     if ($cookies.get("user")) {
 
       let userCookies = $cookies.get("user");
-      console.log("USER COOKIES", userCookies);
+      
       this.userId = userCookies.userId;
-      // this.token = userCookies.token;
+      
       data = {
         userId: this.userId,
-        // token: this.token
+        
       }
-      console.log("USER-DATA-->", data, userId,);
+      
       this.getUserData(userId);
     } else {
       this.$router.push("/");
@@ -135,12 +135,7 @@ export default {
   },
 
 
-  created: function () {
-    console.log("CREATED");
-    console.log("USER-DATA-->", this.userData);
-
-
-  },
+ 
 
   components: {
 
@@ -200,7 +195,7 @@ export default {
     },
     //----------------DISCONNECT-----------------//
     disconnect() {
-      console.log("DISCONNECT");
+     
       $cookies.remove("user");
       userId = "";
       token = "";
@@ -208,11 +203,11 @@ export default {
     },
 
     FileUpload(event) {
-      console.log("EVENT", event);
+     
       this.fileSelected = event.target.files[0];
 
-      console.log("fichier Image", this.fileSelected);
     },
+
     dateTime(value) {
       return moment(value).format("DD-MM-YYYY");
     },
@@ -220,20 +215,20 @@ export default {
     //-----------------GET USER DATA-----------------------//
     getUserData() {
       const data = this.userId;
-      console.log("DATA GET-USER", data);
+     
       this.$store
         .dispatch("getUserData", data)
         .then((response) => {
-          console.log("REPONSE USER DATA Profil", response);
+         
         })
         .catch((err) => {
-          console.log(err);
+         
         });
     },
     //--------------------UPDATE-USER 1---------------------//
 
     onSubmit() {
-      // upload file
+      
       var bodyFormData = new FormData();
       bodyFormData.append("media", this.fileSelected, this.fileSelected.name);
       bodyFormData.append("firstName", this.firstName);
@@ -241,17 +236,15 @@ export default {
       bodyFormData.append("email", this.email);
       bodyFormData.append("userId", userId);
 
-      console.table("this.firstName ", ...bodyFormData.entries());
+      
       this.$store
         .dispatch("updateUser", bodyFormData)
 
         .then(function (response) {
-          //handle success
-          console.log(response);
+        
         })
         .catch(function (response) {
-          //handle error
-          console.log(response);
+       
         });
     },
 
@@ -262,18 +255,16 @@ export default {
       if (!result) {
         return
       }
-      console.log("USER-ID PROFIL DELETE", data);
+    
       this.$store
         .dispatch("deleteUser", data)
         .then((res) => {
           if (res) {
-            console.log("RES PROFIL PAGE DELETE ------>", res.data.message);
-
-
+          
             this.disconnect()
           }
         }).catch((err) => {
-          console.log("ERREUR REQUETE PROFIL DELETE USER------>", err);
+        
 
         })
     }

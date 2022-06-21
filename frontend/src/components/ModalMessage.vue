@@ -36,6 +36,7 @@ export default {
   methods: {
     modalClose: function () {
       this.$store.dispatch("modalErrorClose");
+      
     },
     goToLogin(){
 

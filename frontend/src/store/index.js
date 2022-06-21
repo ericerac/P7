@@ -17,13 +17,13 @@ const instance = axios.create({
 
 instance.interceptors.request.use(
   function (config) {
-    console.log("INTER REQ CONFIG", config);
+  
 
     if ($cookies.get("user")) {
       const AuthUser = $cookies.get("user");
       const token = AuthUser.token;
 
-      console.log("INTER REQ TOKEN", token);
+     
       if (token) {
         config.headers.Authorization = `Bearer ${token}`;
       }
@@ -32,7 +32,7 @@ instance.interceptors.request.use(
     return config;
   },
   (error) => {
-    console.log("INTER REQ ERREUR", error);
+   
 
     return Promise.reject(error);
   }
@@ -42,16 +42,11 @@ instance.interceptors.request.use(
 
 instance.interceptors.response.use(
   function (response) {
-    console.log("INTER RESP OK", response);
-    console.log("INTER RESP OK DATA", response.data);
-    console.log("INTER RESP OK DATA MESSAGE", response.data.message); // 200 user deleted
     const supp = response.data.message;
-    // console.log("INTER RESP OK",response);
-    // console.log("INTER RESP OK",response);
+
     if (supp == "jwt expired") {
       console.log("JWT EXPIRED");
-      // store.commit("SuccesMessage",supp),
-      // store.commit("ModalSucces",true)
+
       store.commit(
         "ModalMessage",
         "Votre temps de session à expiré. Reconnectez-vous.",
@@ -65,48 +60,33 @@ instance.interceptors.response.use(
         response.data.message
       );
       store.commit("ModalError", true);
+    } else if (supp == "l'utilisateur n'existe pas") {
+      store.commit("ModalMessage", response.data.message);
+      store.commit("ModalError", true);
     }
+
     return response;
   },
   (error) => {
-    // console.log("INTER RESP ERREUR TO-JSON",error.toJSON());
-    console.log("INTER RESP ERROR ", error);
-    console.log("INTER RESP ERROR ", error.data);
-
-    console.log("INTER RESP ERREUR RESPONSE", error.response);
-    console.log("INTER RESP ERREUR RESPONSE.DATA", error.response.data.error); // Txt resp erreur function
-    console.log(
-      "INTER RESP ERREUR RESPONSE.DATA MESSAGE",
-      error.response.data.message
-    ); // Txt resp erreur function
-    console.log("INTER RESP ERREUR RESPONSE.STATUS", error.response.status);
-
     store.commit("ModalError", true);
     if (error.response.status == 401) {
       store.commit("ModalMessage", error.response.data.message);
-    } 
-    else if (error.response.data.error == "Ce compte n'existe pas") {
+    } else if (error.response.data.error == "Ce compte n'existe pas") {
       store.commit("ModalMessage", error.response.data.error);
-    } 
-    else if (error.response.data.error == "Mot de passe incorrect !") {
+    } else if (error.response.data.error == "Mot de passe incorrect !") {
       store.commit("ModalMessage", error.response.data.error);
-    } 
-    else if (error.response.data.message) {
+    } else if (error.response.data.message) {
       store.commit("ModalMessage", error.response.data.message);
-    } 
-    else if (error.response.status == 429) {
+    } else if (error.response.status == 429) {
       store.commit(
         "ModalMessage",
         "Nombre de requetes excessives, réessayer dans un instant "
       );
-    } 
-    else if (error.response.data.error.text) {
+    } else if (error.response.data.error.text) {
       store.commit("ModalMessage", error.response.data.error.text);
     }
 
     // ----------------------------------------------//
-
-    
 
     return Promise.reject(error);
   }
@@ -159,13 +139,11 @@ const store = createStore({
   },
   mutations: {
     logUser: (state, user) => {
-      console.log("RESP MUT LOG-USER", user);
       state.user = user;
       $cookies.set("user", JSON.stringify(user));
     },
 
     logToken: (state, token) => {
-      console.log("RESP MUT TOKEN LOG-USER", token);
       state.token = token;
     },
 
@@ -197,7 +175,6 @@ const store = createStore({
       state.succesMessage = val;
     },
     Status: (state, val) => {
-      console.log("STATUS INDEX MUT",val);
       state.status = val;
     },
 
@@ -240,13 +217,12 @@ const store = createStore({
 
   actions: {
     erreurSignupForm: ({ commit }) => {
-      console.log("ERREUR SIGNUP FORM");
       commit("erreurMessage", true);
     },
 
     modalErrorClose: ({ commit }) => {
-      console.log("MODAL-CLOSE");
       commit("ModalError", false);
+      window.location.reload();
     },
 
     OpenDetailUser: ({ commit }) => {
@@ -258,10 +234,9 @@ const store = createStore({
     },
 
     disconnect() {
-      console.log("DISCONNECT");
       $cookies.remove("user");
       userId = "";
-      token = "";
+
       this.$router.push("/");
     },
 
@@ -272,20 +247,17 @@ const store = createStore({
         instance
           .post("/signup", userData)
           .then((res) => {
-commit("Status",true)
+            commit("Status", true);
             console.log("REPONSE", res);
             resolve(res);
           })
           .catch((err) => {
-            
             reject(err);
-            console.log("ERREUR", err);
           });
       });
     },
 
     loginPost: ({ commit }, userData) => {
-      console.log("USER-DATA LOGIN INDEX", userData);
       return new Promise((resolve, reject) => {
         instance
           .post("/login", userData)
@@ -297,7 +269,6 @@ commit("Status",true)
             resolve(response);
           })
           .catch((err) => {
-            console.log("ERREUR", err);
             reject(err);
           });
       });
@@ -305,54 +276,30 @@ commit("Status",true)
 
     //-----------------GET ONE USER DATA----------------(())
     getUserData: async ({ commit }, data) => {
-      // const token = userToken;
-      //  const token = this.token;
-      // console.log("TOKEN", token);
       const userId = data;
-      console.log("DATA", data); // version UserList
-      //const userId = data.userId;
-
-      console.log("DATA", data, userId);
 
       await instance
-        .get(`/user?id=${userId}`, {
-          // headers: {
-          //   Authorization: `Bearer ${token}`,
-          // },
-        })
+        .get(`/user?id=${userId}`, {})
         .then((res) => {
-          console.log("REPONSE USER-DATA INDEX STORE", res.data);
-
           const countArticle = res.data.article.length;
           commit("Articles", countArticle);
           const countComment = res.data.comment.length;
-          console.log("Articles", countComment);
+
           commit("Comments", countComment);
 
           if (res) {
             commit("UserData", res.data);
-            console.log("REPONSE USER-DATA INDEX STORE IF", res.data);
           } else {
-            console.log("pas de data");
           }
         })
-        .catch((err) => {
-          console.log("reponse err", err);
-
-          //console.log("ça m'énerve encore");
-        });
+        .catch((err) => {});
     },
 
     //-----------------DELETE USER--------------------//
 
     deleteUser: ({ commit }, data) => {
-      // const token = userToken;
-      //  const id = userId;
       const userDel = data;
 
-      // console.log("INDEX-TOKEN-USER CONNECT------->", token);
-      console.log("INDEX-ID-DELETE------>", data);
-      console.log("INDEX-ID-USUR CONNECT------>", userId);
       const body = {
         id: data,
       };
@@ -367,7 +314,6 @@ commit("Status",true)
             resolve(response);
           })
           .catch((err) => {
-            console.log("ça deconne delete index store");
             reject(err);
           });
       });
@@ -377,27 +323,15 @@ commit("Status",true)
 
     updateUser: ({ commit }, Data) => {
       const token = userToken;
-      console.log("TOKEN", token);
-
-      console.log("UPDATE USER INDEX", Data.entries());
 
       return new Promise((resolve, reject) => {
         instance
-          .put("/user/update", Data, {
-            // headers: {
-            //   Authorization: `Bearer ${token}`,
-            // },
-          })
+          .put("/user/update", Data, {})
           .then((response) => {
-            console.log("RESPONSE INDEX -->", response);
-
             resolve(response);
-            console.log("REPONSE UPDATE", response);
           })
           .catch((err) => {
             reject(err);
-            console.log("ERREUR", err);
-            console.log("ça ne fonctionne pas");
           });
       });
     },
@@ -405,49 +339,27 @@ commit("Status",true)
     //-----------------GET ALL USERS DATA----------------(())
     getAllUsersData: async ({ commit }, usersId) => {
       const token = userToken;
-      console.log("TOKEN", token);
-      await instance
-        .get(`/user/all`, {
-          // headers: {
-          //   Authorization: `Bearer ${token}`,
-          // },
-        })
-        .then((res) => {
-          console.log("reponse", res.data);
-          commit("AllsUsersData", res.data);
 
-          if (res) {
-            console.log("reponse", res.data);
-          } else {
-            console.log("erreur data");
-          }
+      await instance
+        .get(`/user/all`, {})
+        .then((res) => {
+          commit("AllsUsersData", res.data);
         })
-        .catch((err) => {
-          console.log("reponse err", err);
-        });
+        .catch((err) => {});
     },
     //-----------UPLOAD POST-----------------//
     uploadPost: ({ commit }, data) => {
-      console.log("UPLOAD-POST INDEX", ...data.entries());
-
       const token = userToken;
-      console.log("TOKEN", token);
+
       return new Promise((resolve, reject) => {
         instance
-          .post("/article/post", data, {
-            // headers: {
-            //   Authorization: `Bearer ${token}`,
-            // },
-          })
+          .post("/article/post", data, {})
           .then((response) => {
-            console.log("RESPONSE INDEX -->", response);
-
             commit("ArtData", response.data);
             resolve(response);
           })
           .catch((err) => {
             reject(err);
-            console.log("ça ne fonctionne pas");
           });
       });
     },
@@ -456,51 +368,30 @@ commit("Status",true)
 
     updatePost: ({ commit }, Data) => {
       const token = userToken;
-      console.log("TOKEN", token);
-
-      console.log("UPDATE USER INDEX", Data.entries());
 
       return new Promise((resolve, reject) => {
         instance
-          .put("/article/update", Data, {
-            // headers: {
-            //   Authorization: `Bearer ${token}`,
-            // },
-          })
+          .put("/article/update", Data, {})
           .then((response) => {
-            console.log("RESPONSE INDEX -->", response);
-
             resolve(response);
-            console.log("REPONSE UPDATE", response);
           })
           .catch((err) => {
             reject(err);
-            console.log("ERREUR", err);
-            console.log("ça ne fonctionne pas");
           });
       });
     },
     //-----------UPLOAD COMMENT-----------------//uploadComment
     uploadComment: ({ commit }, data) => {
-      console.log("UPLOAD-POST INDEX", ...data.entries());
-
       const token = userToken;
-      console.log("TOKEN", token);
+
       return new Promise((resolve, reject) => {
         instance
-          .post("/comment/post", data, {
-            // headers: {
-            //   Authorization: `Bearer ${token}`,
-            // },
-          })
+          .post("/comment/post", data, {})
           .then((response) => {
-            console.log("RESPONSE INDEX -->", response);
-
             resolve(response);
           })
           .catch((err) => {
             reject(err);
-            console.log("ça ne fonctionne pas");
           });
       });
     },
@@ -509,35 +400,25 @@ commit("Status",true)
       const token = userToken;
       const Us = userId;
 
-      console.log("TOKEN", token);
-
-      console.log("getAllArticle");
       return new Promise((resolve, reject) => {
         instance
           .get(`/article/all`, Us, {})
           .then((res) => {
-            // console.log("ALL ARTICLES INDEX RES", res);
             const usersId = [];
 
             const Artrevers = res.data.reverse();
             commit("ArtData", Artrevers);
             const resData = res.data;
             const art = resData.article;
-            // const like = art.like.length;
 
-            // console.log(" LIKE-LENGTH  INDEX");
             const comments = resData.map((a) => a.comment);
             const sommeLike = resData.map((item) => item.dislike);
 
             const liked = sommeLike.map((l) => l.like).reduce((a, b) => a + b);
             commit("Comments", comments);
-            // commit("ALL COMMENTS", comments);
-            console.log("RESDATA  COMMENTS", res.data);
 
-            console.table("RES.DATA LIKE INDEX 1", sommeLike);
             commit;
-            console.table("RES.DATA LIKE INDEX 2", sommeLike[2]);
-            // console.log("BOUCLE INDEX USER-ID", usersId);
+
             commit("UsersId", usersId);
 
             resolve(res);
@@ -545,7 +426,6 @@ commit("Status",true)
 
           .catch((err) => {
             reject(err);
-            console.log("ça ne fonctionne pas post art");
           });
       });
     },
@@ -554,23 +434,14 @@ commit("Status",true)
 
     deleteArticle: ({ commit }, data) => {
       const token = userToken;
-      // const userId = userId;
-
-      console.log("INDEX-TOKEN-DELETE ARTICLE------->", token);
-      console.log("INDEX-ID-DELETE ARTICLE------>", data);
 
       return new Promise((resolve, reject) => {
         instance
-          .put(`/article/delete`, data, {
-            // headers: {
-            //   Authorization: `Bearer ${token}`,
-            // },
-          })
+          .put(`/article/delete`, data, {})
           .then((response) => {
             resolve(response);
           })
           .catch((err) => {
-            console.log("ça deconne delete index store");
             reject(err);
           });
       });
@@ -579,23 +450,14 @@ commit("Status",true)
 
     deleteComment: ({ commit }, data) => {
       const token = userToken;
-      // const userId = userId;
-
-      console.log("INDEX-TOKEN-DELETE COMMENT------->", token);
-      console.log("INDEX-ID-DELETE COMMENT------>", data);
 
       return new Promise((resolve, reject) => {
         instance
-          .put(`/comment/delete`, data, {
-            // headers: {
-            //   Authorization: `Bearer ${token}`,
-            // },
-          })
+          .put(`/comment/delete`, data, {})
           .then((response) => {
             resolve(response);
           })
           .catch((err) => {
-            console.log("ça deconne delete index store");
             reject(err);
           });
       });
@@ -603,30 +465,24 @@ commit("Status",true)
 
     //----------------- LIKE POST----------------//
 
-    likePost: ({ commit }, data) => {
-      const token = userToken;
-      // const userId = userId
-      console.log("INDEX-TOKEN-LIKE-POST------->", token);
-      console.log("INDEX-ID-LIKE-POST------>", data);
+    // likePost: ({ commit }, data) => {
+    //   const token = userToken;
 
-      return new Promise((resolve, reject) => {
-        instance
-          .post(`/like/post`, data, {
-            // headers: {
-            //   Authorization: `Bearer + ${token}`,
-            // },
-          })
-          .then((response) => {
-            console.log("RESPONSE LIKE INDEX", response);
+    //   return new Promise((resolve, reject) => {
+    //     instance
+    //       .post(`/like/post`, data, {
 
-            resolve(response);
-          })
-          .catch((err) => {
-            console.log("Erreur 401 LIKE-POST index store", err);
-            reject(err);
-          });
-      });
-    },
+    //       })
+    //       .then((response) => {
+
+    //         resolve(response);
+    //       })
+    //       .catch((err) => {
+
+    //         reject(err);
+    //       });
+    //   });
+    // },
   }, // fin actions
 });
 

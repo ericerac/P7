@@ -1,5 +1,5 @@
 <template>
-    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" /> -->
+    
 
     <div class="container">
 
@@ -7,7 +7,7 @@
             <div class="col-md-12 bloc-list">
                 <div class="card ccard radius-t-0 h-auto">
                     <div class="position-tl w-102 border-t-3 brc-primary-tp3 ml-n1px mt-n1px"></div>
-                    <!-- the blue line on top -->
+                    
 
                     <div class="card-header  pb-2 brc-secondary-l3">
                         <div class="head-left ">
@@ -54,10 +54,7 @@
                     <div class="card-body pl-1 pt-1 pb-1" v-for="user in filterUser">
                         <div role="button" @click="UserDetail(user.id)"
                             class="d-flex flex-wrap align-items-center my-2 bgc-secondary-l4 bgc-h-secondary-l3 radius-1 p-25 d-style">
-                            <!-- <span
-                                class="mr-25 w-4 h-4 overflow-hidden text-center border-3 text-default-d3 text-90 text-600 radius-round shadow-sm d-zoom-1">
-                                <fa :icon="['far', 'trash-alt']" @click="DelUser(user.id)" />
-                            </span> -->
+                            
                             <span
                                 class="mr-25 w-4 h-4 overflow-hidden text-center border-1 brc-secondary-m2 radius-round shadow-sm d-zoom-2">
                                 <img v-if="user.media" alt="photo profil des utilisateurs" :src="user.media"
@@ -93,20 +90,17 @@
 <script>
 
 import { mapState } from "vuex";
-console.log(" BEFORE tout");
+
 import moment from "moment"
 import store from "@/store/index.js";
 import detailUserVue from "@/components/detailUser.vue";
 import modalSucces from "@/components/ModalSucces.vue";
-//  if(user = undefined || user.role != "admin"){
-//      alert("Vous n'êtes pas autorisée")
-//  }
 
 export default {
     name: "userList",
     data: function () {
         return {
-            // detailUser: "",
+           
             searchUser: "",
         };
     },
@@ -117,13 +111,10 @@ export default {
 
     },
 
-    beforeCreate: () => {
-        console.log(" BEFORE CREATE");
-
-    },
+    
 
     created: function () {
-        console.log("CREATED");
+       
         this.$store
             .dispatch("getAllUsersData")
        
@@ -142,7 +133,7 @@ export default {
         filterUser() {
             if (this.AllUsers) {
 
-                console.log("ALLS USERS", this.AllUsers);
+              
                 return this.AllUsers.filter((a) => {
                     return a.firstName.toLowerCase().includes(this.searchUser.toLowerCase());
                 })
@@ -156,14 +147,13 @@ export default {
 
         UserDetail: async function (userId) {
             this.$store.commit("OpenDetailUser", true);
-            console.log("USER-ID", userId);
+           
             await this.$store
                 .dispatch("getUserData", userId)
                 .then((res) => {
-                    console.log("RES USER-DATA ADMINPAGE ------->", res);
-
+                    
                 })
-            console.log("BOUTON USER", this.DetailUser);
+           
         },
 
         date(value) {
@@ -174,37 +164,18 @@ export default {
             this.$router.push("../components/profil");
         },
         goToAdminPage: function () {
-            console.log("GO-TO-ADMIN-PAGE");
+          
             this.$router.push("../user/admin");
         },
 
-        DelUser(data) {
-            const result = window.confirm("Voulez-vous vraiment supprimer ce compte ?")
-            if (!result) {
-                return
-            }
-            console.log("USER-ID PROFIL DELETE", data);
-            this.$store
-                .dispatch("deleteUser", data)
-                .then((resolve) => {
-                    if (resolve) {
-                        console.log("RESOLVE PROFIL PAGE DELETE ------>", resolve.data.message);
-                        alert("le compte a bien été supprimé")
-
-                        this.$router.push("/profil");
-                    }
-                }).catch((err) => {
-                    console.log("ERREUR REQUETE PROFIL DELETE USER------>", err);
-                    alert("Requete refusée")
-
-                })
-        }
+        
     },
 
 }
 </script>
 
 <style scoped>
+
 html {
     background: rgb(252, 85, 85);
     min-height: 600px;

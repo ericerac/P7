@@ -82,8 +82,24 @@ export default {
             return moment(value).format("DD/MM/YYYY à HH:mm ");
         },
 
-        delUser(user) {
-            this.$store.dispatch("deleteUser", user)
+        delUser(data) {
+            const result = window.confirm("Voulez-vous vraiment supprimer ce compte ?")
+            if (!result) {
+                return
+            }
+            console.log("USER-ID PROFIL DELETE", data);
+            this.$store
+                .dispatch("deleteUser", data)
+                .then((res) => {
+                    if (res) {
+                        console.log("USER DETAIL DELETE USER IF RES------>", res);
+                        // window.location.reload();
+                    }
+                }).catch((err) => {
+                    console.log("ERREUR REQUETE PROFIL DELETE USER------>", err);
+                    alert("Requete refusée")
+
+                })
         }
 
     },

@@ -35,7 +35,7 @@ const User = UserModel(sequelize, Sequelize);
 // -----------------SIGNUP-----------------------//
 
 exports.signup = async (req, res, next) => {
-  console.log("req.body", req.body.email);
+ 
   const hash = await bcrypt.hash(req.body.password, 10);
   const [user, created] = await User.findOrCreate({
     where: { email: req.body.email },
@@ -48,7 +48,7 @@ exports.signup = async (req, res, next) => {
   });
   if (created) {
     res.status(201).json(user);
-    console.log(User);
+    
   } else {
     res.status(404).json({ message: "Email utilisateur existant" });
   }
@@ -57,7 +57,7 @@ exports.signup = async (req, res, next) => {
 // -----------------LOGIN----------------------//
 
 exports.login = async (req, res, next) => {
-  console.log("on est au login", req.body);
+ 
   const user = await User.findOne({ where: { email: req.body.email } });
   if (user) {
     const password_valid = await bcrypt.compare(
@@ -82,7 +82,7 @@ exports.login = async (req, res, next) => {
       res
         .status(200)
         .json({ token: token, userId: user.id, userRole: user.role });
-      console.log(token);
+     
     } else {
       res.status(400).json({ error: "Mot de passe incorrect !" });
     }
@@ -94,8 +94,7 @@ exports.login = async (req, res, next) => {
 // -----------GET ONE USER DATA-------------------//
 
 exports.GetOneUser = async (req, res, next) => {
-  console.log("-------req.body One--------", req.body.id);
-  console.log("-------req.query One--------", req.query.id);
+  
   const params = req.query.id;
   //const params = req.body.id;
   const oneUser = await user.findOne({
@@ -120,7 +119,7 @@ exports.GetOneUser = async (req, res, next) => {
     distinct: true,
     col: "articleId",
   });
-  console.log("ONE USER BACK RES", oneUser);
+ 
   res.json(oneUser);
 };
 
@@ -152,7 +151,7 @@ exports.GetAllUsers = async (req, res, next) => {
 exports.GetMultiUsers = async (req, res, next) => {
   const params = req.body.id;
   let AllUsers = [];
-  //const params = req.query.id;
+ 
   for (let i of params) {
     const allUsers = await user.findAll({
       attributes: {
@@ -184,15 +183,13 @@ exports.GetMultiUsers = async (req, res, next) => {
 //------------UPDATE PROFIL USER---------------//
 
 exports.updateUser = async (req, res) => {
-  console.log("req.body 1 -->", req.body);
+  
   const form = "";
   form.toString(req.body).valueOf(req.body);
-  console.log("req.body 2 -->", form);
+ 
   const formData = req.body;
-  console.log("req.body-->", formData);
+  
   const id = formData.userId;
-
-  console.log("req.body.userId-->", id);
 
   const UserOne = await user.findOne({
     where: { id: `${id}` },
@@ -231,7 +228,7 @@ exports.updateUser = async (req, res) => {
     }
   )
     .then((data) => {
-      console.log("REUSSI");
+      
       const res = {
         success: true,
         data: data,
@@ -240,7 +237,7 @@ exports.updateUser = async (req, res) => {
       return res;
     })
     .catch((error) => {
-      console.log("ERREUR");
+      
       const res = {
         success: false,
         error: error,
@@ -254,25 +251,22 @@ exports.updateUser = async (req, res) => {
 exports.destroyUser = async (req, res) => {
   const params = req.query.id;
   const params1 = req.body.id;
-  console.log("REQ.QUERY.ID", params);
-  console.log("REQ.BODY.ID", params1);
-  // console.log("HEADERS------>>>", req.headers.authorization);
+  
   const UserTo = await user.findOne({
     where: { id: `${params}` },
   });
-  console.log("USER-TO", UserTo);
+  
   if (!UserTo) {
     res.json({ message: "l'utilisateur n'existe pas" });
     return;
   } else {
-    console.log("REQ.BODY.ID", params1);
+   
 
     const UserOne = await user.findOne({
       where: { id: `${params1}` },
     });
     let supprimer ="";
-    console.log("USER-ONE", UserOne);
-    console.log("USER-TO", UserTo);
+    
     if (!UserOne.role === "admin" || UserOne.id != UserTo.id) {
       res.status(401).json({ message: " requete non autorisée" });
     } else {

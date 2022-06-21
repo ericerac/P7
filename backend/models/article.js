@@ -1,4 +1,4 @@
-const { article } = require(".");
+
 
 module.exports = (sequelize, type) => {
     const Article = sequelize.define("article", {

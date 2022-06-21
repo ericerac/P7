@@ -14,18 +14,22 @@
                 <div class="form-group" v-if="mode == 'signup'">
                     <label for="nom">Nom</label>
                     <input v-model="firstName" type="text" name="nom" class="form-control" placeholder="Nom" required />
+                    <p class="ErrorInput" v-if="messageNom" >{{messageNom}}</p>
                 </div>
                 
                 <div class="form-group" v-if="mode == 'signup'">
                     <label for="prenom">Prénom</label>
                     <input v-model="lastName" type="text" name="prenom" class="form-control" placeholder="Prénom"
                         required />
+                        <p class="ErrorInput" v-if="messagePrenom" >{{messagePrenom}}</p>
+                        
                 </div>
                 
                 <div class="form-group">
                     <label for="email">Email</label>
                     <input v-model="Email" type="email" name="email" class="form-control" placeholder="Email"
                         required />
+                         <p class="ErrorInput" v-if="messageEmail" >{{messageEmail}}</p>
                 </div>
                 
                 <div class="form-group">
@@ -33,16 +37,17 @@
 
                     <input v-model="password" type="password" name="password" class="form-control"
                         placeholder=" Votre mot de passe" required>
+                         <p class="ErrorInput" v-if="messagePassword" >{{messagePassword}}</p>
                 </div>
 
                 <div class="form-group">
                     <label for="submit" class="btn-label">Se connecter</label>
-                    <input v-if="mode == 'login'" name="submit" class="btn btn-primary btn-lg btn-block" :keyUp="enter"
+                    <input v-if="mode == 'login'" type ="button" name="submit" class="btn btn-primary btn-lg btn-block" :keyUp="enter"
                         value="Se connecter" @click="loginPost()">
                 </div>
                 <div class="form-group" v-if="mode == 'signup'">
                     <label  for="submit" class="btn-label">S'enregistrer</label>
-                    <input name="submit" class="btn btn-primary btn-lg btn-block" keyUp="enter" value="S'enregistrer"
+                    <input type ="button" name="submit" class="btn btn-primary btn-lg btn-block" keyUp="enter" value="S'enregistrer"
                         @click="checkForm()">
                 </div>
                 <p v-if="mode == 'login'">Vous n´êtes pas encore inscrit <span
@@ -69,13 +74,16 @@ export default {
         return {
             mode: "login",
            
-           
-           
-
             firstName: "",
             lastName: "",
             Email: "",
             password: "",
+
+            message:"",
+            messageNom:"",
+            messagePrenom:"",
+            messageEmail:"",
+            messagePassword:"",
         };
     },
     components: {
@@ -90,7 +98,8 @@ watch: {
     computed: {
         ...mapState({
             modal:"modal",
-      modalMessage:"modalMessage"
+      modalMessage:"modalMessage",
+
         }),
         
 
@@ -111,40 +120,39 @@ watch: {
         // --------------- VALIDATION FORM-------------------//
         checkForm: function () {
             
-
-
             if (!this.firstName) {
-                 alert(" * Le nom doit être renseigné.");
+                this.messageNom = "* Le nom doit être renseigné."
+                
                
                 return false
             } else if (!this.validFirstName(this.firstName)) {
-                alert(' * Le nom ne doit pas contenir de caractères spéciaux');
+               this.messageNom = ' * Le nom ne doit pas contenir de caractères spéciaux';
                 return false
             }
 
             if (!this.lastName) {
-                alert(" * Le prénom doit être renseigné.");
+                this.messagePrenom = " * Le prénom doit être renseigné.";
                 return false
             } else if (!this.validLastName(this.lastName)) {
-                alert('* Le prénom ne doit pas contenir de caractères spéciaux');
+                this.messagePrenom = '* Le prénom ne doit pas contenir de caractères spéciaux';
                 return false
             }
             
             if (!this.Email) {
-                alert("* l'adresse Email doit être renseignée.");
+                this.messageEmail = "* l'adresse Email doit être renseignée.";
                 return false
             } else if (!this.validEmail(this.Email)) {
                 console.log("THIS:EMAIL", this.Email);
-                alert('* Adresse email non valide');
+                this.messageEmail ='* Adresse email non valide';
                 return false
             }
             if (!this.password) {
-               alert("* l'adresse Email doit être renseignée.");
+               this.messagePassword = "* l'adresse Email doit être renseignée.";
                 return false
             } else if (!this.validPassword(this.password)) {
                 
                 console.log("THIS:PASSWORD", this.password);
-                alert('* Mot de passe doit contenir entre 8 a 20 caractères dont 1 caractère special et 1 chiffre * ');
+                this.messagePassword = '* Mot de passe doit contenir entre 8 a 20 caractères dont 1 majuscule et 1 chiffre * ';
                 
                 return false
             }
@@ -350,7 +358,12 @@ body :-ms-input-placeholder {
     padding-bottom: 25px;
     padding-top: 25px;
 }
-
+.ErrorInput{
+    background-color: #fff;
+    width: 100%;
+    border-radius: 3px;
+    margin-top: .3rem;
+}
 .forgot-link {
     display: block;
     width: 100%;

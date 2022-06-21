@@ -1,5 +1,5 @@
 <template>
-<link href="https://fonts.googleapis.com/css2?family=Blaka+Hollow&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Blaka+Hollow&display=swap" rel="stylesheet">
     <div class="container-fluid posts-content">
         <div class="row">
             <!-- ---------------------TOP-------------------- -->
@@ -8,7 +8,8 @@
                     <div class="card-footer">
                         <img class="fondLogoNavbar" src="../assets/Fondnav.png" alt="Fond image" title="Page Profil" />
                         <img class="logo col-md-0" src="../assets/icon-left-font-monochrome-white.svg" alt="" />
-                        <img v-if="user.media"  class="userMedia avatar" :src="user.media" alt="Photo profil" />
+                        <img v-if="user.media" class="userMedia avatar rounded-circle" :src="user.media"
+                            alt="Photo profil" />
                         <span class="NameUser">
                             {{ user.firstName }} {{ user.lastName }}</span>
                     </div>
@@ -31,10 +32,11 @@
                     <form id="formPost" @submit.prevent="articlePost">
                         <div id="articleUser">
                             <div id="postText">
-                                
+
                                 <textarea v-model="content" class="commentaire mt-3 form-control" col="6" rows="2"
-                                    type="text" size="6" placeholder="Une petite pensée à partager  ?" maxlength="1000"  ></textarea>
-                                
+                                    type="text" size="6" placeholder="Une petite pensée à partager  ?"
+                                    maxlength="1000"></textarea>
+
                                 <div class="iconComment pt-1">
                                     <div class="ico">
                                         <span class="select-wrapper">
@@ -57,7 +59,8 @@
             </div>
 
             <!-- ********++++----------------------POST-----------------************ -->
-            <div class="post col-md-10 col-lg-10 col-xl-8  col-xxl-6 offset-md-1 offset-xl-2 offset-xxl-3" v-for="article in dataArt" :key="article.id">
+            <div class="post col-md-10 col-lg-10 col-xl-8  col-xxl-6 offset-md-1 offset-xl-2 offset-xxl-3"
+                v-for="article in dataArt" :key="article.id">
                 <div class="card mb-4">
                     <div class="card-body">
                         <div class="media post-head mb-3">
@@ -91,14 +94,13 @@
                                 <span class="txt-user">Donnez votre avis</span>
 
 
-                                <span >
-                                    <!-- <fa class="d-inline-block text-muted ml-1" :icon="['far', 'comment']"
-                                        @click="commentInput = !commentInput"  /> -->
+                                <span>
+                                    
                                     <fa class="d-inline-block text-muted ml-1" :icon="['far', 'comment']"
-                                        @click="commentInput = !commentInput"  />
+                                        @click="commentsInput(article.id)" />
                                 </span>
-                                <span >
-                                    {{article.comment.length}}
+                                <span @click="commentsDisplay(article.id)">
+                                    {{ article.comment.length }}
                                 </span>
                             </div>
 
@@ -114,15 +116,15 @@
 
                     <!--  **   -------- ** COMMENT  FORM ** HIDDEN -------   **  -->
 
-                    <div class="col-lg-12 col-xl-3" >
-                        <form id="formPost" @submit.prevent="articleComment" v-show="commentInput">
+                    <div class="col-lg-12 col-xl-12">
+                        <form id="formPost" @submit.prevent="articleComment" v-if="commentInput === article.id">
                             <div id="articleUser">
                                 <div id="postText">
-                                    
-                                    <textarea v-model="CommentContent" class="commentaire form-control" col="6" rows="2"
-                                        type="text" size="6" placeholder="Ecrire" maxlength="1000"></textarea>
+
+                                    <textarea v-model="CommentContent" class="commentaire form-control " type="text"
+                                        size="6" placeholder="Commenter" maxlength="1000"></textarea>
                                     <div class="iconComment">
-                                        
+
                                         <div class="ico">
                                             <span class="select-wrapper">
                                                 <label class="labelImgUpload" for="image_src">i</label>
@@ -147,32 +149,36 @@
                     <!--  **   -------- ** COMMENT   ** -------   **  -->
 
                     <div class="col-lg-12 body_comment" v-for="commKey in article.comment" :key="commKey.id">
-                        <div class="card-line-top"></div>
-                        <div class="card card-comment mb-1">
-                            <div class="card-body">
-                                <div class="media media-comment mb-1">
-                                    <img v-if="commKey.user.media" :src="commKey.user.media"
-                                        class="d-block ui-w-40 rounded-circle avatar-comment" alt="" />
-                                    
-                                    <div class="media-body ml-3 mt-0">
-                                        <span>{{ commKey.user.lastName }}</span><span>{{ commKey.user.firstName
-                                        }}</span>
-                                        <div class="text-muted small">
-                                            le: {{ date(commKey.user.createdAt) }}
+                        <div v-if="commKey.articleId === commentaire">
+                            <div class="card-line-top"></div>
+                            <div class="card card-comment mb-1">
+                                <div class="card-body">
+                                    <div class="media media-comment mb-1">
+                                        <img v-if="commKey.user.media" :src="commKey.user.media"
+                                            class="d-block ui-w-40 rounded-circle avatar-comment" alt="" />
+
+                                        <div class="media-body ml-3 mt-0">
+                                            <span>{{ commKey.user.lastName }}</span><span>{{ commKey.user.firstName
+                                            }}</span>
+                                            <div class="text-muted small">
+                                                le: {{ date(commKey.user.createdAt) }}
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <img v-if="commKey.media" class="imgComment" alt="Image du commentaire" :src="commKey.media" />
-                                <div class="bloc-comment">
-                                    <div class="fleche"></div>
-                                    <p class="p_comment">
-                                        {{ commKey.comment }}
-                                    </p>
-                                </div>
-                                <div class="IconEditTrash" v-if="commKey.user.id === userId || user.role === 'admin'">
-                                    <span>
-                                        <fa :icon="['far', 'trash-alt']" @click="deleteComment(commKey.id)" />
-                                    </span>
+                                    <img v-if="commKey.media" class="imgComment" alt="Image du commentaire"
+                                        :src="commKey.media" />
+                                    <div class="bloc-comment">
+                                        <div class="fleche"></div>
+                                        <p class="p_comment">
+                                            {{ commKey.comment }}
+                                        </p>
+                                    </div>
+                                    <div class="IconEditTrash"
+                                        v-if="commKey.user.id === userId || user.role === 'admin'">
+                                        <span>
+                                            <fa :icon="['far', 'trash-alt']" @click="deleteComment(commKey.id)" />
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -188,7 +194,7 @@
                         <img class="logo col-md-0" src="../assets/icon-left-font-monochrome-white.svg"
                             alt="logo groupomania" />
 
-                         <a class="contact" href="mailto:contact@groupomania.com" >Contact</a>
+                        <a class="contact" href="mailto:contact@groupomania.com">Contact</a>
                     </div>
                     <div class="navbar">
                         <div class="link"></div>
@@ -212,10 +218,10 @@ const FormData = require("form-data");
 let user = $cookies.get("user");
 let userId = user.userId;
 let userToken = user.token;
-console.log("USER ID",userId);
+
 let data = {
-    userId:userId,
-    token:userToken,
+    userId: userId,
+    token: userToken,
 }
 
 //***************    ******************// */
@@ -225,34 +231,32 @@ export default {
     components: {},
     props: {},
     mounted: function () {
-       const AuthUser = $cookies.get("user");
-     const userId = AuthUser.userId;
+        const AuthUser = $cookies.get("user");
+        const userId = AuthUser.userId;
         this.userData(userId);
     },
 
     data: function () {
         return {
-            //-------COMMENT FORM POST----------------
+            //----------------------COMMENT FORM POST------------------------//
 
-            commentInput: false,
+            commentInput: "",
 
             commentContent: "",
             fileSelectedComment: "",
             articleId: "",
+            commentaire: "",
 
-
-            //-------ARTICLE FORM POST----------------//
+            //----------------------ARTICLE FORM POST------------------------//
 
             fileSelected: "",
             content: "",
             media: "",
 
 
-            //-------COMMUN DATA--------------//
+            //-------------------------COMMUN DATA----------------------------//
 
             userId: userId,
-            token: userToken,
-
             ArticleDate: "",
 
 
@@ -260,7 +264,7 @@ export default {
         };
     },
     beforeMount: function () {
-        console.log("BEFORE MOUNT");
+       
         this.getAllArticle();
 
     },
@@ -277,22 +281,15 @@ export default {
 
     watch: {
 
-
-        dataArt: function (val) {
-            console.log("WATCH ARTDATA MODIF LIVE", val);
-        },
-        user: function (val) {
-            console.log("WATCH USER ", val);
-        },
         content: function (txt) {
-             if(txt.length === 950){
-                 let text = txt.length;
-                 let font = 1000 - text;
-alert(` Il ne vous reste plus que  ${font}   caractères`)
-                
-             }
+            if (txt.length === 950) {
+                let text = txt.length;
+                let font = 255 - text;
+                alert(` Il ne vous reste plus que  ${font}   caractères`)
+
+            }
         },
-    
+
     },
 
     methods: {
@@ -300,12 +297,25 @@ alert(` Il ne vous reste plus que  ${font}   caractères`)
             this.$router.push("/profil");
         },
 
-        //----------------DISCONNECT-----------------//
+        commentsDisplay: function (id) {
+            let commDisplay = this.commentaire;
+
+            this.commentaire = id;
+            
+        },
+
+        commentsInput: function (id) {
+            this.commentInput = id;
+            
+        },
+
+                    //----------------DISCONNECT-----------------//
+
         disconnect() {
-            console.log("DISCONNECT");
+            
             $cookies.remove("user");
-            this.user="";
-            userId="";
+            this.user = "";
+            userId = "";
             this.$router.push("/");
         },
 
@@ -318,9 +328,9 @@ alert(` Il ne vous reste plus que  ${font}   caractères`)
 
         userData: function (ud) {
             this.$store.dispatch("getUserData", ud).then((res) => {
-                console.log(" RES-DATA-USER-CONNECT", res);
+                
             });
-            console.log("DATA-USER-CONNECT 1", ud);          
+            
         },
 
         //------------ UPLOAD POST-----------------------//
@@ -337,7 +347,7 @@ alert(` Il ne vous reste plus que  ${font}   caractères`)
                 bodyFormData.append("likes", 0);
                 bodyFormData.append("dislikes", 0);
 
-                console.table("FORM DATA AVEC IMAGE 1", ...bodyFormData.entries());
+                
             } else {
                 var bodyFormData = new FormData();
                 bodyFormData.append("content", this.content);
@@ -345,26 +355,25 @@ alert(` Il ne vous reste plus que  ${font}   caractères`)
                 bodyFormData.append("likes", 0);
                 bodyFormData.append("dislikes", 0);
 
-                console.table("FORM DATA SANS IMAGE ", ...bodyFormData.entries());
+                
             }
             this.$store
                 .dispatch("uploadPost", bodyFormData)
 
                 .then(function (response) {
-                    //handle success
-                    console.log(response);
+                   
                     location.reload();
                 })
                 .catch(function (response) {
-                    //handle error
+                   
                     console.log(response);
                 });
         },
 
         FileUpload(event) {
-            console.log("EVENT", event);
+            
             this.fileSelected = event.target.files[0];
-            console.log("fichier Image ", this.fileSelected);
+            
         },
         //-----------------------UPLOAD COMMENT---------------------------
 
@@ -389,65 +398,59 @@ alert(` Il ne vous reste plus que  ${font}   caractères`)
                 .dispatch("uploadComment", bodyFormData)
 
                 .then(function (response) {
-                    //handle success
-                    // location.reload();
-                    console.log(response);
+                    
+                    location.reload();
+                    
                 })
                 .catch(function (response) {
-                    //handle error
-                    console.log(response);
+                   
                 });
         },
 
         //------------ GET ALL ARTICLE-----------------------//
         getAllArticle: function () {
-            const self = this;
+            
             this.$store
                 .dispatch("getAllArticle")
                 .then((response) => {
-                    console.log("REPONSE GET ALL ARTICLE POST PAGE", response.data);
-                    //self.filtreMAP()
-                    const resData = response.data;
-                    console.log("RESPONSE DATA", resData);
-                    const commentes = resData.map((a) => a.comment);
-
-                    console.log("POST VUE COMMENT PUSH", commentes);
+                                
+                    
                 })
                 .catch((err) => {
-                    console.log("Restons calme getAllArticle:postPage", err);
+                    
                 });
         },
 
         //------------------DELETE ARTICLE-------------------------//
         deleteArticle(data) {
             console.log("USER-ID PROFIL DELETE", data);
-            const delart = {id:data}
+            const delart = { id: data }
             this.$store
                 .dispatch("deleteArticle", delart)
                 .then((response) => {
                     if (response) {
-                        alert( "Article supprimé" );
+                        alert("Article supprimé");
                         location.reload();
                     }
                 })
                 .catch((err) => {
-                    console.log("ERREUR REQUETE  DELETE ARTICLE----->", err);
+                    
                 });
         },
         //------------------DELETE COMMENT-------------------------//
         deleteComment(data) {
-            console.log("USER-ID COMMENT DELETE", data);
-            const delcom = {id:data}
+            
+            const delcom = { id: data }
             this.$store
                 .dispatch("deleteComment", delcom)
                 .then((response) => {
                     if (response) {
-                        alert( "Commentaire supprimé" );
-                       location.reload();
+                        alert("Commentaire supprimé");
+                        location.reload();
                     }
                 })
                 .catch((err) => {
-                    console.log("ERREUR REQUETE PROFIL DELETE COMMENT----->", err);
+                    
                 });
         },
     },
@@ -460,6 +463,8 @@ alert(` Il ne vous reste plus que  ${font}   caractères`)
 
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=EB+Garamond&family=Patrick+Hand&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Slab:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=El+Messiri:wght@600&family=Josefin+Slab:wght@400;700&display=swap');
 
 .select-wrapper {
     background: url("../assets/camera-solid.svg  ") no-repeat;
@@ -495,7 +500,7 @@ alert(` Il ne vous reste plus que  ${font}   caractères`)
 
 #app {
     background-color: rgb(40, 30, 17);
-    background-attachment:scroll;
+    background-attachment: scroll;
 }
 
 body {
@@ -529,10 +534,12 @@ li {
     bottom: 0.15rem;
     font-family: 'EB Garamond', serif;
 }
+
 .txt-user {
-    font-family: 'EB Garamond', serif;
+    font-family: 'El Messiri', sans-serif;
 
 }
+
 .navbar {
     display: flex;
     justify-content: space-between;
@@ -575,6 +582,7 @@ li {
     display: flex;
     align-items: center;
     justify-content: space-around;
+    margin-top: .3rem;
 }
 
 .ico {
@@ -586,7 +594,7 @@ li {
     height: auto;
     max-height: 600px;
     border: 1px solid black;
-    object-fit:contain;
+    object-fit: contain;
     object-position: top;
     border-radius: 5px;
     margin: 5px auto;
@@ -598,6 +606,10 @@ li {
 
 .contentArticle {
     margin-top: 1rem;
+    /* font-family: 'Josefin Slab', serif; */
+    font-family: 'El Messiri', sans-serif;
+    font-weight: 700;
+    font-size: 1 rem;
 }
 
 .card-footer {
@@ -626,6 +638,7 @@ li {
 
 .media-body {
     text-align: left;
+    /* font-family: 'Josefin Slab', serif; */
 }
 
 
@@ -742,11 +755,12 @@ span {
 /* // -----------------COMMENT ------------------ */
 
 
-.body_comment{
-width: 95%;
-margin: .5rem auto;
+.body_comment {
+    width: 95%;
+    margin: .5rem auto;
 
 }
+
 .card-line-top {
     width: 90%;
     margin: 10px auto 5px;
@@ -840,17 +854,19 @@ margin: .5rem auto;
     font-weight: bold;
     right: 2rem;
 }
+
 @media (max-width: 1980px) {
-    
+
     .container-fluid {
-    background-color: rgb(252, 217, 164);
-    max-width: 1700px;
+        background-color: rgb(252, 217, 164);
+        max-width: 1700px;
+    }
 }
-}
+
 @media (max-width: 1280px) {
     .container-fluid {
-    background-color: rgb(252, 217, 164);
-    max-width: 1200px;
-}
+        background-color: rgb(252, 217, 164);
+        max-width: 1200px;
+    }
 }
 </style>

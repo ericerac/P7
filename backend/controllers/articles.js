@@ -26,8 +26,7 @@ const article = ArtModel(sequelize, Sequelize);
 
 //--------------GET ARTICLES--------------------OK--//
 exports.published = async (req, res, next) => {
-  console.log("-------All Articles--------");
-  console.log("-------req.params-------", req.query);
+  
   const allArticle = await articles.findAll({
       include: [
         {
@@ -54,14 +53,13 @@ exports.published = async (req, res, next) => {
       ],
   });
   res.json(allArticle);
-  console.log(allArticle);
+  
 };
 
 //--------------GET ONE ARTICLE--------------------OK--//
 
 exports.OnePublished = async (req, res, next) => {
-  console.log("-------req.query One--------", req.query.id);
-  console.log("-------Comment--------", Comment);
+  
   const params = req.query.id;
   const oneArticle = await articles.findAll({
     where: { userId: `${params}` },
@@ -90,13 +88,11 @@ exports.OnePublished = async (req, res, next) => {
 //------------PUBLISH-----------------------OK--//
 
 exports.publish = async (req, res, next) => {
-  console.log("req.body.image", typeof req.body.media);
-  console.log("req.body", req.body);
-  console.log("req.file", req.file);
+  
   let artPost = "";
 
   if (req.file) {
-    console.log("condition IF FILE TRUE",);
+    
     artPost = {
       userId: req.body.userId,
       content: req.body.content,
@@ -104,13 +100,13 @@ exports.publish = async (req, res, next) => {
       media: `${req.protocol}://${req.get("host")}/images/${req.file.filename}`,
     };
   } else {
-    console.log("condition IF FILE FALSE");
+   
     artPost = { ...req.body };
   }
   const publish = await article.create({
     ...artPost,
   });
-  console.log("ART-POST", artPost);
+  ;
   if (publish) {
     res.status(200).json(publish);
   } else {
@@ -123,15 +119,15 @@ exports.publish = async (req, res, next) => {
 //---------------UPDATEPOST---------------------//
 
 exports.updatePost = async (req, res) => {
-  console.log("req.body 1 -->", req.body);
+ 
   const form = "";
   form.toString(req.body).valueOf(req.body);
-  console.log("req.body 2 -->", form);
+  
   const formData = req.body;
-  console.log("req.body-->", formData.entries());
+ 
   const id = formData.articleId;
 
-  console.log("req.body.userId-->", id);
+ 
 
   const response = await article.update(
     {
@@ -145,7 +141,7 @@ exports.updatePost = async (req, res) => {
     }
   )
     .then((data) => {
-      console.log("REUSSI");
+     
       const res = {
         success: true,
         data: data,
@@ -154,7 +150,7 @@ exports.updatePost = async (req, res) => {
       return res;
     })
     .catch((error) => {
-      console.log("ERREUR");
+     
       const res = {
         success: false,
         error: error,
@@ -167,19 +163,18 @@ exports.updatePost = async (req, res) => {
 //---------------DELETE POST-------------------- OK--//
 exports.destroyArt = async (req, res) => {
   const params = req.body.id;
-  console.log("req.body.id",params);
+ 
   const oneArticle = await articles.findOne({
     where: { id: `${params}` },
   });
-console.log("ONE ARTICLE",oneArticle);
+
   let data = oneArticle.media;
 
-  console.log("oneArticle", oneArticle);
-  console.log("Media", data);
+  
 
   if (data) {
     const filename = data.split("/images/")[1];
-    console.log("FILENAME", filename);
+    
     fs.unlink(`images/${filename}`, () => {});
   }
   const suprimmer = await article.destroy({ where: { id: params } });
