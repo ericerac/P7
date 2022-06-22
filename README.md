@@ -29,14 +29,19 @@ router "pages"
 
 # backend
 ```
-## Creer un fichier ".env "
-Y coller les variables d'environnements
+
+## Création fichier variables environnement
+```
+touch .env
+
+## Dans fichier .env Y coller les variables d'environnements fournies
+
 
 ## Project setup
 ```
 npm install
 ```
-### Hot-reloads for development
+### Hot-reloads pour developpement
 ```
 nodemon
 ```
