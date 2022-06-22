@@ -24,8 +24,8 @@ const sequelize = new Sequelize(
   }
 );
 
-const like = LikeModel(sequelize, Sequelize);
-const dislike = DislikeModel(sequelize, Sequelize);
+// const like = LikeModel(sequelize, Sequelize);
+// const dislike = DislikeModel(sequelize, Sequelize);
 
 //--------------GET ARTICLES--------------------OK--//
 exports.AllLike = async (req, res, next) => {
@@ -128,38 +128,4 @@ console.log("UPDATE ART PUSH--->","ARTICLE-ID--->",params2,"LIKE--->",likePost,"
 
 
 
-//-----------------PUSH LIKE ARTICLE TABLE----------------//
-// exports.pushLike = async (req, res, next) => {
-//   console.log("REQ:BODY LIKE BACK PUSH", req.body);
-//   const id = req.body.articleId;
 
-//   article
-//     .update(
-//       {
-//         likes: +req.body.likes,
-//         dislikes: +req.body.dislikes,
-//       },
-//       {
-//         where: { id: id },
-//       }
-//     )
-//     .then((data) => {
-//       console.log("REUSSI");
-//       const res = {
-//         success: true,
-//         data: data,
-//         message: "liked réussie",
-//       };
-//       return res;
-//     })
-//     .catch((error) => {
-//       console.log("ERREUR");
-//       const res = {
-//         success: false,
-//         error: error,
-//         message: "Echec lors de la mise à jour",
-//       };
-//       return res;
-//     });
-//   res.json(res._results);
-// };

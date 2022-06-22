@@ -10,15 +10,7 @@ npm install
 npm run serve
 ```
 
-### Compiles and minifies for production
-```
-npm run build
-```
 
-### Lints and fixes files
-```
-npm run lint
-```
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
@@ -30,18 +22,35 @@ router "pages"
 # backend
 ```
 
-## Création fichier variables environnement
+## Creer un fichier .env
 ```
 touch .env
 
-## Dans fichier .env Y coller les variables d'environnements fournies
+Y coller les variables d'environements
 
+##  enter mysql command
+````
+mysql -u root -p
 
-## Project setup
+Enter password
+
+OK
+
+## database path
+
+mysql> use DB_NAME;
+
+mysql> source file.sql;
+
+mysql> QUIT;
+
+### Project setup
+```
+cd backend
 ```
 npm install
 ```
-### Hot-reloads pour developpement
+### Hot-reloads for development
 ```
 nodemon
 ```
