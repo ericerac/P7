@@ -29,6 +29,9 @@ router "pages"
 
 # backend
 ```
+## Creer un fichier ".env "
+Y coller les variables d'environnements
+
 ## Project setup
 ```
 npm install

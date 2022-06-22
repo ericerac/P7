@@ -5,7 +5,6 @@ const mapState = require("vuex");
 import Vue from "vue";
 import VueCookies from "vue-cookies";
 
-
 let userId = "";
 let userToken = "";
 
@@ -17,13 +16,10 @@ const instance = axios.create({
 
 instance.interceptors.request.use(
   function (config) {
-  
-
     if ($cookies.get("user")) {
       const AuthUser = $cookies.get("user");
       const token = AuthUser.token;
 
-     
       if (token) {
         config.headers.Authorization = `Bearer ${token}`;
       }
@@ -32,8 +28,6 @@ instance.interceptors.request.use(
     return config;
   },
   (error) => {
-   
-
     return Promise.reject(error);
   }
 );
@@ -134,7 +128,7 @@ const store = createStore({
     alldata: "",
     artData: "", // contenu des articles
   },
-  
+
   mutations: {
     logUser: (state, user) => {
       state.user = user;

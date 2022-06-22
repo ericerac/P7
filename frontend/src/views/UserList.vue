@@ -1,5 +1,5 @@
 <template>
-    
+
 
     <div class="container">
 
@@ -7,7 +7,7 @@
             <div class="col-md-12 bloc-list">
                 <div class="card ccard radius-t-0 h-auto">
                     <div class="position-tl w-102 border-t-3 brc-primary-tp3 ml-n1px mt-n1px"></div>
-                    
+
 
                     <div class="card-header  pb-2 brc-secondary-l3">
                         <div class="head-left ">
@@ -54,7 +54,7 @@
                     <div class="card-body pl-1 pt-1 pb-1" v-for="user in filterUser">
                         <div role="button" @click="UserDetail(user.id)"
                             class="d-flex flex-wrap align-items-center my-2 bgc-secondary-l4 bgc-h-secondary-l3 radius-1 p-25 d-style">
-                            
+
                             <span
                                 class="mr-25 w-4 h-4 overflow-hidden text-center border-1 brc-secondary-m2 radius-round shadow-sm d-zoom-2">
                                 <img v-if="user.media" alt="photo profil des utilisateurs" :src="user.media"
@@ -100,7 +100,7 @@ export default {
     name: "userList",
     data: function () {
         return {
-           
+
             searchUser: "",
         };
     },
@@ -111,13 +111,13 @@ export default {
 
     },
 
-    
+
 
     created: function () {
-       
+
         this.$store
             .dispatch("getAllUsersData")
-       
+
     },
 
     computed: {
@@ -133,7 +133,7 @@ export default {
         filterUser() {
             if (this.AllUsers) {
 
-              
+
                 return this.AllUsers.filter((a) => {
                     return a.firstName.toLowerCase().includes(this.searchUser.toLowerCase());
                 })
@@ -147,13 +147,13 @@ export default {
 
         UserDetail: async function (userId) {
             this.$store.commit("OpenDetailUser", true);
-           
+
             await this.$store
                 .dispatch("getUserData", userId)
                 .then((res) => {
-                    
+
                 })
-           
+
         },
 
         date(value) {
@@ -164,18 +164,17 @@ export default {
             this.$router.push("../components/profil");
         },
         goToAdminPage: function () {
-          
+
             this.$router.push("../user/admin");
         },
 
-        
+
     },
 
 }
 </script>
 
 <style scoped>
-
 html {
     background: rgb(252, 85, 85);
     min-height: 600px;
