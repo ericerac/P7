@@ -7,7 +7,7 @@
           <div class="mod">
             <img class="check" src="" alt="" />
             <h6 v-if="modalMessage ==  'Votre temps de session à expiré. Reconnectez-vous.' ">Désolé</h6>
-            <h6 v-else >Erreur</h6>
+            <h6 v-else ></h6>
             <p>{{ modalMessage }}</p>
             <button v-if="modalMessage ==  'Votre temps de session à expiré. Reconnectez-vous.' " @click="goToLogin">Login</button>
             <button v-else @click="modalClose()">fermer</button>

@@ -162,22 +162,22 @@ watch: {
 
         },
         validFirstName: function (firstName) {
-            console.log("VALIDATION FIRSTNAME", firstName);
+           
             var re = /^[a-zA-Z-._àâéèêô´`¨ ñÑî'ùûïÏäëüöÖÄçÀÂÉÈÔÙÛÇ]*$/;
             return re.test(firstName);
         },
         validLastName: function (lastName) {
-            console.log("VALIDATION LASTNAME", lastName);
+           
             var re = /^[a-zA-Z-._àâéèêô´`¨ ñÑî'ùûïÏäëüöÖÄçÀÂÉÈÔÙÛÇ]*$/;
             return re.test(lastName);
         },
         validEmail: function (email) {
-            console.log("VALIDATION EMAIL", email);
+           
             var re = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
             return re.test(email);
         },
         validPassword: function (password) {
-            console.log("VALIDATION PASSWORD", password);
+           
             var re = /^(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/g;
             return re.test(password);
         },
@@ -191,18 +191,18 @@ watch: {
 
 
             this.$store
-                .dispatch("signupPost", {   // dispatch ("nom de la fonction dans ./store/index.js ")
+                .dispatch("signupPost", {   
                     firstName: this.firstName,
                     lastName: this.lastName,
                     email: this.Email,
                     password: this.password,
                 })
                 .then(function (response) {
-                    console.log("reponse", response);
+                   
                     self.loginPost();
                 })
                 .catch((err) => {
-                    console.log(err);
+                   
                 });
         },
 
@@ -210,7 +210,7 @@ watch: {
 
         loginPost: function () {
             const self = this;
-            console.log(" LOGIN EMAIL", this.Email);
+           
             this.$store
                 .dispatch("loginPost", {
                     email: this.Email,
@@ -218,11 +218,11 @@ watch: {
                 })
                 .then((response) => {
 
-                    console.log(response.data); // userId token
+                   
                     self.$router.push("profil");
                 })
                 .catch((err) => {
-                    console.log("Erreur:", err);
+                  
                 });
         },
     },
