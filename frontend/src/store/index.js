@@ -37,7 +37,7 @@ instance.interceptors.request.use(
 instance.interceptors.response.use(
   function (response) {
     const supp = response.data.message;
- console.log("RESPONSE",response);
+//  console.log("RESPONSE",response);
     if (supp == "jwt expired") {
       console.log("JWT EXPIRED");
 
@@ -93,8 +93,7 @@ const store = createStore({
     user: "",
     userId: "",
 
-    // token: "",
-    // logoutErr: "",
+  
     detailUser: false,
 
     modal: false,
@@ -107,23 +106,9 @@ const store = createStore({
 
     articles: "",
 
-    updateUser: {
-      firstName: "",
-      lastName: "",
-      email: "",
-      userId: "",
-      token: "",
-      media: "",
-    },
+    
     userToken: "",
-    formData: {
-      userId: "",
-      firstName: "",
-      lastName: "",
-      email: "",
-      password: "",
-      media: "",
-    },
+    
     useData: "",
     allsUsersData: "",
     userData: "", // data user connected
@@ -189,22 +174,14 @@ const store = createStore({
       state.alldata = alldata;
     },
 
-    logoutErr: (state, logoutErr) => {
-      state.logoutErr = logoutErr;
-    },
-
-    FormData: (state, formData) => {
-      state.formData = formData;
-    },
+    
     Articles: (state, articles) => {
       state.articles = articles;
     },
     Comments: (state, comments) => {
       state.comments = comments;
     },
-    UsersId: (state, usersId) => {
-      state.usersId = usersId;
-    },
+    
   },
 
   computed: {},
@@ -292,7 +269,7 @@ const store = createStore({
     //-----------------DELETE USER--------------------//
 
     deleteUser: ({ commit }, data) => {
-      const userDel = data;
+      
 
       const body = {
         id: data,
@@ -316,7 +293,7 @@ const store = createStore({
     //----------UPDATE USER 1------------//
 
     updateUser: ({ commit }, Data) => {
-      const token = userToken;
+      
 
       return new Promise((resolve, reject) => {
         instance
@@ -332,7 +309,7 @@ const store = createStore({
 
     //-----------------GET ALL USERS DATA----------------(())
     getAllUsersData: async ({ commit }, usersId) => {
-      const token = userToken;
+      
 
       await instance
         .get(`/user/all`, {})
@@ -343,7 +320,7 @@ const store = createStore({
     },
     //-----------UPLOAD POST-----------------//
     uploadPost: ({ commit }, data) => {
-      const token = userToken;
+      
 
       return new Promise((resolve, reject) => {
         instance
@@ -361,7 +338,7 @@ const store = createStore({
     //-------------------UPDATEPOST-----------------//
 
     updatePost: ({ commit }, Data) => {
-      const token = userToken;
+      
 
       return new Promise((resolve, reject) => {
         instance
@@ -376,7 +353,7 @@ const store = createStore({
     },
     //-----------UPLOAD COMMENT-----------------//uploadComment
     uploadComment: ({ commit }, data) => {
-      const token = userToken;
+      
 
       return new Promise((resolve, reject) => {
         instance
@@ -391,7 +368,7 @@ const store = createStore({
     },
     //----------------GET ALL ARTICLES---------------//
     getAllArticle: ({ commit }) => {
-      const token = userToken;
+      
       const Us = userId;
 
       return new Promise((resolve, reject) => {
@@ -427,7 +404,7 @@ const store = createStore({
     //---------------DELETE ARTICLE----------------//
 
     deleteArticle: ({ commit }, data) => {
-      const token = userToken;
+      
 
       return new Promise((resolve, reject) => {
         instance
@@ -443,7 +420,7 @@ const store = createStore({
     //---------------DELETE COMMENT----------------//
 
     deleteComment: ({ commit }, data) => {
-      const token = userToken;
+      
 
       return new Promise((resolve, reject) => {
         instance
@@ -457,26 +434,7 @@ const store = createStore({
       });
     },
 
-    //----------------- LIKE POST----------------//
-
-    // likePost: ({ commit }, data) => {
-    //   const token = userToken;
-
-    //   return new Promise((resolve, reject) => {
-    //     instance
-    //       .post(`/like/post`, data, {
-
-    //       })
-    //       .then((response) => {
-
-    //         resolve(response);
-    //       })
-    //       .catch((err) => {
-
-    //         reject(err);
-    //       });
-    //   });
-    // },
+    
   }, // fin actions
 });
 
