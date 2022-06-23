@@ -30,7 +30,7 @@
                 </button>
               </span>
               <span>
-                <button class="btn btn-danger btn-sm follow mt-0" @click="deleteUser(userData.id)">
+                <button v-if="userData.role != 'admin' " class="btn btn-danger btn-sm follow mt-0" @click="deleteUser(userData.id)">
                   Effacer mon compte
                 </button>
               </span>
@@ -52,7 +52,7 @@
           
 
           <div class="avis-media mt-1 mb-0 ">
-            <p class="bienvenue" v-if="status">Bienvenue sur votre reseau social</p>
+            <p class="bienvenue" v-if="status">Bienvenue {{userData.lastName}} pour votre première visite sur votre reseau social</p>
             <button class="btn btn-sm follow mt-0" v-if= "!userData.media" @click="goToUpdateProfil">Completez votre profil</button>
           </div>
           <div class="mt-1 text-center">
@@ -274,6 +274,9 @@ export default {
 </script>
 
 <style scoped>
+/* @import url('https://fonts.googleapis.com/css2?family=Josefin+Slab&display=swap'); */
+/* @import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap'); */
+@import url('https://fonts.googleapis.com/css2?family=Lobster&family=Pacifico&display=swap');
 body {
   background-color: #545454;
   font-family: "Poppins", sans-serif;
@@ -388,7 +391,8 @@ body {
 
 .bienvenue {
   font-size: 25px;
-  color: green;
+  font-family: 'Pacifico', cursive;
+  color: rgb(1, 81, 18);
 }
 
 
@@ -417,7 +421,9 @@ ul li {
   font-size: 1rem;
   margin-top: 1rem;
 }
-
+.bienvenue{
+  font-family: 'Josefin Slab', serif;
+}
 .contact {
 
   color: white;

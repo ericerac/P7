@@ -265,20 +265,24 @@ exports.destroyUser = async (req, res) => {
     const UserOne = await user.findOne({
       where: { id: `${params1}` },
     });
-    let supprimer ="";
+    
     
     if (!UserOne.role === "admin" || UserOne.id != UserTo.id) {
       res.status(401).json({ message: " requete non autorisée" });
     } else {
+      let supprimer ="";
       if(UserOne.media){
-
+        
         const filename = UserOne.media.split("/images/")[1];
         fs.unlink(`images/${filename}`, () => {
+
            supprimer = User.destroy({ where: { id: params } });
-          
+           if (supprimer) {
+            res.json({ message: "Compte utilisateur supprimé" });
+          }
           
         });
-      } else{
+      } else {
          supprimer = User.destroy({ where: { id: params } });
 
       }

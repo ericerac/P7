@@ -87,12 +87,12 @@ export default {
             if (!result) {
                 return
             }
-            console.log("USER-ID PROFIL DELETE", data);
+           
             this.$store
                 .dispatch("deleteUser", data)
                 .then((res) => {
                     if (res) {
-                        console.log("USER DETAIL DELETE USER IF RES------>", res);
+                       
                         // window.location.reload();
                     }
                 }).catch((err) => {
