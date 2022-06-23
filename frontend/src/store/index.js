@@ -37,7 +37,7 @@ instance.interceptors.request.use(
 instance.interceptors.response.use(
   function (response) {
     const supp = response.data.message;
-// console.log("RESPONSE",response);
+ console.log("RESPONSE",response);
     if (supp == "jwt expired") {
       console.log("JWT EXPIRED");
 
@@ -93,11 +93,13 @@ const store = createStore({
     user: "",
     userId: "",
 
-    token: "",
-    logoutErr: "",
+    // token: "",
+    // logoutErr: "",
     detailUser: false,
+
     modal: false,
     modalMessage: "",
+
     modalSucces: false,
     succesMessage: "",
 

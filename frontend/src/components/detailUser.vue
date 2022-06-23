@@ -43,7 +43,7 @@
 
                 <div class="button">
                     <span>
-                        <button @click="delUser(UserData.id)" class="btn btn-danger btn-sm follow mt-0">
+                        <button v-if="UserData.role != 'admin'" @click="delUser(UserData.id)" class="btn btn-danger btn-sm follow mt-0">
                             Supprimer ce compte
                         </button>
                     </span>

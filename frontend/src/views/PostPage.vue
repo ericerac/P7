@@ -149,7 +149,8 @@
                     <!--  **   -------- ** COMMENT   ** -------   **  -->
 
                     <div class="col-lg-12 body_comment" v-for="commKey in article.comment" :key="commKey.id">
-                        <div v-if="commKey.articleId === commentaire">
+                    <div v-if="commKey.user">
+                        <div v-if="commKey.articleId === commentaire ">
                             <div class="card-line-top"></div>
                             <div class="card card-comment mb-1">
                                 <div class="card-body">
@@ -181,6 +182,7 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
                         </div>
                     </div>
                 </div>
