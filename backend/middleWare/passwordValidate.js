@@ -1,5 +1,5 @@
 const passwordValidator = require("password-validator");
-const { response } = require("../app");
+
 
 const passwordSchema = new passwordValidator();
 

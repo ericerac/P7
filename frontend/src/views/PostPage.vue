@@ -61,7 +61,7 @@
             <!-- ********++++----------------------POST-----------------************ -->
             <div class="post col-md-10 col-lg-10 col-xl-8  col-xxl-6 offset-md-1 offset-xl-2 offset-xxl-3"
                 v-for="article in dataArt" :key="article.id">
-                <div class="card mb-4">
+                <div v-if="article.user " class="card mb-4">
                     <div class="card-body">
                         <div class="media post-head mb-3">
                             <img v-if="article.user.media" alt="photo Profil" :src="article.user.media"
@@ -168,9 +168,9 @@
                                     </div>
                                     <img v-if="commKey.media" class="imgComment" alt="Image du commentaire"
                                         :src="commKey.media" />
-                                    <div class="bloc-comment">
+                                    <div v-if="commKey.comment != 'undefined'" class="bloc-comment">
                                         <div class="fleche"></div>
-                                        <p class="p_comment">
+                                        <p  class="p_comment">
                                             {{ commKey.comment }}
                                         </p>
                                     </div>

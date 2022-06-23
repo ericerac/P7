@@ -8,7 +8,7 @@ const UserModel = require("../models/users");
 const Sequelize = require("sequelize");
 const fs = require("fs");
 const db = require("../models");
-const { use } = require("../app");
+
 
 //-----------TABLES CONFIG-----------//
 

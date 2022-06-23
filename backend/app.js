@@ -60,9 +60,9 @@ app.use("/article", ArtRoutes);
 
 app.use("/comment", commentRoutes);
 
-app.use("/like", likeRoutes);
-app.use("/art", likeRoutes);
-app.use("/dislike", likeRoutes);
+// app.use("/like", likeRoutes);
+// app.use("/art", likeRoutes);
+// app.use("/dislike", likeRoutes);
 
 
 

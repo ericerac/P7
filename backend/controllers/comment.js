@@ -2,13 +2,13 @@ const router = require("express").Router();
 const Sequelize = require("sequelize");
 const CommentModel = require("../models/comment");
 const fs = require("fs");
-
+//require('../config/db.config)
 const sequelize = new Sequelize(
   `${process.env.DB_NAME}`,
   `${process.env.USER_NAME}`,
   `${process.env.PASSWORD_DB}`,
   {
-    //require('../config/db.config)
+    
     host: "localhost",
     dialect: "mysql",
   }

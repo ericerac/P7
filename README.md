@@ -40,7 +40,7 @@ OK
 
 mysql> use DB_NAME;
 
-mysql> source file.sql;
+mysql> source chemin_database_file.sql;
 
 mysql> QUIT;
 
