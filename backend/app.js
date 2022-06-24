@@ -9,15 +9,20 @@ dotenv.config({ path: "./.env" });
 const db = require("./models"); // index.js
 const Sequelize = require("sequelize");
 
- const sequelize = new Sequelize("bd_groupo", "root", "1029!rieN", { //require('../config/db.config)
-   host: "localhost",
-   dialect: "mysql",
- });
-
+const sequelize = new Sequelize(
+  `${process.env.DB_NAME}`,
+  `${process.env.USER_NAME}`,
+  `${process.env.PASSWORD_DB}`,
+  {
+    
+    host: "localhost",
+    dialect: "mysql",
+  }
+);
 const userRoutes = require("./routes/api/user");
 const ArtRoutes = require("./routes/api/articles");
 const commentRoutes = require('./routes/api/comment');
-const likeRoutes = require('./routes/api/like_dislike');
+
 
 
 
@@ -60,9 +65,7 @@ app.use("/article", ArtRoutes);
 
 app.use("/comment", commentRoutes);
 
-// app.use("/like", likeRoutes);
-// app.use("/art", likeRoutes);
-// app.use("/dislike", likeRoutes);
+
 
 
 
