@@ -40,9 +40,9 @@ export default {
     },
     goToLogin(){
 
-      this.$router.push("/");
       this.modalClose();
       this.$store.dispatch("disconnect")
+      this.$router.push("/");
     }
   }
 

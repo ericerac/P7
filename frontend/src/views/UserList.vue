@@ -59,7 +59,7 @@
                                 class="mr-25 w-4 h-4 overflow-hidden text-center border-1 brc-secondary-m2 radius-round shadow-sm d-zoom-2">
                                 <img v-if="user.media" alt="photo profil des utilisateurs" :src="user.media"
                                     class="h-4 w-4" />
-                                <img v-else alt="logo groupomania" src="../assets/icon.svg" class="h-4 w-4" />
+                                <img v-else alt="logo groupomania" src="../assets/icon.png" class="h-4 w-4" />
                             </span>
 
                             <span class="text-default-d3 text-90 text-600">

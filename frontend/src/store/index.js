@@ -39,7 +39,7 @@ instance.interceptors.response.use(
     const supp = response.data.message;
 //  console.log("RESPONSE",response);
     if (supp == "jwt expired") {
-      console.log("JWT EXPIRED");
+      // console.log("JWT EXPIRED");
 
       store.commit(
         "ModalMessage",
@@ -193,7 +193,7 @@ const store = createStore({
 
     modalErrorClose: ({ commit }) => {
       commit("ModalError", false);
-      window.location.reload();
+     
     },
 
     OpenDetailUser: ({ commit }) => {
@@ -208,7 +208,7 @@ const store = createStore({
       $cookies.remove("user");
       userId = "";
 
-      this.$router.push("/");
+      // this.$router.push("/");
     },
 
     //------------- SIGNUP LOGIN-------------------_//

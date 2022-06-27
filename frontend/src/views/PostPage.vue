@@ -122,7 +122,7 @@
                                 <div id="postText">
 
                                     <textarea v-model="CommentContent" class="commentaire form-control " type="text"
-                                        size="6" placeholder="Commenter" maxlength="1000"></textarea>
+                                         placeholder="Commenter" maxlength="1000"></textarea>
                                     <div class="iconComment">
 
                                         <div class="ico">
@@ -217,11 +217,18 @@ import store from "@/store/index.js";
 const axios = require("axios");
 const FormData = require("form-data");
 
+let data="";
+let userId="";
+let userToken="";
+if(!$cookies.get("user")){
+store.dispatch("goToLogin");
+}else{
 let user = $cookies.get("user");
-let userId = user.userId;
-let userToken = user.token;
+userId = user.userId;
+userToken = user.token;
+}
 
-let data = {
+ data = {
     userId: userId,
     token: userToken,
 }
@@ -233,9 +240,14 @@ export default {
     components: {},
     props: {},
     mounted: function () {
+        if(!$cookies.get("user")){
+        this.$router.push("/");
+        }
+        else{
         const AuthUser = $cookies.get("user");
         const userId = AuthUser.userId;
         this.userData(userId);
+        }
     },
 
     data: function () {
@@ -727,6 +739,7 @@ span {
     width: 95%;
     margin: 0 auto;
     box-shadow: 2px 5px 15px rgba(24, 28, 33, 0.2);
+    resize: both;
     /* border:none; */
 }
 
