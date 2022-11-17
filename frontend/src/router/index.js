@@ -1,38 +1,46 @@
 import { createRouter, createWebHistory } from "vue-router";
 
-import Login from "../components/Login.vue";
-import UserList from "@/views/UserList.vue";
-import profil from "@/views/Profil.vue";
+//  import login from "../components/Login.vue";
+  //  const login = require("../components/Login .vue")
+// import accueil from "@/views/Accueil.vue";
+// import profil from "@/views/Profil.vue";
+
+
 
 const routes = [
   {
-    name: "postPage",
-    path: "/postPage",
-    component: () => import("@/views/PostPage.vue"),
+    name: "accueil",
+    path: "/accueil",
+    component: () => import("../views/Accueil.vue"),
   },
 
   {
     name: "login",
-    path: "/",
-    component: Login,
-    //  component: () => import("../components/Login.vue"),
+    path: "/login",
+    
+    component: () => import("../components/Login .vue"),
+    
   },
   {
-    name: "profil",
-    path: "/profil",
-    component: profil,
+    name: "test",
+    path: "/test",
+    
+    component: () => import("../views/test.vue"),
+    
+  },
+
+
+  {
+    name: "ad1920384756ytrdehdk",
+    path: "/ad1920384756ytrdehdk",
+    component: () => import("@/views/AdminPage.vue"),
   },
   {
-    name: "updateProfil",
-    path: "/updateProfil",
-    component: () => import("@/views/updateProfil.vue"),
+    name: "calentar",
+    path: "/cal",
+    component: () => import("../views/test.vue"),
   },
-  {
-    name: "userList",
-    path: "/UserList",
-    component:UserList,
-    // component: () => import("@views/UserList.vue"),
-  },
+
 ];
 
 const router = createRouter({

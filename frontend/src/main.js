@@ -5,17 +5,9 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 
-import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-import { library } from "@fortawesome/fontawesome-svg-core";
-import { faUser } from "@fortawesome/free-regular-svg-icons";
-import { faBell } from "@fortawesome/free-regular-svg-icons";
-import { faCaretSquareDown } from "@fortawesome/free-regular-svg-icons";
-import { fa } from "@fortawesome/free-regular-svg-icons";
-import { fas } from '@fortawesome/free-solid-svg-icons'
-
-library.add(faUser);
-//Vue.component('font-awesome-icon', FontAwesomeIcon)
+import VueCookies from "vue-cookies";
+import cookie from './plugins/cookie'
 
 
 
-createApp(App).use(router).use(store).component('fa', FontAwesomeIcon).mount("#app");
+createApp(App).use(cookie).use(router).use(store).use(VueCookies).mount("#app");

@@ -1,43 +1,73 @@
-import { createStore } from "vuex";
-const axios = require("axios");
 
+
+//---------------------------------------//
+//---------------------------------------//
+//---------------------------------------//
+//---------------------------------------//
+//---------------------------------------//
+import { createApp } from 'vue'
+import { createStore } from "vuex";
+const commit = require("vuex");
+
+
+import Vuex from "vuex";
 const mapState = require("vuex");
 import Vue from "vue";
-import VueCookies from "vue-cookies";
 
-let userId = "";
-let userToken = "";
+import { useCookies } from "vue3-cookies";
+const { cookies } = useCookies();
+
+import axios from "axios";
+
+
+
+// let userId = "";
+// let userToken = "";
+
+// const instance = axios.create({
+//   baseURL: "http://localhost:3000/",
+// });
+
+// // --------------------------------------------------------//
+// // -----------*** INTERCEPTORS REQUEST ***-----------------//
+// // --------------------------------------------------------//
+
+// instance.interceptors.request.use(
+//   function (config) {
+//     if ($cookies.get("user")) {
+//       const AuthUser = $cookies.get("user");
+//       const token = AuthUser.token;
+
+//       if (token) {
+//         config.headers.Authorization = `Bearer ${token}`;
+//       }
+//     }
+// console.log(" INTER REQ",config);
+//     return config;
+//   },
+//   (error) => {
+//     return Promise.reject(error);
+//   }
+// );
+
+
+// // --------------------------------------------------------------//
+// // -----------------*** INSTANCE ***----------------//
+// // --------------------------------------------------------------//
 
 const instance = axios.create({
   baseURL: "http://localhost:3000/",
 });
 
-// ----------- INTERCEPTORS REQUEST -----------------//
-
-instance.interceptors.request.use(
-  function (config) {
-    if ($cookies.get("user")) {
-      const AuthUser = $cookies.get("user");
-      const token = AuthUser.token;
-
-      if (token) {
-        config.headers.Authorization = `Bearer ${token}`;
-      }
-    }
-
-    return config;
-  },
-  (error) => {
-    return Promise.reject(error);
-  }
-);
-
-// ----------- INTERCEPTORS RESPONSE -----------------//
+// // --------------------------------------------------------------//
+// // -----------------*** INTERCEPTORS RESPONSE ***----------------//
+// // --------------------------------------------------------------//
 
 instance.interceptors.response.use(
   function (response) {
     const supp = response.data.message;
-//  console.log("RESPONSE",response);
+    //  console.log("RESPONSE",response);
+    console.log("RESPONSE INTER", supp);
     if (supp == "jwt expired") {
       // console.log("JWT EXPIRED");
 
@@ -62,16 +92,28 @@ instance.interceptors.response.use(
     return response;
   },
   (error) => {
+    console.log("ERROR INTER", error);
+    console.log("ERROR INTER", error.response.data.error);
     store.commit("ModalError", true);
     if (error.response.status == 401) {
-      store.commit("ModalMessage", error.response.data.message);
-    } else if (error.response.data.error == "Ce compte n'existe pas") {
       store.commit("ModalMessage", error.response.data.error);
-    } else if (error.response.data.error == "Mot de passe incorrect !") {
-      store.commit("ModalMessage", error.response.data.error);
-    } else if (error.response.data.message) {
-      store.commit("ModalMessage", error.response.data.message);
-    } else if (error.response.status == 429) {
+      store.commit("ModalError", true);
+      // console.log("MODAL MESSAGE", error.response.data.error);
+    }
+    //else if (error.response.data.error == "Ce compte n'existe pas") {
+    //   store.commit("ModalMessage", error.response.data.error);
+    // } else if (error.response.data.error == "Mot de passe incorrect !") {
+    //   store.commit("ModalMessage", error.response.data.error);
+    // } else if (error.response.data.message) {
+    //   store.commit("ModalMessage", error.response.data.message);
+
+    // } 
+    //  else if (error.response.data.error == "Compte utilisateur non trouvé !") {
+    //   this.store.commit("ModalMessage", error.response.data.error);
+    //   console.log("error.response.data.message",error.response.data.message);
+
+    // } 
+    else if (error.response.status == 429) {
       store.commit(
         "ModalMessage",
         "Nombre de requetes excessives, réessayer dans un instant "
@@ -86,139 +128,114 @@ instance.interceptors.response.use(
   }
 );
 
+
+
 const store = createStore({
   state: {
     status: false,
-
-    user: "",
-    userId: "",
-
-  
-    detailUser: false,
-
-    modal: false,
+    user:"",
+    pageData: "",
+    token: "",
+    doLogin: "",
+    dologout: "",
+    userName: "",
+    auth: "",
     modalMessage: "",
-
-    modalSucces: false,
-    succesMessage: "",
-
-    PostData: {},
-
-    articles: "",
-
-    
-    userToken: "",
-    
-    useData: "",
-    allsUsersData: "",
-    userData: "", // data user connected
-    alldata: "",
-    artData: "", // contenu des articles
+    modalError: false,
   },
+  modules: {},
 
   mutations: {
-    logUser: (state, user) => {
-      state.user = user;
-      $cookies.set("user", JSON.stringify(user));
+    logUser: (state, val) => {
+      console.log("MUT USER LOG USER", val);
+      state.user = val;
+       // eslint-disable-next-line no-undef
+       $cookies.set("user", JSON.stringify(val), "1h");
     },
-
-    logToken: (state, token) => {
-      state.token = token;
+    logToken: (state, val) => {
+      console.log("MUT USER LOG TOKEN", val);
+      state.token = val;
+      // $cookies.set("user", JSON.stringify(val.token)), "1h";
     },
-
+    DoLogin(state, username) {
+      state.auth = true;
+      state.username = username;
+    },
+    DoLogout(state) {
+      state.auth = false;
+      state.username = null;
+    },
+    PageData: (state, val) => {
+      state.pageData = val;
+    },
     ModalError: (state, val) => {
-      state.modal = val;
-    },
-
+      console.log("ModalError", val);
+      state.modalError = val;
+    }
+    ,
     ModalMessage: (state, val) => {
+      console.log("ModalMessage", val);
       state.modalMessage = val;
-    },
-
-    CloseDetailUser: (state, val) => {
-      state.detailUser = val;
-    },
-
-    OpenDetailUser: (state, val) => {
-      state.detailUser = val;
-    },
-
-    ModalSucces: (state, val) => {
-      state.modalSucces = val;
-    },
-
-    OpenModalSucces: (state, val) => {
-      state.modalSucces = val;
-    },
-
-    SuccesMessage: (state, val) => {
-      state.succesMessage = val;
-    },
-    Status: (state, val) => {
-      state.status = val;
-    },
-
-    UserData: (state, userData) => {
-      state.userData = userData;
-    },
-    AllsUsersData: (state, allsUsersData) => {
-      state.allsUsersData = allsUsersData;
-    },
-    ArtData: (state, artData) => {
-      state.artData = artData;
-    },
-    UseData: (state, useData) => {
-      state.useData = useData;
-    },
-
-    AllData: (state, alldata) => {
-      state.alldata = alldata;
-    },
-
-    
-    Articles: (state, articles) => {
-      state.articles = articles;
-    },
-    Comments: (state, comments) => {
-      state.comments = comments;
-    },
-    
+    }
   },
 
   computed: {},
 
+  //----------------------------------------------------------------------------------//
+  //----------------------------------*** ACTIONS ***---------------------------------//
+  //----------------------------------------------------------------------------------//
+
   actions: {
-    erreurSignupForm: ({ commit }) => {
-      commit("erreurMessage", true);
-    },
 
-    modalErrorClose: ({ commit }) => {
-      commit("ModalError", false);
-     
-    },
-
-    OpenDetailUser: ({ commit }) => {
-      commit("CloseDetailUser", true);
-    },
-
-    CloseDetailUser: ({ commit }) => {
-      commit("CloseDetailUser", false);
-    },
+    //----------------UTILITIES---------------//
 
     disconnect() {
       $cookies.remove("user");
-      userId = "";
+     
 
       // this.$router.push("/");
     },
+
+    modalErrorClose:
+      ({
+        commit,
+      }) => {
+        commit("ModalError", false)
+
+      },
+    
+
+    //----------------* GET PAGE DATA 2*---------------//
+    getPageData:
+      ({
+        commit,
+      },
+        n) => {
+        return new Promise((resolve, reject, response) => {
+          instance
+            .get(`inici?name=${n}`)
+            .then((res) => {
+              commit("PageData", res.data);
+
+              console.log("RESPONSE GET STORE", res.data);
+              resolve(res);
+            })
+            .catch((err) => {
+              reject(err);
+            });
+        });
+
+      },
 
     //------------- SIGNUP LOGIN-------------------_//
 
     signupPost: ({ commit }, userData) => {
       return new Promise((resolve, reject, response) => {
         instance
-          .post("/signup", userData)
+          .post("/inici/coconexion", userData)
           .then((res) => {
             commit("Status", true);
+
             console.log("REPONSE", res);
             resolve(res);
           })
@@ -229,14 +246,16 @@ const store = createStore({
     },
 
     loginPost: ({ commit }, userData) => {
+      console.log("LOGIN POST STORE");
       return new Promise((resolve, reject) => {
         instance
-          .post("/login", userData)
+          .post("/inici/coconexion", userData)
           .then((response) => {
             //  setHeaders(response.data.token)
             console.log("RESP LOGIN INDEX", response.data);
-            commit("logUser", response.data);
+          commit("logUser", response.data);
             commit("logToken", response.data.token);
+            // commit("Logon", response.data.userLogon);
             resolve(response);
           })
           .catch((err) => {
@@ -244,198 +263,7 @@ const store = createStore({
           });
       });
     },
-
-    //-----------------GET ONE USER DATA----------------(())
-    getUserData: async ({ commit }, data) => {
-      const userId = data;
-
-      await instance
-        .get(`/user?id=${userId}`, {})
-        .then((res) => {
-          const countArticle = res.data.article.length;
-          commit("Articles", countArticle);
-          const countComment = res.data.comment.length;
-
-          commit("Comments", countComment);
-
-          if (res) {
-            commit("UserData", res.data);
-          } else {
-          }
-        })
-        .catch((err) => {});
-    },
-
-    //-----------------DELETE USER--------------------//
-
-    deleteUser: ({ commit }, data) => {
-      
-
-      const body = {
-        id: data,
-      };
-
-      return new Promise((resolve, reject) => {
-        instance
-          .put(`/user/delete?id=${data}`, body, {})
-          .then((response) => {
-            if (response) {
-              commit("CloseDetailUser", false);
-            }
-            resolve(response);
-          })
-          .catch((err) => {
-            reject(err);
-          });
-      });
-    },
-
-    //----------UPDATE USER 1------------//
-
-    updateUser: ({ commit }, Data) => {
-      
-
-      return new Promise((resolve, reject) => {
-        instance
-          .put("/user/update", Data, {})
-          .then((response) => {
-            resolve(response);
-          })
-          .catch((err) => {
-            reject(err);
-          });
-      });
-    },
-
-    //-----------------GET ALL USERS DATA----------------(())
-    getAllUsersData: async ({ commit }, usersId) => {
-      
-
-      await instance
-        .get(`/user/all`, {})
-        .then((res) => {
-          commit("AllsUsersData", res.data);
-        })
-        .catch((err) => {});
-    },
-    //-----------UPLOAD POST-----------------//
-    uploadPost: ({ commit }, data) => {
-      
-
-      return new Promise((resolve, reject) => {
-        instance
-          .post("/article/post", data, {})
-          .then((response) => {
-            commit("ArtData", response.data);
-            resolve(response);
-          })
-          .catch((err) => {
-            reject(err);
-          });
-      });
-    },
-
-    //-------------------UPDATEPOST-----------------//
-
-    updatePost: ({ commit }, Data) => {
-      
-
-      return new Promise((resolve, reject) => {
-        instance
-          .put("/article/update", Data, {})
-          .then((response) => {
-            resolve(response);
-          })
-          .catch((err) => {
-            reject(err);
-          });
-      });
-    },
-    //-----------UPLOAD COMMENT-----------------//uploadComment
-    uploadComment: ({ commit }, data) => {
-      
-
-      return new Promise((resolve, reject) => {
-        instance
-          .post("/comment/post", data, {})
-          .then((response) => {
-            resolve(response);
-          })
-          .catch((err) => {
-            reject(err);
-          });
-      });
-    },
-    //----------------GET ALL ARTICLES---------------//
-    getAllArticle: ({ commit }) => {
-      
-      const Us = userId;
-
-      return new Promise((resolve, reject) => {
-        instance
-          .get(`/article/all`, Us, {})
-          .then((res) => {
-            const usersId = [];
-
-            const Artrevers = res.data.reverse();
-            commit("ArtData", Artrevers);
-            const resData = res.data;
-            const art = resData.article;
-
-            const comments = resData.map((a) => a.comment);
-            const sommeLike = resData.map((item) => item.dislike);
-
-            const liked = sommeLike.map((l) => l.like).reduce((a, b) => a + b);
-            commit("Comments", comments);
-
-            commit;
-
-            // commit("UsersId", usersId);
-
-            resolve(res);
-          })
-
-          .catch((err) => {
-            reject(err);
-          });
-      });
-    },
-
-    //---------------DELETE ARTICLE----------------//
-
-    deleteArticle: ({ commit }, data) => {
-      
-
-      return new Promise((resolve, reject) => {
-        instance
-          .put(`/article/delete`, data, {})
-          .then((response) => {
-            resolve(response);
-          })
-          .catch((err) => {
-            reject(err);
-          });
-      });
-    },
-    //---------------DELETE COMMENT----------------//
-
-    deleteComment: ({ commit }, data) => {
-      
-
-      return new Promise((resolve, reject) => {
-        instance
-          .put(`/comment/delete`, data, {})
-          .then((response) => {
-            resolve(response);
-          })
-          .catch((err) => {
-            reject(err);
-          });
-      });
-    },
-
-    
   }, // fin actions
-});
+}); // fin Store
 
 export default store;

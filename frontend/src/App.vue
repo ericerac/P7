@@ -2,9 +2,9 @@
 
 
 
-<div v-if="modal">
+<!-- <div v-if="modal">
 <ModalMessageVue />
-</div>
+</div> -->
 <routerView/>
 <!-- <router-view class="view"> </router-view> -->
  
@@ -12,8 +12,6 @@
 
 <script>
 import { mapState } from 'vuex';
-import ModalMessageVue from './components/ModalMessage.vue'
-
 
 export default {
   name: 'App',
@@ -24,13 +22,13 @@ export default {
         };
     },
   components: {
-ModalMessageVue
+// ModalMessage
   },
 
   computed:{
     ...mapState({
-      modalMessageVue: "modalMessage",
-      modal:"modal",
+      // modalMessage: "modalMessage",
+      // modal:"modal",
 
     })
   }
