@@ -5,13 +5,13 @@
       justify-content-md-center">
         <div class="col-12">
           Column 1
-          <h1>Title: {{ pageData.title_1 }}</h1>
+          <h1>Title: {{ pageData[0].title_1 }}</h1>
         </div>
         <div class="col-12 col-md-12 col-lg-12">
           Column 1
-          <h3>Title: {{ pageData.name }}</h3>
+          <h3>Name: {{ pageData[0].name }}</h3>
         </div>
-        <div class="col-12 col-md-12 col-lg-12">{{ pageData.subTitle_1 }}</div>
+        <div class="col-12 col-md-12 col-lg-12">{{ pageData[0].subTitle_1 }}</div>
         <div class="col"></div>
       </div>
     </div>
@@ -21,12 +21,10 @@
           Column 2
         </div>
         <div class="col-12 col-md-auto">
-          <p>{{ pageData.p_1 }}</p>
+          <p>{{ pageData[0].p_1 }}</p>
         </div>
 
-        <div class="col-6 col-sm-1 col-md-3 col-lg-4 col-xl-3 col-xxl-3">
-          Column 2
-        </div>
+        
       </div>
     </div>
     <div class="container-fluid text-center">
@@ -170,75 +168,25 @@
         <div class="col">
           <!-- <div class="col-4 col-xl-4 justify-content-center"> -->
           Column 1
-          <h1>row row-cols-2: {{ pageData.title_1 }}</h1>
+          <h1>row row-cols-2: {{ pageData[0].title_1 }}</h1>
         </div>
 
-        <div class="col-auto">
-          <!-- <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-3"> -->
-          <a
-            class="btn"
-            data-bs-toggle="collapse"
-            href="#collapseExample"
-            role="button"
-            aria-expanded="false"
-            aria-controls="collapseExample"
-          >
-            <div class="card" style="width: 18rem">
-              <img src="../assets/logo.png" class="card-img-top" alt="..." />
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <div id="collapseExample" class="collapse">
-                  <p class="card-text">
-                    Some quick example text to build on the card title and make
-                    up the bulk of the card's content.
-                  </p>
-                </div>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-              </div>
-            </div>
-          </a>
-        </div>
+        
 
-        <div class="col">{{ pageData.subTitle_1 }}</div>
+        <div class="col">{{ pageData[0].subTitle_1 }}</div>
         <!-- <div class="col-4 col-md-12 col-lg-12 col-xl-4">{{ pageData.subTitle_1 }}</div> -->
       </div>
     </div>
-    <div class="container overflow-hidden">
-      <div class="row  row-cols-xl-2 justify-content-center">
-        <div class="col-xl 3 text-center">
-          <img src="../assets/images/1.jpg" class="rounded image" alt="..." />
-        </div>
-        <div class="col-xl 3  text-center">
-          <img src="../assets/images/2.jpg" class="rounded image" alt="..." />
-        </div>
-        <div class="col-xl 3  text-center">
-          <img src="../assets/images/3.jpg" class="rounded image" alt="..." />
-        </div>
-        <div class="col-xl 3  text-center">
-          <img src="../assets/images/4.jpg" class="rounded image" alt="..." />
-        </div>
-        <div class="col-xl 3  text-center">
-        <img src="../assets/images/5.jpg" class="rounded image" alt="..." />
-      </div>
-      <div class="col-xl 3  text-center">
-        <img src="../assets/images/6.jpg" class="rounded image" alt="..." />
-      </div>
-        <div class="col-xl 3  text-center">
-        <img src="../assets/images/7.jpg" class="rounded image" alt="..." />
-      </div>
-      <div class="col-xl 3  text-center">
-        <img src="../assets/images/8.jpg" class="rounded image " alt="..." />
-      </div>
-        
-      </div>
-    </div>
+    
   </div>
 </template>
 
 <script>
 const FormData = require("form-data");
-import { axios } from "axios";
-import { mapGetters, mapState } from "vuex";
+// import { axios } from "axios";
+import {  mapState } from "vuex";
+import {  lire } from "../js/script";
+lire("PATATE FROIDE");
 
 export default {
   name: "Accueil",

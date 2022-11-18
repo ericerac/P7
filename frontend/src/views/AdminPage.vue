@@ -5,7 +5,7 @@
   <li  @click="goToHome()"> p1 </li>
   <li @click="goToHome()">p2 </li>
   <li @click="goToHome()">p3 </li>
-  <li @click="goToHome()">p4 </li>
+  <li @click="goToCal()">Calendar </li>
   
 
 </ul>
@@ -32,6 +32,7 @@ export default {
     return{
 pageName:"",
 home:false,
+
     }
   },
   computed: {
@@ -40,6 +41,7 @@ home:false,
       modalMessage:"modalMessage",
       modalError:"modalError",
       user:"user",
+       pageData:"pageData"
 
         }),
       },
@@ -53,10 +55,22 @@ home:false,
 
 goToHome: function () {
   console.log("GO TO HOME");
+    this.getPageData()
       // this.$router.push("/ad1920384756ytrdehdk");
 this.home = true;
     },
 
+    getPageData() {
+      const n = "INICIO 1";
+      this.$store.dispatch("getPageData", n) .then( (response)=>{
+        console.log("RESPONSE HOME",response);
+        if(response){
+          this.home = true;
+        }
+      })
+      
+      console.log("REQUET GET ACCUEIL PAGE DATA-----> ", n);
+    },
 
   }
 }

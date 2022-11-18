@@ -28,8 +28,13 @@ const routes = [
     component: () => import("../views/test.vue"),
     
   },
-
-
+  {
+    name: "portada",
+    path: "/portada",
+  
+    component: () => import("../views/portada.vue"),
+    
+  },
   {
     name: "ad1920384756ytrdehdk",
     path: "/ad1920384756ytrdehdk",
@@ -39,6 +44,11 @@ const routes = [
     name: "calentar",
     path: "/cal",
     component: () => import("../views/test.vue"),
+  },
+  {
+    name: "galerie",
+    path: "/gal",
+    component: () => import("../views/galerie.vue"),
   },
 
 ];

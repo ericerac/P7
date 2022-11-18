@@ -211,7 +211,7 @@ const store = createStore({
         commit,
       },
         n) => {
-        return new Promise((resolve, reject, response) => {
+        return new Promise((resolve, reject) => {
           instance
             .get(`inici?name=${n}`)
             .then((res) => {

@@ -25,13 +25,13 @@
                   <span>{{ d.info_top }}</span>
                 </div>
                 <a :href="d.link_event">
-                  <img class="img_thumb" :src="d.imageUrl" alt="affiche Event" />
-                  <!-- <img
+                  <!-- <img class="img_thumb" :src="d.imageUrl" alt="affiche Event" /> -->
+                  <img
                 v-if="d.imageUrl"
                 alt="affiche Event"
-                :src="d.imageUrl"
+                :src="(d.imageUrl)"
                 
-              /> -->
+              />
                 </a>
               </div>
               <div class="down-content">

@@ -7,13 +7,13 @@
         <form class="updateProfil-form">
           <div class="fond-form">
             <span class="form-title">
-              Vous êtes sur la page {{ pData.name }}</span
+              Vous êtes sur la page {{ pageData[0].name }}</span
             >
             <div class="form-group"></div>
             <div class="form-group">
               <label>Nom de la page </label>
               <input
-                v-model="pData.name"
+                v-model="pageData[0].name"
                 type="text"
                 name="nom"
                 class="form-control"
@@ -23,7 +23,7 @@
             <div class="form-group">
               <label>Titre 1</label>
               <input
-                v-model="pData.title_1"
+                v-model="pageData.title_1"
                 type="text"
                 name="prenom"
                 class="form-control"
@@ -34,14 +34,14 @@
             <div class="form-group">
               <label>Sous-titre 1</label>
               <input
-                v-model="pData.subTitle_1"
+                v-model="pageData.subTitle_1"
                 class="form-control"
                 placeholder="pageData.name"
               />
             </div>
             <label>paragraphe 1</label>
             <textarea
-              v-model="pData.p_1"
+              v-model="pageData.p_1"
               class="mt-3 form-control"
               col="6"
               rows="2"
@@ -52,10 +52,10 @@
             ></textarea>
 
             <div class="form-group">
-              <label>image 1{{pData.imageUrl}}</label>
+              <label>image 1{{pageData.imageUrl}}</label>
               <img
                 class=""
-                :src= "pData.imageUrl"
+                :src= "pageData.imageUrl"
                 alt="image"
                 width="200"
                 height="160"
@@ -91,6 +91,7 @@
 <script>
 import { mapGetters, mapState } from "vuex";
 import axios from "axios";
+
 const instance = axios.create({
   baseURL: "http://localhost:3000/",
 });
@@ -100,7 +101,7 @@ const instance = axios.create({
 const def = () => console.log("HOME : VUE");
 def();
 
-let pageData = {};
+
 
 export default {
   name: "ad1920384756ytrdehdk",
@@ -110,31 +111,18 @@ export default {
       mode: "login",
       content: "",
 
-      pData: [],
-    };
-  },
-
-  mounted: function () {
-    console.log(" MOUNTED HOME ");
-
-    const getPageData = () => {
-      console.log("getPageData____");
-      const n = "INICIO 1";
-  const tech = this;
-      instance
-        .get(`inici?name=INICIO 1`)
-        .then(function (res) {
-          console.table("RESPONSE GET STORE", res.data);
-          console.table("RES DATA NAME ----->", res.data.name);
-          tech.pData = res.data;
-        })
-        .catch(function (err) {
-          console.log("ERREUR GET STORE", err);
-        });
       
     };
-    getPageData();
   },
+
+  created: function () {
+    console.log(" MOUNTED HOME ");
+
+    // this.getPageData();
+      
+    },
+   
+  
 
   components: {
     // ModalMessage,
@@ -145,13 +133,19 @@ export default {
     ...mapState({
       modal: "modal",
       modalMessage: "modalMessage",
-      // pageData: "pageData",
+        pageData: "pageData",
     }),
   },
 
   methods: {
     FileUpload(event) {
       this.fileSelected = event.target.files[0];
+    },
+
+    getPageData() {
+      const n = "INICIO 1";
+      this.$store.dispatch("getPageData", n);
+      console.log("REQUET GET ACCUEIL PAGE DATA-----> ", n);
     },
   },
 };
