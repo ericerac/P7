@@ -14,13 +14,16 @@
     "@fortawesome/vue-fontawesome": "^3.0.0-5",
     "core-js": "^3.8.3",
     "form-data": "^4.0.0",
+    "formdata-node": "^5.0.0",
     "http": "^0.0.1-security",
     "moment": "^2.29.3",
+    "nodemailer": "^6.8.0",
     "vue": "^3.2.13",
     "vue-cookies": "^1.8.2",
     "vue-router": "^4.0.13",
     "vue3-cookies": "^1.0.6",
-    "vuex": "^4.0.2"
+    "vuex": "^4.0.2",
+    "webpack": "^5.75.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",

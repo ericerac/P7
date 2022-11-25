@@ -6,13 +6,13 @@
     <div class="wrapper ">
       <div class="container ">
         
-        <form class="login-form">
-          <img
+        <form class="login-form" autocomplete="on">
+          <!-- <img
             src=""
             alt="logo"
             width="100"
             height="80"
-          />
+          /> -->
           <span class="form-title"
             >Accés administration</span
           >
@@ -247,7 +247,7 @@ watch: {
 
                 })
                 .catch((err) => {
-                  
+                  console.log("ERREUR",err);
                 });
         },
     },
@@ -309,8 +309,8 @@ body {
     width: 50%;
     height: auto;
     border-radius: 15px;
-    background-color: #FFE53B;
-    background-image: linear-gradient(147deg, #FFE53B 0%, #FF2525 74%);
+    /* background-color: #FFE53B;
+    background-image: linear-gradient(147deg, #FFE53B 0%, #FF2525 74%); */
 
 }
 /* .login-form {

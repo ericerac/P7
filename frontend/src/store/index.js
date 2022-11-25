@@ -9,9 +9,9 @@ import { createApp } from 'vue'
 import { createStore } from "vuex";
 const commit = require("vuex");
 
-
+import {loginPost} from "./user"
 import Vuex from "vuex";
-const mapState = require("vuex");
+// const mapState = require("vuex");
 import Vue from "vue";
 
 import { useCookies } from "vue3-cookies";
@@ -21,16 +21,53 @@ import axios from "axios";
 
 
 
+
 // let userId = "";
 // let userToken = "";
 
-// const instance = axios.create({
-//   baseURL: "http://localhost:3000/",
-// });
+// // --------------------------------------------------------------//
+// // -----------------*** INSTANCE ***----------------//
+// // --------------------------------------------------------------//
+
+const instance = axios.create({
+  baseURL: "http://localhost:3000/",
+});
 
 // // --------------------------------------------------------//
-// // -----------*** INTERCEPTORS REQUEST ***-----------------//
+// // -----------*** INTERCEPTORS REQUEST "2" ***-----------------//
 // // --------------------------------------------------------//
+
+instance.interceptors.request.use(
+  function (config) {
+
+    console.log(" INTER REQ CONFIG",config);
+
+// if(!config.data){
+//   console.log(" INTER REQ config data ----> ","FALSE");
+//   store.commit("ModalMessage", "C'est ici qu'il faut arreter la requete en cas de body");
+//   throw new axios.Cancel('Operation canceled by the user.');
+// }
+
+
+    if ($cookies.get("user")) {
+      const AuthUser = $cookies.get("user");
+      const token = AuthUser.token;
+
+      if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+      }
+    }
+
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
+
+// // // --------------------------------------------------------//
+// // // -----------*** INTERCEPTORS REQUEST 1 ***-----------------//
+// // // --------------------------------------------------------//
 
 // instance.interceptors.request.use(
 //   function (config) {
@@ -51,13 +88,7 @@ import axios from "axios";
 // );
 
 
-// // --------------------------------------------------------------//
-// // -----------------*** INSTANCE ***----------------//
-// // --------------------------------------------------------------//
 
-const instance = axios.create({
-  baseURL: "http://localhost:3000/",
-});
 
 // // --------------------------------------------------------------//
 // // -----------------*** INTERCEPTORS RESPONSE ***----------------//
@@ -93,7 +124,7 @@ instance.interceptors.response.use(
   },
   (error) => {
     console.log("ERROR INTER", error);
-    console.log("ERROR INTER", error.response.data.error);
+    // console.log("ERROR INTER", error.response.data.error);
     store.commit("ModalError", true);
     if (error.response.status == 401) {
       store.commit("ModalMessage", error.response.data.error);
@@ -113,7 +144,7 @@ instance.interceptors.response.use(
     //   console.log("error.response.data.message",error.response.data.message);
 
     // } 
-    else if (error.response.status == 429) {
+    else if (error.response.status == 429) { //trop de requetes trop vite
       store.commit(
         "ModalMessage",
         "Nombre de requetes excessives, réessayer dans un instant "
@@ -128,6 +159,7 @@ instance.interceptors.response.use(
   }
 );
 
+// // --------------------------------------------------------------//
 
 
 const store = createStore({
@@ -181,6 +213,7 @@ const store = createStore({
 
   computed: {},
 
+  
   //----------------------------------------------------------------------------------//
   //----------------------------------*** ACTIONS ***---------------------------------//
   //----------------------------------------------------------------------------------//
@@ -245,6 +278,7 @@ const store = createStore({
       });
     },
 
+    
     loginPost: ({ commit }, userData) => {
       console.log("LOGIN POST STORE");
       return new Promise((resolve, reject) => {
@@ -256,6 +290,65 @@ const store = createStore({
           commit("logUser", response.data);
             commit("logToken", response.data.token);
             // commit("Logon", response.data.userLogon);
+            resolve(response);
+          })
+          .catch((err) => {
+            reject(err);
+          });
+      });
+    },
+
+ //----------------* UTILITIES *---------------//
+
+    FileUpload(event) {
+     
+      this.fileSelected = event.target.files[0];
+
+    },
+
+
+    updatePage: ( { commit },data) => {
+      
+      
+      console.log("INDEX UPDATE PAGE DATA",data);
+      
+      return new Promise((resolve, reject) => {
+        instance
+          .put(`/inici/update?name=calendar`, data, {})
+          .then((response) => {
+            resolve(response);
+          })
+          .catch((err) => {
+            reject(err);
+          });
+      });
+    },
+
+    // ************* UPDATE 2 *****************
+
+    // updatePage:({ commit }, Data) => {
+    //   const id = Data.id
+
+    //   return new Promise((resolve, reject) => {
+    //     instance
+    //       .put(`/user/update?_id=${id}`, Data, {})
+    //       .then((response) => {
+    //         resolve(response);
+    //       })
+    //       .catch((err) => {
+    //         reject(err);
+    //       });
+    //   });
+    // },
+
+   createDate: ({ commit }, data) => {
+      
+
+      return new Promise((resolve, reject) => {
+        instance
+          .post("/inici/cal/create?page=cal", data, {})
+          .then((response) => {
+            commit("ArtData", response.data);
             resolve(response);
           })
           .catch((err) => {
