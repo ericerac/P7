@@ -91,7 +91,6 @@ n = "calendar"
         n = "portada"
       }
       
-
       this.$store.dispatch("getPageData", n).then((response) => {
         console.log("RESPONSE HOME", response);
         if (response && n == "portada") {

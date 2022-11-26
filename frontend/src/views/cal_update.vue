@@ -79,11 +79,11 @@
             </div>
         </div>
         <div class="display">
-    <div v-if="preview_component">
-      <prev />
-    </div>
+            <div v-if="preview_component">
+                <prev />
+            </div>
 
-  </div>
+        </div>
         <div class="row new_date">
             <button class="btn_display" @click="newDate = !newDate">New Date</button>
 
@@ -100,8 +100,7 @@
                             placeholder="pageData.name">
                     </label>
                     <label for="date_time">Hour
-                        <input name="name" type="number" v-model="pageData.hour" class="form-control"
-                            placeholder="">
+                        <input name="name" type="number" v-model="pageData.hour" class="form-control" placeholder="">
                     </label>
 
                     <label for="name">Month
@@ -186,9 +185,9 @@ export default {
             newDate: false,
             detail: "",
             // pageData:[],
-            preview_component:false,
-            Preview_imgUrl:"",
-            
+            preview_component: false,
+            Preview_imgUrl: "",
+
         };
     },
 
@@ -238,27 +237,27 @@ export default {
         // },
 
 
-        
+
         updatePage(x, ind) {
             let bodyFormData = new FormData();
             let n = ind;
             console.log("ID , INDEX CALENDAR CARD", x, ind); // ID bon
-            
-
-let file = this.fileSelected;
-
-console.log("file ---->", file );
-
-const stringi = JSON.stringify(this.pageData)
-// console.log("STRINGiFY ---->", stringi );
-const parsi = JSON.parse(stringi)
-// console.log("PARSI ---->", parsi );
 
 
-const cardUp = parsi.filter(i => i._id == x)
-            
-            
- console.log("cardUp ----->", cardUp)
+            let file = this.fileSelected;
+
+            console.log("file ---->", file);
+
+            const stringi = JSON.stringify(this.pageData)
+            // console.log("STRINGiFY ---->", stringi );
+            const parsi = JSON.parse(stringi)
+            // console.log("PARSI ---->", parsi );
+
+
+            const cardUp = parsi.filter(i => i._id == x)
+
+
+            console.log("cardUp ----->", cardUp)
 
 
 
@@ -267,19 +266,6 @@ const cardUp = parsi.filter(i => i._id == x)
 
 
             if (this.fileSelected) {
-
-                
-                // bodyFormData.append("imageUrl", this.fileSelected, this.fileSelected.name);
-                // bodyFormData.append("id", this.pageData._id);
-                // bodyFormData.append("info_top", this.pageData.info_top);
-                // bodyFormData.append("day", this.pageData.day);
-                // bodyFormData.append("month", this.pageData.month);
-                // bodyFormData.append("event", this.pageData.event);
-                // bodyFormData.append("detail", this.pageData.detail);
-                // bodyFormData.append("hour", this.pageData.hour);
-                // bodyFormData.append("link_event", this.pageData.link_event);
-                // bodyFormData.append("link_show", this.pageData.link_show);
-                // bodyFormData.append("name", this.pageData.name);
 
 
                 bodyFormData.append("image", this.fileSelected, this.fileSelected.name);
@@ -310,20 +296,24 @@ const cardUp = parsi.filter(i => i._id == x)
 
 
             }
-            console.log("BODY FORM DATA CALUPDATE", bodyFormData.entries());
-            for(var pair of bodyFormData.entries()) {
-   console.log(pair[0]+ ', '+ pair[1]); 
-}
+
+            //             console.log("BODY FORM DATA CALUPDATE", bodyFormData.entries());
+            //             for(var pair of bodyFormData.entries()) {
+            //    console.log(pair[0]+ ', '+ pair[1]); 
+            // }
 
 
             this.$store
-                .dispatch("updatePage", bodyFormData)
+                .dispatch("updatePage", {
+                    data:bodyFormData,
+                    page: "calendar"})
 
                 .then((response) => {
-
-                    alert("Votre page a bien été modifié")
-                    //  this.$router.push("/profil")
-
+                    if (response.status == 200) {
+                        console.log("RESPONSE CALUPDATE", response);
+                        alert("Votre page a bien été modifié")
+                        //  this.$router.push("/profil")
+                    }
 
                 })
                 .catch((response) => {
@@ -337,9 +327,9 @@ const cardUp = parsi.filter(i => i._id == x)
             //     alert(" Votre article est vide");
             //     return;
             // }
-            console.log("this.fileSelected---->",this.fileSelected);
-            console.log("this.pageData.info_top---->",this.pageData.info_top);
-        
+            console.log("this.fileSelected---->", this.fileSelected);
+            console.log("this.pageData.info_top---->", this.pageData.info_top);
+
             let bodyFormData = new FormData();
 
             if (this.fileSelected) {
@@ -348,42 +338,42 @@ const cardUp = parsi.filter(i => i._id == x)
 
 
 
-bodyFormData.append("image", this.fileSelected, this.fileSelected.name);
-// bodyFormData.append("id", this.pageData._id);
-bodyFormData.append("info_top", this.pageData.info_top);
-bodyFormData.append("day", this.pageData.day);
-bodyFormData.append("month", this.pageData.month);
-bodyFormData.append("event", this.pageData.event);
-bodyFormData.append("detail", this.pageData.detail);
-bodyFormData.append("hour", this.pageData.hour);
-bodyFormData.append("link_event", this.pageData.link_event);
-bodyFormData.append("link_show", this.pageData.link_show);
-bodyFormData.append("name", this.pageData.name);
+                bodyFormData.append("image", this.fileSelected, this.fileSelected.name);
+                // bodyFormData.append("id", this.pageData._id);
+                bodyFormData.append("info_top", this.pageData.info_top);
+                bodyFormData.append("day", this.pageData.day);
+                bodyFormData.append("month", this.pageData.month);
+                bodyFormData.append("event", this.pageData.event);
+                bodyFormData.append("detail", this.pageData.detail);
+                bodyFormData.append("hour", this.pageData.hour);
+                bodyFormData.append("link_event", this.pageData.link_event);
+                bodyFormData.append("link_show", this.pageData.link_show);
+                bodyFormData.append("name", this.pageData.name);
 
 
 
-} else {
-// bodyFormData.append("id", this.pageData._id);
-bodyFormData.append("info_top", this.pageData.info_top);
-bodyFormData.append("day", this.pageData.day);
-bodyFormData.append("month", this.pageData.month);
-bodyFormData.append("event", this.pageData.event);
-bodyFormData.append("detail", this.pageData.detail);
-bodyFormData.append("hour", this.pageData.hour);
-bodyFormData.append("link_event", this.pageData.link_event);
-bodyFormData.append("link_show", this.pageData.link_show);
-bodyFormData.append("name", this.pageData.name);
+            } else {
+                // bodyFormData.append("id", this.pageData._id);
+                bodyFormData.append("info_top", this.pageData.info_top);
+                bodyFormData.append("day", this.pageData.day);
+                bodyFormData.append("month", this.pageData.month);
+                bodyFormData.append("event", this.pageData.event);
+                bodyFormData.append("detail", this.pageData.detail);
+                bodyFormData.append("hour", this.pageData.hour);
+                bodyFormData.append("link_event", this.pageData.link_event);
+                bodyFormData.append("link_show", this.pageData.link_show);
+                bodyFormData.append("name", this.pageData.name);
 
-}
+            }
             this.$store
                 .dispatch("createDate", bodyFormData)
 
                 .then(function (response) {
-                   console.log("REPONSE CREA CAL UPDATE--->",response);
-                //     location.reload();
-                 })
+                    console.log("REPONSE CREA CAL UPDATE--->", response);
+                    //     location.reload();
+                })
                 .catch(function (response) {
-                   
+
                     console.log(response);
                 });
         },

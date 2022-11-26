@@ -220,9 +220,13 @@ export default {
        bodyFormData.append("nav_7", this.pageData[0].nav_7);
 
      }
-     console.log("BODY FORM DATA HOME",bodyFormData.entries(bodyFormData));
+     
      this.$store
-       .dispatch("updatePage", bodyFormData)
+       .dispatch("updatePage", {
+                    data:bodyFormData,
+                      // page: `${process.env.VUE_APP_PAGE1_NAME}`
+                      page: "portada"
+                  })
 
        .then((response) => {
        

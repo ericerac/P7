@@ -150,7 +150,7 @@ a {
 
 .container-fluid {
   /* background-image: url("../assets/images/mg_9636-2-2.jpg"); */
-  padding-top: 100px;
+  /* padding-top: 100px; */
 }
 
 .copyright {
@@ -167,7 +167,10 @@ a {
   margin-top: 0;
   margin-right: 0;
 }
-
+.right_bloc{
+  height: 600px;
+  overflow: hidden;
+}
 ul {
   list-style-type: none;
   margin-top: 1rem;

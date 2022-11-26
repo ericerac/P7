@@ -309,12 +309,13 @@ const store = createStore({
 
     updatePage: ( { commit },data) => {
       
-      
+      const page = data.page
       console.log("INDEX UPDATE PAGE DATA",data);
+      // console.log("INDEX UPDATE 2e arg",x);
       
       return new Promise((resolve, reject) => {
         instance
-          .put(`/inici/update?name=calendar`, data, {})
+          .put(`/inici/update?name=${page}`, data.data, {})
           .then((response) => {
             resolve(response);
           })
