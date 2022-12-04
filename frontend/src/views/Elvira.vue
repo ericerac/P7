@@ -9,8 +9,9 @@ const FormData = require("form-data");
 
 // import { axios } from "axios";
 import {  mapState } from "vuex";
-import {  lire } from "../js/script";
-lire("PATATE FROIDE");
+
+import {  delire } from "../modules/script";
+delire("PATATE FROIDE");
 
 
 export default {

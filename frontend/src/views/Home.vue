@@ -2,7 +2,9 @@
   
   <div class="container-fluid text-center">
     <div class="col-lg-8 col-xl-8 bloc-page">
+
       <!-- //----------------------- EDITION PAGE-------------------------// -->
+
       <div class="col-lg-12 col-xl-12 card-component bg-white mb-3 pb-2 pt-1">
         <form class="updateProfil-form">
           <div class="fond-form">
@@ -85,7 +87,8 @@
             ></textarea>
 
             <div class="form-group">
-              <label>image 1{{pageData.imageUrl}}</label>
+              <button class="btn_delete_img">Éffacer l'image</button>
+              <label>image 1</label>
               <img
                 class=""
                 :src= "pageData[0].imageUrl"
@@ -93,15 +96,17 @@
                 width="200"
                 height="160"
               />
-              <div class="form-group">
+              <div class="form-group group_btn_img">
+               
+
                 <label for="image">
                   <input
                     type="file"
                     name="image"
-                    id="PhotoPerfilChange"
+                    id="image1"
                     ref="file"
                     @change="FileUpload"
-                    accept="image/png, image/jpeg"
+                    accept="image/png, image/jpeg, image/jpg"
                 /></label>
               </div>
             </div>
@@ -114,7 +119,7 @@
 
             <label class="btn-action" for="retour"></label>
             <input type="button" name="retour" class="btn btn-primary mt-1 btn-lg btn-block" keyUp="enter"
-              value="Annuler" @click="goToProfil">
+              value="Annuler" @click="this.home = false;">
           </div>
           </div>
         </form>
@@ -184,16 +189,13 @@ export default {
 
     updatePage() {
      
-
-
-
     let bodyFormData = new FormData();
 
     
      if (this.fileSelected) {
 
 
-       bodyFormData.append("imageUrl", this.fileSelected, this.fileSelected.name);
+       bodyFormData.append("image", this.fileSelected, this.fileSelected.name);
        bodyFormData.append("id", this.pageData[0]._id);
        bodyFormData.append("name", this.pageData[0].name);
        bodyFormData.append("title_1", this.pageData[0].title_1);
@@ -230,7 +232,7 @@ export default {
 
        .then((response) => {
        
-         alert("Votre page a bien été modifié")
+        //  alert("Votre page a bien été modifié")
         //  this.$router.push("/profil")
        
 
@@ -283,6 +285,15 @@ label{
 .form-group{
   
   display: flex;
+}
+.btn_delete_img{
+  width: 15%;
+  height: 30px;
+}
+.group_btn_img{
+  display: flex;
+  flex-direction: row;
+  justify-content: ;
 }
 /* .text-start{
 width: 20%;

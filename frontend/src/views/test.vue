@@ -3,14 +3,19 @@
     <div class="container px-4 py-4 text-center">
 
       <div class="row card_calendar_row">
+
         <!-- <div class="switcher">
           <div class="switcher_line"></div>
           <div class="switcher_logo"><img class="logo" src="assets/logo/LOGO KAKOS.png" alt="..." /></div>
           <div class="switcher_line"></div>
         </div> -->
+<div class="img_top">
+  <img src="" alt="">
+</div>
         <div class="month_date">
-          <h3>Setembre</h3>
+          <h3>Calendari</h3>
         </div>
+
         <div class="boucle"></div>
 
 
@@ -105,6 +110,13 @@ body {
   position: relative;
 }
 
+.img_top{
+  width:100%;
+  height: 500px;
+  border: 2px solid blue;
+  border-radius: 20px;
+  margin: 0 auto 2rem;
+}
 /* ________________________________________________________ */
 .head_mid {
   display: flex;

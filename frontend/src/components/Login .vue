@@ -86,6 +86,7 @@
 <script>
 
 import { mapState } from "vuex";
+import { router } from "../router";
 
  import ModalError from "./ModalError.vue";
 

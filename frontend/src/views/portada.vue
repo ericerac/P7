@@ -1,8 +1,8 @@
 <template>
   <div class="fond">
     <div class="container-fluid text-center">
-      <div class="row bloc_thumb">
-        <div class="col-6 left-bloc">
+      <div class="row bloc_thumb pt-5 pb-5">
+        <div class="col-12 col-xl-6 left-bloc">
           <div class="title_name item1">
             <h1>{{ pageData[0].title_1 }}</h1>
           </div>
@@ -16,19 +16,23 @@
                 <router-link to="/portada">{{ pageData[0].nav_1 }}</router-link>
               </li>
               <li class="list_item">
-                <a href="#spectacle">{{ pageData[0].nav_2 }}</a>
+                <a href="#spectacle">Espectacles</a>
               </li>
               <li class="list_item">
-                <router-link to="/accueil">{{ pageData[0].nav_3 }}</router-link>
+                <router-link to="/accueil">Creació</router-link>
+              </li>
+              <li class="list_item">
+                <router-link to="/cal">Agenda</router-link>
               </li>
               <li class="list_item">
                 <router-link to="/login" target="_blank">{{
                   pageData[0].nav_4
                 }}</router-link>
               </li>
-              <li class="list_item">
+
+              <!-- <li class="list_item">
                 <router-link to="/cal">{{ pageData[0].nav_5 }}</router-link>
-              </li>
+              </li> -->
             </ul>
           </nav>
         </div>
@@ -36,35 +40,51 @@
         <div class="col-6 right_bloc">
           <div class="img_back">
             <!-- <img src="../assets/images/mg_9636-2-2.jpg" alt=""> -->
-            <img :src="pageData[0].imageUrl" alt="" />
+            <img :src="pageData[0].imageUrl" alt="image" />
           </div>
         </div>
       </div>
     </div>
 
-    <div class="container-fluid">
-        <div class="row txt-espectacle">
+    <!-- SWITCH -->
+
+    <div class="container switch_dynamic" >
+      <!-- <div class="row">
+        <p class="randow_data switch_dynamic">{{pageData[0].nav_4}}</p>
+      </div> -->
+      <div class="row col-12 item6 ">
+       <span class="col-2">___________</span>
+        <span class="randow_data col-8  ">{{pageData[0].nav_4}} Il vaut mieux fermer sa gueule et passer pour un con, que l'ouvrir et ne plus laisser de doute à ce sujet ! (Pierre Déproges)</span>
+        <span class="col-2">___________</span>
+      </div>
+
+    </div>
+
+<!-- ------------- BLOC ESPECTACLE ------------ -->
+    <div class="container-fluid ">
+
+        <div class="row txt-espectacle meeting-item">
             <h2>Espectacles</h2>
         </div>
       <div class="row col-12" id="spectacle">
-        <div class="espectacle-bloc">
-          <div class="bloc-img-spect">
+        <div class="espectacle-bloc col-10">
+          <div class="bloc-img-spect ">
             <router-link to="/portada" >
-            <img  class=" img-spectacle" src="../assets/images/img_325.jpg" alt="" />
-            <p>spectacle1 </p>
-        </router-link>
+            <img  class=" img-spectacle rounded-circle" src="../assets/images/img_325.jpg" alt="" />
+            <h3 class="showName">spectacle1 </h3>
+             </router-link>
           </div>
-          <div class="bloc-img-spect">
+          <div class="bloc-img-spect ">
             <router-link to="/portada" >
-            <img  class=" img-spectacle" src="../assets/images/img_325.jpg" alt="" />
-            <p>spectacle1 </p>
-        </router-link>
+            <img  class=" img-spectacle rounded-circle" src="../assets/images/img_325.jpg" alt="" />
+            <h3 class="showName">spectacle2 </h3>
+               </router-link>
           </div>
-          <div class="bloc-img-spect">
+          <div class="bloc-img-spect ">
             <router-link to="/portada" >
-            <img  class=" img-spectacle" src="../assets/images/img_325.jpg" alt="" />
-            <p>spectacle1 </p>
-        </router-link>
+            <img  class=" img-spectacle rounded-circle" src="../assets/images/img_325.jpg" alt="" />
+            <h3 class="showName">spectacle3 </h3>
+               </router-link>
           </div>
         
           
@@ -74,15 +94,17 @@
     <div class="container">
     <div class="row">
       <div class="copyright">
-        <a href="#">@j'veuxecrireautablo.fr</a>
+        <a href="#">@WistitiWeb.fr</a>
       </div>
     </div>
     </div>
   </div>
 </template>
 
+ <!-- ************* SCRIPT ************* -->
 <script>
 import { mapGetters, mapState } from "vuex";
+
 
 export default {
   name: "portada",
@@ -138,6 +160,7 @@ a {
 .fond{
     background: #000;
 }
+
 .container-fluid{
     background: #000;
     height: auto;
@@ -167,10 +190,18 @@ a {
   margin-top: 0;
   margin-right: 0;
 }
+
+.randow_data{
+  color:azure;
+  font-size: 18px;
+  margin-bottom: 2rem;
+}
+
 .right_bloc{
   height: 600px;
   overflow: hidden;
 }
+
 ul {
   list-style-type: none;
   margin-top: 1rem;
@@ -201,11 +232,6 @@ li {
   align-items: center;
 }
 
-
-.txt-espectacle{
-    color: azure;
-    margin: 30px auto;
-}
 .espectacle-bloc {
   display: flex;
   flex-direction: row;
@@ -215,7 +241,88 @@ li {
 
 .img-spectacle {
   border-radius: 50%;
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+  /* border: 2px solid rgba(251, 95, 95,.6);
+  padding: 15px;
+  box-shadow: inset 0 0 20px rgb(251, 95, 95); */
+  border: 2px solid rgba(228, 227, 227, 0.6);
+  padding: 0px;
+  box-shadow:  0 0 100px rgb(255, 255, 255);
+  
 }
+
+.txt-espectacle{
+    color: azure;
+    margin: 30px auto;
+}
+
+.showName{
+padding:1rem ;
+margin: 0 auto ;
+}
+
+.bloc-img-spect{
+ width: 400px;
+ height: 430px;
+}
+
+
+/* BLOC_THUMB  */
+
+@media screen and (max-width: 576px)  {
+  .bloc_thumb {
+  display: flex;
+  flex-direction: column;
+}
+
+.list_nav {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  text-decoration: none;
+  justify-content: space-around;
+}
+
+.espectacle-bloc {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  width: 100%;
+  height: auto;  
+}
+
+.img-spectacle { 
+  width: 60%;
+  height: 240px; 
+}
+
+.txt-espectacle{
+    color: azure;
+    margin: 10px auto;
+}
+
+.showName{
+padding:1rem ;
+margin: 0 auto ;
+}
+
+.bloc-img-spect{
+ width: 400px;
+height: auto;
+}
+
+}
+
+.copyright{
+  margin:2rem auto 1rem;
+}
+
+
+       /* ************************ ANIM ************************* */
+
+/* ************  anim__navBar */
 .line {
   width: 60%;
   border: solid 2px blue;
@@ -236,6 +343,12 @@ li {
   animation-name: item4;
   animation-duration: 0.6s;
 }
+.item6 {
+  animation-name: item6;
+  animation-delay: 1s;
+  animation-duration: 0.6s;
+  animation: item6 .6s cubic-bezier(0,1.32,1,1.14) 1s backwards ;
+}
 
 @keyframes item1 {
   0% {
@@ -248,6 +361,7 @@ li {
     opacity: 1;
   }
 }
+
 @keyframes item2 {
   0% {
     transform: translateY(35px);
@@ -266,7 +380,7 @@ li {
   }
 
   to {
-    width: 100%;
+    width: 60%;
   }
 }
 
@@ -281,4 +395,21 @@ li {
     opacity: 1;
   }
 }
+@keyframes item6 {
+  0% {
+    transform: translatex(550px);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateY(0px);
+    opacity: 1;
+  }
+}
+/* ************  FIN anim__navBar */
+
+
+
+
+
 </style>

@@ -50,6 +50,11 @@ const routes = [
     path: "/gal",
     component: () => import("../views/galerie.vue"),
   },
+  {
+    name: "galer",
+    path: "/galer",
+    component: () => import("../views/galer.vue"),
+  },
 
 ];
 

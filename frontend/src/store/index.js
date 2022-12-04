@@ -98,7 +98,10 @@ instance.interceptors.response.use(
   function (response) {
     const supp = response.data.message;
     //  console.log("RESPONSE",response);
+
+
     console.log("RESPONSE INTER", supp);
+ 
     if (supp == "jwt expired") {
       // console.log("JWT EXPIRED");
 
@@ -118,38 +121,36 @@ instance.interceptors.response.use(
     } else if (supp == "l'utilisateur n'existe pas") {
       store.commit("ModalMessage", response.data.message);
       store.commit("ModalError", true);
+    }else if (supp == "Mise à jour réussie"){
+      store.commit("ModalSucces", true);
+      store.commit("ModalMessage", response.data.message);
+    }else if (response.status == 201 ){
+      store.commit("ModalSucces", true);
+      store.commit("ModalMessage", response.data.message);
     }
 
     return response;
   },
+
+//---------------___  ERREURS  ___-------------------
+
   (error) => {
     console.log("ERROR INTER", error);
     // console.log("ERROR INTER", error.response.data.error);
-    store.commit("ModalError", true);
+    // store.commit("ModalError", true);
+    
     if (error.response.status == 401) {
       store.commit("ModalMessage", error.response.data.error);
       store.commit("ModalError", true);
       // console.log("MODAL MESSAGE", error.response.data.error);
     }
-    //else if (error.response.data.error == "Ce compte n'existe pas") {
-    //   store.commit("ModalMessage", error.response.data.error);
-    // } else if (error.response.data.error == "Mot de passe incorrect !") {
-    //   store.commit("ModalMessage", error.response.data.error);
-    // } else if (error.response.data.message) {
-    //   store.commit("ModalMessage", error.response.data.message);
-
-    // } 
-    //  else if (error.response.data.error == "Compte utilisateur non trouvé !") {
-    //   this.store.commit("ModalMessage", error.response.data.error);
-    //   console.log("error.response.data.message",error.response.data.message);
-
-    // } 
+    
     else if (error.response.status == 429) { //trop de requetes trop vite
       store.commit(
         "ModalMessage",
         "Nombre de requetes excessives, réessayer dans un instant "
       );
-    } else if (error.response.data.error.text) {
+    } else if (error.response.data.error) {
       store.commit("ModalMessage", error.response.data.error.text);
     }
 
@@ -165,7 +166,7 @@ instance.interceptors.response.use(
 const store = createStore({
   state: {
     status: false,
-    user:"",
+   
     pageData: "",
     token: "",
     doLogin: "",
@@ -174,6 +175,8 @@ const store = createStore({
     auth: "",
     modalMessage: "",
     modalError: false,
+    modalSucces:false,
+    preview_component:"",
   },
   modules: {},
 
@@ -208,7 +211,15 @@ const store = createStore({
     ModalMessage: (state, val) => {
       console.log("ModalMessage", val);
       state.modalMessage = val;
-    }
+    },
+    ModalSucces: (state, val) => {
+      console.log("ModalSucces", val);
+      state.modalSucces = val;
+    },
+    PreviewClose: (state, val) => {
+       console.log("PREVIEW CLOSE INDEX MUT",val);
+      state.preview_component = val;
+    },
   },
 
   computed: {},
@@ -229,15 +240,20 @@ const store = createStore({
       // this.$router.push("/");
     },
 
-    modalErrorClose:
+    PreviewClose:
       ({
-        commit,
-      }) => {
-        commit("ModalError", false)
+        commit 
+      },val) => {
+        console.log("PREVIEW CLOSE INDEX",val);
+        commit("PreviewClose", val)
 
       },
     
-
+      FileUpload(event) {
+     
+        this.fileSelected = event.target.files[0];
+  
+      },
     //----------------* GET PAGE DATA 2*---------------//
     getPageData:
       ({
@@ -298,14 +314,7 @@ const store = createStore({
       });
     },
 
- //----------------* UTILITIES *---------------//
-
-    FileUpload(event) {
-     
-      this.fileSelected = event.target.files[0];
-
-    },
-
+    //------------- UPDATE------------------_//
 
     updatePage: ( { commit },data) => {
       
@@ -342,6 +351,8 @@ const store = createStore({
     //   });
     // },
 
+    //------------- CREATE-------------------_//
+
    createDate: ({ commit }, data) => {
       
 
@@ -350,6 +361,24 @@ const store = createStore({
           .post("/inici/cal/create?page=cal", data, {})
           .then((response) => {
             commit("ArtData", response.data);
+            resolve(response);
+          })
+          .catch((err) => {
+            reject(err);
+          });
+      });
+    },
+
+    //---------------DELETE CARD CALENDAR----------------//
+
+    delCard: ({ commit }, data) => {
+      const id = {id:data.idCard};
+      const page = data.page;
+
+      return new Promise((resolve, reject) => {
+        instance
+          .put(`/inici/del?name=${page}`, id, {})
+          .then((response) => {
             resolve(response);
           })
           .catch((err) => {

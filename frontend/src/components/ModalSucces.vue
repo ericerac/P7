@@ -6,7 +6,7 @@
           <div class="mod">
             <img class="check" src="" alt="" />
             <h6>Succés</h6>
-            <p>{{ succesMessage }}</p>
+            <p>{{ modalMessage }}</p>
             <button @click="ModalSucces(false)">fermer</button>
           </div>
           <div class="close">
@@ -29,7 +29,7 @@ export default {
   name: 'modalSucces',
 
   computed: {
-    ...mapState({ succesMessage: "succesMessage" })
+    ...mapState({ modalMessage: "modalMessage" })
   },
   methods: {
     ModalSucces: function (val) {
