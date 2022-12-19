@@ -45,7 +45,7 @@ export default {
   height: 100%;
 }
 html {
-  background-color: rgb(252, 217, 164);
+  /* background-color: rgb(252, 217, 164); */
 }
 
 * {

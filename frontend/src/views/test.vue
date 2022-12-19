@@ -19,18 +19,17 @@
         <div class="boucle"></div>
 
 
-        <div class="col-lg-4 col-12 col-sm-6 col-xl-3 col-xxl-3 bloc_card_calendar" v-for="d in pageData" :key="d.id">
+        <div class="col-lg-4 col-12 col-sm-6 col-xl-3 col-xxl-3 bloc_card_calendar" v-for="d in filterDate" :key="d.id">
 
-          <transition name="slide-fade" v-if="show">
-            <!-- no funcciona
-         -->
+         
+           
             <div class="meeting-item card-date g-0 m-0" >
               <div class="thumb">
                 <div class="price info">
                   <span>{{ d.info_top }}</span>
                 </div>
-                <a :href="d.link_event">
-                  <!-- <img class="img_thumb" :src="d.imageUrl" alt="affiche Event" /> -->
+                <a :href="d.link_event" target="_blank">
+                 
                   <img
                 v-if="d.imageUrl"
                 alt="affiche Event"
@@ -41,18 +40,21 @@
               </div>
               <div class="down-content">
                 <div class="date">
-                  <h6>{{ d.month }} <span>{{ d.day }}</span></h6>
+                  <h6>{{dateDay (d.day)}} </h6>
+                  <div class="lineDate"></div>
+                  <h6>{{dateMonth (d.day)}} </h6>
                 </div>
                 <div>
                   <a href="https://www.firatarrega.cat/">
                     <h4>{{ d.event }}</h4>
                   </a>
                   <p>{{ d.detail }}<br />{{ d.hour }}</p>
+                  
                 </div>
               </div>
             </div>
           
-          </transition>
+          
 
         </div>
 
@@ -64,7 +66,7 @@
 <script>
 import { axios } from "axios";
 import { mapGetters, mapState } from "vuex";
-const store = require("../store/index");
+import moment from 'moment';
 
 export default {
   name: "test",
@@ -85,18 +87,48 @@ show:true
       accueilData: "accueilData",
       pageData: "pageData",
     }),
+    
+    filterDate() {
+      if (this.pageData) {
+        let PageDat = this.pageData;
+        let date = "";
+        for(let d of PageDat){
+          date = new Date(d.day);
+          let day = date.getDay()
+          console.log("BOUCLE FOR IN",date);
+        }
+
+
+          return this.pageData.sort((a,b) => (a.day > b.day ? 1 : -1))
+        
+      }
+    },
   },
+  watch:{
+      pageData(n,o){
+
+        console.log("WATCH CAL", o,n);
+      }
+    },
   methods: {
     getPageData() {
       const n = "calendar";
       this.$store.dispatch("getPageData", n);
       console.log("REQUET GET CALENDAR PAGE DATA-----> ", n);
     },
-    getters: {
-      pageData(state, val) {
-        return console.log("RETURN GETTERS PAGE-DATA----->", val);
-      },
+
+    dateDay(value) {
+      return moment(value).format("DD");
     },
+    dateMonth(value) {
+      
+       return moment(value).format('MMM','ca')
+       return moment(value).format("MM");
+      console.log("MONTH DATEMONTH",month);
+      return month;
+    },
+    
+    
   },
 };
 </script>
@@ -220,16 +252,22 @@ body {
 .date {
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
-  margin-right: 2rem;
+  justify-content: center;
+  width: 20%;
+  /* margin-right: 2rem; */
   /* width: 30%; */
 }
-
+.lineDate{
+  width:100%;
+  border:1px solid hsl(358, 57%, 40%);
+}
 .meeting-item .down-content .date h6 {
   font-size: 13px;
   text-transform: uppercase;
   font-weight: 600;
-  color: #a12c2f;
+  color: hsl(358, 57%, 40%);
+  margin: .3rem auto;
+  line-height: 13px;
 }
 
 .meeting-item .down-content .date span {

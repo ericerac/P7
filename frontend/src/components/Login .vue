@@ -99,14 +99,12 @@ export default {
         return {
             mode: "login",
            
-            firstName: "",
-            lastName: "",
+           
             Email: "",
             password: "",
 
             message:"",
-            messageNom:"",
-            messagePrenom:"",
+           
             messageEmail:"",
             messagePassword:"",
 
@@ -127,6 +125,7 @@ watch: {
             modal:"modal",
       modalMessage:"modalMessage",
       modalError:"modalError",
+      auth:"auth"
 
         }),
         

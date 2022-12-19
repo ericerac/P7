@@ -6,24 +6,34 @@
       <h1 class="fw-light text-center text-lg-start mt-0 mb-0">Galerie</h1>
 
     </div>
+    <div class="container  btn_select">
+      <div class="btn-select">
+        <select v-model="selectedOption" class="select">
+          <option v-for="(v, k) in optionsCath" :key="k" :value="k" class="options">
+            {{ v }}
+          </option>
+        </select>
+      </div>
 
-<div class="container search">
-  <input class="search-input mb-0 mt-1 pb-0" v-model="searchUser" type="search" id="search"
-                                placeholder="rechercher" autocomplete="off" />
-</div>
+
+      <div class="search">
+        <input class="search-input mb-3 mt-1 pb-0" v-model="searchCathegorie" type="search" id="search"
+          placeholder="rechercher" autocomplete="on" />
+      </div>
+    </div>
     <!-- ********* GALERIE ***********-->
     <div class="container">
       <div class="row text-center ">
 
         <div @click="(desc(d._id))" class="card_bloc  offset col-md-5  col-lg-3 col-xl-4 col-xxl-5 mb-3"
-          v-for="(d,index)  in pageData" :key="index">
+          v-for="(d)  in filterProduct" :key="d._id">
 
           <div class="viewCard" v-if="(viewCard == true && d._id == oneCardData[0]._id)">
             <p class="description_view">{{ oneCardData[0].description }}</p>
           </div>
           <div class="col-12 ">
             <a href="#" class="d-block mb-4 h-100">
-              <img class="img " :src="d.imageUrl" alt="">
+              <img class="img" :src="d.imageUrl" alt="">
             </a>
           </div>
 
@@ -32,11 +42,10 @@
             <div class="price col-3">
               {{ d.prix }} €
             </div>
+
             <div class="description_bloc col-9">
               <span>{{ d.product }} {{ d.index }}</span>
               <!-- <span>{{ d.description }}</span> -->
-
-
             </div>
 
           </div>
@@ -65,8 +74,15 @@ export default {
   data: function () {
     return {
       oneCardData: "",
-      viewCard: false,
-      searchCathegorie:"",
+      cathegorie: "",
+      searchCathegorie: "",
+      optionCathegorie: "",
+      optionsCath: {
+        "véhicule": "véhicule",
+        1: "meuble",
+        2: "décoration"
+      },
+      selectedOption: null,
     };
 
 
@@ -81,29 +97,59 @@ export default {
     ...mapState({
       pageData: "pageData",
     }),
+
+    filterCath(n) {
+      if (this.pageData) {
+
+        return this.pageData.filter((a) => {
+          return a.cathegorie.toLowerCase().includes(n.toLowerCase());
+         
+        })
+      }
+    },
+    filterProduct() {
+
+      if (this.pageData) {
+        return this.pageData.filter((a) => {
+          return a.product.toLowerCase().includes(this.searchCathegorie.toLowerCase());
+        })
+      }
+      //  else if (this.pageData) {
+      //       return this.pageData.filter((a) => {
+      //           return a.product.toLowerCase().includes(this.searchCathegorie.toLowerCase());
+      //       })
+      //   }
+    },
+
+
   },
   component: {
 
   },
-  compyted:{
-    filterUser() {
-            if (this.pageData) {
+  watch: {
+    selectedOption(newVal, oldVal) {
+      console.log("WATCH, newVal---->", newVal);
+      let cath = this.pageData
+      if (newVal) {
+        let cathegorie = cath.filter(e => e.cathegorie == newVal)
+        console.log("CATHEGORIE GALER PAGE", cathegorie);
 
-
-                return this.pageData.filter((a) => {
-                    return a.cathegorie.toLowerCase().includes(this.searchCathegorie.toLowerCase());
-                })
-            }
-        },
+      }
+    }
   },
   methods: {
     FileUpload(event) {
       this.fileSelected = event.target.files[0];
     },
 
-    getPageData() {
-      const n = "galerie";
-      this.$store.dispatch("getPageData", n);
+    getPageData(n) {
+
+      this.$store.dispatch("getPageData", n)
+        .then((res) => {
+
+          console.log("RESPONSE GALER PAGE", res);
+
+        })
       console.log("REQUET GET ACCUEIL PAGE DATA-----> ", n);
     },
 
@@ -213,7 +259,8 @@ h1 {
   line-height: 1;
   font-size: 12px;
 }
-.viewCard{
+
+.viewCard {
   position: absolute;
   bottom: 0;
   left: 0;
@@ -224,21 +271,39 @@ h1 {
   text-align: center;
   font-weight: 800;
   overflow: scroll;
- 
+
 }
+
 .description_view {
-  margin:  30px auto;
-  
+  margin: 30px auto;
+
 }
-.info{
+
+.info {
   position: absolute;
-  top:-10px;
-  left:-20px;
+  top: -10px;
+  left: -20px;
   background-color: brown;
   border-radius: 5px;
   z-index: 111;
   padding: 3px 6px;
-  color:wheat;
+  color: wheat;
 
+}
+
+.btn_select {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.select {
+  display: table;
+}
+
+.options {
+  background: rgb(250, 244, 244);
+  display: table-cell;
+  color: black;
 }
 </style>

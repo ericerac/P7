@@ -11,28 +11,7 @@
 
       <div class="card_calendar" id="card_calendar" v-if="newDate">
 
-        <!-- ********************************************** -->
-        <!-- ***************  DATE PICKER  *************** -->
-
-        <!-- <button @click="(vueCtkDateTimePicker = !vueCtkDateTimePicker)">Date</button>
-        <div class="datePicker"  v-if="vueCtkDateTimePicker" >
         
-    <Calendar />
-  <DatePicker v-model="dateShow" />
-    </div> -->
-
-        <!-- ERROR That's because you have two distinct copies of the Vue package being used, one in each package.
-
-Vue uses a global singleton to track the current rendering instance - having more than one copy included will inevitably lead to such issues.
-
-Solution: configure project in a way that Al packages use that same package.
-
-In yarn workspaces, this would work fine because Vue would be hoistws to the root's node_modules. -->
-
-        <!-- ************************************************ -->
-
-
-
         <span class="mode">Mode Create</span>
         <label for="name">Show Name
           <input name="name" type="text" v-model="pageData.show_name" class="form-control"
@@ -40,35 +19,28 @@ In yarn workspaces, this would work fine because Vue would be hoistws to the roo
         </label>
 
         <div class="bloc_date">
+          
+            
 
-          <label for="name">Day
-            <input name="name" type="number" v-model="pageData.day" class="form-control" placeholder="pageData.day"
+          <label for="name">Date
+            <input name="name" type="date" v-model="pageData.day" class="form-control" placeholder="pageData.day"
               min="1" max="31" />
           </label>
           <label for="date_time">Hour
-            <input name="name" type="number" v-model="pageData.hour" class="form-control" placeholder="pageData.hour" />
+            <input name="name" type="time" v-model="pageData.hour" class="form-control" placeholder="pageData.hour" />
           </label>
-          <label for="date_time">Month
-            <input name="name" type="number" v-model="pageData.month" class="form-control"
-              placeholder="pageData.hour" />
-          </label>
-
-
-          <label for="date_time">Year
-            <input name="name" type="number" class="form-control" placeholder="pageData.year" />
-          </label>
-          <!-- v-model="pageData.year" -->
+          
+          
 
 
 
-          <!-- -------------- DATE PICKER ------------- -->
-
+      
         </div>
-        <label for="Badge">
+        <label for="event">
           Event
-          <input name="Badge" type="text" v-model="pageData.event" class="form-control" placeholder="pageData.name" />
+          <input name="event" type="text" v-model="pageData.event" class="form-control" placeholder="pageData.name" />
         </label>
-        <label for="name">detail
+        <label for="name">Lloc
           <input name="name" type="text" v-model="pageData.detail" class="form-control" placeholder="pageData.name" />
         </label>
         <label for="Badge">
@@ -106,7 +78,7 @@ In yarn workspaces, this would work fine because Vue would be hoistws to the roo
 
     <div class="row bloc_update g-0">
 
-      <div class="bloc_loop col-lg-4 col-xl-4 p-xl-2 p-lg-2" v-for="(data, index) in pageData" :key="data._id">
+      <div class="bloc_loop col-lg-6 col-xl-4 p-xl-2 p-lg-2" v-for="(data, index) in pageData" :key="data._id">
         <div class="card_calendar">
           <span class="mode ">Mode Update</span>
           <label for="showName">
@@ -118,30 +90,30 @@ In yarn workspaces, this would work fine because Vue would be hoistws to the roo
           <!-- *******   BLOC DATE ******* -->
 
           <div class="bloc_date col-12">
-            <label for="name">Day
-              <input name="name" type="number" v-model="data.day" class="form-control" placeholder="pageData.name" />
+            <label for="name">Date
+              <input name="name" type="date" v-model="data.day" class="form-control" placeholder="data.day" />
             </label>
 
-            <label for="month">Month
-              <input name="month" type="text" v-model="data.month" class="form-control" placeholder="pageData.name" />
-            </label>
-
+          
             <label for="name">Hour
-              <input name="name" type="text" class="form-control" v-model="data.hour" placeholder="jeudi" />
+              <input name="name" type="time" class="form-control" v-model="data.hour" placeholder="jeudi" />
             </label>
           </div>
 
           <!-- *******    BLOC INFO ******* -->
-
+          <label for="event">
+          Event
+          <input name="event" type="text" v-model="data.event" class="form-control" placeholder="pageData.name" />
+        </label>
           <div class="bloc_event col-12">
             <label for="detail">
-              description (max 50 caractères)
+              Lloc Place (max 50 caractères)
               <input name="detail" type="text" v-model="data.detail" class="form-control" placeholder="index.name" />
             </label>
           </div>
 
           <label for="Badge">Badge Info (max 20 caractères)
-            <input name="Badge" type="text" v-model="data.info_top" class="form-control" placeholder="pageData.name" />
+            <input name="Badge" type="text" v-model="data.info_top" class="form-control" placeholder="pageData.name" maxlength="20" />
           </label>
 
 
@@ -149,36 +121,32 @@ In yarn workspaces, this would work fine because Vue would be hoistws to the roo
 
           <div class="bloc_link col-12">
             <label for="linkEvent">Link event
-              <input name="linkEvent" type="text" v-model="pageData[0].link_event" class="form-control"
+              <input name="linkEvent" type="text" v-model="data.link_event" class="form-control"
                 placeholder="no link" />
             </label>
-            <label for="linkShow">Link Show personal webSite page
-              <input name="linkShow" type="text" v-model="pageData[0].imageUrl" class="form-control"
+
+            <!-- <label for="linkShow">Link Show personal webSite page
+              <input name="linkShow" type="text" v-model="pageData.imageUrl" class="form-control"
                 placeholder="pageData.imageUrl" />
-            </label>
+            </label> -->
           </div>
 
           <!-- *******    BLOC IMAGE ******* -->
 
           <label for="imgName">Actual name pic (function)
-            <!-- <span class="span" @click=preview_img(data._id) -->
+           
             <span class="span" @click="previewImg = !previewImg"><strong>(Preview)</strong></span>
-            <!-- <button v-if="!newDate" class="btn_display" @click="newDate = !newDate">Open New Date</button>
-    <button v-else="newDate" class="btn_display" @click="newDate = !newDate">Close New Date</button> -->
+            
             <input name="imgName" type="text" class="form-control" placeholder="" v-model="data.imgageUrl" />
           </label>
           <div class="previewImg" v-if="previewImg"><img class="" :src="data.imageUrl" alt="image" width="200"
               height="160" /></div>
           <label for="image">
             <input type="file" name="image" id="Img_new" ref="file" @change="FileUpload"
-              accept="image/png, image/jpeg" /></label>
+              accept="image/png, image/jpeg, image/jpg "/></label>
+              
           <div class="btn-action">
-            <!-- <input type="button" name="submit" class="btn btn-primary mt-1 btn-lg btn-block" keyUp="enter"
-    value="Modifier" @click="updatePage(data._id, index)"> -->
-
-            <!-- <input type="button" name="submit" class="btn btn-primary mt-1 btn-lg btn-block" keyUp="enter"
-    value=" Modifier " @click="delPage(data._id)"> -->
-
+            
             <button @click="updatePage(data._id, index)">Update</button>
             <button @click="delCard(data._id)">Delete</button>
           </div>
@@ -203,21 +171,8 @@ import { mapState } from "vuex";
 
 // const prev = require ("../components/img_preview.vue")
 import prev from "../components/img_preview.vue";
-// import Datepicker from '@vuepic/vue-datepicker';
-// import '@vuepic/vue-datepicker/dist/main.css'
-// import * as anim from "../js/script"
-// const datePic = Datepicker();
-// anim()
-// const instance = axios.create({
-//   baseURL: "http://localhost:3000/",
-// });
 
 
-// import VueCtkDateTimePicker from 'vue-ctk-date-time-picker';
-
-// import 'vue-ctk-date-time-picker/dist/vue-ctk-date-time-picker.css';
-
-import { SetupCalendar, Calendar, DatePicker } from 'v-calendar';
 
 // import ModalSucces from "../components/ModalSucces.vue";
 let ahora = "";
@@ -226,6 +181,8 @@ if (new Date().getHours() < 18) {
 
   ahora = Date.now();
   console.log("HEURE DU CHARGEMENT DATE NOW---->", ahora);
+  let date = new Date(ahora)
+  console.log("NEW DATE",date);
   // 1669720999459
 
 
@@ -234,6 +191,9 @@ if (new Date().getHours() < 18) {
 
 } else {
   ahora = Date.now();
+  console.log("HEURE DU CHARGEMENT DATE NOW +18---->", ahora);
+  let date = new Date(ahora)
+  console.log("NEW DATE",date);
 }
 
 
@@ -247,18 +207,23 @@ export default {
       content: "",
       newDate: false,
       detail: "",
-      vueCtkDateTimePicker: false,
-      // pageData:[],
       previewImg: "",
       DateShow: null,
       Preview_imgUrl: "",
       value: "",
+      date:"",
+      
 
     };
   },
-
+  setup(){
+      const dateSelected = new Date()
+      return {
+        dateSelected
+      }
+    },
   created: function () {
-    console.log(" MOUNTED HOME ");
+    console.log(" MOUNTED CALUPDATE ");
 
 
     // this.getPageData();
@@ -267,10 +232,10 @@ export default {
   components: {
     // ModalMessage,
     prev,
-    Calendar,
-    DatePicker,
-    // VueCtkDateTimePicker
+  
+   
     // ModalSucces,
+   
   },
   watch: {},
 
@@ -295,14 +260,14 @@ export default {
     // },
 
     preview_img(x) {
-      console.log("PREVIEW IMAGE DB", x);
-      console.log("PREVIEW IMAGE DB", this.pageData);
+      // console.log("PREVIEW IMAGE DB", x);
+      // console.log("PREVIEW IMAGE DB", this.pageData);
       const stringi = JSON.stringify(this.pageData);
       //  console.log("STRINGiFY ---->", stringi );
       const parsi = JSON.parse(stringi);
       //  console.log("PARSI ---->", parsi );
       const img = parsi.filter(i => i._id = x)
-      console.log("RETOUR FILTER IMAGE", img);
+      // console.log("RETOUR FILTER IMAGE", img);
 
 
 
@@ -316,12 +281,6 @@ export default {
     FileUpload(event) {
       this.fileSelected = event.target.files[0];
     },
-
-    // getPageData() {
-    //   const n = "INICIO 1";
-    //   this.$store.dispatch("getPageData", n);
-    //   console.log("REQUET GET ACCUEIL PAGE DATA-----> ", n);
-    // },
 
     updatePage(x, ind) {
       let bodyFormData = new FormData();
@@ -380,10 +339,12 @@ export default {
         })
 
         .then((response) => {
+          
           if (response.status == 200) {
-            console.log("RESPONSE CALUPDATE", response);
-            // alert("Votre page a bien été modifié")
-           
+            console.log("RESPONSE CALUPDATE 2", response);
+           //     location.reload();
+          file = null;
+        
           }
         })
         .catch((response) => { });
@@ -395,7 +356,7 @@ export default {
       //     return;
       // }
       console.log("this.fileSelected---->", this.fileSelected);
-      console.log("this.pageData.info_top---->", this.pageData.info_top);
+    
 
       let bodyFormData = new FormData();
 
@@ -407,6 +368,7 @@ export default {
         bodyFormData.append("info_top", this.pageData.info_top);
         bodyFormData.append("day", this.pageData.day);
         bodyFormData.append("month", this.pageData.month);
+        // bodyFormData.append("month", this.pageData.year);
         bodyFormData.append("event", this.pageData.event);
         bodyFormData.append("detail", this.pageData.detail);
         bodyFormData.append("hour", this.pageData.hour);
@@ -419,6 +381,7 @@ export default {
         bodyFormData.append("info_top", this.pageData.info_top);
         bodyFormData.append("day", this.pageData.day);
         bodyFormData.append("month", this.pageData.month);
+        // bodyFormData.append("month", this.pageData.year);
         bodyFormData.append("event", this.pageData.event);
         bodyFormData.append("detail", this.pageData.detail);
         bodyFormData.append("hour", this.pageData.hour);
@@ -503,7 +466,36 @@ export default {
   margin: 1rem auto;
   padding: 0.5rem;
 }
+/* START daqtepicker */
+input[type="date"],[type="time"]{
+    background-color: #0080ff;
+    padding: 5px;
+    appearance: none;
+    /* transform: translate(-50%,-50%); */
+    
+    font-family: "Roboto Mono",monospace;
+    color: #ffffff;
+    font-size: 18px;
+    border: 1px solid white;
+    /* border:none; */
+    outline: 1px solid rgb(3, 26, 232);
+    border-radius: 5px;
+    box-shadow: 2px 2px 2px 0.2rem rgba(1, 32, 65, 0.25);
+}
 
+::-webkit-calendar-picker-indicator{
+    background-color: #ecedf8;
+    padding: 5px;
+    cursor: pointer;
+    border-radius: 3px;
+    color: #ffffff;
+   
+  
+}
+::-webkit-inner-spin-button {
+  display:block;
+}
+/* END daqtepicker */
 .bloc_date {
   display: flex;
   flex-direction: row;

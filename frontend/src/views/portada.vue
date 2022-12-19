@@ -1,116 +1,93 @@
 <template>
   <div class="fond">
-    <div class="container-fluid text-center">
+    <div class="container-fluid text-center sticky_bloc">
+      <div class="bloc_nav">
+        <navbar />
+      </div>
+      <!-- <div class="display">
+        <div v-if="home">
+          <Home />
+        </div>
+      </div> -->
       <div class="row bloc_thumb pt-5 pb-5">
         <div class="col-12 col-xl-6 left-bloc">
-          <div class="title_name item1">
+          <div class="title_name item1 texte">
             <h1>{{ pageData[0].title_1 }}</h1>
           </div>
-          <div class="subTitle_name item2">
+          <div class="subTitle_name item2 texte">
             <p>{{ pageData[0].subTitle_1 }}</p>
           </div>
           <div class="line item3"></div>
-          <nav>
-            <ul class="list_nav item4">
-              <li class="list_item">
-                <router-link to="/portada">{{ pageData[0].nav_1 }}</router-link>
-              </li>
-              <li class="list_item">
-                <a href="#spectacle">Espectacles</a>
-              </li>
-              <li class="list_item">
-                <router-link to="/accueil">Creació</router-link>
-              </li>
-              <li class="list_item">
-                <router-link to="/cal">Agenda</router-link>
-              </li>
-              <li class="list_item">
-                <router-link to="/login" target="_blank">{{
-                  pageData[0].nav_4
-                }}</router-link>
-              </li>
-
-              <!-- <li class="list_item">
-                <router-link to="/cal">{{ pageData[0].nav_5 }}</router-link>
-              </li> -->
-            </ul>
-          </nav>
+          <span class="admin" v-if="auth = true" @click="goToHome() " >XXX</span>
         </div>
 
         <div class="col-6 right_bloc">
           <div class="img_back">
             <!-- <img src="../assets/images/mg_9636-2-2.jpg" alt=""> -->
-            <img :src="pageData[0].imageUrl" alt="image" />
+            <img class="img_principale" :src="pageData[0].imageUrl" alt="image" />
+            
           </div>
         </div>
       </div>
     </div>
-
+    
     <!-- SWITCH -->
 
-    <div class="container switch_dynamic" >
-      <!-- <div class="row">
-        <p class="randow_data switch_dynamic">{{pageData[0].nav_4}}</p>
-      </div> -->
-      <div class="row col-12 item6 ">
+    <div class="container switch_dynamic">
+
+      <!-- <div class="row col-12 item6 ">
        <span class="col-2">___________</span>
-        <span class="randow_data col-8  ">{{pageData[0].nav_4}} Il vaut mieux fermer sa gueule et passer pour un con, que l'ouvrir et ne plus laisser de doute à ce sujet ! (Pierre Déproges)</span>
+        <span class="randow_data col-8  ">{{pageData[0].phrase}} </span>
         <span class="col-2">___________</span>
-      </div>
+      </div> -->
 
     </div>
 
-<!-- ------------- BLOC ESPECTACLE ------------ -->
-    <div class="container-fluid ">
+    <!-- ------------- BLOC ESPECTACLE ------------ -->
+    <div class="container-fluid  ">
 
-        <div class="row txt-espectacle meeting-item">
-            <h2>Espectacles</h2>
+      <div class="row txt-espectacle texte meeting-item">
+        <h2>Espectacles</h2>
+      </div>
+      <div class="row flex-grow-4 col-12 " id="spectacle">
+
+        <div class="espectacle-bloc col-lg-3 col-xl-3" v-for="i in imgData" :key="i._id">
+          <div class="bloc-img-spect ">
+            <router-link to="/bernadette">
+              <img class=" img-spectacle img-fluid rounded-circle col-12 " :src="i.imageUrl" alt="" />
+              <h3 class="showName texte">{{ i.showName }} </h3>
+            </router-link>
+          </div>
         </div>
-      <div class="row col-12" id="spectacle">
-        <div class="espectacle-bloc col-10">
-          <div class="bloc-img-spect ">
-            <router-link to="/portada" >
-            <img  class=" img-spectacle rounded-circle" src="../assets/images/img_325.jpg" alt="" />
-            <h3 class="showName">spectacle1 </h3>
-             </router-link>
-          </div>
-          <div class="bloc-img-spect ">
-            <router-link to="/portada" >
-            <img  class=" img-spectacle rounded-circle" src="../assets/images/img_325.jpg" alt="" />
-            <h3 class="showName">spectacle2 </h3>
-               </router-link>
-          </div>
-          <div class="bloc-img-spect ">
-            <router-link to="/portada" >
-            <img  class=" img-spectacle rounded-circle" src="../assets/images/img_325.jpg" alt="" />
-            <h3 class="showName">spectacle3 </h3>
-               </router-link>
-          </div>
-        
-          
-        </div>
+
       </div>
     </div>
     <div class="container">
-    <div class="row">
-      <div class="copyright">
-        <a href="#">@WistitiWeb.fr</a>
+      <div class="row col-12 mt-5">
+        <div class="copyright">
+          <router-link to="/login" target="_blank"><span class="texte">@WistitiWeb.fr</span></router-link>
+          
+        </div>
       </div>
+
     </div>
-    </div>
+<foot/>
   </div>
 </template>
 
  <!-- ************* SCRIPT ************* -->
 <script>
 import { mapGetters, mapState } from "vuex";
-
-
+import navbar from "../components/nav_bar.vue"
+import foot from "../components/footer.vue"
+import Home from "../views/Home.vue";
 export default {
   name: "portada",
 
   data: function () {
-    return {};
+    return {
+home:false,
+    };
   },
   beforeMount: function () {
     //     if ($cookies.get("admin")) {
@@ -126,46 +103,100 @@ export default {
     //       }
 
     this.getPageData();
+     this.getNavData();
+   
     //       this.getNewArticle(logon);
     //     } else {
     //       this.$router.push("/");
     //     }
+    // console.log("ENV VAIABLES",VUE_APP_PAGE1_NAME);
   },
   computed: {
     ...mapState({
       pageData: "pageData",
+      imgData: "imgData",
+      auth:"auth"
     }),
   },
+  components: {
+    navbar,
+    foot,
+    // Home
+  },
   methods: {
+    // goToHome () {
+    //   console.log("GO TO HOME");
+    //   this.home = true;
+    // },
     FileUpload(event) {
       this.fileSelected = event.target.files[0];
     },
 
     getPageData() {
       const n = "portada";
-      this.$store.dispatch("getPageData", n);
-      console.log("REQUET GET ACCUEIL PAGE DATA-----> ", n);
+      this.$store.dispatch("getPageData", n)
+        .then((res) => {
+          if (res) {
+            console.log("RES GET PORTADA PAGE DATA", res.data[0].name);
+            let p = res.data[0].name
+             this.$store.dispatch("getImgData", p)
+          }
+        });
+      
     },
+
+    getNavData() {
+      const n = "navbar";
+      this.$store.dispatch("getNavData", n)
+        .then((res) => {
+          if (res) {
+            console.log("RES GET  PORTADA NAV_BAR PAGE DATA-----> ", n);
+            return
+          }
+        });
+      console.log("REQUET GET NAV BAR PAGE DATA-----> ", n);
+    },
+   
   },
 };
 </script>
 
 <style scoped>
+.admin{
+  color:white
+}
+html{
+  scroll-behavior: smooth;
+  --res:25vw;
+}
 a {
-  color: aliceblue;
+  /* color: aliceblue; */
+  color: rgb(7, 8, 9);
   text-decoration: none;
+ 
+}
+.texte{
+  color:black;
+  text-shadow: 2px 2px 10px rgba(0, 0, 0,.5);
+}
+.bloc_nav {
+  position: sticky;
+  top: 20px
 }
 
-
-.fond{
-    background: #000;
+.fond {
+  /* background: #000; */
+  /* background-image: url("../assets/images/tableau_noir_lueur_centre.webp"); */
+  background-image: url("../assets/design/white-texture.jpg");
 }
 
-.container-fluid{
-    background: #000;
-    height: auto;
-    
+.container-fluid {
+  /* background: #000; */
+  background: transparent;
+  /* height: 1000px; */
+  position: relative;
 }
+
 /* body {
     background-image: url("../assets/images/mg_9636-2-2.jpg");
     background-repeat: no-repeat;
@@ -189,22 +220,29 @@ a {
   height: auto;
   margin-top: 0;
   margin-right: 0;
+ 
+  
 }
-
-.randow_data{
-  color:azure;
+.img_principale{
+ width:100%
+}
+.randow_data {
+  color: azure;
   font-size: 18px;
   margin-bottom: 2rem;
 }
 
-.right_bloc{
-  height: 600px;
+.right_bloc {
+  height: auto;
   overflow: hidden;
+  object-fit: contain;
 }
 
 ul {
   list-style-type: none;
   margin-top: 1rem;
+  padding: 0;
+  align-items: center;
 }
 
 li {
@@ -216,7 +254,8 @@ li {
   display: flex;
   flex-direction: row;
   text-decoration: none;
-  justify-content: space-around;
+  justify-content: space-evenly;
+  padding-left: 1rem;
 }
 
 .left-bloc {
@@ -236,91 +275,108 @@ li {
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
-  width: 100%;
+
 }
 
 .img-spectacle {
   border-radius: 50%;
-  width: 100%;
-  height: 400px;
+  width: 300px;
+   height: 300px; 
   object-fit: cover;
   /* border: 2px solid rgba(251, 95, 95,.6);
   padding: 15px;
   box-shadow: inset 0 0 20px rgb(251, 95, 95); */
-  border: 2px solid rgba(228, 227, 227, 0.6);
+  /* border: 2px solid rgb(250, 248, 248); */
   padding: 0px;
-  box-shadow:  0 0 100px rgb(255, 255, 255);
-  
+  box-shadow: 0 0  10px rgb(85, 84, 84);
+
 }
 
-.txt-espectacle{
-    color: azure;
-    margin: 30px auto;
+.txt-espectacle {
+  color: rgb(13, 15, 15);
+  margin: 30px auto;
 }
 
-.showName{
-padding:1rem ;
-margin: 0 auto ;
+.showName {
+  padding: 1rem;
+  margin: 0 auto;
 }
 
-.bloc-img-spect{
- width: 400px;
- height: 430px;
+.bloc-img-spect {
+  width: 300px;
+  height: auto;
 }
 
 
 /* BLOC_THUMB  */
 
-@media screen and (max-width: 576px)  {
+@media screen and (max-width: 576px) {
   .bloc_thumb {
-  display: flex;
-  flex-direction: column;
-}
+    display: flex;
+    flex-direction: column;
+  }
 
-.list_nav {
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  text-decoration: none;
-  justify-content: space-around;
-}
+  .list_nav {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    text-decoration: none;
+    justify-content: space-around;
+  }
 
-.espectacle-bloc {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  width: 100%;
-  height: auto;  
-}
+  .espectacle-bloc {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    /* width: 90%;
+    height: auto; */
+  }
 
-.img-spectacle { 
-  width: 60%;
-  height: 240px; 
-}
+  .img-spectacle {
+    width: 240px;
+    height: 240px;
+  }
 
-.txt-espectacle{
+  .txt-espectacle {
     color: azure;
     margin: 10px auto;
+  }
+
+  .showName {
+    padding: 1rem;
+    margin: 0 auto;
+  }
+
+  .bloc-img-spect {
+    width: 300px;
+    height: auto;
+  }
+
 }
 
-.showName{
-padding:1rem ;
-margin: 0 auto ;
+.copyright {
+  margin: 2rem auto 1rem;
+}
+@media screen and (min-width:1024px) {
+
+  .img-spectacle {
+    width: 240px;
+    height: 240px;
+  }
+  . .espectacle-bloc {
+    padding:0
+  }
+}
+@media screen and (min-width:1920px) {
+
+  .bloc_thumb {
+  margin-top: 140px;
+  margin-bottom: 100px;
+  
+}
 }
 
-.bloc-img-spect{
- width: 400px;
-height: auto;
-}
-
-}
-
-.copyright{
-  margin:2rem auto 1rem;
-}
-
-
-       /* ************************ ANIM ************************* */
+/* ************************ ANIM ************************* */
 
 /* ************  anim__navBar */
 .line {
@@ -335,19 +391,22 @@ height: auto;
   animation-name: item1;
   animation-duration: 0.6s;
 }
+
 .item2 {
   animation-name: item2;
   animation-duration: 0.6s;
 }
+
 .item4 {
   animation-name: item4;
   animation-duration: 0.6s;
 }
+
 .item6 {
   animation-name: item6;
   animation-delay: 1s;
   animation-duration: 0.6s;
-  animation: item6 .6s cubic-bezier(0,1.32,1,1.14) 1s backwards ;
+  animation: item6 .6s cubic-bezier(0, 1.32, 1, 1.14) 1s backwards;
 }
 
 @keyframes item1 {
@@ -395,6 +454,7 @@ height: auto;
     opacity: 1;
   }
 }
+
 @keyframes item6 {
   0% {
     transform: translatex(550px);
@@ -406,10 +466,6 @@ height: auto;
     opacity: 1;
   }
 }
+
 /* ************  FIN anim__navBar */
-
-
-
-
-
 </style>

@@ -4,14 +4,19 @@ import { createRouter, createWebHistory } from "vue-router";
   //  const login = require("../components/Login .vue")
 // import accueil from "@/views/Accueil.vue";
 // import profil from "@/views/Profil.vue";
-
+import store from "../store/index"
 
 
 const routes = [
   {
-    name: "Elvira",
-    path: "/Elvira",
-    component: () => import("../views/Elvira.vue"),
+    name: "bernadette",
+    path: "/bernadette",
+    component: () => import("../views/Bernadette.vue"),
+  },
+  {
+    name: "bio",
+    path: "/bio",
+    component: () => import("../views/bio.vue"),
   },
 
   {
@@ -31,6 +36,7 @@ const routes = [
   {
     name: "portada",
     path: "/portada",
+    
   
     component: () => import("../views/portada.vue"),
     
@@ -38,12 +44,15 @@ const routes = [
   {
     name: "ad1920384756ytrdehdk",
     path: "/ad1920384756ytrdehdk",
+    meta:{
+      requireAuth:true
+    },
     component: () => import("@/views/AdminPage.vue"),
   },
   {
-    name: "calentar",
+    name: "calendar",
     path: "/cal",
-    component: () => import("../views/test.vue"),
+    component: () => import("../views/calendari.vue"),
   },
   {
     name: "galerie",
@@ -61,6 +70,23 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(),
   routes,
+});
+
+router.beforeEach((to,from,next)=>{
+  // console.log("TO",to);
+  // console.log("FROM",from);
+  if(to.matched.some((record)=> record.meta.requireAuth)){
+    if(store.state.auth){
+      next();
+    } else{
+      console.log("NO AUTH");
+      // next({name:"login"});
+      next();
+    }
+  
+  } else{
+    next();
+  }
 });
 
 export default router;
