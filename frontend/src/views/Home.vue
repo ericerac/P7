@@ -1,17 +1,17 @@
 <template>
 
   <div class="container-fluid text-center">
-    <div class=" row col-lg-10 col-xl-10 bloc-page">
+    <div class=" row col-12 col-lg-10 col-xl-10 bloc-page">
 
       <!-- //----------------------- EDITION HEADER------------------------// -->
 
       <!-- <div class="col-lg-12 col-xl-12 card-component bg-white mb-3 pb-2 pt-1"> -->
 
-      <form class="update-form">
+      <form class="update-form col-12">
         <span class="form-title">
           Vous êtes sur la page: <strong>{{ pageData[0].name }}.{{ pageData[0].lang }}</strong></span>
         <div class="fond-form header_bloc col-12">
-          <div class="bloc_info col-6">
+          <div class="bloc_info col-12 col-md-6">
 
 
             <div class="form-group">
@@ -86,9 +86,9 @@
 
                   <label for="image" class="btn_upload">
                     <input class="btn_upload_file" type="file" name="image" id="image" ref="file" @change="FileUpload"
-                      accept="image/png, image/jpeg, image/jpg, image/gif, image/webp" hidden />Choisir une image
+                      accept="image/png, image/jpeg, image/jpg, image/gif, image/webp"  />
                   </label>
-                  <span v-if="i._id">{{ OnefileSelected }}</span>
+                  <!-- <span v-if="i._id ">{{ OnefileSelected }}</span> -->
                 </div>
               </div>
             </div>
@@ -103,7 +103,7 @@
             <div class="btn_update">
               <label for="retour"></label>
               <input type="button" name="retour" class="btn-show btn-danger butt  " keyUp="enter" value="Delete"
-                @click="this.home = false;">
+              @click="FileCancel()">
             </div>
           </div>
         </div>
@@ -123,7 +123,7 @@ def();
 
 
 export default {
-  name: "ad1920384756ytrdehdk",
+  name: "Home",
 
   data: function () {
     return {
@@ -131,6 +131,7 @@ export default {
       content: "",
       OnefileSelected: "",
       fileName:"",
+      fileSelected:"",
 
     };
   },
@@ -150,6 +151,11 @@ export default {
       this.fileSelected = event.target.files[0];
       this.OnefileSelected = this.fileSelected.name
       this.fileName = this.fileSelected.name
+    },
+    FileCancel(event) {
+      this.home = false // #ref
+      this.fileSelected = "";
+      console.log("FILECANCEL");
     },
 
     indexCard(x) {
@@ -416,8 +422,18 @@ width: 20%;
   width: 0;
 }
 .btn_upload {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
   border: 1px solid blue;
   border-radius: 5px;
+  
+  overflow: hidden;
+  /* text-overflow: ellipsis; */
+ 
+}
+.btn_upload input{
+background-color: rgba(251, 167, 48, 0.3);
 }
 .btn_action_self{
   margin: 0;
@@ -449,8 +465,37 @@ width: 20%;
 .btn-show {
   position: relative;
   top: 40%;
-  transform: translateY(-40%);
+  transform: translateY(-30%);
   border-radius: 10px;
   padding: 5px 10px;
+  min-width: 80px;
+}
+@media  screen and (max-width:576px) {
+.update-form, .container-fluid, .header_bloc{
+padding: 0;
+}
+.header_bloc{
+  flex-direction: column;
+  align-items: center
+  ;
+}
+.form-group{
+  width: 90%;
+  display:block;
+  margin: 0 auto;
+}
+.form-control{
+  margin: 0 auto;
+}
+.show_bloc{
+  background-color:transparent
+}
+.btn_upload{
+  overflow: visible;
+  border: none;
+}
+.input_label{
+  flex-direction: row;
+}
 }
 </style>

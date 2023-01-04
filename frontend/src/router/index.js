@@ -18,6 +18,16 @@ const routes = [
     path: "/bio",
     component: () => import("../views/bio.vue"),
   },
+  {
+    name: "kakos",
+    path: "/kakos",
+    component: () => import("../views/kakos.vue"),
+  },
+  {
+    name: "emperdonadas",
+    path: "/emperdonadas",
+    component: () => import("../views/emperdonadas.vue"),
+  },
 
   {
     name: "login",

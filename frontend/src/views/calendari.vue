@@ -1,7 +1,7 @@
 <template>
 
     <div class="container text-center">
-        <div class="bloc_nav">
+        <div class="bloc_nav" v-if="navbarOk">
 
             <navbar />
         </div>
@@ -15,12 +15,14 @@
                 <h3 @click="admin = !admin">Calendari</h3>
             </div>
             <div class="bloc col-12 p-lg-3 p-xl-5 text-center">
-                <div class="legende col-12 m-auto">
+                <!-- <div class="legende col-12 m-auto">
                     <div class="date col-lg-2 item">Date</div>
                     <div class="spectacle col-2 item">Espectacle</div>
                     <div class="date col-lg-3 item">Esdeveniment</div>
                     <div class="lloc col-lg-4 item">Lloc</div>
                     <div class="info_add item"></div>
+
+                    
                 </div>
 
 
@@ -37,13 +39,33 @@
                             <div class="lloc_lloc col-lg-4 flex-wrap item">{{ d.detail }}</div>
                             <div class="info_top item "></div>
                         </a>
+                        
                         <button v-if="admin" type="action" @click="updateCal(d._id)" class="btn_edit"> edit</button>
                         <button v-if="admin && calComp && cardCalSelect[0]._id == d._id" type="action"
                             @click="calComp = false" class="btn_edit"> close</button>
                     </div>
                     <calCompo v-if="calComp && cardCalSelect[0]._id == d._id" />
 
-                </div>
+                </div> -->
+                <table>
+                    <tr>
+                        <th>Date</th>
+                        <th>Espectacle</th>
+                        <th>Esdeveniment</th>
+                        <th>Lloc</th>
+                    </tr>
+                    <tr :class="dateTimestamp(d.day) < dateNow ? 'datePass' : ''" v-for="d in filterDate" :key="d.id">
+                        <td>{{ dayWeek(d.day) }} {{ date(d.day) }} - {{ d.hour }}</td>
+                        <td>{{ d.show_name }}</td>
+                        <td>{{ d.event }}</td>
+                        <td>{{ d.detail }}</td>
+
+                    </tr>
+
+
+                </table>
+
+
                 <button v-if="admin" type="action" class="btn_create col-12"> New Date</button>
 
             </div>
@@ -67,7 +89,6 @@ import moment from 'moment';
 import navbar from "../components/nav_bar.vue"
 import foot from "../components/footer.vue"
 import calCompo from "../components/cal_component.vue"
-import { object } from "webidl-conversions";
 
 
 
@@ -82,14 +103,19 @@ export default {
             cardId: "",
             calComp: false,
             dateNow: "",
+            navbarOk: false,
         }
     },
     beforeMount: function () {
         console.log("BEFORE MOUNT");
         this.dateToday();
-        this.getPageData();
-        this.getNavData();
+        // this.getPageData();
+        // this.getNavData();
         //    this.$store.dispatch("calendar");
+    },
+    created: function () {
+        this.getNavData();
+        this.getPageData();
     },
     props: {
 
@@ -108,7 +134,7 @@ export default {
                 for (let d of PageDat) {
                     date = new Date(d.day);
                     let day = date.getDay()
-                    console.log("BOUCLE FOR IN", date);
+                    // console.log("BOUCLE FOR IN", date);
                 }
 
 
@@ -116,6 +142,7 @@ export default {
 
             }
         },
+        
 
     },
     components: {
@@ -129,7 +156,9 @@ export default {
             console.log("WATCH CAL", o, n);
         }
     },
+    modules: {
 
+    },
     methods: {
         dateToday() {
             let ahora = Date.now();
@@ -149,13 +178,16 @@ export default {
             const date = val;
             const ddate = new Date(date);
             const timestamp = ddate.getTime();
+            console.log("TIMESTAMP CALENDAR DATE", val);
             console.log("TIMESTAMP CALENDAR DATE", timestamp);
             return timestamp;
         },
 
+
         getPageData() {
             const n = "calendar";
-            this.$store.dispatch("getPageData", n);
+            this.$store.dispatch("getPageData", n)
+
             console.log("REQUET GET CALENDAR PAGE DATA-----> ", n);
         },
         getNavData() {
@@ -163,7 +195,7 @@ export default {
             this.$store.dispatch("getNavData", n)
                 .then((res) => {
                     if (res) {
-                        console.log("RES GET  PORTADA NAV_BAR PAGE DATA-----> ", n);
+                        this.navbarOk = true
                         return
                     }
                 });
@@ -197,7 +229,7 @@ export default {
                     break
 
             }
-            console.log("JOUR ", jour, dd, value);
+            // console.log("JOUR ", jour, dd, value);
             return jour
         },
         dateDay(value) {
@@ -229,6 +261,10 @@ export default {
 </script>
 
 <style scoped>
+#app {
+    background-color: rgba(0, 0, 0, .3);
+}
+
 .container {
     background-image: url("../assets/images/winter-2.webp");
     min-height: 600px;
@@ -260,6 +296,22 @@ a {
     align-items: center;
 }
 
+table {
+    margin-bottom: 0 auto 2rem;
+    width: 100%;
+    max-width: 1100px;
+}
+
+td,
+th {
+    border-bottom: 1px solid black;
+    padding: 5px 0;
+    background-color: rgba(250, 235, 215, .6);
+    font-size: 16px;
+    margin-bottom: 3px;
+
+
+}
 
 .legende {
     display: flex;

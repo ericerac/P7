@@ -318,6 +318,8 @@ return
             commit("PageData", res.data);
       
             console.log("RESPONSE GET STORE", res.data);
+            let ahora = Date.now();
+            console.log("HEURE DU CHARGEMENT DATE NOW +18---->", ahora);
             return resolve(res);
 
           })

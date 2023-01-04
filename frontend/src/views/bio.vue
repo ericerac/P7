@@ -1,8 +1,8 @@
 <template>
     <div class="bloc ">
-        <div class="container p-0 text-center">
+        <div class="container p-0 mt-0 text-center">
 
-            <div class="bloc_nav ">
+            <div class="bloc_nav " v-if="navbarOk">
                 <navbar />
             </div>
 
@@ -14,14 +14,14 @@
                 </div>
             </div> -->
 
-            <div class="row col-12 bloc_img_text mt-3">
-                <div class="bloc_header_2 col-6 m-auto">
-                        <img class=" col-12 p-3" :src="pageData[0].imageUrl" alt="">
+            <div class="row col-12 bloc_img_text   ">
+                <div class="bloc_header_2 col-12 col-lg-6  m-0 m-lg-auto">
+                        <img class=" img_thumb col-12 p-3" :src="pageData[0].imageUrl" alt="">
                        
 
                     </div>
 
-                <div class="bloc_left p-2 col-6 text-center ">
+                <div class="bloc_left p-2 col-12 col-lg-6 text-center ">
                     <!-- <span class="switch_line" v-if="pageData[0].p_1"></span> -->
 
                     <p class="description_bio">{{pageData[0].p_1}}
@@ -73,7 +73,9 @@ export default {
     name: "bio",
 
     data: function () {
-        return {};
+        return {
+            navbarOk:false,
+        };
     },
 
     components: {
@@ -87,26 +89,12 @@ export default {
             imgData: "imgData",
         }),
     },
-        beforeMount: function () {
-            //     if ($cookies.get("admin")) {
-
-            //       let userCookies = $cookies.get("admin");
-
-            //       this.userId = userCookies.userId;
-            //       let logon = userCookies.userLogon;
-
-            //       data = {
-            //         userId: this.userId,
-
-            //       }
+        created: function () {
+            
 
             this.getPageData();
             this.getNavData();
-            //       this.getNewArticle(logon);
-            //     } else {
-            //       this.$router.push("/");
-            //     }
-            // console.log("ENV VAIABLES",VUE_APP_PAGE1_NAME);
+            
         },
         methods: {
             FileUpload(event) {
@@ -130,8 +118,9 @@ export default {
       this.$store.dispatch("getNavData", n)
         .then((res) => {
           if (res) {
-            console.log("RES GET  PORTADA NAV_BAR PAGE DATA-----> ", n);
-            return
+            if(res){
+                this.navbarOk = true
+            }
           }
         });
       console.log("REQUET GET NAV BAR PAGE DATA-----> ", n);
@@ -157,12 +146,17 @@ export default {
 
     }
     .bloc_nav {
+
   position: sticky;
-  top: 20px
+  top: 20px;
+  z-index: 1000;
+  
 }
 .bloc_img_text{
     display: flex;
     flex-direction: row;
+    margin:50px auto
+   
 }
 .bloc_header_2{
     display: flex;
@@ -170,8 +164,7 @@ export default {
     object-fit: cover;
 }
 .bloc_left {
-    /* margin-right: 0; */
-
+   
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -182,16 +175,13 @@ export default {
     text-align: center;
     /* font-family: 'Sawarabi Mincho', serif; */
     font-family: 'Unna', serif;
+    padding: 0px 30px;
 }
 .container {
     position: relative;
 }
 
-.container-fluid {
-    justify-content: center;
-    margin-left: 9px;
 
-}
 
 p {
     margin-top: 10px;
@@ -199,13 +189,8 @@ p {
     text-align: justify;
     /* pour media mobile*/
     /* text-indent: 40px; */ 
-   
 
 }
-
-
-
-
 
 .switch_line {
     width: 30%;
@@ -213,7 +198,6 @@ p {
     background-color: rgb(254, 73, 73);
     margin: .5rem auto;
 }
-
 .img_1 {
 
     position: fixed;
@@ -221,5 +205,29 @@ p {
     left: 6px;
     opacity: .5;
 
+}
+@media screen and (max-width:576px) {
+    .bloc_header_2{
+        
+    }
+    .bloc_nav{
+        position: absolute;
+        top:-20px;
+        right: 20px;
+    }
+    .img_thumb{
+        position: fixed;
+        top:50px;
+        margin: 0 -13px;
+   
+    }
+    .bloc_img_text{
+        
+}
+    .bloc_left{
+        z-index:2;
+        margin-top:555px;
+        background-color: rgba(255, 255, 255,.6);
+    }
 }
 </style>

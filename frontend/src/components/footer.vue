@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluid">
+  <div class="container-fluid bloc_total">
 <div class="row col-12">
 <div class="foot justify-content-around mb-2">
     <div ><img class="logo col-2 " src="../assets/logo/marta_renyer_transp_blanc-1.png" alt="logo"></div>
@@ -49,6 +49,12 @@ export default {
     align-items: center;
     color:white;
 
+    margin: 0 auto;
+}
+.bloc_total{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }
 .logo{
 width: 60px;

@@ -199,4 +199,12 @@ textarea {
 .label_area{
   
 }
+@media screen and (max-width:576px) {
+    textarea{
+
+        width:100%;
+    }
+
+    
+}
 </style>

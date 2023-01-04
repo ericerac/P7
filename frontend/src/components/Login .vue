@@ -7,12 +7,7 @@
       <div class="container ">
         
         <form class="login-form" autocomplete="on">
-          <!-- <img
-            src=""
-            alt="logo"
-            width="100"
-            height="80"
-          /> -->
+          
           <span class="form-title"
             >Accés administration</span
           >
@@ -266,20 +261,21 @@ watch: {
     font-weight: 300;
 }
 
-body {
+/* body {
   
     font-family: 'Lato', sans-serif;
     color: #FFF;
     font-weight: 300;
     background-color: white;
-    /*    height: 100%;
-        background: linear-gradient(90deg, #50a3a2 50%, #FFFFFF 50%);*/
-}
+       height: 100%;
+        
+} */
 
 .wrapper {
     position: relative;
     z-index: 2;
     width: 100%;
+    height: 100vh;
     min-height: 750px;
     display: -webkit-box;
     display: -webkit-flex;
@@ -289,9 +285,12 @@ body {
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    /* padding: 5px 250px; */
+   
+    background-color: #bebdbd;
 }
-
+.page{
+ 
+}
 .container {
     -webkit-box-shadow: 10px 0px 30px 5px rgba(0, 0, 0, 0.27);
     -moz-box-shadow: 10px 0px 30px 5px rgba(0, 0, 0, 0.27);
@@ -309,11 +308,10 @@ body {
     width: 50%;
     height: auto;
     border-radius: 15px;
-    /* background-color: #FFE53B;
-    background-image: linear-gradient(147deg, #FFE53B 0%, #FF2525 74%); */
+    
 
 }
-/* .login-form {
+.login-form {
     width: 100%;
     display: -webkit-box;
     display: -webkit-flex;
@@ -321,24 +319,10 @@ body {
     display: -ms-flexbox;
     display: flex;
     flex-wrap: wrap;
-    padding: 50px;
-} */
-.login-logo {
-    font-size: 60px;
-    color: #333333;
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -moz-box;
-    display: -ms-flexbox;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    background-color: #fff;
-    margin: 0 auto;
+    padding: 0px;
+    background-color: #f4f3f3;
 }
+
 
 .form-title {
     font-size: 25px;
@@ -382,5 +366,9 @@ padding:3px;
 color:red;
 background-color: white;
 }
-
+@media screen and (max-width:576px) {
+  .container{
+    width: 100%;
+  }
+}
 </style>

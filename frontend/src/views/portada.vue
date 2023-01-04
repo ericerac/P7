@@ -1,7 +1,7 @@
 <template>
   <div class="fond">
-    <div class="container-fluid text-center sticky_bloc">
-      <div class="bloc_nav">
+    <div class="container text-center sticky_bloc">
+      <div class="bloc_nav" v-if="navbarOk">
         <navbar />
       </div>
       <!-- <div class="display">
@@ -44,17 +44,34 @@
     </div>
 
     <!-- ------------- BLOC ESPECTACLE ------------ -->
-    <div class="container-fluid  ">
+    <div class="container  text-center
+    ">
 
       <div class="row txt-espectacle texte meeting-item">
         <h2>Espectacles</h2>
       </div>
-      <div class="row flex-grow-4 col-12 " id="spectacle">
+      <div class="row  col-12 " id="spectacle">
 
-        <div class="espectacle-bloc col-lg-3 col-xl-3" v-for="i in imgData" :key="i._id">
-          <div class="bloc-img-spect ">
-            <router-link to="/bernadette">
-              <img class=" img-spectacle img-fluid rounded-circle col-12 " :src="i.imageUrl" alt="" />
+        <div class="espectacle-bloc col-12 col-md-6 col-lg-3 col-xl-3" v-for="(i, index) in imgData" :key="i._id">
+          <div class="bloc-img-spect col-12 col-md-6">
+            
+            <router-link v-if="index == 0 " to= "/kakos">
+              <img class=" img-spectacle  rounded-circle col-12 " :src="i.imageUrl" alt="" />
+              <h3 class="showName texte">{{ i.showName }} </h3>
+            </router-link>
+
+            <router-link v-if="index == 1 " to= "/emperdonadas">           
+              <img class=" img-spectacle  rounded-circle col-12 " :src="i.imageUrl" alt="" />
+              <h3 class="showName texte">{{ i.showName }} </h3>
+            </router-link>
+
+            <router-link v-if="index == 2 " to= "/bernadette">           
+              <img class=" img-spectacle  rounded-circle col-12 " :src="i.imageUrl" alt="" />
+              <h3 class="showName texte">{{ i.showName }} </h3>
+            </router-link>
+
+            <router-link v-if="index == 3 " to= "/creation">            
+              <img class=" img-spectacle  rounded-circle col-12 " :src="i.imageUrl" alt="" />
               <h3 class="showName texte">{{ i.showName }} </h3>
             </router-link>
           </div>
@@ -65,13 +82,16 @@
     <div class="container">
       <div class="row col-12 mt-5">
         <div class="copyright">
-          <router-link to="/login" target="_blank"><span class="texte">@WistitiWeb.fr</span></router-link>
+          <router-link to="/login" target="_blank"><span class="texte">@WistitiWeb.com</span></router-link>
           
         </div>
       </div>
 
     </div>
-<foot/>
+    <div class="footer">
+
+      <foot/>
+    </div>
   </div>
 </template>
 
@@ -87,9 +107,11 @@ export default {
   data: function () {
     return {
 home:false,
+navbarOk:false,
+// route:"",
     };
   },
-  beforeMount: function () {
+  created: function () {
     //     if ($cookies.get("admin")) {
 
     //       let userCookies = $cookies.get("admin");
@@ -117,6 +139,15 @@ home:false,
       imgData: "imgData",
       auth:"auth"
     }),
+// //     routeLink(lk){
+// //       const routing = this.route;
+// // switch(lk){
+// //   case 1:{
+// //     routing = "bernadette"
+// //     break;
+// //   }
+// }
+//     },
   },
   components: {
     navbar,
@@ -146,16 +177,16 @@ home:false,
     },
 
     getNavData() {
-      const n = "navbar";
-      this.$store.dispatch("getNavData", n)
-        .then((res) => {
-          if (res) {
-            console.log("RES GET  PORTADA NAV_BAR PAGE DATA-----> ", n);
-            return
-          }
-        });
-      console.log("REQUET GET NAV BAR PAGE DATA-----> ", n);
-    },
+            const n = "navbar";
+            this.$store.dispatch("getNavData", n)
+                .then((res) => {
+                    if (res) {
+                        this.navbarOk = true
+                        return
+                    }
+                });
+            console.log("REQUET GET NAV BAR PAGE DATA-----> ", n);
+        },
    
   },
 };
@@ -187,7 +218,7 @@ a {
 .fond {
   /* background: #000; */
   /* background-image: url("../assets/images/tableau_noir_lueur_centre.webp"); */
-  background-image: url("../assets/design/white-texture.jpg");
+  background-image: url("../assets/design/white-texture.webp");
 }
 
 .container-fluid {
@@ -212,7 +243,9 @@ a {
 
   text-align: right;
 }
-
+.footer{
+  margin: 0 auto;
+}
 .img_back {
   /* background-image: url("../assets/images/mg_9636-2-2.jpg");
     background-repeat: no-repeat; */
@@ -298,14 +331,11 @@ li {
 }
 
 .showName {
-  padding: 1rem;
-  margin: 0 auto;
+  padding: 1rem 0;
+  margin: 30px auto;
 }
 
-.bloc-img-spect {
-  width: 300px;
-  height: auto;
-}
+
 
 
 /* BLOC_THUMB  */
@@ -315,7 +345,14 @@ li {
     display: flex;
     flex-direction: column;
   }
-
+.row{
+  margin: 0 auto;
+}
+.bloc_nav {
+  position: fixed;
+  top: 20px;
+  right: 10px;
+}
   .list_nav {
     width: 100%;
     display: flex;
@@ -327,18 +364,21 @@ li {
   .espectacle-bloc {
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
-    /* width: 90%;
-    height: auto; */
+    justify-content: center;
+padding: 0;
+    width: 100%; 
+    height: auto; 
+    margin: 0 auto;
   }
 
   .img-spectacle {
     width: 240px;
     height: 240px;
+    margin: 0 auto;
   }
 
   .txt-espectacle {
-    color: azure;
+   
     margin: 10px auto;
   }
 
@@ -348,23 +388,67 @@ li {
   }
 
   .bloc-img-spect {
-    width: 300px;
-    height: auto;
+    display: flex;
+    justify-content: center;
+   margin: 20px auto;
   }
+.col-12{
+ 
+}
+.container{
 
+}
 }
 
 .copyright {
   margin: 2rem auto 1rem;
 }
+@media screen and (min-width:768px) {
+  .espectacle-bloc {
+    flex-direction: row;
+    padding:0;
+    justify-content:center;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .bloc-img-spect {
+    /* display: flex;
+    justify-content: center; */
+  width: 100%;
+  
+  }
+  .img-spectacle {
+    width: 230px;
+    height: 230px;
+   
+  }
+}
+
 @media screen and (min-width:1024px) {
 
   .img-spectacle {
-    width: 240px;
-    height: 240px;
+    width: 230px;
+    height: 230px;
   }
-  . .espectacle-bloc {
+   .espectacle-bloc {
     padding:0
+  }
+  .container{
+    max-width: 1000px;
+  }
+}
+
+@media screen and (min-width:1200px) {
+
+  .img-spectacle {
+    width: 230px;
+    height: 230px;
+  }
+   .espectacle-bloc {
+    padding:0
+  }
+  .container{
+    max-width: 1100px;
   }
 }
 @media screen and (min-width:1920px) {

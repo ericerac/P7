@@ -13,6 +13,7 @@
 <script>
 import { mapState } from 'vuex';
 
+
 export default {
   name: 'App',
    data: function () {
@@ -28,7 +29,7 @@ export default {
   computed:{
     ...mapState({
       // modalMessage: "modalMessage",
-      // modal:"modal",
+      time:"time"
 
     })
   }

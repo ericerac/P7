@@ -1,7 +1,7 @@
 <template>
 
   <div class="container text-center">
-    <div class="row col-xl-6">
+    <div class="row col-12 col-xl-6">
       <span class="form-title">
             Vous êtes sur la page: <strong>{{ pageData[0].name }}.{{ pageData[0].lang }}</strong></span>
       <div class="bloc_page col-12">
@@ -101,7 +101,7 @@
 import { mapState } from 'vuex';
 
 export default {
-  name: "ad1920384756ytrdehdk",
+  name: "ad1920384756ytrdehd",
   data: function (){
 return{
   fileName:"",
@@ -229,5 +229,13 @@ p {
 }
 button{
   margin:2rem ;
+}
+@media screen and (max-width:576px) {
+.img_principale{
+  width: 80%;
+}
+.container{
+  padding: 0;
+}
 }
 </style>

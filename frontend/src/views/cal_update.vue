@@ -76,9 +76,9 @@
 
     <!-- ******************** UPDATE DATE ********************  -->
 
-    <div class="row bloc_update g-0">
+    <div class="row bloc_update col-12 g-0">
 
-      <div class="bloc_loop col-lg-6 col-xl-4 p-xl-2 p-lg-2" v-for="(data, index) in pageData" :key="data._id">
+      <div class="bloc_loop col-sm-5 mx-sm-1 col-lg-4 col-xl-4 p-xl-2 p-lg-2 " v-for="(data, index) in pageData" :key="data._id">
         <div class="card_calendar">
           <span class="mode ">Mode Update</span>
           <label for="showName">
@@ -133,7 +133,7 @@
 
           <!-- *******    BLOC IMAGE ******* -->
 
-          <label for="imgName">Actual name pic (function)
+          <!-- <label for="imgName">Actual name pic (function)
            
             <span class="span" @click="previewImg = !previewImg"><strong>(Preview)</strong></span>
             
@@ -143,7 +143,7 @@
               height="160" /></div>
           <label for="image">
             <input type="file" name="image" id="Img_new" ref="file" @change="FileUpload"
-              accept="image/png, image/jpeg, image/jpg "/></label>
+              accept="image/png, image/jpeg, image/jpg "/></label> -->
               
           <div class="btn-action">
             
@@ -498,7 +498,7 @@ input[type="date"],[type="time"]{
 /* END daqtepicker */
 .bloc_date {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
 }
 
 .bloc_event .bloc_link {
@@ -562,5 +562,15 @@ label {
 .mode {
   font-size: 12px;
   text-align: end;
+}
+@media screen and (max-width:576px) {
+  .bloc_update{
+ justify-content: space-between;
+ 
+  }
+  .bloc {
+  width: 100%;
+}
+
 }
 </style>

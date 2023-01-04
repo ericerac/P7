@@ -1,21 +1,5 @@
 <template>
   <div class="container">
-    <div class="row col-12 wrapper-wrap">
-      <ul class="liste col-12 m-t-2">
-        <li> <router-link to="/portada"> Retour Web Inici</router-link> </li>
-        <li @click="goToHome()">home</li>
-        <li @click="goToBio()">Bio </li>
-
-        <li @click="goToCal()">Calendar </li>
-       
-        <li @click="goToB()">Bernadette</li>
-        <li @click="goToBio()">Kako's</li>
-
-        <li @click="goToCrea()">Creació </li>
-      
-
-      </ul>
-    </div>
     <div class="row">
       <ul class="liste m-t-2">
         <li @click="disconnect()">Admin </li>
@@ -26,6 +10,24 @@
 
       </ul>
     </div>
+    <div class="row col-12 wrapper-wrap">
+      <ul class="liste col-12 m-t-2">
+        <li> <router-link to="/portada"> Retour Web Inici</router-link> </li>
+        
+        <li @click="goToHome()">home</li>
+        <li @click="goToBio()">Bio </li>
+
+        <li @click="goToCal()">Calendar </li>
+       
+        <li @click="goToB()">Bernadette</li>
+        <li @click="goToKakos()">Kako's</li>
+
+        <li @click="goToCrea()">Creació </li>
+      
+
+      </ul>
+    </div>
+    
     <div class="row">
 
       <div class="display">
@@ -48,7 +50,7 @@
 
       <div class="display">
         <div v-if="bernUpdate">
-          <bernupdate />
+          <bernUpdate />
         </div>
       </div>
       
@@ -58,6 +60,9 @@
           <bioUpdate />
         </div>
       </div>
+
+
+      
 
     </div>
   </div>
@@ -71,7 +76,9 @@ import axios from "axios";
 import Home from "../views/Home.vue";
 import CalUpdate from "../views/cal_update.vue";
 import bioUpdate from "../views/bio_update.vue";
-import bernupdate from "../views/bernadette_update.vue"
+import bernUpdate from "../views/bernadette_update.vue"
+import kakosUpdate from "../views/kakosUpdate.vue"
+
 import ModalSucces from "../components/ModalSucces.vue";
 import ModalError from "../components/ModalError.vue";
 import DatePicker from "../components/datePicker.vue";
@@ -122,7 +129,7 @@ export default {
     CalUpdate,
     ModalSucces,
     bioUpdate,
-    bernupdate,
+    bernUpdate,
   },
 
   methods: {
@@ -177,15 +184,18 @@ export default {
             this.home = true;
             this.calUpdate = false;
             this.bioUpdate = false;
+            this.bernUpdate = false;
             console.log("RES BLOC IF ADMIN PAGE");
           } else if (response && x == "calendar") {
             this.calUpdate = true;
             this.home = false;
             this.bioUpdate = false;
+            this.bernUpdate = false;
           } else if (response && x == "bio") {
             this.bioUpdate = true;
             this.home = false;
             this.calUpdate = false;
+            this.bernUpdate = false;
           } else if (response && x == "bernadette") {
             this.bioUpdate = false;
             this.home = false;
@@ -250,10 +260,20 @@ li:hover {
   margin: 20px auto;
   flex-direction: row;
   justify-content: space-around;
+  flex-wrap: wrap;
   border: 2px solid #ffbf00;
   padding: 5px;
   background-color: #ffbf00;
   border-radius: 10px;
   box-shadow: 1px 1px 10px 3px rgb(226, 113, 0);
+}
+@media screen and ( max-width:576px) {
+ li {
+margin-bottom: 5px;
+  }
+ .liste{
+margin:10px 0;
+width: 100%;
+ }
 }
 </style>
