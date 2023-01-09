@@ -21,7 +21,7 @@
           <span class="admin" v-if="auth = true" @click="goToHome() " >XXX</span>
         </div>
 
-        <div class="col-6 right_bloc">
+        <div class="col-12 col-sm-6 right_bloc">
           <div class="img_back">
             <!-- <img src="../assets/images/mg_9636-2-2.jpg" alt=""> -->
             <img class="img_principale" :src="pageData[0].imageUrl" alt="image" />
@@ -52,7 +52,7 @@
       </div>
       <div class="row  col-12 " id="spectacle">
 
-        <div class="espectacle-bloc col-12 col-md-6 col-lg-3 col-xl-3" v-for="(i, index) in imgData" :key="i._id">
+        <div class="espectacle-bloc col-12 col-md-6 col-lg-4 col-xl-3" v-for="(i, index) in imgData" :key="i._id">
           <div class="bloc-img-spect col-12 col-md-6">
             
             <router-link v-if="index == 0 " to= "/kakos">
@@ -71,6 +71,11 @@
             </router-link>
 
             <router-link v-if="index == 3 " to= "/creation">            
+              <img class=" img-spectacle  rounded-circle col-12 " :src="i.imageUrl" alt="" />
+              <h3 class="showName texte">{{ i.showName }} </h3>
+            </router-link>
+
+            <router-link v-if="index == 4 " to= "/elvira">            
               <img class=" img-spectacle  rounded-circle col-12 " :src="i.imageUrl" alt="" />
               <h3 class="showName texte">{{ i.showName }} </h3>
             </router-link>
@@ -193,6 +198,8 @@ navbarOk:false,
 </script>
 
 <style scoped>
+
+@import url("../styles/bloc_nav.css");
 .admin{
   color:white
 }
@@ -210,10 +217,7 @@ a {
   color:black;
   text-shadow: 2px 2px 10px rgba(0, 0, 0,.5);
 }
-.bloc_nav {
-  position: sticky;
-  top: 20px
-}
+
 
 .fond {
   /* background: #000; */
@@ -348,18 +352,6 @@ li {
 .row{
   margin: 0 auto;
 }
-.bloc_nav {
-  position: fixed;
-  top: 20px;
-  right: 10px;
-}
-  .list_nav {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    text-decoration: none;
-    justify-content: space-around;
-  }
 
   .espectacle-bloc {
     display: flex;
@@ -403,8 +395,17 @@ padding: 0;
 .copyright {
   margin: 2rem auto 1rem;
 }
+
+@media screen and (min-width:576px) {
+.bloc_nav {
+  position: sticky;
+  top: 20px;
+  z-index: 123;
+}
+}
+
 @media screen and (min-width:768px) {
-  .espectacle-bloc {
+.espectacle-bloc {
     flex-direction: row;
     padding:0;
     justify-content:center;

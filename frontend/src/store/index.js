@@ -59,27 +59,6 @@ instance.interceptors.request.use(
   }
 );
 
-// // // --------------------------------------------------------//
-// // // -----------*** INTERCEPTORS REQUEST 1 ***-----------------//
-// // // --------------------------------------------------------//
-
-// instance.interceptors.request.use(
-//   function (config) {
-//     if ($cookies.get("user")) {
-//       const AuthUser = $cookies.get("user");
-//       const token = AuthUser.token;
-
-//       if (token) {
-//         config.headers.Authorization = `Bearer ${token}`;
-//       }
-//     }
-// console.log(" INTER REQ",config);
-//     return config;
-//   },
-//   (error) => {
-//     return Promise.reject(error);
-//   }
-// );
 
 // // --------------------------------------------------------------//
 // // -----------------*** INTERCEPTORS RESPONSE ***----------------//
@@ -302,7 +281,7 @@ return
     getPageData: async({ commit }, n) => {
 
       let lang = "";
-
+commit("loading",true)
       if ($cookies.get("lang")) {
         let l = $cookies.get("lang");
         lang = l.lang;
@@ -311,10 +290,12 @@ return
         lang = "cat";
       }
       
+      
       return new Promise((resolve, reject) => {
         instance
           .get(`inici?name=${n}&lang=${lang}`)
           .then((res) => {
+            commit("loading",false)
             commit("PageData", res.data);
       
             console.log("RESPONSE GET STORE", res.data);
@@ -326,6 +307,7 @@ return
           .catch((err) => {
             reject(err);
           });
+       
       });
 
         
@@ -342,6 +324,9 @@ return
       } else {
         lang = "cat";
       }
+      
+        console.log("Retardée de 3 seconde.");
+      
       return new Promise((resolve, reject) => {
         console.log("GET NAV DATA", n);
         instance
@@ -356,6 +341,7 @@ return
             reject(err);
           });
       });
+   
     },
     //----------------* GET IMG DATA *---------------//
 

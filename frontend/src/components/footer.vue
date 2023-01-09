@@ -2,7 +2,7 @@
   <div class="container-fluid bloc_total">
 <div class="row col-12">
 <div class="foot justify-content-around mb-2">
-    <div ><img class="logo col-2 " src="../assets/logo/marta_renyer_transp_blanc-1.png" alt="logo"></div>
+    <div class="col-2" ><img class="logo  " src="../assets/logo/marta_renyer_transp_blanc-1_70_42.png" alt="logo"></div>
     <div class="listes col-10">
     <div class="list col-12">
         <ul>
@@ -57,8 +57,8 @@ export default {
     justify-content: center;
 }
 .logo{
-width: 60px;
-height: 60px;
+width: 50px;
+height: 50px;
 
 }
 ul{
@@ -84,23 +84,35 @@ ul{
     display: flex;
     flex-direction: column;
     justify-content: center;
+    
 }
+
 ul {
     width: 100%;
     display:flex;
     flex-direction: column;
-    align-items: flex-end;
+    align-items: center;
+    margin: 0;
 }
 li{
     width: 100%;
+    font-size: 16px;
+    margin: 0;
 }
 .social_media{
     flex-direction: row;
-   justify-content: center;  
+   justify-content: center; 
+   padding-bottom: 5px;
 }
 .social{
     width: 30%;
+   
 }
+.icon{
+    height: 20px;
+    width: 20px;
+}
+
 }
 
 

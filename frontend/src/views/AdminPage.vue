@@ -21,6 +21,7 @@
        
         <li @click="goToB()">Bernadette</li>
         <li @click="goToKakos()">Kako's</li>
+        <li @click="goToEmperd()">Emperdonadas</li>
 
         <li @click="goToCrea()">Creació </li>
       
@@ -61,6 +62,12 @@
         </div>
       </div>
 
+      <div class="display">
+        <div v-if="EmperUpdate">
+          <Emperdonadas />
+        </div>
+      </div>
+
 
       
 
@@ -78,6 +85,7 @@ import CalUpdate from "../views/cal_update.vue";
 import bioUpdate from "../views/bio_update.vue";
 import bernUpdate from "../views/bernadette_update.vue"
 import kakosUpdate from "../views/kakosUpdate.vue"
+import Emperdonadas from "../views/emperdonadas_update.vue"
 
 import ModalSucces from "../components/ModalSucces.vue";
 import ModalError from "../components/ModalError.vue";
@@ -102,6 +110,7 @@ export default {
       // auth:true,
       bioUpdate: false,
       bernUpdate: false,
+      EmperUpdate: false,
     }
   },
   beforeMount: function() {
@@ -130,6 +139,7 @@ export default {
     ModalSucces,
     bioUpdate,
     bernUpdate,
+    Emperdonadas,
   },
 
   methods: {
@@ -164,6 +174,11 @@ export default {
       console.log("GO TO Bernadette");
       this.getPageData("bernadette")
     },
+    goToEmperd: function () {
+      console.log("GO TO Emperdonadas");
+      this.getPageData("emperdonadas")
+    },
+
     lang(l) {
 
 
@@ -185,22 +200,33 @@ export default {
             this.calUpdate = false;
             this.bioUpdate = false;
             this.bernUpdate = false;
+            this.EmperUpdate = false
             console.log("RES BLOC IF ADMIN PAGE");
           } else if (response && x == "calendar") {
             this.calUpdate = true;
             this.home = false;
             this.bioUpdate = false;
             this.bernUpdate = false;
+            this.EmperUpdate = false
           } else if (response && x == "bio") {
             this.bioUpdate = true;
             this.home = false;
             this.calUpdate = false;
             this.bernUpdate = false;
+            this.EmperUpdate = false
           } else if (response && x == "bernadette") {
             this.bioUpdate = false;
             this.home = false;
             this.calUpdate = false;
             this.bernUpdate = true;
+            this.EmperUpdate = false
+          
+          } else if (response && x == "emperdonadas") {
+            this.bioUpdate = false;
+            this.home = false;
+            this.calUpdate = false;
+            this.bernUpdate = false;
+            this.EmperUpdate = true
           }
         }).catch((err) => {
           console.log("RESPONSE ADMIN GET PAGEDATA", err);

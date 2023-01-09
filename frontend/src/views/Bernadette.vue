@@ -6,7 +6,7 @@
       </div>
       <div class="row">
         <div class="bloc_page col-12">
-          <h1>{{ pageData[0].title_1 }}</h1>
+          <h1 class="title_text">{{ pageData[0].title_1 }}</h1>
           <div class="img_left col-lg-12 col-xl-12">
             <img class="img_principale col-lg-12" :src="pageData[0].imageUrl" alt="">
           </div>
@@ -15,7 +15,7 @@
             <!-- <div class="line"></div> -->
             <div class="arabesc"><img src="../assets/design/arabesc_1.png" alt=""> </div>
             <div class="sous_titre ">
-              <h4 class="fw-light "><i>{{ pageData[0].subTitle_1 }}</i> </h4>
+              <h4 class="fw-light title_text"><i>{{ pageData[0].subTitle_1 }}</i> </h4>
             </div>
             <div class="synopsis col-10 col-sm-6">
               <p v-if="pageData[0].synopsis"> {{ pageData[0].synopsis }} </p>
@@ -36,21 +36,21 @@
                 <!-- <div class="line"></div> -->
                 <div class="fiches col-12">
                   <div class="fiche_art col-12 col-md-8 col-lg-7 col-xl-6 text-center">
-                    <h6><strong>- Fiche artistique -</strong></h6>
+                    <h6 class="title_text"><strong>- Fiche artistique -</strong></h6>
                     <ul>
-                      <li>Creation et interprétation: Marta Renyer</li>
-                      <li>Direction: Christophe Thellier</li>
-                      <li>Accompagnement choréographique: Janna Grulichova i Muriel Deville</li>
-                      <li>Scénographie et accessoires: Eric Rieu</li>
-                      <li>Costume: Marta Renyer</li>
-                      <li>Production: Marta Renyer i Cia. Toc Toc Théâtre</li>
-                      <li>Suport: Centre Cívic Sarrià</li>
+                      <li><strong>Creation et interprétation:</strong> Marta Renyer</li>
+                      <li><strong>Direction:</strong> Christophe Thellier</li>
+                      <li> <strong>Accompagnement choréographique:</strong> Janna Grulichova i Muriel Deville</li>
+                      <li> <strong>Scénographie et accessoires:</strong>  Eric Rieu</li>
+                      <li><strong>Costume:</strong>  Marta Renyer</li>
+                      <li><strong>Production:</strong>  Marta Renyer i Cia. Toc Toc Théâtre</li>
+                      <li><strong>Suport:</strong>  Centre Cívic Sarrià</li>
                       <li>Première 2018</li>
                     </ul>>
                   </div>
 
                   <div class="fiche_basic col-12 col-md-4 col-lg-5 col-xl-6 text-center">
-                    <h6><strong>- Info basique -</strong></h6>
+                    <h6 class="title_text"><strong>- Info basique -</strong></h6>
                     <ul>
                       <li>Número gala</li>
                       <li>Clown gestuel</li>
@@ -69,12 +69,12 @@
 
               <div class="line"></div>
 
-              <button v-on:click="changeWidth()">Change</button>
+              <!-- <button v-on:click="changeWidth()">Change</button> -->
             </div>
           </div>
         </div>
       </div>
-      <div class="cadre" v-bind:style="{ background: 'url(' + background + ')' }"> </div>
+      <!-- <div class="cadre" v-bind:style="{ background: 'url(' + background + ')' }"> </div> -->
     </div>
     <foot />
   </div>
@@ -168,22 +168,14 @@ export default {
 
 <style  scoped>
 @import url('https://fonts.googleapis.com/css2?family=Amatic+SC&display=swap');
+@import url("../styles/bloc_nav.css");
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Sawarabi+Mincho&display=swap');
+@import url('../styles/font.css');
 
-.bloc_nav {
-
-position: sticky;
-top: 20px;
-z-index: 1000;
-
-}
-.cadre {
-  width: 200px;
-  height: 200px;
-  border: 2px solid red;
-}
 
 h1 {
-  font-family: 'Amatic SC', cursive;
+  
   font-weight: bold;
   margin-top: 0;
 }
@@ -275,9 +267,13 @@ ul {
 }
 
 li {
-  color: rgba(0, 0, 0, .6)
+  color: rgba(0, 0, 0, .6);
+  font-size: 14px;
+  font-family: 'Sawarabi Mincho', serif;
 }
-
+li > strong {
+  color: rgba(0, 0, 0, .8);
+}
 .video {
   margin: 0 auto;
   padding: 0;
@@ -318,11 +314,7 @@ li {
     display: none;
   }
 
-  .bloc_nav {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-  }
+  
 .bloc_down{
   flex-direction: column;
 }
@@ -363,6 +355,10 @@ li {
 @media screen and (max-width:990px) {
   .img_left {
     display: none;
+  }
+  .bloc_down{
+    flex-direction: column;
+    align-items: center;
   }
 }
 

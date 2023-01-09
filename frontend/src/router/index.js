@@ -11,21 +11,33 @@ const routes = [
   {
     name: "bernadette",
     path: "/bernadette",
+    meta:{
+      title:"Marta Renyer Bernadette"
+    },
     component: () => import("../views/Bernadette.vue"),
   },
   {
     name: "bio",
     path: "/bio",
+    meta:{
+      title:"Marta Renyer Biografia"
+    },
     component: () => import("../views/bio.vue"),
   },
   {
     name: "kakos",
     path: "/kakos",
+    meta:{
+      title:"Marta Renyer Las Kakofonikas"
+    },
     component: () => import("../views/kakos.vue"),
   },
   {
     name: "emperdonadas",
     path: "/emperdonadas",
+    meta:{
+      title:"Marta Renyer Las emperdonadas"
+    },
     component: () => import("../views/emperdonadas.vue"),
   },
 
@@ -46,8 +58,21 @@ const routes = [
   {
     name: "portada",
     path: "/portada",
-    
-  
+    meta:{
+      title:"Marta Renyer Home",
+     
+      
+      // metaTags: [
+      //   {
+      //     name: 'description',
+      //     content: 'the best spectacle'
+      //   },
+      //   {
+      //     property: 'og:description',
+      //     content: 'the best spectacle'
+      //   }
+      // ],
+    },
     component: () => import("../views/portada.vue"),
     
   },
@@ -55,19 +80,24 @@ const routes = [
     name: "ad1920384756ytrdehdk",
     path: "/ad1920384756ytrdehdk",
     meta:{
-      requireAuth:true
+      requireAuth:true,
+
     },
     component: () => import("@/views/AdminPage.vue"),
   },
   {
     name: "calendar",
     path: "/cal",
+    meta:{
+      title:"Marta Renyer Calendar",
+      
+    },
     component: () => import("../views/calendari.vue"),
   },
   {
-    name: "galerie",
-    path: "/gal",
-    component: () => import("../views/galerie.vue"),
+    name: "elvira",
+    path: "/elvira",
+    component: () => import("../views/elvira.vue"),
   },
   {
     name: "galer",
@@ -97,6 +127,10 @@ router.beforeEach((to,from,next)=>{
   } else{
     next();
   }
+  // document.title = to.meta?.title ?? 'Default Title';
+  // document.metaTags = to.meta?.metaTags ?? 'default value'
+  
+
 });
 
 export default router;

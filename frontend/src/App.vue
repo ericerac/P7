@@ -1,7 +1,7 @@
 <template>
 
 
-
+<!-- <loader v-if="loading"/> -->
 <!-- <div v-if="modal">
 <ModalMessageVue />
 </div> -->
@@ -12,6 +12,7 @@
 
 <script>
 import { mapState } from 'vuex';
+import loader from './components/loader.vue';
 
 
 export default {
@@ -23,12 +24,12 @@ export default {
         };
     },
   components: {
-// ModalMessage
+loader
   },
 
   computed:{
     ...mapState({
-      // modalMessage: "modalMessage",
+      loading:"loading",
       time:"time"
 
     })

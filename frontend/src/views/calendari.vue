@@ -273,7 +273,8 @@ export default {
 
 .bloc_nav {
     position: sticky;
-    top: 0px
+    top: 0px;
+    z-index: 123;
 }
 
 .card_calendar_row {

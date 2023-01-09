@@ -105,7 +105,7 @@ export default {
   data: function (){
 return{
   fileName:"",
-  ileSelected:"",
+  fileSelected:"",
 }
   },
   computed: {
