@@ -100,8 +100,8 @@
 <script>
 import { mapState } from "vuex";
 
-import { delire } from "../modules/script";
-delire("PATATE FROIDE");
+// import { delire } from "../modules/script";
+// delire("PATATE FROIDE");
 
 import navbar from "../components/nav_bar.vue"
 import foot from "../components/footer.vue"

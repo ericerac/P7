@@ -35,5 +35,13 @@
     </noscript>
     
     <div id="app"></div>
+    <script>
+      const observer = new PerformanceObserver((list) => {
+        let perfEntries = list.getEntries();
+        let lastEntry = perfEntries[perfEntries.length - 1];
+        // Process the latest candidate for largest contentful paint
+      });
+      observer.observe({entryTypes: ['largest-contentful-paint']});
+      </script>
   </body>
 </html>

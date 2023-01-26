@@ -9,8 +9,13 @@ module.exports = {
       new Dotenv()
     ]
   }
-}
-
+},
+module.exports = {
+  devServer: {
+    compress: true,
+    disableHostCheck: true,
+  },
+},
 module.exports = {
   chainWebpack: config => {
     

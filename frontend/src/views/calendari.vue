@@ -12,17 +12,17 @@
                 <img src="" alt="">
             </div>
             <div class="Title">
-                <h3 @click="admin = !admin">Calendari</h3>
+                <h3 >Calendari</h3>
             </div>
             <div class="bloc col-12 p-lg-3 p-xl-5 text-center">
-                <!-- <div class="legende col-12 m-auto">
-                    <div class="date col-lg-2 item">Date</div>
-                    <div class="spectacle col-2 item">Espectacle</div>
-                    <div class="date col-lg-3 item">Esdeveniment</div>
-                    <div class="lloc col-lg-4 item">Lloc</div>
+                <div class="legende col-12 m-auto">
+                    <div class="date col-3 col-lg-2 item headCard">Date</div>
+                    <div class="spectacle col-3 item headCard">Espectacle</div>
+                    <div class="date col-3 col-lg-3 item headCard">Esdeveniment</div>
+                    <div class="lloc col-3 col-lg-4 item headCard">Lloc</div>
                     <div class="info_add item"></div>
 
-                    
+
                 </div>
 
 
@@ -32,22 +32,27 @@
 
                         <a class="date_cal mt-2 mb-2 col-12 g-0" :href=d.link_event target="_blank"
                             :class="dateTimestamp(d.day) < dateNow ? 'datePass' : ''">
-                            <div class="date_date col-lg-2 item ">{{ dayWeek(d.day) }} {{ date(d.day) }} - {{ d.hour }}
+                            <div class="date_date col-3 col-lg-2 item ">{{ dayWeek(d.day) }} {{ date(d.day) }} <br> {{ hourDefined(d.hour) }}
                             </div>
-                            <div class="spectacle_name col-lg-2 item">{{ d.show_name }}</div>
-                            <div class="date col-lg-3 item">{{ d.event }}</div>
-                            <div class="lloc_lloc col-lg-4 flex-wrap item">{{ d.detail }}</div>
+                            <div class="spectacle_name col-3 col-lg-2 item">{{ d.show_name }}</div>
+                            <div class="date col-3 col-lg-3 item">{{ d.event }}</div>
+                            <div class="lloc_lloc col-3 col-lg-4 flex-wrap item">{{ d.detail }}</div>
                             <div class="info_top item "></div>
                         </a>
-                        
+
                         <button v-if="admin" type="action" @click="updateCal(d._id)" class="btn_edit"> edit</button>
                         <button v-if="admin && calComp && cardCalSelect[0]._id == d._id" type="action"
                             @click="calComp = false" class="btn_edit"> close</button>
                     </div>
                     <calCompo v-if="calComp && cardCalSelect[0]._id == d._id" />
 
-                </div> -->
-                <table>
+                </div>
+
+                <!-- "  2e VERSION   " -->
+                <!-- "  2e VERSION   " -->
+                <!-- "  2e VERSION   " -->
+
+                <!-- <table>
                     <tr>
                         <th>Date</th>
                         <th>Espectacle</th>
@@ -63,7 +68,7 @@
                     </tr>
 
 
-                </table>
+                </table> -->
 
 
                 <button v-if="admin" type="action" class="btn_create col-12"> New Date</button>
@@ -144,119 +149,128 @@ export default {
         },
         
 
-    },
-    components: {
-        navbar,
+
+},
+components: {
+    navbar,
         foot,
         calCompo,
     },
-    watch: {
-        pageData(n, o) {
+watch: {
+    pageData(n, o) {
 
-            console.log("WATCH CAL", o, n);
-        }
-    },
-    modules: {
+        console.log("WATCH CAL", o, n);
+    }
+},
+modules: {
 
-    },
-    methods: {
-        dateToday() {
-            let ahora = Date.now();
-            console.log("HEURE DU CHARGEMENT DATE NOW +18---->", ahora);
-            let date = new Date(ahora)
-            console.log("NEW DATE", date);
-
-
-
-            const timestamp = date.getTime();
-
-            this.dateNow = timestamp
-
-
-        },
-        dateTimestamp(val) {
-            const date = val;
-            const ddate = new Date(date);
-            const timestamp = ddate.getTime();
-            console.log("TIMESTAMP CALENDAR DATE", val);
-            console.log("TIMESTAMP CALENDAR DATE", timestamp);
-            return timestamp;
-        },
-
-
-        getPageData() {
-            const n = "calendar";
-            this.$store.dispatch("getPageData", n)
-
-            console.log("REQUET GET CALENDAR PAGE DATA-----> ", n);
-        },
-        getNavData() {
-            const n = "navbar";
-            this.$store.dispatch("getNavData", n)
-                .then((res) => {
-                    if (res) {
-                        this.navbarOk = true
-                        return
-                    }
-                });
-            console.log("REQUET GET NAV BAR PAGE DATA-----> ", n);
-        },
-        dayWeek(value) {
-            let d = new Date(value);
-            const dd = d.getDay();
-            let jour = "";
-            switch (dd) {
-                case 0:
-                    jour = "Dg :";
-                    break
-                case 1:
-                    jour = "Dl :";
-                    break
-                case 2:
-                    jour = "Dt :";
-                    break
-                case 3:
-                    jour = "Dc :";
-                    break
-                case 4:
-                    jour = "Dj :";
-                    break
-                case 5:
-                    jour = "Dv :";
-                    break
-                case 6:
-                    jour = "Ds :";
-                    break
-
+},
+methods: {
+    hourDefined(h) {
+        
+            if (h  != "undefined") {
+                return h
+            } else  {
+return "por definir"
             }
-            // console.log("JOUR ", jour, dd, value);
-            return jour
-        },
-        dateDay(value) {
-            return value.getDay()
-        },
-        dateMonth(value) {
+    },
+    dateToday() {
+        let ahora = Date.now();
+        console.log("HEURE DU CHARGEMENT DATE NOW +18---->", ahora);
+        let date = new Date(ahora)
+        console.log("NEW DATE", date);
 
-            return moment(value).format('MMM', 'ca')
-            return moment(value).format("MM");
-            console.log("MONTH DATEMONTH", month);
-            return month;
-        },
-        date(value) {
-            return moment(value).format("DD/MM/YYYY");
-        },
 
-        updateCal(x) {
-            console.log("ID SELECT CARD", x);
-            let ad = this.pageData;
-            let dat = ad.filter(d => d._id == x);
-            console.log("card SELECT ----->", dat);
-            this.$store.commit("CardCalSelect", dat);
-            this.calComp = true;
 
-        },
+        const timestamp = date.getTime();
+
+        this.dateNow = timestamp
+
 
     },
+    dateTimestamp(val) {
+        const date = val;
+        const ddate = new Date(date);
+        const timestamp = ddate.getTime();
+        console.log("TIMESTAMP CALENDAR DATE", val);
+        console.log("TIMESTAMP CALENDAR DATE", timestamp);
+        return timestamp;
+    },
+
+
+    getPageData() {
+        const n = "calendar";
+        this.$store.dispatch("getPageData", n)
+
+        console.log("REQUET GET CALENDAR PAGE DATA-----> ", n);
+    },
+    getNavData() {
+        const n = "navbar";
+        this.$store.dispatch("getNavData", n)
+            .then((res) => {
+                if (res) {
+                    this.navbarOk = true
+                    return
+                }
+            });
+        console.log("REQUET GET NAV BAR PAGE DATA-----> ", n);
+    },
+    dayWeek(value) {
+        let d = new Date(value);
+        const dd = d.getDay();
+        let jour = "";
+        switch (dd) {
+            case 0:
+                jour = "Dg :";
+                break
+            case 1:
+                jour = "Dl :";
+                break
+            case 2:
+                jour = "Dt :";
+                break
+            case 3:
+                jour = "Dc :";
+                break
+            case 4:
+                jour = "Dj :";
+                break
+            case 5:
+                jour = "Dv :";
+                break
+            case 6:
+                jour = "Ds :";
+                break
+
+        }
+        // console.log("JOUR ", jour, dd, value);
+        return jour
+    },
+    dateDay(value) {
+        return value.getDay()
+    },
+    dateMonth(value) {
+
+        return moment(value).format('MMM', 'ca')
+        return moment(value).format("MM");
+        console.log("MONTH DATEMONTH", month);
+        return month;
+    },
+    date(value) {
+        return moment(value).format("DD/MM/YYYY");
+    },
+
+    updateCal(x) {
+        console.log("ID SELECT CARD", x);
+        let ad = this.pageData;
+        let dat = ad.filter(d => d._id == x);
+        console.log("card SELECT ----->", dat);
+        this.$store.commit("CardCalSelect", dat);
+        this.calComp = true;
+
+    },
+
+},
 };
 </script>
 
@@ -265,17 +279,14 @@ export default {
     background-color: rgba(0, 0, 0, .3);
 }
 
-.container {
-    background-image: url("../assets/images/winter-2.webp");
-    min-height: 600px;
-    position: relative;
+.bloc_nav{
+    position: fixed;
+    top:0;
+    left:0;
+    right:0;
+z-index: 1000;
 }
 
-.bloc_nav {
-    position: sticky;
-    top: 0px;
-    z-index: 123;
-}
 
 .card_calendar_row {
     margin-top: 50px
@@ -360,9 +371,28 @@ th {
 }
 
 @media (max-width:500px) {
+    .item{
+        font-size: 14px;
+    }
     .date.cal {
         display: flex;
         flex-direction: column;
+        
+    }
+    
+    
+    .spectacle_name {
+        display: flex;
+        flex-direction: column;
+        height: inherit;
+      
+
+
+    }
+    .col-3{
+padding:0 3px;
+overflow:hidden;
+flex-wrap: wrap;
     }
 }
 </style>

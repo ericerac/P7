@@ -1,36 +1,52 @@
 <template>
 
 
-<!-- <loader v-if="loading"/> -->
-<!-- <div v-if="modal">
+  <loader v-if="loading"/>
+  <!-- <div v-if="modal">
 <ModalMessageVue />
 </div> -->
-<routerView/>
-<!-- <router-view class="view"> </router-view> -->
- 
+   <!-- <bgKakos/> -->
+
+<routerView  v-slot="{ Component }">
+  <transition name="route" mode="out-in" appear>
+  <component :is="Component">
+
+  </component>
+
+  </transition>
+</routerView>
+
+
+  <!-- <router-view class="view">
+    <bgKakos />
+  </router-view> -->
+
 </template>
 
 <script>
 import { mapState } from 'vuex';
 import loader from './components/loader.vue';
+// import bgKakos from './components/bgKakos.vue';
 
 
 export default {
   name: 'App',
-   data: function () {
-        return {
-            // detailUser: "",
-            // modalMessageVue: "modalMessage",
-        };
-    },
+  data: function () {
+    return {
+      // detailUser: "",
+      // modalMessageVue: "modalMessage",
+    };
+  },
   components: {
-loader
+     loader,
+    //  bgKakos,
   },
 
-  computed:{
+  computed: {
     ...mapState({
-      loading:"loading",
-      time:"time"
+      loading: "loading",
+      time: "time",
+      bgKakos: "bgKakos"
 
     })
   }
@@ -40,12 +56,12 @@ loader
 </script>
 
 <style >
-
-.view{
+.view {
   margin: auto;
   background-color: black;
   height: 100%;
 }
+
 html {
   /* background-color: rgb(252, 217, 164); */
 }
@@ -64,10 +80,31 @@ html {
   background-color: transparent;
   margin-top: 0px;
   background-attachment: fixed;
-  margin:auto;
+  margin: auto;
 
 }
-li{
+
+li {
   list-style: none;
 }
+
+/* TARNSITION  */
+
+.route-enter-from {
+  opacity: 0;
+  /* transform: translateX(200px) */
+}
+.route-enter-active {
+  transition: all .3s ease-out
+}
+
+.route-leave-to {
+  opacity:0;
+  /* transform: translateX(-200px); */
+}
+.route-leave-active {
+  transition: all .3s ease-in
+}
+
+
 </style>

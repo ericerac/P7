@@ -26,6 +26,9 @@
   a:active {
     color: red;
   }
+  a:hover {
+    color: red;
+  }
   
   .row {
     position: relative;
@@ -57,7 +60,8 @@
   }
   
   .idioma{
-    margin:0 10px
+    margin:0 10px;
+    cursor: pointer;
   }
   
   .navbare {
@@ -67,9 +71,10 @@
     height: 50px;
     margin-top: 20px;
     width: 100%;
-    background: rgba(249, 111, 111, 0.6);
+    background-color: rgb(248, 9, 9);
     color: white;
     animation: apparition 900ms ease-in-out forwards;
+    box-shadow: 2px 2px 15px red;
   }
   .show-nav{
     position: relative;
@@ -79,7 +84,7 @@
     top:50px;
     left:-13%;
     display:none;
-    background-color: rgba(249, 111, 111, 0.6); 
+    background-color: rgba(248, 11, 11, 0.8); 
     width: inherit;
   }
   .item-show-list{
@@ -176,6 +181,7 @@
       right: 10px;
       z-index: 100;
     }
+    
       .list_nav {
         width: 100%;
         display: flex;

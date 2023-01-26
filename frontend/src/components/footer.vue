@@ -4,13 +4,13 @@
 <div class="foot justify-content-around mb-2">
     <div class="col-2" ><img class="logo  " src="../assets/logo/marta_renyer_transp_blanc-1_70_42.png" alt="logo"></div>
     <div class="listes col-10">
-    <div class="list col-12">
+    <!-- <div class="list col-12">
         <ul>
             <li class="col-4">Écris moi</li>
             <li class="col-4">Appelle moi</li>
             <li class="col-4">Suis moi</li>
         </ul>
-    </div>
+    </div> -->
     <div class=" contact col-12">
         <ul>
             <li class="col-4">info@martarenyer.com</li>

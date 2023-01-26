@@ -76,9 +76,9 @@
 
     <!-- ******************** UPDATE DATE ********************  -->
 
-    <div class="row bloc_update col-12 g-0">
+    <div class="row bloc_update col-12 ">
 
-      <div class="bloc_loop col-sm-5 mx-sm-1 col-lg-4 col-xl-4 p-xl-2 p-lg-2 " v-for="(data, index) in pageData" :key="data._id">
+      <div class="bloc_loop col-sm-5 mx-sm-1 col-lg-4 col-xl-3   " v-for="(data, index) in pageData" :key="data._id">
         <div class="card_calendar">
           <span class="mode ">Mode Update</span>
           <label for="showName">
@@ -170,7 +170,7 @@
 import { mapState } from "vuex";
 
 // const prev = require ("../components/img_preview.vue")
-import prev from "../components/img_preview.vue";
+// import prev from "../components/img_preview.vue";
 
 
 
@@ -231,7 +231,7 @@ export default {
 
   components: {
     // ModalMessage,
-    prev,
+    // prev,
   
    
     // ModalSucces,
@@ -435,7 +435,7 @@ export default {
 }
 
 .container-fluid {
-  width: 90%;
+  width: 100%;
   padding: 0;
 }
 
@@ -452,8 +452,14 @@ export default {
 .bloc_loop {
   /* border: 1px solid blue; */
   margin: 0rem auto;
+  
 }
-
+.col-xl-4{
+  width: 24%;
+}
+.col-lg-4{
+  width:32%;
+}
 .card_calendar {
   display: flex;
   flex-direction: column;

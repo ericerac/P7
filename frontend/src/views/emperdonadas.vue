@@ -3,7 +3,7 @@
     <div class="bloc_nav" v-if="navbarOk">
       <navbar />
     </div>
-    <div class="row img_thumb">
+    <div class="row img_thumb col-12">
       <img :src="pageData[0].imageUrl" alt="" width="640" height="360"/>
     </div>
     <div class="row title">
@@ -41,8 +41,8 @@
 <script>
 import { mapState } from "vuex";
 
-import { delire } from "../modules/script";
-delire("PATATE FROIDE");
+// import { delire } from "../modules/script";
+// delire("PATATE FROIDE");
 
 import navbar from "../components/nav_bar.vue";
 import foot from "../components/footer.vue";
@@ -107,7 +107,11 @@ export default {
 }
 
 .img_thumb {
-  margin-top: 40px;
+  width:100%;
+  height: auto;
+  max-width: 900px;
+  margin:0 auto
+  
 }
 
 .title {
@@ -157,6 +161,24 @@ p {
   margin: 0 auto;
 }
 
+
+@media screen and (min-width:576px) {
+  .master{
+    width:100vw;
+    margin:0 auto
+  }
+  .bloc_nav{
+    position:relative;
+    z-index: 123;
+  }
+}
+@media screen and (min-width:756px) {
+  .master{
+    display:flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+}
 .footer {
   position: relative;
   bottom: 0;

@@ -6,10 +6,14 @@
         <div class="row">
             <div class="bloc_thumb">
                 <div class="bloc_img">
-                <img src="../assets/images/elvira3.jpg" alt="" class="img_thumb">
+                <img :src="pageData[0].imageUrl" alt="" class="img_thumb">
+                <div class="title">
+                    <h1>{{ pageData[0].title_1 }}</h1>
+                    <p class="sub_title_1">Mettre une phrase de description pour remplir l'espace</p>
+                </div>
             </div>
                 <div class="bloc_text_thumb ">
-                    <h1>{{ pageData[0].title_1 }}</h1>
+                   
                     <span class="line"></span>
                     <div class="bloc_synopsis">
                         <h2>{{ pageData[0].subTitle_1 }}</h2>
@@ -22,7 +26,7 @@
                     <div class="bloc_text_video">
                     <div class="fiches">
                         <div class="fiche_art fiche">
-                            <h4>– {{ pageData[0].p_0 }}</h4>
+                            <h4> {{ pageData[0].p_0 }}</h4>
                             <p><strong>{{ pageData[0].p_1 }} </strong> {{ pageData[0].p_2 }}</p>
                             <p><strong>{{ pageData[0].p_3 }}</strong> {{ pageData[0].p_4 }}</p>
                             <p><strong>{{ pageData[0].p_5 }} </strong> {{ pageData[0].p_6 }}</p>
@@ -44,7 +48,7 @@
                     </div>
                     <div class="bloc_video">
                         <div class="video">
-                            <iframe src="https://player.vimeo.com/video/373748069?h=6c3a2ef9d5" width="620" height="460"
+                            <iframe :src="pageData[0].linkVideo" width="620" height="460"
                                 frameborder="0" allow="autoplay; fullscreen; picture-in-picture"
                                 allowfullscreen></iframe>
                             <!-- <p><a href="https://vimeo.com/373748069">EL GRAN CABARET ELVIRA_MARTA RENYER</a> from <a
@@ -72,7 +76,7 @@ export default {
     return {
       background: "",
       navbarOk: false,
-     
+      color:"red",
     }
   },
   created: function () {
@@ -143,15 +147,20 @@ export default {
 }
 .bloc_nav{
 position:fixed;
-width:100%;
-align-items: center;
+top:30px;
+right:30px;
+
 
     z-index: 1230;
 }
 .bloc_thumb{
 margin:30px auto;
 }
+.bloc_text_thumb > h1{
+    text-shadow:0 0 2px rgb(255, 14, 1),0 0 30px rgba(255, 14, 1,.5),0px 0px 5px rgba(255, 14, 1,.5), 0 0 150px rgba(255, 14, 1,.5);
+    color:black;
 
+}
 .bloc_text_video{
     display:flex;
     flex-direction: column-reverse;
@@ -170,10 +179,12 @@ margin:30px auto;
 h1{
     margin-top: 25px;
     font-size: 24px;
+   
 }
 h2{
     font-size: 18px;
-    margin:30px auto 20px
+    margin:30px auto 20px;
+    
 }
 p{
     text-align: justify;
@@ -240,6 +251,25 @@ h1{
 }
 }
 
+@media screen and (min-width:768px) and (max-height:500px) {
+.bloc_nav{
+    position:fixed;
+    margin:0 auto;
+top:0px;
+left:20px;
+
+}
+.bloc_thumb{
+    margin-top:30vh
+}
+.bloc_video{
+    margin-top:20px
+}
+.fiches{
+    flex-direction: row-reverse;
+}
+}
+
 @media screen and (min-width:768px) and (min-height:1000px) {
     .bloc_img{
     width:50%;
@@ -267,6 +297,13 @@ h1{
 
 }
 @media screen and (min-width:992px) and (max-height:650px) {
+    .bloc_nav{
+    position:fixed;
+    margin:0 auto;
+top:0px;
+left:0px;
+
+}
     .fiches{
     flex-direction: row-reverse;
 }
@@ -290,7 +327,8 @@ margin-top:70px
 }
 .bloc_text_video{
 display:flex;
-flex-direction: row-reverse
+flex-direction: row-reverse;
+justify-content: space-evenly;
     }
 .bloc_video{
     width:33%
@@ -298,18 +336,37 @@ flex-direction: row-reverse
 
 }
 @media screen and (min-width:1140px) and (max-height:1000px) {
+    .bloc_nav{
+    position:fixed;
+    margin:0 auto;
+top:0px;
+left:0px;
+
+}
     .fiches{
     flex-direction: row-reverse;
 }
 }
 @media screen and (min-width:1200px)  {
+    .bloc_img{
+        display:flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        height:100vh;
+        
+    }
+    .sub_title_1{
+        margin:0px auto 50px;
+       text-align: center;
+    }
     h1{
         margin:50px auto;
         font-size: 40px;
     }
     .bloc_text_video{
 display:flex;
-flex-direction: row-reverse
+flex-direction: row-reverse;
+justify-content: space-evenly;
     }
 .bloc_video{
     width:33%

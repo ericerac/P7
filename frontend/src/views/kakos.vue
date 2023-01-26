@@ -1,18 +1,20 @@
 <template>
+  <!-- <bgKakos/> -->
   <div class="container background">
-    <div class="bloc_nav " v-if="navbarOk">
-      <navbar />
-    </div>
+  <div class="bloc_nav " v-if="navbarOk">
+    <navBar />
+  </div>
     <div class="row g-0">
       <div class="slider">
         <!-- <Carousel /> -->
 
 
         <div class="loop" v-for="(img, index) in imgData" :key="`item-${index}`">
+          <div class="bg_img_diapo">
           <transition name="slider-in">
             <img v-if="index === currentSlide" class="img_diapo" :src="img.imageUrl" alt="">
-
           </transition>
+        </div>
         </div>
       </div>
 
@@ -37,7 +39,7 @@
                 </h6>
                 <div class="bloc_text_synopsis">
                   <div>
-                  <img class="guillemet_start" src="../assets/design/Guiillemet_Start.png" alt="guillemet_start"> </div>
+                  <img class="guillemet_start" src="../assets/design/Guiillemet_Start.webp" alt="guillemet_start"> </div>
                 <p class="sinopsis">
               {{ i.synopsis_1 }}
             </p>
@@ -99,15 +101,16 @@
 
 <script>
 import { mapState } from 'vuex';
-import navbar from "../components/nav_bar.vue"
+import navBar from "../components/nav_bar.vue"
 import foot from "../components/footer.vue"
-import Carousel from "../components/diapo.vue"
+
+import bgKakos from "../components/bgKakos.vue"
 
 
 
 export default {
   name: "kakofonikas",
-  props: ['slide'],
+ 
 
   data() {
     return {
@@ -142,9 +145,10 @@ timing:"",
 
   },
   components: {
-    navbar,
+    navBar,
     foot,
-    Carousel,
+  
+    bgKakos,
   },
   methods: {
     timeSlide(val) {
@@ -213,7 +217,8 @@ if(val == "off"){
 <style scoped>
 
 @import "../styles/font.css";
-@import "../styles/bloc_nav.css";
+
+@import url("../styles/bloc_nav.css");
 
 * {
   margin: 0;
@@ -224,19 +229,22 @@ if(val == "off"){
 .container {
   position: relative;
   margin: 0 auto;
+  /* background: transparent; */
+  
+ 
  
 }
 
-/* .bloc_nav {
-  position: absolute;
-  top: 20px;
-  width:100vw;
-  z-index: 1000;
-} */
+
 
 .slider {
   position: relative;
- 
+  margin-top:70px
+  
+}
+.bg_img_diapo{
+  position:relative;
+  z-index:-1
 }
 h6 > strong{
   border-bottom:1px solid black;
@@ -250,11 +258,12 @@ h6 > strong{
   width: 100vw;
   height: 30vh;
   object-fit: contain;
-
+  
 }
 
 .bloc_loop {
-  margin-top: 70%
+  margin-top: 70%;
+
 }
 .img_diapo{
   /* background-color:rgb(254, 196, 145); */
@@ -341,17 +350,14 @@ margin-right: 0;
 @media screen and (min-width:576px) {
   /* .bloc_nav {
     position: fixed;
-    top: 20px;
+    top: 15px;
     right: 0px;
     width: 100%;
-    margin: 0 auto;
-    align-items: center;
+   
+
+   
   } */
-.bloc_nav{
-  position:absolute;
-  width:100%;
-  z-index:100
-}
+
   .row_galerie {
     display: flex;
     flex-direction: row;
@@ -381,26 +387,32 @@ margin-right: 0;
 }
 .background{
  
-  background-image: url("../assets/design/paper-1980_1238.webp");
-  background-repeat: repeat-y;
+  /* background-image: url("../assets/design/paper-1980_1238.webp");
+  background-repeat: repeat-y; */
 }
 }
-@media screen and (min-width:768px) and (max-height:440px) {
+@media screen and (min-width:768px) and (max-height:500px) {
   
   .img_diapo {
   position: absolute;
-  top: 70px;
+  top: 10px;
   left:0;
   width: 100%;
-  height: 50vh;
+  height: 60vh;
   object-fit: contain;
 
 }
 .bloc_loop[data-v-11114c4f] {
-    margin-top: 39%;
+    margin-top: 35%;
+}
+.slider{
+  margin-top:0
 }
 }
 @media screen and (min-width:992px) {
+  .slider{
+  margin-top:0
+}
   .img_diapo {
   position: absolute;
   top: 70px;
@@ -445,13 +457,59 @@ margin-right: 0;
   .bloc_loop[data-v-11114c4f] {
     margin-top: 47%;
 }
+
 }
+
+
 @media screen and (min-width:1440px) {
   .bloc_loop[data-v-11114c4f] {
-    margin-top: 53%;
+    margin-top: 30px;
 }
+.slider {
+  position: relative;
+  /* border:2px solid red; */
+  height:73vh;
+  
+ 
+ 
 }
-/* ********* ANIMATION CAROUSSEL  ********** */
+.img_diapo {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  /* width: 100vw; */
+  height: 60vh;
+  object-fit: contain;
+  /* border:2px solid blue; */
+  margin-top:13vh;
+  padding: 20px 0;
+  background-color: #fdcccc78;
+}
+
+/* .bg_img_diapo{
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+ 
+  height: 60vh;
+  margin-top:13vh;
+  border:2px solid rgb(255, 0, 225);
+ 
+} */
+/* .loop{
+  border:2px solid violet;
+  
+} */
+}
+
+
+                        /* ********* +++++++++++++++++++  ********** */
+ /* ********* ANIMATION CAROUSSEL  ********** */
+                                  /* ********* +++++++++++++++++++  ********** */
 
 .slider-in-enter-active,
 .slider-in-leave-active {

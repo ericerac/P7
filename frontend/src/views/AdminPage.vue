@@ -22,6 +22,7 @@
         <li @click="goToB()">Bernadette</li>
         <li @click="goToKakos()">Kako's</li>
         <li @click="goToEmperd()">Emperdonadas</li>
+        <li @click="goToElvira()">Elvira</li>
 
         <li @click="goToCrea()">Creació </li>
       
@@ -67,6 +68,17 @@
           <Emperdonadas />
         </div>
       </div>
+      <div class="display">
+        <div v-if="Elvira">
+          <Elvira />
+        </div>
+      </div>
+
+      <div class="display">
+        <div v-if="kakos">
+          <Kakos />
+        </div>
+      </div>
 
 
       
@@ -84,12 +96,14 @@ import Home from "../views/Home.vue";
 import CalUpdate from "../views/cal_update.vue";
 import bioUpdate from "../views/bio_update.vue";
 import bernUpdate from "../views/bernadette_update.vue"
-import kakosUpdate from "../views/kakosUpdate.vue"
+
 import Emperdonadas from "../views/emperdonadas_update.vue"
+import Elvira from "../views/elvira_update.vue"
+import Kakos from "../views/kakosUpdate.vue"
 
 import ModalSucces from "../components/ModalSucces.vue";
 import ModalError from "../components/ModalError.vue";
-import DatePicker from "../components/datePicker.vue";
+
 import { mapGetters, mapState } from "vuex";
 
 import { useCookies } from "vue3-cookies";
@@ -111,6 +125,8 @@ export default {
       bioUpdate: false,
       bernUpdate: false,
       EmperUpdate: false,
+      Elvira: false,
+      kakos:false,
     }
   },
   beforeMount: function() {
@@ -125,7 +141,6 @@ export default {
       user: "user",
       pageData: "pageData",
       imgData: "imgData",
-
       auth: "auth"
 
 
@@ -134,12 +149,14 @@ export default {
 
   components: {
     Home,
-    DatePicker,
+   
     CalUpdate,
     ModalSucces,
     bioUpdate,
     bernUpdate,
     Emperdonadas,
+    Elvira,
+    Kakos,
   },
 
   methods: {
@@ -178,6 +195,14 @@ export default {
       console.log("GO TO Emperdonadas");
       this.getPageData("emperdonadas")
     },
+    goToElvira: function () {
+      console.log("GO TO Elvira");
+      this.getPageData("elvira")
+    },
+    goToKakos: function () {
+      console.log("GO TO Kakos");
+      this.getPageData("kakos")
+    },
 
     lang(l) {
 
@@ -201,25 +226,35 @@ export default {
             this.bioUpdate = false;
             this.bernUpdate = false;
             this.EmperUpdate = false
+            this.kakos = false;
+            this.Elvira = false;
             console.log("RES BLOC IF ADMIN PAGE");
+
           } else if (response && x == "calendar") {
             this.calUpdate = true;
             this.home = false;
             this.bioUpdate = false;
             this.bernUpdate = false;
             this.EmperUpdate = false
+            this.kakos = false;
+            this.Elvira = false;
           } else if (response && x == "bio") {
+            this.$store.dispatch("getImgData", x)
             this.bioUpdate = true;
             this.home = false;
             this.calUpdate = false;
             this.bernUpdate = false;
             this.EmperUpdate = false
+            this.kakos = false;
+            this.Elvira = false;
           } else if (response && x == "bernadette") {
             this.bioUpdate = false;
             this.home = false;
             this.calUpdate = false;
             this.bernUpdate = true;
             this.EmperUpdate = false
+            this.kakos = false;
+            this.Elvira = false;
           
           } else if (response && x == "emperdonadas") {
             this.bioUpdate = false;
@@ -227,6 +262,27 @@ export default {
             this.calUpdate = false;
             this.bernUpdate = false;
             this.EmperUpdate = true
+            this.kakos = false;
+            this.Elvira = false;
+
+          } else if (response && x == "elvira") {
+            this.bioUpdate = false;
+            this.home = false;
+            this.calUpdate = false;
+            this.bernUpdate = false;
+            this.EmperUpdate = false
+            this.Elvira = true;
+            this.kakos = false;
+
+          } else if (response && x == "kakos") {
+            this.$store.dispatch("getImgData", x)
+            this.bioUpdate = false;
+            this.home = false;
+            this.calUpdate = false;
+            this.bernUpdate = false;
+            this.EmperUpdate = false
+            this.Elvira = false;
+            this.kakos = true;
           }
         }).catch((err) => {
           console.log("RESPONSE ADMIN GET PAGEDATA", err);

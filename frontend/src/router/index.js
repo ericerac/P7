@@ -48,13 +48,7 @@ const routes = [
     component: () => import("../components/Login .vue"),
     
   },
-  {
-    name: "test",
-    path: "/test",
-    
-    component: () => import("../views/test.vue"),
-    
-  },
+  
   {
     name: "portada",
     path: "/portada",
@@ -100,10 +94,11 @@ const routes = [
     component: () => import("../views/elvira.vue"),
   },
   {
-    name: "galer",
-    path: "/galer",
-    component: () => import("../views/galer.vue"),
+    name: "forgotPassword",
+    path: "/9876545678hgh87yhju87",
+    component: () => import("../components/EnterEmail.vue"),
   },
+  
 
 ];
 

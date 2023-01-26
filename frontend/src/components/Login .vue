@@ -51,13 +51,16 @@
               class="form-control"
               placeholder=" Votre mot de passe"
               required
-            />
+              />
+              <p @click="enterEmail()">
+                  Mot de passe oublié ?
+                </p>
             <p class="ErrorInput" v-if="messagePassword">
               {{ messagePassword }}
             </p>
           </div>
 
-          <div class="form-group">
+          <div class="form-group ">
             <label for="submit" class="btn-label"></label>
             <input
               v-if="mode == 'login'"
@@ -68,6 +71,7 @@
               value="Connection"
               @click="loginPost()"
             />
+            
           </div>
           
           
@@ -84,7 +88,7 @@ import { mapState } from "vuex";
 import { router } from "../router";
 
  import ModalError from "./ModalError.vue";
-
+ 
 
 export default {
 
@@ -98,6 +102,8 @@ export default {
             Email: "",
             password: "",
 
+            
+
             message:"",
            
             messageEmail:"",
@@ -108,6 +114,7 @@ export default {
     },
     components: {
      ModalError,
+   
     
     
 },
@@ -137,7 +144,11 @@ watch: {
         goToLogin: function () {
             this.mode = "login";
         },
+        enterEmail: function (){
+this.$router.push("9876545678hgh87yhju87")
+        },
 
+        
         
         // --------------- VALIDATION FORM-------------------//
         checkForm: function () {
@@ -312,6 +323,7 @@ watch: {
 
 }
 .login-form {
+  position: relative;
     width: 100%;
     display: -webkit-box;
     display: -webkit-flex;
@@ -358,13 +370,20 @@ watch: {
 padding:1rem;
 }
 
-
 .error{
 width: 100%;
 height: 50px;
 padding:3px;
 color:red;
 background-color: white;
+}
+.enterEmailComponent{
+  position: absolute;
+  top:0;
+  left:0;
+  right: 0;
+  bottom: 0;
+
 }
 @media screen and (max-width:576px) {
   .container{

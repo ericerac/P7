@@ -379,6 +379,27 @@ commit("loading",true)
       });
     },
 
+    resetPassword: ({ commit }, data) => {
+      const email = data.email;
+      return new Promise((resolve, reject, res) => {
+        instance
+          .post("/inici/forgot-password",
+          {
+            email:email,
+          })
+          .then((res) => {
+            console.log("RES FORGOT",res);
+           
+            console.log("REPONSE", res);
+            resolve(res);
+          })
+          .catch((err) => {
+            reject(err);
+          });
+      });
+    },
+
+
     loginPost: ({ commit }, userData) => {
       console.log("LOGIN POST STORE");
       return new Promise((resolve, reject) => {

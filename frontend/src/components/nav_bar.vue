@@ -20,9 +20,9 @@
                     <li><router-link to="/portada"> {{navData[0].l_4}}</router-link></li>
                     <li><router-link to="/cal"> {{navData[0].l_5}}</router-link></li>
                     <li><router-link to="/portada"> {{navData[0].l_6}}</router-link></li>
-                    <li class="idiomes"><span class="idioma" @click="lang('cat')" >Cat</span>
+                    <li class="idiomes"><span class="idioma"  @click="lang('cat')" >Cat</span>
             <span class="idioma" @click="lang('es')">Es</span>
-            <span class="idioma" @click="lang('fr')">Fr</span></li>
+            <span class="idioma"  @click="lang('fr')">Fr</span></li>
                     
                 </ul>
            
@@ -107,4 +107,9 @@ export default {
 @import url('https://fonts.googleapis.com/css2?family=Unna&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Sawarabi+Mincho&display=swap');
 @import url('../styles/bloc_nav.css');
+
+
+/* .idioma {
+      cursor: pointer;
+    } */
 </style>
