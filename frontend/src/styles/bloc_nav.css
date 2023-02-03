@@ -93,7 +93,10 @@
     font-size: 18px;
   }
   .item-show-list:hover{
-    background-color: rgba(149, 149, 149, 0.6);
+    background-color: rgba(244, 248, 2, 0.6);
+  }
+  .show-nav:hover{
+    background-color: rgba(248, 248, 246, 0.6);
   }
   .show-nav:hover > ul{
   display: block;

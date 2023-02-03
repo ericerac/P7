@@ -1,6 +1,4 @@
 <template>
-
-
     <div class="container p-0 text-center">
         <div class="row">
             <span class="form-title">
@@ -18,68 +16,63 @@
         </div>
 
         <div class="row col-12">
-            <div class="bloc_left m-2 col-12 text-center">
+            <div class="bloc_left  col-12 text-center">
                 <label for="p1" class="label_area">Paragraphe 1</label>
                 <textarea rows="10" cols="50" name="p1" type="text" class="description_bio" v-model="pageData[0].p_1">
-          </textarea>
+        </textarea>
                 <label for="p1">Paragraphe 2</label>
                 <textarea rows="10" cols="50" name="p2" type="text" class="description_bio" v-model="pageData[0].p_2">
-          </textarea>
+        </textarea>
                 <label for="p1">Paragraphe 3</label>
                 <textarea rows="10" cols="50" name="p3" type="text" class="description_bio" v-model="pageData[0].p_3">
-          </textarea>
+        </textarea>
                 <label for="p1">Paragraphe 4</label>
                 <textarea rows="10" cols="50" name="p4" type="text" class="description_bio" v-model="pageData[0].p_4">
-          </textarea>
+        </textarea>
                 <div class="bloc_tilte_2">
                     <h2>{{ pageData[0].title_2 }}</h2>
                     <label for="img_text">titre rubrique
-                        <input type="text" name="img_text" v-model="pageData[0].title_2">
+                        <input type="text" name="img_text" v-model="pageData[0].title_2" />
                     </label>
                 </div>
                 <button @click="updateBio(pageData[0]._id)">Update</button>
             </div>
-
         </div>
 
         <div class="row bloc_img_spectacles">
-            <div class=" otherShows">
-
+            <div class="otherShows">
                 <div class="bloc_loop_otherShows col-12">
-                    <div class="bloc_img " v-for="i in imgData" :key="i._id">
+                    <div class="bloc_img" v-for="i in imgData" :key="i._id">
                         <div class="img_card">
-                            <img class="img_display" :src="i.imageUrl" alt="">
-
-                            <div class=" group_btn_img">
-
+                            <img class="img_display" :src="i.imageUrl" alt="" />
+<div class="bloc_btn">
+                            <div class="group_btn_img">
                                 <div>
-                                    <label for="image1" class="btn_upload ">
+                                    <label for="image1" class="btn_upload">
                                         <input type="file" name="image" id="image1" ref="file" @change="FileUpload"
-                                            accept="image/png, image/jpeg, image/jpg" hidden /> Choisir une
-                                        image</label>
+                                            accept="image/png, image/jpeg, image/jpg" hidden />
+                                        Choisir une image</label>
                                 </div>
                                 <span>{{ fileName }}</span>
                             </div>
                             <div class="label">
                                 <label for="img_text">{{ i.showName }}
-                                    <input type="text" name="img_text" v-model="i.showName">
+                                    <input type="text" name="img_text" v-model="i.showName" />
                                 </label>
                             </div>
 
                             <!-- <span>{{ i._id }}</span>  info only -->
                             <div class="btn-action">
-
-
                                 <button @click="updateImg(i._id)">Update</button>
                                 <button @click="delCard(i._id)">Delete</button>
                             </div>
                         </div>
                     </div>
                 </div>
+                </div>
             </div>
         </div>
     </div>
-
 </template>
 
 <script>
@@ -90,14 +83,21 @@ export default {
         return {
             OnefileSelected: "OnefileSelected",
             fileName: "",
+            textVal: document.getElementsByClassName("description_bio").value,
         };
     },
+
     computed: {
         ...mapState({
             pageData: "pageData",
             imgData: "imgData",
         }),
+
+        
     },
+    
+
+
     methods: {
         FileUpload(event) {
             this.fileSelected = event.target.files[0];
@@ -107,7 +107,11 @@ export default {
         cancelFileSelected(event) {
             this.fileSelected = "";
             this.fileName = "";
-            console.log("CANCEL FILE IMAGE SELECTED", this.fileSelected, this.fileName);
+            console.log(
+                "CANCEL FILE IMAGE SELECTED",
+                this.fileSelected,
+                this.fileName
+            );
         },
         getPageData() {
             const n = "bio";
@@ -216,10 +220,7 @@ export default {
             let file = this.fileSelected;
             let bodyFormData = new FormData();
 
-
             if (this.fileSelected) {
-
-
                 bodyFormData.append("image", this.fileSelected, this.fileSelected.name);
                 bodyFormData.append("id", imgUp[0]._id);
                 bodyFormData.append("name", imgUp[0].name);
@@ -227,9 +228,6 @@ export default {
                 bodyFormData.append("img", imgUp[0].img);
                 bodyFormData.append("page", imgUp[0].page);
                 bodyFormData.append("link", imgUp[0].link);
-
-
-
             } else {
                 bodyFormData.append("id", imgUp[0]._id);
                 bodyFormData.append("name", imgUp[0].name);
@@ -237,14 +235,13 @@ export default {
                 bodyFormData.append("img", imgUp[0].img);
                 bodyFormData.append("page", imgUp[0].page);
                 bodyFormData.append("link", imgUp[0].link);
-
             }
 
             this.$store
                 .dispatch("updatePage", {
                     data: bodyFormData,
                     // page: `${process.env.VUE_APP_PAGE1_NAME}`
-                    page: "img"
+                    page: "img",
                 })
 
                 .then((response) => {
@@ -252,16 +249,10 @@ export default {
                         // console.log("RESPONSE CALUPDATE 2", response);
                         //     location.reload();
                         file = null;
-
                     }
-
                 })
-                .catch((response) => {
-
-
-                });
+                .catch((response) => { });
         },
-        
     }, //fin actions
 };
 </script>
@@ -271,6 +262,12 @@ export default {
     border: 2px solid black;
     margin: 5px 0;
     padding: 10px 0;
+}
+
+.form-title {
+    margin: 20px auto;
+    font-size: 20px;
+    background-color: bisque;
 }
 
 .img {
@@ -303,14 +300,33 @@ textarea {
 .bloc_img {
     display: flex;
     flex-direction: row;
-    margin: 5px
+    width: 90%;
+    margin: 5px auto;
+    background: rgba(rgb(249, 87, 87), rgb(120, 250, 120), rgb(3, 3, 246), .3);
 }
 
 .img_card {
     display: flex;
+    width: 100%;
+    flex-direction: column;
+    justify-content: space-evenly;  
+    border: 1px solid red;
+    border-radius: 0 0 10px 10px;
+    box-shadow: 3px 3px 10px;
+   
+   
+}
+.bloc_btn > div{
+    background: transparent;
+}
+.bloc_btn{
+    display:flex;
     flex-direction: column;
     justify-content: space-evenly;
-    border: 1px solid red;
+    gap:5px;
+    height:33%;
+    
+    margin-bottom: 5px;
 }
 
 .btn_upload {
@@ -328,6 +344,20 @@ textarea {
     }
 }
 
+@media screen and (min-width: 992px) {
+    .img_card {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .bloc_img {
+        display: flex;
+        flex-direction: row;
+        width: 32%;
+    }
+}
+
 @media screen and (min-width: 1040px) {
     .img_card {
         display: flex;
@@ -338,7 +368,7 @@ textarea {
     .bloc_img {
         display: flex;
         flex-direction: row;
-        width: 25%
+        width: 25%;
     }
 
     .label {

@@ -48,6 +48,8 @@
 
 
           <div class="bloc-img-spect col-12 col-md-6" v-motion-slide-visible-once-bottom>
+            <span class="span1"></span>
+            <span class="span2"></span>
 
             <router-link v-if="index == 0" to="/kakos">
               <img class=" img-spectacle  rounded-circle col-12 " :src="i.imageUrl" alt="" />
@@ -327,6 +329,7 @@ li {
 } */
 
 .bloc_thumb {
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -343,6 +346,7 @@ li {
     margin: 0 auto;
   }
   .bloc-img-spect {
+    position: relative;
     display: flex;
     justify-content: center;
     width: 300px;
@@ -353,6 +357,50 @@ li {
     margin: 20px auto;
     padding-top: 20px;
     border-radius: 10px;
+  }
+  .bloc-img-spect::before {
+    content:"";
+    position:absolute;
+    top:10px;
+    left:10px;
+    width:15px;
+    height:15px;
+    border-radius: 50%;
+    background-color: #f2eeee;
+    box-shadow: 2px 2px  rgb(7, 7, 7), 4px 4px  rgb(7, 7, 7);
+  }
+  .bloc-img-spect::after {
+    content:"";
+    position:absolute;
+    top:10px;
+    right:10px;
+    width:15px;
+    height:15px;
+    border-radius: 50%;
+    background-color: #f2eeee;
+    box-shadow: 2px 2px  rgb(7, 7, 7), 4px 4px  rgb(7, 7, 7);
+  }
+  .span1{
+    
+    position:absolute;
+    bottom:10px;
+    right:10px;
+    width:15px;
+    height:15px;
+    border-radius: 50%;
+    background-color: #f2eeee;
+    box-shadow: 2px 2px  rgb(7, 7, 7), 4px 4px  rgb(7, 7, 7);
+  }
+  .span2{
+    
+    position:absolute;
+    bottom:10px;
+    left:10px;
+    width:15px;
+    height:15px;
+    border-radius: 50%;
+    background-color: #f2eeee;
+    box-shadow: 2px 2px  rgb(7, 7, 7), 4px 4px  rgb(7, 7, 7);
   }
   .img-spectacle {
     width: 240px;
@@ -397,6 +445,7 @@ li {
 .showName {
     padding: 1rem;
     margin: 0 auto;
+    text-shadow: 2px 2px 10px  white ;
   }
 
   .txt-espectacle {
@@ -458,7 +507,11 @@ width:50%;
     width: 100%;
 
   } */
-
+  .bloc_thumb{
+  height:auto;
+  display:flex;
+  flex-direction: row;
+}
   .img-spectacle {
     width: 230px;
     height: 230px;
@@ -477,6 +530,7 @@ width:50%;
   .espectacle-bloc {
     padding: 0;
     flex-direction: row;
+    flex-wrap: wrap;
     width: 300px;
   }
 
@@ -520,24 +574,28 @@ width:50%;
 @media screen and (min-width:1440px) {
   #spectacle{
     padding:50px 30px 30px 30px;
-   
+   justify-content: center;
     border-radius: 20px 0;
     box-shadow:  
      white 0.006em 0.006em 0.007em,
-    #9c9c9c 1px 1px 1px,
-    #9c9c9c  2px 2px 1px,
-    #9c9c9c  3px 3px 1px,
-    #9c9c9c  4px 4px 1px,
-    #9c9c9c  5px 5px 1px,
-    #9c9c9c  6px 6px 1px,
-    #9c9c9c  7px 7px 1px,
-    #9c9c9c  8px 8px 1px,
-    #9c9c9c 9px 9px 1px,
-    #9c9c9c  10px 10px 1px,
-    #9c9c9c 11px 11px 1px,
-    #9c9c9c 12px 12px 1px;color:#fff;
-background-color:rgba(113, 130, 141,.5);
+    rgba(251, 36, 36,.3) 1px 1px 1px,
+    rgba(251, 36, 36,.3)  2px 2px 1px,
+    rgba(251, 36, 36,.3) 3px 3px 1px,
+    rgba(251, 36, 36,.3)  4px 4px 1px,
+    rgba(251, 36, 36,.3) 5px 5px 1px,
+    rgba(251, 36, 36,.3)  6px 6px 1px,
+    rgba(251, 36, 36,.3)  7px 7px 1px,
+    rgba(251, 36, 36,.3)  8px 8px 1px,
+    rgba(251, 36, 36,.3) 9px 9px 1px,
+    rgba(251, 36, 36,.3)  10px 10px 1px,
+    rgba(251, 36, 36,.3)11px 11px 1px,
+    rgba(251, 36, 36,.3) 12px 12px 1px;
+    color:#fff;
+background-color:rgba(113, 130, 141,.3);
  ;
+  }
+  .espectacle-bloc{
+    margin: 30px;
   }
   .container{
   max-width: 1300px;}

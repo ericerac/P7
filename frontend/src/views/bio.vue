@@ -12,6 +12,8 @@
                     </div>
                 </div>
             </div> -->
+            <div class="header col-lg-12">
+            <div class="title"> <h1 class="title_1">{{ pageData[0].title_1 }}</h1></div>
 
       <div class="row col-12 bloc_img_text">
         <div class="bloc_header_2 col-12 col-lg-5 m-0 m-lg-auto">
@@ -20,10 +22,12 @@
             :src="pageData[0].imageUrl"
             alt=""
           />
-          <h1 class="title_1">{{ pageData[0].title_1 }}</h1>
+          <h1 class="title_1 title_mobile">{{ pageData[0].title_1 }}</h1>
+          <span class="switch_line sub_title" ></span>
         </div>
+        <span class="switch_line sub_title" ></span>
 
-        <div class="bloc_left p-2 col-12 col-lg-7 text-center" >
+        <div class="bloc_left p-2 col-12 col-lg-6 text-center" >
           <!-- <span class="switch_line" v-if="pageData[0].p_1"></span> -->
 
           <p class="description_bio" >{{ pageData[0].p_1 }}</p>
@@ -52,6 +56,7 @@
                         alt="Image bio Marta Renyer robe rouge">
         </div> -->
       </div>
+    </div>
       <div class="row otherShows">
         <h2 class="title_2" >{{pageData[0].title_2}}</h2> 
         <div class="bloc_loop_otherShows col-12" >
@@ -153,13 +158,18 @@ export default {
     position:relative;
   display: flex;
   flex-direction: row;
+ 
   margin: 20px auto 20px;
   /* height:100vh; */
 }
 .img_text{
   font-size: 16px;
 }
+.title{
+display:none;
+}
 .title_1{
+  
   margin:20px auto;
   text-shadow: /*relieve*/
   0 1px 0 rgb(200, 200, 200), 0 2px 0 rgb(190, 190, 190), 0 3px 0 rgb(180, 180, 180), 0 4px 0 rgb(175, 175, 175), 0 5px 0 rgb(180, 180, 180), 0 6px 0 rgb(190, 190, 190), /*sombra*/
@@ -174,12 +184,13 @@ export default {
   0 1px 0 rgb(200, 200, 200), 0 2px 0 rgb(190, 190, 190), 0 3px 0 rgb(180, 180, 180), 0 4px 0 rgb(175, 175, 175), 0 5px 0 rgb(180, 180, 180), 0 6px 0 rgb(190, 190, 190), /*sombra*/
   5px 7px 5px rgba(0, 0, 0, .40), 5px 12px 10px rgba(0, 0, 0, .30), 5px 17px 20px rgba(0, 0, 0, .20), 5px 22px 30px rgba(0, 0, 0, .10);
   color: white;
-  font-size: 50px;
+  font-size: calc(25px + 3vw);
 }
 .bloc_header_2 {
   display: flex;
   flex-direction: column;
   object-fit: cover;
+  height:100vh;
 }
 .bloc_left {
   display: flex;
@@ -225,13 +236,13 @@ p {
     width:100%;
    
   }
-@media screen and (max-width: 576px) {
+/* @media screen and (max-width: 576px) { */
   
   
   .img_thumb {
     /* position: sticky;
     top: 50px; */
-    margin: 0
+    margin: 40px auto 30px;
   }
   .bloc_loop_otherShows{
     display:flex;
@@ -251,7 +262,7 @@ p {
     /* margin-top: 555px; */
     background-color: rgba(255, 255, 255, 0.6);
   }
-}
+/* } */
 @media screen and (min-width:576px) and (max-height:500px) {
   .bloc_header_2 {
   display: flex;
@@ -260,7 +271,7 @@ p {
   align-items: center;
 }
   .bloc_header_2 > h1 {
-  margin-left:10%;
+  /* margin-left:10%; */
   padding-bottom: 5px;
   border-bottom:2px solid red;
 }
@@ -271,11 +282,27 @@ p {
 }
 }
 @media screen and (min-width:756px) and (min-height:500px) {
+  .title_mobile{
+  display: none;
+}
+.title{
+  display:block;
+}
+.sub_title{
+  display: none;
+}
+.bloc_img_text{
+display:flex;
+flex-direction: row;
+
+}
   .bloc_header_2 {
   display: flex;
   flex-direction: row;
   object-fit: cover;
   align-items: center;
+  /* width:50%; */
+  height: auto;
 }
   .bloc_header_2 > h1 {
   margin:0 auto;
@@ -287,14 +314,22 @@ p {
   .bloc_header_2 {
   display: flex;
   flex-direction: column-reverse;
+  width: 50%;
   object-fit: cover;
   align-items: center;
 }
 .bloc_header_2 > h1{
   margin-bottom:30px
 }
+.bloc_img_text{
+display:flex;
+flex-direction: row;
+}
 }
 @media screen and (min-width:1280px)  {
+  .header{
+    height: 100vh;
+  }
   .bloc_header_2 > h1{
    
   padding-top:20px
@@ -304,6 +339,11 @@ p {
   object-fit: cover;
   object-position: top;;
   
+}
+
+.title_1{
+ 
+  margin:50px auto
 }
 }
 </style>

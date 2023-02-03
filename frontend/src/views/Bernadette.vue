@@ -8,6 +8,7 @@
         <div class="bloc_page col-12">
           <div class="bloc_title">
             <span><img src="../assets/design/arabesc_1.png" alt=""></span>
+            <!-- <span><img src="../assets/images/vector-graphics-arabesque-500_262.jpg" alt=""></span> -->
           <h1 class="title_text">{{ pageData[0].title_1 }}</h1>
           <span><img src="../assets/design/arabesc_1.png" alt=""></span>
         </div>
@@ -177,6 +178,9 @@ export default {
 @import url('../styles/font.css');
 
 
+/* .title_text{
+  position:absolute;
+} */
 h1 {
   
   font-weight: bold;
@@ -205,6 +209,7 @@ h6 {
 }
 .bloc_title > span{
 display:none;
+position:relative;
 }
 /* .bloc_nav{
 position:fixed;
@@ -356,6 +361,13 @@ width: 100%;
 
 }
 @media screen and (min-width:768px) and (min-height:500px){
+  .bloc_nav{
+    position: fixed;
+    top:0;    
+    right:0;
+    left:0;    
+z-index: 1000;
+}
   .fiches{
     flex-direction: row;
   }
@@ -378,5 +390,13 @@ font-size: 40px;
   align-items: center;
   margin:20px auto 30px
 }
+}
+@media screen and (min-width :1280px) {
+  .bloc_page {
+    margin-top:50px
+  }
+  .bloc_title{
+    margin:40px auto 30px
+  }
 }
 </style>

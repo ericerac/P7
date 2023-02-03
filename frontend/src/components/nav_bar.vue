@@ -5,9 +5,9 @@
             <navbar class="nav_bar" v-if="isActive" >
                 <ul class="navbare  col-12"  >
                     
-                    <li> <img class="logo rounded-circle" src="../assets/logo/logo.png" alt="logo"></li>
-                    <li> <router-link to="/portada">{{navData[0].l_1}}</router-link></li>
-                    <li><router-link to="/bio"> {{navData[0].l_2}}</router-link></li>
+                    <li class="show-nav"> <img class="logo rounded-circle" src="../assets/logo/logo.png" alt="logo"></li>
+                    <li class="show-nav"> <router-link to="/portada">{{navData[0].l_1}}</router-link></li>
+                    <li class="show-nav"><router-link to="/bio"> {{navData[0].l_2}}</router-link></li>
                     <li class="show-nav"> <a href="#spectacle"> {{navData[0].l_3}}</a>
                     <ul class="show-list">
                       <li class="item-show-list"><router-link to="/kakos"> Kakofonikas</router-link></li>
@@ -17,9 +17,9 @@
                       <li class="item-show-list"><router-link to="/creation">Creation</router-link></li>
                     </ul>
                     </li>
-                    <li><router-link to="/portada"> {{navData[0].l_4}}</router-link></li>
-                    <li><router-link to="/cal"> {{navData[0].l_5}}</router-link></li>
-                    <li><router-link to="/portada"> {{navData[0].l_6}}</router-link></li>
+                    <li class="show-nav"><router-link to="/blog"> {{navData[0].l_4}}</router-link></li>
+                    <li class="show-nav"><router-link to="/cal"> {{navData[0].l_5}}</router-link></li>
+                    <li class="show-nav"><router-link to="/contact"> {{navData[0].l_6}}</router-link></li>
                     <li class="idiomes"><span class="idioma"  @click="lang('cat')" >Cat</span>
             <span class="idioma" @click="lang('es')">Es</span>
             <span class="idioma"  @click="lang('fr')">Fr</span></li>
@@ -68,12 +68,9 @@ export default {
   },
   computed: {
     ...mapState({
-
       navData: "navData",
       // lang:"lang",
-
     }),
-
   },
 
   modules: {

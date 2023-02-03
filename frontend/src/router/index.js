@@ -48,7 +48,14 @@ const routes = [
     component: () => import("../components/Login .vue"),
     
   },
-  
+  {
+    
+      name: "NewPass",
+      path: "/newpass",
+      
+      component: () => import("../components/ResetPassW.vue"),    
+    
+  },
   {
     name: "portada",
     path: "/portada",
@@ -87,6 +94,24 @@ const routes = [
       
     },
     component: () => import("../views/calendari.vue"),
+  },
+  {
+    name: "contact",
+    path: "/contact",
+    meta:{
+      title:"Marta Renyer Calendar",
+      
+    },
+    component: () => import("../views/contact.vue"),
+  },
+  {
+    name: "blog",
+    path: "/blog",
+    meta:{
+      title:"Marta Renyer Blog",
+      
+    },
+    component: () => import("../views/blog.vue"),
   },
   {
     name: "elvira",

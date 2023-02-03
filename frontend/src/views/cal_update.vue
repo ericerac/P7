@@ -3,7 +3,7 @@
 
 
     <button v-if="!newDate" class="btn_display" @click="newDate = !newDate">Open New Date</button>
-    <button v-else="newDate" class="btn_display" @click="newDate = !newDate">Close New Date</button>
+    <button v-else class="btn_display" @click="newDate = !newDate">Close New Date</button>
     <!-- ********************  CREATE ********************  -->
 
     <div class="row bloc_newDate g-0" id="createDate">
@@ -78,7 +78,7 @@
 
     <div class="row bloc_update col-12 ">
 
-      <div class="bloc_loop col-sm-5 mx-sm-1 col-lg-4 col-xl-3   " v-for="(data, index) in pageData" :key="data._id">
+      <div class="bloc_loop  col-sm-5 mx-sm-1 col-lg-4 col-xl-3   " v-for="(data, index) in pageData" :key="data._id">
         <div class="card_calendar">
           <span class="mode ">Mode Update</span>
           <label for="showName">
@@ -452,14 +452,16 @@ export default {
 .bloc_loop {
   /* border: 1px solid blue; */
   margin: 0rem auto;
+  width:100%
   
+}
+.col-12{
+width:100%;
 }
 .col-xl-4{
   width: 24%;
 }
-.col-lg-4{
-  width:32%;
-}
+
 .card_calendar {
   display: flex;
   flex-direction: column;
@@ -578,5 +580,11 @@ label {
   width: 100%;
 }
 
+}
+@media screen and (min-width:992px) {
+  .col-lg-4{
+  width:32%;
+}
+  
 }
 </style>

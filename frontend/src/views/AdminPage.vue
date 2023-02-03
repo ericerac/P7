@@ -24,7 +24,7 @@
         <li @click="goToEmperd()">Emperdonadas</li>
         <li @click="goToElvira()">Elvira</li>
 
-        <li @click="goToCrea()">Creació </li>
+        <li @click="goToCrea()">Blog </li>
       
 
       </ul>
@@ -163,7 +163,15 @@ export default {
     getAdminAuth: function () {
       this.$store.dispatch("getAdminAuth").then((res) => console.log("ADMINAUTH OK"))
     },
+    disconnect() {
+      this.$store.dispatch("disconnect")
+      .then((res)=>{
+this.$router.push("/portada")
+      })
+    
 
+      // this.$router.push("/");
+    },
 
     preview_close: function (x) {
       console.log("PREVIEW IMAGE DB COMPONENT", x);
@@ -299,7 +307,7 @@ export default {
 
 <style scoped>
 .container {
-  background-color: rgba(255, 191, 0, .3);
+  /* background-color: rgba(255, 191, 0, .3); */
   height: auto;
   min-height: 800px;
 

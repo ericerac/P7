@@ -16,7 +16,7 @@
   </transition>
 </routerView>
 
-
+<!-- <routerView/> -->
   <!-- <router-view class="view">
     <bgKakos />
   </router-view> -->
@@ -92,7 +92,7 @@ li {
 
 .route-enter-from {
   opacity: 0;
-  /* transform: translateX(200px) */
+  transform: translateX(200px)
 }
 .route-enter-active {
   transition: all .3s ease-out
@@ -100,7 +100,7 @@ li {
 
 .route-leave-to {
   opacity:0;
-  /* transform: translateX(-200px); */
+  transform: translateX(-200px);
 }
 .route-leave-active {
   transition: all .3s ease-in

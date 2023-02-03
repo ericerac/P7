@@ -2,9 +2,11 @@
     <div class="container master">
         
         <div class="row">
+            <span class="form-title" v-if="pageData[0].name">
+        Vous êtes sur la page: <strong>{{ pageData[0].name }}.{{ pageData[0].lang }}</strong></span>
             <div class="bloc_thumb">
                 <div class="bloc_img">
-                <img src="../assets/images/elvira3.jpg" alt="" class="img_thumb">
+                <img :src="pageData[0].imageUrl" alt="" class="img_thumb">
                 <label for="image" class="btn_upload">
                     <input type="file" name="image" id="image" ref="file" @change="FileUpload"
                       accept="image/png, image/jpeg, image/jpg, image/gif, image/webp" hidden/>Choisir une image </label>

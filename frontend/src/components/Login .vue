@@ -285,9 +285,9 @@ this.$router.push("9876545678hgh87yhju87")
 .wrapper {
     position: relative;
     z-index: 2;
-    width: 100%;
+    width: 100vw;
     height: 100vh;
-    min-height: 750px;
+    /* min-height: 750px; */
     display: -webkit-box;
     display: -webkit-flex;
     display: -moz-box;
@@ -316,7 +316,7 @@ this.$router.push("9876545678hgh87yhju87")
     align-items: stretch;
     flex-direction: column;
     padding: 0px;
-    width: 50%;
+    width: 300px;
     height: auto;
     border-radius: 15px;
     
@@ -325,6 +325,7 @@ this.$router.push("9876545678hgh87yhju87")
 .login-form {
   position: relative;
     width: 100%;
+    height: auto;
     display: -webkit-box;
     display: -webkit-flex;
     display: -moz-box;
@@ -385,9 +386,15 @@ background-color: white;
   bottom: 0;
 
 }
-@media screen and (max-width:576px) {
+@media screen and (min-width: 576px) and (max-height: 440px){
   .container{
     width: 100%;
   }
 }
+@media screen and (min-width: 768px) and (min-height: 440px){
+  .container{
+    width: 400px;
+  }
+}
+
 </style>

@@ -306,6 +306,7 @@ input {
   padding: 2rem;
   background-color: rgb(246, 140, 11, .5);
   border-radius: 10px;
+  box-shadow: 3px 3px 10px;
 }
 
 label {
@@ -362,6 +363,7 @@ width: 20%;
   padding: 0rem;
   border-radius: 10px;
   background-color: rgba(250, 148, 31, .6);
+ 
 }
 
 .bloc_loop {
@@ -372,7 +374,8 @@ width: 20%;
   border: 1px solid rgb(38, 61, 242);
   padding: 1rem;
   border-radius: 10px;
-  background-color: rgba(251, 249, 247, 0.6);
+  background-color: rgba(252, 143, 35, 0.6);
+  box-shadow: 3px 3px 10px;
 }
 
 .bloc_info {

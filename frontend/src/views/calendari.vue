@@ -1,4 +1,5 @@
 <template>
+<div class="fond">
 
     <div class="container text-center">
         <div class="bloc_nav" v-if="navbarOk">
@@ -9,7 +10,7 @@
 
 
             <div class="img_top">
-                <img src="" alt="">
+                <img src="../assets/images/vintage-alt-illustration.png" alt="">
             </div>
             <div class="Title">
                 <h3 >Calendari</h3>
@@ -84,6 +85,7 @@
         <foot />
 
     </div>
+</div>
 
 </template>
   
@@ -278,12 +280,15 @@ return "por definir"
 #app {
     background-color: rgba(0, 0, 0, .3);
 }
-
+.fond{
+    /* background: black; */
+}
 .bloc_nav{
     position: fixed;
     top:0;
-    left:0;
+    
     right:0;
+    
 z-index: 1000;
 }
 
@@ -291,7 +296,13 @@ z-index: 1000;
 .card_calendar_row {
     margin-top: 50px
 }
-
+.img_top img{
+    width:350px;
+     height:auto;
+     object-fit: cover;
+     overflow: hidden;
+     z-index:-1
+}
 .bloc {
     min-height: 600px;
 }
@@ -394,5 +405,14 @@ padding:0 3px;
 overflow:hidden;
 flex-wrap: wrap;
     }
+}
+@media screen and (min-width:768px) {
+    .img_top img{
+        width:100%;
+    max-width:600px;
+     height:auto;
+     object-fit: cover;
+     overflow: hidden;
+}
 }
 </style>

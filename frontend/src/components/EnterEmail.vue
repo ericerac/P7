@@ -6,41 +6,48 @@
         <input type="email" name="email" v-model="email">
     </label>
 
-      <button class="item" @click="sendRequest" >Send</button>
-      <router-link to="/login" target="_blank"><span class="texte">Cancel</span></router-link>
+      <button class="item" @click="sendRequest($event)" >Send</button>
+      <router-link to="/login" ><span class="texte">Cancel</span></router-link>
         
     </form>
-    <div v-if="resetEmail">
+    <div v-if="resetPassW">
 
-      <ResetEmail />
+      <ResetPassW />
     </div>
   </div>
 </template>
 
 <script>
 
-import ResetEmail from "./ResetEmail"
+import ResetPassW from "./ResetPassW";
+
 export default {
   data(){
     return{
-resetEmail:false,
+      resetPassW:true,
+      link:"",
 email:"",
     }
   },
   components:{
-    ResetEmail
+    ResetPassW
   },
 methods:{
   cancel(){
     this.$router.push("")
   },
-    sendRequest(){
-      
-       this.$store.dispatch("forgotPassword",this.email)
+    sendRequest(event){
+      if (event) {
+    event.preventDefault()
+  }
+       this.$store.dispatch("forgotPassword",{email:this.email})
        .then((res)=>{
 if(res){
   console.log("RES FORGOT EMAIL ENTER EMAIL COMPONENET ---->",res);
-  this.resetEmail= true;
+  // this.$router.push("/ResetEmail")
+  this.link=res
+  this.resetPassW = true
+
 }else{}
        })
         

@@ -6,8 +6,9 @@
 import { createApp } from "vue";
 import { createStore } from "vuex";
 const commit = require("vuex");
-
-import { router } from "../router";
+import { useRouter, useRoute } from 'vue-router'
+const myRouter = useRouter();
+import { router } from "../../src/router";
 import Vuex from "vuex";
 
 import Vue from "vue";
@@ -140,6 +141,10 @@ instance.interceptors.response.use(
 // // --------------------------------------------------------------//
 
 const store = createStore({
+  setup() {
+    const router = useRouter()
+    const route = useRoute()
+  },
   state: {
     status: false,
     loading: false,
@@ -159,6 +164,7 @@ const store = createStore({
     cardCalSelect: "",
     navData: "",
     lang:"",
+    linkNewPassword:""
   },
   modules: {},
   //----------------------------------------------------------------------------------//
@@ -227,6 +233,10 @@ const store = createStore({
     CardCalSelect: (state, val) => {
       state.cardCalSelect = val;
     },
+    LinkNewPassword: (state, val) => {
+      state.linkNewPassword = val;
+    },
+    
   },
 
   computed: {},
@@ -239,9 +249,8 @@ const store = createStore({
     //----------------UTILITIES---------------//
 
     disconnect() {
-      $cookies.remove("user");
-
-      // this.$router.push("/");
+       $cookies.remove("user","lang");
+       
     },
 
     PreviewClose: ({ commit }, val) => {
@@ -379,6 +388,28 @@ commit("loading",true)
       });
     },
 
+    forgotPassword: ({ commit }, data) => {
+      const email = data.email;
+      console.log("EMAIL FORGOT PASSWORD STORE",email);
+      return new Promise((resolve, reject, res) => {
+        instance
+          .post("/inici/forgot-password",
+          data)
+          .then((res) => {
+            if(res){
+
+              console.log("RES FORGOT",res);
+              commit("LinkNewPassword",res)
+            }
+           
+            console.log("REPONSE", res);
+            resolve(res);
+          })
+          .catch((err) => {
+            reject(err);
+          });
+      });
+    },
     resetPassword: ({ commit }, data) => {
       const email = data.email;
       return new Promise((resolve, reject, res) => {
