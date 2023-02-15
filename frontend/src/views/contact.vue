@@ -2,7 +2,7 @@
   <div class="fond">
     <div class="container">
       <div class="bloc_nav " v-if="navbarOk">
-        <navbar />
+        <navbar namePage="contact"/>
       </div>
       <div class="row col-12 bloc_header">
         <div class="bloc_img">
@@ -108,9 +108,17 @@ p {
   left:0;
  
 }
-.bloc_nav{
-  position: fixed;
+.bloc_nav {
+    position: fixed;
+    width:40%;
+    top: 30px;
+    right: 30px;
+   
+
+
+    z-index: 1230;
 }
+
 .bloc_header {
 
   width: 100%;

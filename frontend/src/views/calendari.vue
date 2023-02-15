@@ -4,7 +4,7 @@
     <div class="container text-center">
         <div class="bloc_nav" v-if="navbarOk">
 
-            <navbar />
+            <navbar namePage="cal"/>
         </div>
         <div class="row card_calendar_row text-center">
 
@@ -286,7 +286,7 @@ return "por definir"
 .bloc_nav{
     position: fixed;
     top:0;
-    
+   
     right:0;
     
 z-index: 1000;
@@ -413,6 +413,14 @@ flex-wrap: wrap;
      height:auto;
      object-fit: cover;
      overflow: hidden;
+}
+.bloc_nav{
+    position: fixed;
+    top:0;
+    width:100%;
+    right:0;
+    
+z-index: 1000;
 }
 }
 </style>

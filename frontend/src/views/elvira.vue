@@ -1,7 +1,7 @@
 <template>
     <div class="container master">
         <div class="  bloc_nav " v-if="navbarOk">
-            <navbar />
+            <navbar namePage="elvira"/>
         </div>
         <div class="row">
             <div class="bloc_thumb">
@@ -9,9 +9,9 @@
                     <img :src="pageData[0].imageUrl" alt="" class="img_thumb">
                     <div class="title">
                         <h1 id="title_1">
-                            <!-- {{ pageData[0].title_1 }} -->
+                            {{ pageData[0].title_1 }}
                         </h1>
-                        <p class="sub_title_1">Mettre une phrase de description pour remplir l'espace</p>
+                        <p class="sub_title_1">Mettre un sous-titre pour remplir l'espace</p>
                     </div>
                 </div>
                 <div class="bloc_text_thumb ">
@@ -235,6 +235,7 @@ let x = "";
     position: fixed;
     top: 30px;
     right: 30px;
+   
 
 
     z-index: 1230;
@@ -535,5 +536,27 @@ iframe {
         width: 70%;
         margin: 30px auto;
     }
+}
+@media screen and (min-width:1980px) {
+.bloc_thumb{
+flex-direction: row;
+margin-top:170px;
+}
+.bloc_synopsis{
+    width:50%;
+}
+.bloc_img{
+    width:50%
+}
+.bloc_nav {
+    position: fixed;
+    top: 30px;
+    right: 30px;
+    left:30px;
+
+
+    z-index: 1230;
+}
+
 }
 </style>

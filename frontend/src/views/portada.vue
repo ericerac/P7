@@ -2,7 +2,7 @@
   <div class="fond">
     <div class="container text-center sticky_bloc">
       <div class="bloc_nav" v-if="navbarOk">
-        <navbar />
+        <navbar namePage="portada"/>
       </div>
 
       <div class="row bloc_thumb pt-5 pb-5">
@@ -14,7 +14,7 @@
             <p>{{ pageData[0].subTitle_1 }}</p>
           </div>
           <div class="line item3"></div>
-          
+
         </div>
 
         <div class="col-12 col-md-6 col-lg-6 right_bloc">
@@ -31,7 +31,11 @@
 
     <div class="container switch_dynamic">
 
+      <!-- <div style="height: 150px; overflow: hidden;" ><svg viewBox="0 0 500 150" preserveAspectRatio="none" style="height: 100%; width: 100%;"><path d="M0.00,49.98 C149.99,150.00 271.49,-49.98 500.00,49.98 L500.00,0.00 L0.00,0.00 Z" stroke="red" stroke-width="3" fill="none"></path></svg></div>
+    -->
 
+      <!-- <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.dev/svgjs" viewBox="0 0 600 100"><path d="M592.1466064453125,72.25131225585938C497.7748832702637,68.06283124287923,95.15706952412923,51.439791997273765,6.282722473144531,46.335079193115234C-82.59162457784016,41.2303663889567,43.062828063964844,41.49214553833008,58.9005241394043,41.6230354309082C74.73822021484375,41.75392532348633,86.78010241190593,44.371726989746094,101.30889892578125,47.120418548583984C115.83769543965657,49.869110107421875,129.97382609049478,54.973822911580406,146.07330322265625,58.11518478393555C162.17278035481772,61.25654665629069,184.0314178466797,65.83769989013672,197.90576171875,65.96858978271484C211.7801055908203,66.09947967529297,219.3717244466146,61.51832580566406,229.31936645507812,58.9005241394043C239.26700846354166,56.28272247314453,247.1204071044922,53.403141021728516,257.59161376953125,50.26177978515625C268.0628204345703,47.120418548583984,282.32984924316406,40.18324661254883,292.1466064453125,40.0523567199707C301.96336364746094,39.92146682739258,305.3665059407552,45.54973920186361,316.4921569824219,49.4764404296875C327.61780802408856,53.40314165751139,347.38219197591144,63.48167419433594,358.9005126953125,63.61256408691406C370.41883341471356,63.74345397949219,376.3088836669922,51.70156987508138,385.6020812988281,50.26177978515625C394.89527893066406,48.82198969523112,404.05760192871094,53.40314292907715,414.6596984863281,54.97382354736328C425.2617950439453,56.544504165649414,438.2198994954427,58.11518351236979,449.21466064453125,59.68586349487305C460.2094217936198,61.256543477376304,470.28795369466144,63.219892501831055,480.6282653808594,64.39790344238281C490.9685770670573,65.57591438293457,503.0104522705078,67.2774887084961,511.25653076171875,66.7539291381836C519.5026092529297,66.2303695678711,522.9057820638021,61.649216969807945,530.104736328125,61.25654602050781C537.3036905924479,60.86387507120768,547.3822021484375,62.69633356730143,554.4502563476562,64.39790344238281C561.518310546875,66.09947331746419,566.2303365071615,70.15706380208333,572.5130615234375,71.4659652709961C578.7957865397135,72.77486673990886,686.5183296203613,76.43979326883952,592.1466064453125,72.25131225585938C497.7748832702637,68.06283124287923,95.15706952412923,51.439791997273765,6.282722473144531,46.335079193115234" fill="hsl(353, 98%, 41%)" fill-opacity="1"></path><defs><linearGradient id="SvgjsLinearGradient1003"><stop stop-color="hsl(340, 45%, 50%)" offset="0"></stop><stop stop-color="hsl(340, 45%, 80%)" offset="1"></stop></linearGradient><radialGradient id="SvgjsRadialGradient1004"><stop stop-color="hsl(340, 45%, 50%)" offset="0"></stop><stop stop-color="hsl(340, 45%, 80%)" offset="1"></stop></radialGradient></defs></svg>
+    -->
     </div>
 
     <!-- ------------- BLOC ESPECTACLE ------------ -->
@@ -39,7 +43,7 @@
     ">
 
       <div class="row txt-espectacle texte ">
-        <h2  class="titles">Espectacles</h2>
+        <h2 class="titles">ESPECTACLES</h2>
       </div>
       <div class="row  col-12 " id="spectacle" v-motion-slide-visible-once-bottom>
 
@@ -88,7 +92,7 @@
 
         </div>
       </div>
-
+      <p id="demo"></p>
     </div>
     <div class="footer">
 
@@ -105,8 +109,11 @@
 import { mapGetters, mapState } from "vuex";
 import navbar from "../components/nav_bar.vue"
 import foot from "../components/footer.vue"
-import vIntersect from "vue-intersection-observer"
+import vIntersect from "vue-intersection-observer";
 
+
+// LOCALISATION UTILISATEUR
+// console.log("Welcome to our visitors from "+ geoplugin_city() +", "+geoplugin_countryName()) 
 
 export default {
   name: "portada",
@@ -115,13 +122,18 @@ export default {
     return {
       home: false,
       navbarOk: false,
-    
+      // namePage: "",
+
     };
   },
-  created: function () {
+  // props: ['portada'],
 
+  created: function () {
+    // this.viewWidth();
+    // this.getIpClient();
     this.getPageData();
     this.getNavData();
+
 
   },
 
@@ -130,25 +142,30 @@ export default {
     ...mapState({
       pageData: "pageData",
       imgData: "imgData",
-      auth: "auth"
+      auth: "auth",
+      namePage:"namePage"
     }),
 
 
-    
-
   },
+
+  watch: {
+    
+    namePage(n, o) {
+      if (n != o) {
+        this.getImgData(n);
+      }
+    }
+  },
+
   components: {
     navbar,
     foot,
     vIntersect,
-   
+
   },
 
-
-
   methods: {
-    
-
 
     FileUpload(event) {
       this.fileSelected = event.target.files[0];
@@ -159,21 +176,14 @@ export default {
       this.$store.dispatch("getPageData", n)
         .then((res) => {
           if (res) {
-            console.log("RES GET PORTADA PAGE DATA", res.data[0].name);
-            let p = res.data[0].name
-            this.$store.dispatch("getImgData", p)
-
-              .then((res) => {
-                if (res) {
-                  console.log("RES GET PORTADA IMG DATA");
-
-
-                }
-              })
+            // this.namePage = n;
           }
-          ;
-
         })
+    },
+
+    getImgData(np) {
+      console.log("NAME PAGE GET IMG DATA", np);
+      this.$store.dispatch("getImgData", np)
     },
 
     getNavData() {
@@ -188,7 +198,24 @@ export default {
       console.log("REQUET GET NAV BAR PAGE DATA-----> ", n);
     },
 
-  },
+ // ******** INFORMATION FUNCTION.......
+
+    viewWidth() {
+      if (window.navigator) {
+        console.log("NAVIGATOR----->", window);
+        console.log("NAVIGATOR LANGUAGE----->", window.clientInformation.language);
+        this.isActive = false
+      } else {
+        console.log("SANS NAVIGATOR");
+      }
+    },
+
+    getIpClient() {
+      this.$store.dispatch("getIpClient")
+    },
+
+
+  }, // fin METHODS
 };
 </script>
 
@@ -196,10 +223,16 @@ export default {
 @import url("../styles/bloc_nav.css");
 
 
+.switch_dynamic {
+  margin-top: -10px;
+  z-index: -1;
+}
+
+.svg_trans {}
 
 .titles {
   color: white;
-  text-shadow:0 0 30px #f92424,0px 0px 50px rgba(251, 41, 41, 0.5), 0 0 150px #EC637B,0 0 30px #f92424;
+  text-shadow: 0 0 30px #f92424, 0px 0px 50px rgba(251, 41, 41, 0.5), 0 0 150px #EC637B, 0 0 30px #f92424;
 }
 
 html {
@@ -208,45 +241,51 @@ html {
 }
 
 a {
-  
+
   color: rgb(7, 8, 9);
   text-decoration: none;
 
 }
-.sticky_bloc{
-  height:100vh;
+
+.sticky_bloc {
+  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
 }
-.left-bloc{
-height:15vh;
-display:flex;
-flex-direction: column;
-justify-content: space-between;
+
+.left-bloc {
+  height: 15vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
+
 .title_name {
-  display:flex;
-  width:50%;
+  display: flex;
+  width: 50%;
   justify-content: center;
-  margin:0 auto;
+  margin: 0 auto;
 
 }
-.title_name > h1 {
-  text-shadow:0 0 30px #f92424,0px 0px 50px rgba(251, 41, 41, 0.5), 0 0 150px #EC637B,0 0 30px #f92424;
-  color:#f2eeee;
+
+.title_name>h1 {
+  text-shadow: 0 0 30px #f92424, 0px 0px 50px rgba(251, 41, 41, 0.5), 0 0 150px #EC637B, 0 0 30px #f92424;
+  color: #f2eeee;
 
 }
-h1{
 
-  display:flex;
+h1 {
+
+  display: flex;
   text-align: center;
- 
+
 
 }
+
 .texte {
   color: rgb(253, 251, 251);
-  
+
 }
 
 
@@ -256,9 +295,9 @@ h1{
 }
 
 .container-fluid {
- 
+
   background: transparent;
- 
+
   position: relative;
 }
 
@@ -277,7 +316,7 @@ h1{
 }
 
 .img_back {
-  
+
   width: auto;
   height: auto;
   margin-top: 0;
@@ -336,29 +375,32 @@ li {
   align-items: center;
   height: 90vh;
 }
+
 .espectacle-bloc {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 0;
-    width: 100%;
-    height: auto;
-    margin: 0 auto;
-  }
-  .bloc-img-spect {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    width: 300px;
-    /* border: 1px solid red; */
-    box-shadow: 0 0 10px rgba(252, 48, 48,.3), 0 0 15px rgba(252, 48, 48,.3), 0 0 30px rgba(252, 48, 48,.3);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0;
+  width: 100%;
+  height: auto;
+  margin: 0 auto;
+}
+
+.bloc-img-spect {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  width: 300px;
+  /* border: 1px solid red; */
+  /* box-shadow: 0 0 10px rgba(252, 48, 48,.3), 0 0 15px rgba(252, 48, 48,.3), 0 0 30px rgba(252, 48, 48,.3);
     background-color: rgba(252, 48, 48,.3);
-    box-shadow: 0 0 10px rgba(251, 250, 250, 0.3), 0 0 15px rgba(251, 250, 250, 0.3), 0 0 30px rgba(251, 250, 250, 0.3);
-    margin: 20px auto;
-    padding-top: 20px;
-    border-radius: 10px;
-  }
-  .bloc-img-spect::before {
+    box-shadow: 0 0 10px rgba(251, 250, 250, 0.3), 0 0 15px rgba(251, 250, 250, 0.3), 0 0 30px rgba(251, 250, 250, 0.3); */
+  margin: 20px auto;
+  padding-top: 20px;
+  border-radius: 10px;
+}
+
+/* .bloc-img-spect::before {
     content:"";
     position:absolute;
     top:10px;
@@ -379,8 +421,8 @@ li {
     border-radius: 50%;
     background-color: #f2eeee;
     box-shadow: 2px 2px  rgb(7, 7, 7), 4px 4px  rgb(7, 7, 7);
-  }
-  .span1{
+  } */
+/* .span1{
     
     position:absolute;
     bottom:10px;
@@ -401,23 +443,25 @@ li {
     border-radius: 50%;
     background-color: #f2eeee;
     box-shadow: 2px 2px  rgb(7, 7, 7), 4px 4px  rgb(7, 7, 7);
-  }
-  .img-spectacle {
-    width: 240px;
-    height: 240px;
-    margin: 0 auto;
-    object-fit: cover;
-  
+  } */
+.img-spectacle {
+  width: 240px;
+  height: 240px;
+  margin: 0 auto;
+  object-fit: cover;
+
   padding: 0px;
   /* box-shadow: 0 0 10px rgb(252, 48, 48,.5), 0 0 15px rgb(252, 48, 48,.5), 0 0 30px rgb(252, 48, 48,.5) ; */
+  border: 3px solid red;
 
-  }
-  
-  .img-spectacle:hover{
-  box-shadow: 0 0 10px rgb(252, 48, 48,.5), 0 0 50px rgb(252, 48, 48,.5), 0 0 50px rgb(252, 48, 48,.5);
-  transition:.25s 
 }
-  
+
+.img-spectacle:hover {
+  transform: rotate3d(0, 1, 0, 360deg);
+  ;
+  transition: .5s
+}
+
 /* .espectacle-bloc {
   display: flex;
   flex-direction: row;
@@ -442,15 +486,16 @@ li {
   color: rgb(13, 15, 15);
   margin: 30px auto;
 }
+
 .showName {
-    padding: 1rem;
-    margin: 0 auto;
-    text-shadow: 2px 2px 10px  white ;
-  }
+  padding: 1rem;
+  margin: 0 auto;
+  /* text-shadow: 2px 2px 10px  white ; */
+}
 
-  .txt-espectacle {
+.txt-espectacle {
 
-margin: 10px auto;
+  margin: 10px auto;
 }
 
 
@@ -463,26 +508,32 @@ margin: 10px auto;
   .bloc_nav {
     position: sticky;
     top: 20px;
+    right:30px;
     z-index: 123;
   }
 }
-@media screen and (min-width:768px) and (max-height:440px){
-  
+
+@media screen and (min-width:768px) and (max-height:440px) {
+
   .img_principale {
-  width: 100%
-}
-.bloc_thumb{
-  height:auto;
-  display:flex;
-  flex-direction: row;
-}
-.img_back{
+    width: 100%
+  }
+
+  .bloc_thumb {
+    height: auto;
+    display: flex;
+    flex-direction: row;
+  }
+
+  .img_back {
     width: 100%;
-  
+
   }
-  .left-bloc{
-width:50%;
+
+  .left-bloc {
+    width: 50%;
   }
+
   .espectacle-bloc {
     flex-direction: row;
     width: 300px;
@@ -492,6 +543,7 @@ width:50%;
     align-items: center;
   }
 }
+
 @media screen and (min-width:768px) {
   .espectacle-bloc {
     flex-direction: row;
@@ -507,11 +559,12 @@ width:50%;
     width: 100%;
 
   } */
-  .bloc_thumb{
-  height:auto;
-  display:flex;
-  flex-direction: row;
-}
+  .bloc_thumb {
+    height: auto;
+    display: flex;
+    flex-direction: row;
+  }
+
   .img-spectacle {
     width: 230px;
     height: 230px;
@@ -540,21 +593,23 @@ width:50%;
 }
 
 @media screen and (min-width:1200px) {
-  .right_bloc{
-    position:relative;
-   
+  .right_bloc {
+    position: relative;
+
   }
-  .img_back{
+
+  .img_back {
     position: relative;
     background-color: #f60404;
-   
-  
+
+
   }
-  .img_principale{
+
+  .img_principale {
     position: relative;
-    top:-20px;
-    left:-20px;
-  
+    top: -20px;
+    left: -20px;
+
     z-index: 2;
   }
 
@@ -571,38 +626,43 @@ width:50%;
     max-width: 1100px;
   }
 }
+
 @media screen and (min-width:1440px) {
-  #spectacle{
-    padding:50px 30px 30px 30px;
-   justify-content: center;
+  #spectacle {
+    padding: 50px 30px 30px 30px;
+    justify-content: center;
     border-radius: 20px 0;
-    box-shadow:  
-     white 0.006em 0.006em 0.007em,
-    rgba(251, 36, 36,.3) 1px 1px 1px,
-    rgba(251, 36, 36,.3)  2px 2px 1px,
-    rgba(251, 36, 36,.3) 3px 3px 1px,
-    rgba(251, 36, 36,.3)  4px 4px 1px,
-    rgba(251, 36, 36,.3) 5px 5px 1px,
-    rgba(251, 36, 36,.3)  6px 6px 1px,
-    rgba(251, 36, 36,.3)  7px 7px 1px,
-    rgba(251, 36, 36,.3)  8px 8px 1px,
-    rgba(251, 36, 36,.3) 9px 9px 1px,
-    rgba(251, 36, 36,.3)  10px 10px 1px,
-    rgba(251, 36, 36,.3)11px 11px 1px,
-    rgba(251, 36, 36,.3) 12px 12px 1px;
-    color:#fff;
-background-color:rgba(113, 130, 141,.3);
- ;
+    box-shadow:
+      white 0.006em 0.006em 0.007em,
+      rgba(251, 36, 36, .3) 1px 1px 1px,
+      rgba(251, 36, 36, .3) 2px 2px 1px,
+      rgba(251, 36, 36, .3) 3px 3px 1px,
+      rgba(251, 36, 36, .3) 4px 4px 1px,
+      rgba(251, 36, 36, .3) 5px 5px 1px,
+      rgba(251, 36, 36, .3) 6px 6px 1px,
+      rgba(251, 36, 36, .3) 7px 7px 1px,
+      rgba(251, 36, 36, .3) 8px 8px 1px,
+      rgba(251, 36, 36, .3) 9px 9px 1px,
+      rgba(251, 36, 36, .3) 10px 10px 1px,
+      rgba(251, 36, 36, .3)11px 11px 1px,
+      rgba(251, 36, 36, .3) 12px 12px 1px;
+    color: #fff;
+    background-color: rgba(113, 130, 141, .3);
+    ;
   }
-  .espectacle-bloc{
+
+  .espectacle-bloc {
     margin: 30px;
   }
-  .container{
-  max-width: 1300px;}
+
+  .container {
+    max-width: 1300px;
+  }
 }
+
 @media screen and (min-width:1920px) {
-  
- 
+
+
   .bloc_thumb {
     margin-top: 40px;
     margin-bottom: 100px;

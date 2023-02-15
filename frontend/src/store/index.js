@@ -164,7 +164,8 @@ const store = createStore({
     cardCalSelect: "",
     navData: "",
     lang:"",
-    linkNewPassword:""
+    linkNewPassword:"",
+    namePage:"",
   },
   modules: {},
   //----------------------------------------------------------------------------------//
@@ -236,6 +237,9 @@ const store = createStore({
     LinkNewPassword: (state, val) => {
       state.linkNewPassword = val;
     },
+    NamePage: (state, val) => {
+      state.namePage = val;
+    },
     
   },
 
@@ -306,10 +310,11 @@ commit("loading",true)
           .then((res) => {
             commit("loading",false)
             commit("PageData", res.data);
+            commit("NamePage", n);
       
-            console.log("RESPONSE GET STORE", res.data);
+            // console.log("RESPONSE GET STORE", res.data);
             let ahora = Date.now();
-            console.log("HEURE DU CHARGEMENT DATE NOW +18---->", ahora);
+            // console.log("HEURE DU CHARGEMENT DATE NOW +18---->", ahora);
             return resolve(res);
 
           })
@@ -491,6 +496,22 @@ commit("loading",true)
       });
     },
 
+    //------------- CREATE POST-------------------_//
+
+    createPost: ({ commit }, data) => {
+      return new Promise((resolve, reject) => {
+        instance
+          .post("/inici/create?page=post_page", data, {})
+          .then((response) => {
+            commit("blogPost", response.data);
+            resolve(response);
+          })
+          .catch((err) => {
+            reject(err);
+          });
+      });
+    },
+
     //---------------DELETE CARD CALENDAR----------------//
 
     delCard: ({ commit }, data) => {
@@ -509,6 +530,15 @@ commit("loading",true)
             reject(err);
           });
       });
+    },
+
+    getIpClient:   async  () => {
+      try {
+        const response = await axios.get('https://api.ipify.org?format=json');
+        console.log("ADRESSE IP",response);
+      } catch (error) {
+        console.error(error);
+      }
     },
   }, // fin actions
 }); // fin Store

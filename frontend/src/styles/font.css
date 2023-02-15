@@ -5,6 +5,7 @@
 
 :root{
     --color_button: rgba(173, 173, 173, 0.5);
+    --fontSizeTitleH1: calc(25px + 3vh)
   }
 
 h1, h2, h3, h4, h5, h6 {
@@ -13,6 +14,6 @@ h1, h2, h3, h4, h5, h6 {
 
 .container, p{
     font-family: 'Sawarabi Mincho', serif;
-    font-size: 14px;
+    font-size: 16px;
    
 }

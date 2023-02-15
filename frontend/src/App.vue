@@ -1,22 +1,23 @@
 <template>
 
 
-  <loader v-if="loading"/>
+  <!-- <loader v-if="loading"/> -->
   <!-- <div v-if="modal">
 <ModalMessageVue />
 </div> -->
    <!-- <bgKakos/> -->
-
-<routerView  v-slot="{ Component }">
+   <!-- <div class="nav"><navbar /></div> -->
+   
+<!-- <routerView  v-slot="{ Component }">
   <transition name="route" mode="out-in" appear>
   <component :is="Component">
 
   </component>
 
   </transition>
-</routerView>
+</routerView> -->
 
-<!-- <routerView/> -->
+<routerView/>
   <!-- <router-view class="view">
     <bgKakos />
   </router-view> -->
@@ -26,6 +27,7 @@
 <script>
 import { mapState } from 'vuex';
 import loader from './components/loader.vue';
+import   navbar from './components/nav_bar.vue';
 // import bgKakos from './components/bgKakos.vue';
 
 
@@ -39,9 +41,12 @@ export default {
   },
   components: {
      loader,
+     navbar ,
     //  bgKakos,
   },
-
+  created: function () {
+    this.getNavData();
+  },
   computed: {
     ...mapState({
       loading: "loading",
@@ -49,7 +54,20 @@ export default {
       bgKakos: "bgKakos"
 
     })
-  }
+  },
+  methods:{
+    getNavData() {
+      const n = "navbar";
+      this.$store.dispatch("getNavData", n).then((res) => {
+        if (res) {
+          if (res) {
+            this.navbarOk = true;
+          }
+        }
+      });
+      console.log("REQUET GET NAV BAR PAGE DATA-----> ", n);
+    },
+   },
 
 
 }
@@ -83,7 +101,13 @@ html {
   margin: auto;
 
 }
-
+.nav{
+  position:fixed;
+  top:20px;
+  right:30px;
+  left:30px;
+  z-index:1222;
+}
 li {
   list-style: none;
 }

@@ -1,7 +1,7 @@
 <template>
   <div class="container master">
     <div class="bloc_nav" v-if="navbarOk">
-      <navbar />
+      <navbar namePage="emperdonadas"/>
     </div>
     <div class="row img_thumb col-12">
       <img :src="pageData[0].imageUrl" alt="" width="640" height="360"/>
@@ -167,10 +167,10 @@ p {
     width:100vw;
     margin:0 auto
   }
-  .bloc_nav{
+  /* .bloc_nav{
     position:relative;
     z-index: 123;
-  }
+  } */
 }
 @media screen and (min-width:756px) {
   .master{

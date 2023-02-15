@@ -2,7 +2,7 @@
   <div>
     <div class="container text-center">
       <div class="bloc_nav " v-if="navbarOk" >
-        <navbar />
+        <navbar namePage="bernadette"/>
       </div>
       <div class="row">
         <div class="bloc_page col-12">

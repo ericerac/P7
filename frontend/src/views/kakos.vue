@@ -1,12 +1,12 @@
 <template>
   <!-- <bgKakos/> -->
-  <div class="container background">
+  <div class="container-fluid background">
   <div class="bloc_nav " v-if="navbarOk">
-    <navBar />
+    <navBar namePage="kakos"/>
   </div>
     <div class="row g-0">
-      <div class="slider">
-        <!-- <Carousel /> -->
+      <!-- <div class="slider">
+       
 
 
         <div class="loop" v-for="(img, index) in imgData" :key="`item-${index}`">
@@ -16,7 +16,7 @@
           </transition>
         </div>
         </div>
-      </div>
+      </div> -->
 
       <div class="bloc_loop col-12" v-for="(i, index) in pageData" :key="i._id">
 
@@ -32,6 +32,23 @@
           </div>
 
         </div>
+        <div class="bloc_vid_img">
+        <div class="vid">
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/J6WjuYqZemA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+
+        
+        <div class="img_grid" >
+        <div class="loop_bloc_image" v-for="(img, index) in imgData" :key="`item-${index}`">
+          <img class="img_loop" :src="img.imageUrl" alt="">
+          
+        </div>
+        </div>
+      </div>
+
+
+
+
         <div class="bloc_thumb ">
           <div class=" bloc_info col-12">
             <div class="bloc_sinopsis">
@@ -39,12 +56,12 @@
                 </h6>
                 <div class="bloc_text_synopsis">
                   <div>
-                  <img class="guillemet_start" src="../assets/design/Guiillemet_Start.webp" alt="guillemet_start"> </div>
+                  <img class="guillemet_start guillemet" src="../assets/design/Guiillemet_Start.webp" alt="guillemet_start"> </div>
                 <p class="sinopsis">
               {{ i.synopsis_1 }}
             </p>
             <div>
-            <img class="guillemet_end" src="../assets/design/Guiillemet_End.png" alt="guillemet_end"></div>
+            <img class="guillemet_end guillemet" src="../assets/design/Guiillemet_End.png" alt="guillemet_end"></div>
             </div>
             </div>
             <div class="bloc_fiche_art">
@@ -225,56 +242,76 @@ if(val == "off"){
   padding: 0;
   box-sizing: border-box;
 }
-
+:root{
+  --fontSizeTitle : calc(30px + 3vw)
+}
 .container {
   position: relative;
   margin: 0 auto;
-  /* background: transparent; */
-  
- 
+}
+.bloc_nav{
+  position:fixed;
+  top:20px;
+ background-color: black;
+  right:20px;
  
 }
-
-
-
-.slider {
+/* .slider {
   position: relative;
   margin-top:70px
   
+} */
+.header{
+  display: flex;
+  justify-content: center;
+  width:90%;
+  margin:0 auto;
+  height:200px;
+  align-items: center;
+  
 }
-.bg_img_diapo{
-  position:relative;
-  z-index:-1
+.header_title h1 {
+  font-family: 'Sawarabi Mincho', serif;
+  /* font-family: 'Source Serif Pro', serif;
+   font-family: 'Noto Serif', serif; 
+  font-family: 'Unna', serif; */
+  font-size: var (--fontSizeTitle);
+  width:min-content;
+  height:auto;
 }
 h6 > strong{
   border-bottom:1px solid black;
 }
-.img_diapo {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  width: 100vw;
-  height: 30vh;
-  object-fit: contain;
-  
-}
 
-.bloc_loop {
-  margin-top: 70%;
+/* *********** BLOC VIDEO IMG*********** */
+
+iframe{
+  width:350px;
+  height:300px;
+}
+.img_grid{
+  display:flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  height:auto;
+  gap:10px;
+width:100%;
 
 }
-.img_diapo{
-  /* background-color:rgb(254, 196, 145); */
+.img_loop{
+  width:150px;
+  height:150px;
+  object-fit: cover;
 }
-.header_title h1 {
-  /* font-family: 'Source Serif Pro', serif;
-  font-family: 'Sawarabi Mincho', serif;
-   font-family: 'Noto Serif', serif; 
-  font-family: 'Unna', serif; */
-}
+.img_loop:hover{
+  border:2px solid white;
+  border-radius: 5px;
+  transform: scale(1.5) rotate(1turn);
+  transition: 300ms;
 
+}
+/* *********  BLOC TEXTE  ********** */
 .bloc_info {
   text-align: left;
 }
@@ -304,22 +341,26 @@ h6 > strong{
   /* margin-top: 20px; */
   text-align:justify;
   text-indent: 50px;
-  font-size: 14px;
+  /* font-size: 14px; */
+}
+.guillemet{
+  width:30px;
+  height:30px
 }
 .guillemet_end{
 margin-right: 0;
 }
+
 .title_info{
   margin-bottom:30px;
 }
 
-
 .bloc_fiche_art {
   margin: 30px;
-  
-
 }
 
+
+  /* ***********  FICHE  *********** */
 .fiche_art {
   text-align: left;
   margin: 30px;
@@ -341,90 +382,86 @@ margin-right: 0;
   box-shadow: inset 2px 2px black;
 
 }
-
+ /* *********** FOOTER  *********** */
 .footer{
   position:relative;
   bottom:0;
   width:100%;
 }
-@media screen and (min-width:576px) {
-  /* .bloc_nav {
-    position: fixed;
-    top: 15px;
-    right: 0px;
-    width: 100%;
-   
 
-   
-  } */
-
-  .row_galerie {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-
-  .img_card {
-    object-fit: contain;
-    width: 350px;
-    height: 350px;
-    object-fit: contain;
-    border: 5px solid white;
-    outline: 1px solid black;
-  }
-  .img_diapo {
-  position: absolute;
-  top: 70px;
-  left:0;
-  width: 100%;
-  height: 30vh;
-  object-fit: contain;
-
-}
-.bloc_loop {
-  margin-top: 60%
-}
-.background{
+@media screen and (min-width:768px){
+  .bloc_nav{
+  position:fixed;
+  top:20px;
+ background-color: black;
+  right:20px;
+  left:20px;
+  z-index:123
  
-  /* background-image: url("../assets/design/paper-1980_1238.webp");
-  background-repeat: repeat-y; */
 }
+  .header{
+  height:100px;
+  align-items: baseline;
 }
-@media screen and (min-width:768px) and (max-height:500px) {
-  
-  .img_diapo {
-  position: absolute;
-  top: 10px;
-  left:0;
-  width: 100%;
-  height: 60vh;
-  object-fit: contain;
+  .bloc_vid_img{
+    display:flex;
+    flex-direction: column;
+    margin:0 auto;
+  width:90%;
+  height:auto;
+  /* border:1px solid blue; */
+  align-items: center;
 
 }
-.bloc_loop[data-v-11114c4f] {
-    margin-top: 35%;
+.img_grid{
+display: flex;
+width:100%;
+margin-top:40px;
+padding:100px 10px;
+border:1px solid red;
+background-color: chocolate;
+
+/* clip-path:polygon( 0 12% (x,y top left), 100% 0 top-right, 100% 88% bottom-right, 0 100% bottom-left) 
+Point de réference top left (x = 0 , y = 0,) */
+
+clip-path:polygon(0 12%, 100% 0, 100% 88%, 0 100%)
 }
-.slider{
-  margin-top:0
+.img_loop{
+  width:200px;
+  height:200px;
+
 }
+.vid{
+width:100%;
+}
+iframe{
+  width:80%;
+}
+.bloc_sinopsis{
+  width:70%;
+  margin:50px auto;
+}
+.bloc_fiche_art{
+  text-align: center;
+}
+.fiche_art{
+  margin:0 auto;
+  text-align: center;
+}
+}
+  
+@media screen and (min-width:768px) and (max-height:500px) {
+.header{
+  height:70px;
+  align-items: baseline;
+  margin-top:100px;
+  margin-bottom:50px
+}
+
+  
 }
 @media screen and (min-width:992px) {
-  .slider{
-  margin-top:0
-}
-  .img_diapo {
-  position: absolute;
-  top: 70px;
-  left:0;
-  width: 100%;
-  height: 50vh;
-  object-fit: contain;
-
-}
-.bloc_loop[data-v-11114c4f] {
-    margin-top: 40%;
-}
+  
 .bloc_info{
   text-align: center;
 }
@@ -449,62 +486,21 @@ margin-right: 0;
   
   box-shadow: 5px 5px 20px;
 }
-.bloc_loop[data-v-11114c4f] {
-    margin-top: 52%;
-}
+
 }
 @media screen and (min-width:1200px) {
-  .bloc_loop[data-v-11114c4f] {
-    margin-top: 47%;
-}
+  
 
 }
 
 
 @media screen and (min-width:1440px) {
-  .bloc_loop[data-v-11114c4f] {
-    margin-top: 30px;
-}
-.slider {
-  position: relative;
-  /* border:2px solid red; */
-  height:73vh;
   
  
- 
-}
-.img_diapo {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  /* width: 100vw; */
-  height: 60vh;
-  object-fit: contain;
-  /* border:2px solid blue; */
-  margin-top:13vh;
-  padding: 20px 0;
-  background-color: #fdcccc78;
-}
+} 
 
-/* .bg_img_diapo{
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
- 
-  height: 60vh;
-  margin-top:13vh;
-  border:2px solid rgb(255, 0, 225);
- 
-} */
-/* .loop{
-  border:2px solid violet;
-  
-} */
-}
+
+
 
 
                         /* ********* +++++++++++++++++++  ********** */
