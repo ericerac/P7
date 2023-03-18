@@ -1,4 +1,5 @@
 <template>
+    <div class="bloc">
     <div class="wrapper">
         <div class="circle"></div>
         <div class="circle"></div>
@@ -8,6 +9,7 @@
         <div class="shadow"></div>
         <span>Loading</span>
     </div>
+</div>
 </template>
 <style scoped>
 body{
@@ -16,6 +18,15 @@ body{
     width:100%;
     height:100vh;
     background:radial-gradient(#9b59b6, #8e44ad);
+}
+.bloc{
+    width:100vw;
+    height:100vh;
+position: absolute;
+top:0;
+right:0;
+bottom:0;
+left:0;
 }
 .wrapper{
     width:200px;
@@ -30,7 +41,7 @@ body{
     height:20px;
     position: absolute;
     border-radius: 50%;
-    background-color: #fff;
+    background-color: #fb0505;
     left:15%;
     transform-origin: 50%;
     animation: circle .5s alternate infinite ease;

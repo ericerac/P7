@@ -1,5 +1,4 @@
 <template>
-
   <div class="container-fluid text-center">
     <div class=" row col-12 col-lg-10 col-xl-10 bloc-page">
 
@@ -29,31 +28,45 @@
             </div>
           </div>
 
-          <div class="form-group_foto col-6">
+          <div class="form-group_foto">
+            <template v-if="preview && 0 === inputSelected">
 
+              <img :src="preview" class="" width="200" height="160" />
+
+            </template>
             <!-- <label>image 1</label> -->
-            <img class="" :src="pageData[0].imageUrl" alt="image" width="200" height="160" />
-            <div class=" group_btn_img">
+            <img v-else class="" :src="pageData[0].imageUrl" alt="image" width="200" height="160" />
+            <!-- <div class=" group_btn_img"> -->
 
 
-              <label for="image1" class="btn_upload ">
-                <input type="file" name="image" id="image1" ref="file" @change="FileUpload"
-                  accept="image/png, image/jpeg, image/jpg" hidden /> Choisir une image</label>
-                </div>
-                <span>{{ fileName }}</span>
+              <label for="image" class="btn_upload">
+                <figure>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="17" viewBox="0 0 20 17">
+                    <path
+                      d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z">
+                    </path>
+                  </svg>
+                </figure> 
+                <input class="btn_upload_file" type="file" name="image" id="image" ref="file" @change="FileUpload"
+                  accept="image/png, image/jpeg, image/jpg, image/gif, image/webp" />
+                 <p class="fileName" v-if="fileName && 0 === inputSelected">{{ fileName }}</p> 
+                 <!-- <span class>{{ fileName }}</span> -->
+              </label>
+            <!-- </div> -->
           </div>
 
+          <div class="btn-action ">
+
+            <label class="" for="submit">
+            <input type="button" name="submit" class="btn btn_up btn_all" keyUp="enter"
+              value="Update" @click="updatePage()">
+            </label>
+            <label class="" for="retour">
+            <input type="button" name="retour" class="btn btn_cancel btn_all" keyUp="enter"
+              value="Cancel" @click="FileCancel">
+            </label>
+          </div>
         </div>
-          <div class="form-group_btn col-12">
-
-            <label class="btn-action" for="submit"></label>
-            <input  type="button" name="submit" class="btn btn-primary mt-1 btn-lg btn-block butt col-6" keyUp="enter"
-              value="Modifier" @click="updatePage()">
-
-            <label class="btn-action" for="retour"></label>
-            <input type="button" name="retour" class="btn btn-primary mt-1 btn-lg btn-block butt col-6" keyUp="enter"
-              value="Annuler" @click="this.home = false;">
-          </div>
 
       </form>
 
@@ -75,37 +88,47 @@
 
               <div class="show_img">
 
-                <div class="bouton_del">
+                <div class="bloc_img">
                   <!-- <button class="btn_delete_img">Éffacer </button> -->
+                  <template v-if="preview && indexCard(index) === inputSelected">
 
-                  <img class="" :src="i.imageUrl" alt="image" width="200" height="160" />
+                    <img :src="preview" class="" width="200" height="160" />
+
+                  </template>
+                  <img v-else class="" :src="i.imageUrl" alt="image" width="200" height="160" />
                 </div>
 
                 <div class=" show_img">
 
 
                   <label for="image" class="btn_upload">
-                    <input class="btn_upload_file" type="file" name="image" id="image" ref="file" @change="FileUpload"
-                      accept="image/png, image/jpeg, image/jpg, image/gif, image/webp"  />
-                  </label>
+                <figure>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="17" viewBox="0 0 20 17">
+                    <path
+                      d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z">
+                    </path>
+                  </svg>
+                </figure> 
+                <input class="btn_upload_file" type="file" name="image" id="image" ref="file" @change="FileUpload"
+                  accept="image/png, image/jpeg, image/jpg, image/gif, image/webp" />
+                 <p class="fileName" v-if="fileName && index === inputSelected -1">{{ fileName }}</p> 
+              </label>
                   <!-- <span v-if="i._id ">{{ OnefileSelected }}</span> -->
                 </div>
               </div>
             </div>
           </div>
-          <div class="btn_show">
-            <div class="btn_update">
+          <div class="btn-action ">
 
-              <label for="submit"></label>
-              <input type="button" name="submit" class="btn-show btn-primary  butt " keyUp="enter" value="Update"
-                @click="updateImg(i._id)">
-            </div>
-            <div class="btn_update">
-              <label for="retour"></label>
-              <input type="button" name="retour" class="btn-show btn-danger butt  " keyUp="enter" value="Delete"
-              @click="FileCancel()">
-            </div>
-          </div>
+<label class="" for="submit">
+<input type="button" name="submit" class="btn btn_up btn_all" keyUp="enter"
+  value="Update" @click="updateImg(i._id)">
+</label>
+<label class="" for="retour">
+<input type="button" name="retour" class="btn btn_cancel btn_all" keyUp="enter"
+  value="Cancel" @click="FileCancel">
+</label>
+</div>
         </div>
       </div>
       <!-- </div> -->
@@ -115,7 +138,9 @@
 
 <script>
 import { mapGetters, mapState } from "vuex";
-
+import { ref } from "vue";
+import Compressor from 'compressorjs';
+import CompressFile from '../js/compressImg.js';
 
 const def = () => console.log("HOME : VUE");
 def();
@@ -130,8 +155,11 @@ export default {
       mode: "login",
       content: "",
       OnefileSelected: "",
-      fileName:"",
-      fileSelected:"",
+      fileName: "",
+      fileSelected: "",
+      newFile: "",
+      inputSelected: ref(""),
+      preview: ref(""),
 
     };
   },
@@ -147,14 +175,58 @@ export default {
   },
 
   methods: {
+
+
     FileUpload(event) {
-      this.fileSelected = event.target.files[0];
-      this.OnefileSelected = this.fileSelected.name
-      this.fileName = this.fileSelected.name
+      let that = this
+      let inp = document.querySelectorAll('input[type=file]');
+
+      // let inp1 = document.querySelector('input[type=file]').files[0];
+
+      let iR = inp.forEach((input, index) => {
+        let files = input.files[0];
+
+        if (files) {
+          this.inputSelected = index;
+          console.log(" INPUT SELECTED",index);
+        }
+
+      });
+
+      var input = event.target;
+      if (input.files) {
+        var reader = new FileReader();
+        reader.onload = (e) => {
+          this.preview = e.target.result;
+        }
+        this.image = input.files[0];
+        reader.readAsDataURL(input.files[0]);
+      }
+
+
+      // ************ DONE **********************************
+      
+      let File = event.target.files[0];
+      this.fileName = File.name
+      new Compressor(File, {
+        quality: 0.6,
+        success(result) {
+          console.log("SUCCESS COMPRESSOR", result);
+          that.fileSelected = result
+        },
+        error(err) {
+          console.log(err.message);
+        },
+      });
+
     },
+
+
     FileCancel(event) {
-      this.home = false // #ref
+
       this.fileSelected = "";
+      this.fileName = "";
+      this.preview = "";
       console.log("FILECANCEL");
     },
 
@@ -290,6 +362,8 @@ export default {
 </script>
 
 <style scoped>
+@import url("../styles/btn.css");
+
 #app {
   width: 60%;
 }
@@ -311,7 +385,7 @@ input {
 
 label {
   width: 200px;
-  text-align: start;
+
 }
 
 .bloc-page {
@@ -327,13 +401,15 @@ label {
   padding: 1rem;
   display: flex;
 }
-.form-group_btn{
-display: flex;
-flex-direction: row;
-justify-content: space-between;
+
+.btn_action {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 
 
 }
+
 /* .btn_delete_img {
   width: 15%;
   height: 30px;
@@ -363,7 +439,7 @@ width: 20%;
   padding: 0rem;
   border-radius: 10px;
   background-color: rgba(250, 148, 31, .6);
- 
+
 }
 
 .bloc_loop {
@@ -388,7 +464,7 @@ width: 20%;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-
+align-items: center;
   width: 100%;
 }
 
@@ -397,9 +473,10 @@ width: 20%;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  gap:20px;
 }
 
-.bouton_del {
+.bloc_img {
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
@@ -413,92 +490,83 @@ width: 20%;
 
 }
 
-.btn_show {
-  align-items: center;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
 
 
-}
-.btn-action{
-  width: 0;
-}
-.btn_upload {
+
+
+
+/* .btn_upload {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
   border: 1px solid blue;
   border-radius: 5px;
-  
+
   overflow: hidden;
-  /* text-overflow: ellipsis; */
  
-}
-.btn_upload input{
-background-color: rgba(251, 167, 48, 0.3);
-}
-.btn_action_self{
-  margin: 0;
-}
-.btn_upload:hover {
+
+} */
+
+/* .btn_upload input {
+  background-color: rgba(251, 167, 48, 0.3);
+} */
+
+
+
+/* .btn_upload:hover {
   border: 1px solid rgb(255, 164, 164);
   background-color: #fff;
   transition: 200ms;
-}
+} */
 
-.btn_update {
-  width: 50%;
-  margin: auto;
-  align-items: center;
 
-}
-.butt{
-  width: 50%;
-  margin: 0 auto;
-}
-.butt:hover {
 
-  box-shadow: 2px 2px 5px black;
 
-  transition: 200ms;
 
-}
 
-.btn-show {
+
+/* .btn-show {
   position: relative;
   top: 40%;
   transform: translateY(-30%);
   border-radius: 10px;
   padding: 5px 10px;
   min-width: 80px;
-}
-@media  screen and (max-width:576px) {
-.update-form, .container-fluid, .header_bloc{
-padding: 0;
-}
-.header_bloc{
-  flex-direction: column;
-  align-items: center
-  ;
-}
-.form-group{
-  width: 90%;
-  display:block;
-  margin: 0 auto;
-}
-.form-control{
-  margin: 0 auto;
-}
-.show_bloc{
-  background-color:transparent
-}
-.btn_upload{
-  overflow: visible;
-  border: none;
-}
-.input_label{
-  flex-direction: row;
-}
-}
-</style>
+} */
+
+@media screen and (max-width:576px) {
+
+  .update-form,
+  .container-fluid,
+  .header_bloc {
+    padding: 0;
+  }
+
+  .header_bloc {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .form-group {
+    width: 90%;
+    display: block;
+    margin: 0 auto;
+  }
+
+  .form-control {
+    margin: 0 auto;
+  }
+
+  .show_bloc {
+    background-color: transparent
+  }
+
+  /* .btn_upload {
+    overflow: visible;
+    border: none;
+  } */
+
+  .input_label {
+    flex-direction: row;
+  }
+}</style>

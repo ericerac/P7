@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container-fluid" v-if="auth == true">
     <div class="row">
       <ul class="liste m-t-2">
         <li @click="disconnect()">Admin </li>
@@ -24,7 +24,7 @@
         <li @click="goToEmperd()">Emperdonadas</li>
         <li @click="goToElvira()">Elvira</li>
 
-        <li @click="goToCrea()">Blog </li>
+        <li @click="goToBlog()">Blog </li>
       
 
       </ul>
@@ -141,7 +141,7 @@ export default {
       user: "user",
       pageData: "pageData",
       imgData: "imgData",
-      auth: "auth"
+      auth: "auth",
 
 
     }),
@@ -160,6 +160,10 @@ export default {
   },
 
   methods: {
+
+    updateImg(p) {
+            console.log("ID IMG", p);
+          },
     getAdminAuth: function () {
       this.$store.dispatch("getAdminAuth").then((res) => console.log("ADMINAUTH OK"))
     },
@@ -210,6 +214,9 @@ this.$router.push("/portada")
     goToKakos: function () {
       console.log("GO TO Kakos");
       this.getPageData("kakos")
+    },
+    goToBlog: function () {
+      this.$router.push("/blog")
     },
 
     lang(l) {
@@ -329,6 +336,8 @@ this.$router.push("/portada")
 
 li {
   /* border:1px solid black; */
+  width:auto;
+  
   padding: 5px 10px;
   border-radius: 5px;
   background: rgb(255, 143, 0);
@@ -353,6 +362,7 @@ li:hover {
   flex-wrap: wrap;
   border: 2px solid #ffbf00;
   padding: 5px;
+  gap:10px;
   background-color: #ffbf00;
   border-radius: 10px;
   box-shadow: 1px 1px 10px 3px rgb(226, 113, 0);

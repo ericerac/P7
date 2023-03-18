@@ -1,16 +1,24 @@
 <template>
-  <div class="fond">
+  <div class="fond bdDay" :class="{ bgDark: dark }">
     <div class="container text-center sticky_bloc">
       <div class="bloc_nav" v-if="navbarOk">
-        <navbar namePage="portada"/>
+        <navbar namePage="portada" :dark = "dark" @theme ="dark=($event)"/>
       </div>
 
       <div class="row bloc_thumb pt-5 pb-5">
         <div class="  col-lg-6 col-xl-6 left-bloc">
           <div class="title_name item1 texte">
-            <h1 class="titles">{{ pageData[0].title_1 }}</h1>
+            <!-- <h1 class="titles">{{ pageData[0].title_1 }}</h1> -->
+            <!-- <div class="nameTitleC">  -->
+            <svg viewBox="0 0 1020 400" id="title_1" class="txtDay">
+	<text x="50%" y="50%" dy=".35em" text-anchor="middle">
+		Marta Renyer
+	</text>
+</svg>	
+            <!-- </div> -->
+            <!-- <img src="../assets/logo/download.gif"> -->
           </div>
-          <div class="subTitle_name item2 texte">
+          <div class="subTitle_name item2 text " :class="dark ? 'txtDark' : 'txtDay'">
             <p>{{ pageData[0].subTitle_1 }}</p>
           </div>
           <div class="line item3"></div>
@@ -40,9 +48,9 @@
 
     <!-- ------------- BLOC ESPECTACLE ------------ -->
     <div class="container  text-center
-    ">
+      ">
 
-      <div class="row txt-espectacle texte ">
+      <div class="row txt-espectacle text ">
         <h2 class="titles">ESPECTACLES</h2>
       </div>
       <div class="row  col-12 " id="spectacle" v-motion-slide-visible-once-bottom>
@@ -57,27 +65,27 @@
 
             <router-link v-if="index == 0" to="/kakos">
               <img class=" img-spectacle  rounded-circle col-12 " :src="i.imageUrl" alt="" />
-              <h3 class="showName texte">{{ i.showName }} </h3>
+              <h3 class="showName text " :class="dark ? 'txtDark' : 'txtDay'">{{ i.showName }} </h3>
             </router-link>
 
             <router-link v-if="index == 1" to="/emperdonadas">
               <img class=" img-spectacle  rounded-circle col-12 " :src="i.imageUrl" alt="" />
-              <h3 class="showName texte">{{ i.showName }} </h3>
+              <h3 class="showName text " :class="dark ? 'txtDark' : 'txtDay'">{{ i.showName }} </h3>
             </router-link>
 
             <router-link v-if="index == 2" to="/bernadette">
               <img class=" img-spectacle  rounded-circle col-12 " :src="i.imageUrl" alt="" />
-              <h3 class="showName texte">{{ i.showName }} </h3>
+              <h3 class="showName text " :class="dark ? 'txtDark' : 'txtDay'">{{ i.showName }} </h3>
             </router-link>
 
             <router-link v-if="index == 3" to="/creation">
               <img class=" img-spectacle  rounded-circle col-12 " :src="i.imageUrl" alt="" />
-              <h3 class="showName texte">{{ i.showName }} </h3>
+              <h3 class="showName text " :class="dark ? 'txtDark' : 'txtDay'">{{ i.showName }} </h3>
             </router-link>
 
             <router-link v-if="index == 4" to="/elvira">
               <img class=" img-spectacle  rounded-circle col-12 " :src="i.imageUrl" alt="" />
-              <h3 class="showName texte">{{ i.showName }} </h3>
+              <h3 class="showName text txtDay" :class="{ txtDark: dark }">{{ i.showName }} </h3>
             </router-link>
           </div>
 
@@ -87,19 +95,15 @@
     </div>
     <div class="container">
       <div class="row col-12 mt-5">
-        <div class="copyright">
-          <router-link to="/login" target="_blank"><span class="texte">@WistitiWeb.com</span></router-link>
+        <!-- <div class="copyright">
+          <router-link to="/login" target="_blank"><span class="text txtDay" :class="{ txtDark: dark }">@WistitiWeb.com</span></router-link>
 
-        </div>
+        </div> -->
       </div>
       <p id="demo"></p>
     </div>
-    <div class="footer">
-
-
+    <div class="container-fluid-footer">
       <foot />
-
-
     </div>
   </div>
 </template>
@@ -107,10 +111,12 @@
  <!-- ************* SCRIPT ************* -->
 <script>
 import { mapGetters, mapState } from "vuex";
+import {ref, toRef} from "vue"
 import navbar from "../components/nav_bar.vue"
 import foot from "../components/footer.vue"
+import NameTitle from "../components/name_title.vue"
 import vIntersect from "vue-intersection-observer";
-
+import dataCookies from "../js/cookies"
 
 // LOCALISATION UTILISATEUR
 // console.log("Welcome to our visitors from "+ geoplugin_city() +", "+geoplugin_countryName()) 
@@ -122,15 +128,25 @@ export default {
     return {
       home: false,
       navbarOk: false,
-      // namePage: "",
-
+     
+      dark:ref(""),
     };
   },
   // props: ['portada'],
+  mounted: () => {
+    console.log(" MOUNT");
+
+  },
+
+  beforeMount: function () {
+    console.log("BEFORE MOUNT PORTADA");
+    this.getLocation()
+  },
 
   created: function () {
     // this.viewWidth();
     // this.getIpClient();
+ 
     this.getPageData();
     this.getNavData();
 
@@ -143,25 +159,35 @@ export default {
       pageData: "pageData",
       imgData: "imgData",
       auth: "auth",
-      namePage:"namePage"
+      namePage: "namePage",
+      geoLoc: "geoloc",
+      status: "status",
+      userLocalHour: "userLocalHour",
+     loading:"loading",
+      
     }),
-
-
   },
 
   watch: {
     
-    namePage(n, o) {
-      if (n != o) {
-        this.getImgData(n);
-      }
+
+
+
+    theme(n, o) {
+      console.log("WATCH THEME ", n);
     }
+    // namePage(n, o) {
+    //   if (n != o) {
+    //     this.getImgData(n);
+    //   }
+    // }
   },
 
   components: {
     navbar,
     foot,
     vIntersect,
+    NameTitle,
 
   },
 
@@ -171,12 +197,26 @@ export default {
       this.fileSelected = event.target.files[0];
     },
 
+    getLocation() {
+      this.$store.dispatch("getLoc")
+        .then((res) => {
+          this.DataCookies()
+        })
+    },
+
+    async DataCookies() {
+      let dataTheme = await dataCookies();
+      console.log("DATATHEME CALENDAR", dataTheme);
+      this.theme = dataTheme.theme
+      this.dark = dataTheme.dark
+    },
+
     getPageData() {
       const n = "portada";
       this.$store.dispatch("getPageData", n)
         .then((res) => {
           if (res) {
-            // this.namePage = n;
+            this.$store.dispatch("getImgData", n)
           }
         })
     },
@@ -191,14 +231,16 @@ export default {
       this.$store.dispatch("getNavData", n)
         .then((res) => {
           if (res) {
+
             this.navbarOk = true
-            return
+
+
           }
         });
       console.log("REQUET GET NAV BAR PAGE DATA-----> ", n);
     },
 
- // ******** INFORMATION FUNCTION.......
+    // ******** INFORMATION FUNCTION.......
 
     viewWidth() {
       if (window.navigator) {
@@ -210,9 +252,12 @@ export default {
       }
     },
 
-    getIpClient() {
-      this.$store.dispatch("getIpClient")
+    getLoc() {
+      this.$store.dispatch("getLoc")
     },
+    // getIpClient() {
+    //   this.$store.dispatch("getIpClient")
+    // },
 
 
   }, // fin METHODS
@@ -221,7 +266,76 @@ export default {
 
 <style scoped>
 @import url("../styles/bloc_nav.css");
+@import url("../styles/theme.css");
+@import url("../styles/bloc-nav-c.css");
 
+.nameTitleC {
+  width: 300px;
+}
+
+svg {
+  /* font-family: 'Russo One', sans-serif; */
+  /* position: absolute; 
+  top:0; */
+  
+   width:auto;
+  stroke-width: 18;
+}
+#title_1{
+  
+  text-shadow: 0px 3px 3px rgb(251, 93, 93),0px 5px 23px rgb(251, 93, 93), 5px 0px 23px rgb(254, 102, 102);
+ 
+}
+svg text {
+  /* text-transform: uppercase; */
+  animation: stroke 2s forwards;
+  stroke-width: 16;
+  stroke: rgb(62, 1, 1);
+  font-size: 140px;
+  width:300px;
+}
+
+@keyframes stroke {
+  0% {
+    fill: rgba(72, 138, 20, 0);
+    stroke: rgb(62, 1, 1);
+    stroke-dashoffset: 25%;
+    stroke-dasharray: 0 40%;
+    stroke-width: 5;
+  }
+  
+
+  70% {
+    fill: rgba(72, 138, 20, 0);
+    stroke: rgb(62, 1, 1);
+  }
+
+  80% {
+    fill: rgba(72, 138, 20, 0);
+    stroke: rgb(62, 1, 1);
+    stroke-width: 6;
+  }
+
+  100% {
+    fill: rgb(62, 1, 1);
+    fill: rgb(250, 250, 251);
+    stroke: rgba(251, 252, 253, .3);
+    stroke: rgb(62, 1, 1);;
+    stroke-dashoffset: -25%;
+    stroke-dasharray: 100% 0%;
+    stroke-width: 2;
+  }
+}
+
+/* .texte {
+  color: v-bind(bide);
+
+} */
+/*
+.fond {
+  background-color: v-bind(backLight);
+
+} */
 
 .switch_dynamic {
   margin-top: -10px;
@@ -248,13 +362,14 @@ a {
 }
 
 .sticky_bloc {
-  height: 100vh;
+  /* height: 100vh; */
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
 }
 
 .left-bloc {
+  position: relative;
   height: 15vh;
   display: flex;
   flex-direction: column;
@@ -272,26 +387,12 @@ a {
 .title_name>h1 {
   text-shadow: 0 0 30px #f92424, 0px 0px 50px rgba(251, 41, 41, 0.5), 0 0 150px #EC637B, 0 0 30px #f92424;
   color: #f2eeee;
-
 }
 
 h1 {
 
   display: flex;
   text-align: center;
-
-
-}
-
-.texte {
-  color: rgb(253, 251, 251);
-
-}
-
-
-.fond {
-  background-color: #030303;
-  /* background-image: url("../assets/design/white-texture.webp"); */
 }
 
 .container-fluid {
@@ -311,8 +412,9 @@ h1 {
   text-align: right;
 }
 
-.footer {
-  margin: 0 auto;
+.container-fluid-footer {
+  width: 100vw;
+  margin: 0 auto
 }
 
 .img_back {
@@ -504,14 +606,7 @@ li {
 
 
 
-@media screen and (min-width:576px) {
-  .bloc_nav {
-    position: sticky;
-    top: 20px;
-    right:30px;
-    z-index: 123;
-  }
-}
+
 
 @media screen and (min-width:768px) and (max-height:440px) {
 
@@ -568,8 +663,6 @@ li {
   .img-spectacle {
     width: 230px;
     height: 230px;
-    box-shadow: 1px 1px 10px 1px white;
-
   }
 }
 
@@ -600,15 +693,16 @@ li {
 
   .img_back {
     position: relative;
-    background-color: #f60404;
+    /* background-color: #f60404;
+    padding-top:20px; */
 
 
   }
 
   .img_principale {
     position: relative;
-    top: -20px;
-    left: -20px;
+    /* top: -20px;
+    left: -20px; */
 
     z-index: 2;
   }
@@ -628,11 +722,15 @@ li {
 }
 
 @media screen and (min-width:1440px) {
+  .right_bloc {
+    margin-top:100px
+
+  }
   #spectacle {
     padding: 50px 30px 30px 30px;
     justify-content: center;
     border-radius: 20px 0;
-    box-shadow:
+    /* box-shadow:
       white 0.006em 0.006em 0.007em,
       rgba(251, 36, 36, .3) 1px 1px 1px,
       rgba(251, 36, 36, .3) 2px 2px 1px,
@@ -647,7 +745,7 @@ li {
       rgba(251, 36, 36, .3)11px 11px 1px,
       rgba(251, 36, 36, .3) 12px 12px 1px;
     color: #fff;
-    background-color: rgba(113, 130, 141, .3);
+    background-color: rgba(113, 130, 141, .3); */
     ;
   }
 
@@ -761,5 +859,4 @@ li {
   }
 }
 
-/* ************  FIN anim__navBar */
-</style>
+/* ************  FIN anim__navBar */</style>

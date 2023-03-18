@@ -1,8 +1,8 @@
 <template>
-  <div class="bloc">
-    <div class="container p-0 mt-0 text-center">
+  <div class="bloc fond" :class="{ bgDark: dark }">
+    <div class="containe p-0 mt-0 text-center">
       <div class="bloc_nav" v-if="navbarOk">
-        <navbar namePage="bio"/>
+        <navbar namePage="bio" :dark = "dark" @theme ="dark=($event)"/>
       </div>
       <div class="anim"></div>
 
@@ -20,20 +20,36 @@
               fill="hsl(340, 45%, 50%)" transform="matrix(1.1025,0,0,-1.1025,-28.31245550155643,277.35308599472046)">
             </path>
           </svg> -->
-          <h1 class="title_1">{{ pageData[0].title_1 }}</h1>
+          <!-- <div class="bgTitleCl  ">
+          <h1 class="title_1  " :class=" [dark ? txtDark : txtDay] ">{{ pageData[0].title_1 }}</h1>
+          </div> -->
+
+          <div class="bgTitleClT  ">
+          <h1 class="title_1_1  " :class=" [dark ? txtDark : txtDay] ">{{ pageData[0].title_1 }}</h1>
+        </div>
+        <h1 class="title_1_2  " :class=" [dark ? txtDark : txtDay] ">{{ pageData[0].title_1 }}</h1>
         </div>
 
         <div class="row col-12 bloc_img_text">
+
           <div class="bloc_header_2 col-12 col-lg-5 m-0 m-lg-auto">
-            <img class="img_thumb col-12 col-md-8 col-lg-10 p-3" :src="pageData[0].imageUrl" alt="" />
-            <h1 class="title_1 title_mobile">{{ pageData[0].title_1 }}</h1>
+
+            <div class="img_head">
+              <img class="img_thumb col-12 col-md-8 col-lg-10 p-3" :src="pageData[0].imageUrl" alt="" />
+            </div>
+<div class="bloc_right">
+            <div class="bgTitleCl dif2">
+              <h1 class="title_1_mobile texte txtDay" :class="dark ? 'txtDark' : 'txtDay'">{{ pageData[0].title_1 }}</h1>
+            </div>
+
             <!-- fond rouge image -->
-            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink"
+            <!-- <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink"
               xmlns:svgjs="http://svgjs.dev/svgjs" viewBox="0 0 600 600" transform="scale(1.1,1.4)">
               <path
                 d="M24.345550537109375,87.17277526855469C26.30890146891276,78.92670186360677,29.450262705485027,68.97905731201172,33.76963424682617,62.82722473144531C38.08900578816732,56.675392150878906,42.408376693725586,54.18848101298014,50.26177978515625,50.26177978515625C58.115182876586914,46.33507855733236,70.94240824381511,42.277488708496094,80.89005279541016,39.26701736450195C90.8376973470052,36.25654602050781,100.78534317016602,33.638742446899414,109.94764709472656,32.198951721191406C119.10995101928711,30.7591609954834,127.09424336751302,30.75916290283203,135.86387634277344,30.628273010253906C144.63350931803384,30.49738311767578,152.87958017985025,30.759162267049152,162.56544494628906,31.413612365722656C172.25130971272787,32.06806246439616,182.85341135660806,34.55497360229492,193.97906494140625,34.55497360229492C205.10471852620444,34.55497360229492,218.58638509114584,31.937172571818035,229.31936645507812,31.413612365722656C240.0523478190104,30.890052159627277,249.47643025716147,31.413612365722656,258.376953125,31.413612365722656C267.27747599283856,31.413612365722656,274.2146504720052,31.020942052205402,282.7225036621094,31.413612365722656C291.23035685221356,31.80628267923991,299.8690948486328,33.50785382588705,309.424072265625,33.76963424682617C318.9790496826172,34.0314146677653,330.10472106933594,33.37696520487467,340.0523681640625,32.98429489135742C350.00001525878906,32.59162457784017,358.76964314778644,31.937172889709473,369.1099548339844,31.413612365722656C379.4502665201823,30.89005184173584,392.4083760579427,30.235601743062336,402.09423828125,29.842931747436523C411.7801005045573,29.45026175181071,418.9790547688802,28.92670218149821,427.2251281738281,29.057592391967773C435.47120157877606,29.188482602437336,443.5863850911458,29.58115291595459,451.5706787109375,30.628273010253906C459.5549723307292,31.675393104553223,467.0157063802083,32.46073214213053,475.1308898925781,35.34031295776367C483.24607340494794,38.21989377339681,492.93194071451825,43.97905604044596,500.26177978515625,47.905757904052734C507.59161885579425,51.83245976765951,514.2669881184896,54.7120418548584,519.1099243164062,58.9005241394043C523.9528605143229,63.089006423950195,526.5706990559896,66.75392977396648,529.3193969726562,73.03665161132812C532.0680948893229,79.31937344868977,533.7696533203125,89.79057312011719,535.6021118164062,96.59685516357422C537.4345703125,103.40313720703125,538.481689453125,107.85339991251628,540.3141479492188,113.87434387207031C542.1466064453125,119.89528783162434,544.764404296875,126.70157623291016,546.5968627929688,132.72251892089844C548.4293212890625,138.74346160888672,550.3926696777344,143.58638763427734,551.3088989257812,150C552.2251281738281,156.41361236572266,551.9633483886719,164.00524139404297,552.09423828125,171.20419311523438C552.2251281738281,178.40314483642578,552.09423828125,186.3874282836914,552.09423828125,193.19371032714844C552.09423828125,199.99999237060547,551.9633483886719,205.6282704671224,552.09423828125,212.04188537597656C552.2251281738281,218.45550028483072,552.7486877441406,225.13089752197266,552.8795776367188,231.67539978027344C553.0104675292969,238.21990203857422,553.141357421875,245.28795623779297,552.8795776367188,251.30889892578125C552.6177978515625,257.32984161376953,551.5706787109375,261.9110056559245,551.3088989257812,267.8010559082031C551.047119140625,273.69110616048175,550.7853393554688,280.235590616862,551.3088989257812,286.6492004394531C551.8324584960938,293.06281026204425,553.4031372070312,299.8690999348958,554.4502563476562,306.28271484375C555.4973754882812,312.6963297526042,556.6753845214844,318.9790547688802,557.5916137695312,325.1308898925781C558.5078430175781,331.28272501627606,559.424072265625,337.69634501139325,559.9476318359375,343.1937255859375C560.47119140625,348.69110616048175,560.7329711914062,352.87957255045575,560.7329711914062,358.11517333984375C560.7329711914062,363.35077412923175,560.2094116210938,368.4554951985677,559.9476318359375,374.6073303222656C559.6858520507812,380.75916544596356,559.424072265625,389.0052439371745,559.1622924804688,395.02618408203125C558.9005126953125,401.047124226888,558.6387329101562,404.8429209391276,558.376953125,410.73297119140625C558.1151733398438,416.6230214436849,557.7225036621094,423.8219807942708,557.5916137695312,430.3664855957031C557.4607238769531,436.91099039713544,557.1989440917969,443.19371541341144,557.5916137695312,450C557.9842834472656,456.80628458658856,559.1622924804688,464.00523885091144,559.9476318359375,471.2041931152344C560.7329711914062,478.4031473795573,561.9109802246094,486.2565561930339,562.3036499023438,493.1937255859375C562.6963195800781,500.1308949788411,562.6963195800781,506.28270467122394,562.3036499023438,512.8272094726562C561.9109802246094,519.3717142740885,562.0418701171875,525.7853597005209,559.9476318359375,532.4607543945312C557.8533935546875,539.1361490885416,554.1884765625,547.1204223632812,549.7382202148438,552.8795776367188C545.2879638671875,558.6387329101562,539.9214884440104,563.3507690429688,533.24609375,567.0156860351562C526.5706990559896,570.6806030273438,519.5026092529297,573.036610921224,509.68585205078125,574.8690795898438C499.8690948486328,576.7015482584635,484.1623026529948,577.0942586263021,474.3455505371094,578.010498046875C464.52879842122394,578.9267374674479,459.94764200846356,579.9738464355469,450.78533935546875,580.3665161132812C441.62303670247394,580.7591857910156,428.2722574869792,580.3665161132812,419.3717346191406,580.3665161132812C410.47121175130206,580.3665161132812,405.23560587565106,580.3665161132812,397.3822021484375,580.3665161132812C389.52879842122394,580.3665161132812,382.0680643717448,580.6282958984375,372.2513122558594,580.3665161132812C362.43456013997394,580.104736328125,348.95289611816406,578.7958374023438,338.481689453125,578.7958374023438C328.01048278808594,578.7958374023438,318.9790496826172,579.9738464355469,309.424072265625,580.3665161132812C299.8690948486328,580.7591857910156,290.57590738932294,581.15185546875,281.1518249511719,581.15185546875C271.7277425130208,581.15185546875,262.8272196451823,580.4974060058594,252.87957763671875,580.3665161132812C242.93193562825522,580.2356262207031,231.4136174519857,580.6282958984375,221.46597290039062,580.3665161132812C211.51832834879556,580.104736328125,203.79580434163412,579.1885070800781,193.19371032714844,578.7958374023438C182.59161631266275,578.4031677246094,168.7172826131185,578.1413879394531,157.85340881347656,578.010498046875C146.98953501383463,577.8796081542969,136.5183219909668,578.5340677897135,128.01046752929688,578.010498046875C119.50261306762695,577.4869283040365,114.39790471394856,575.5235392252604,106.80628204345703,574.8690795898438C99.2146593729655,574.2146199544271,91.62303479512532,575.2617492675781,82.46073150634766,574.083740234375C73.29842821756999,572.9057312011719,59.68586540222168,571.7277221679688,51.832462310791016,567.801025390625C43.97905921936035,563.8743286132812,39.921464920043945,557.329833984375,35.34031295776367,550.5235595703125C30.7591609954834,543.71728515625,26.701571146647137,535.8639017740885,24.345550537109375,526.96337890625C21.989529927571613,518.0628560384115,21.989529609680176,507.19895935058594,21.20418930053711,497.12042236328125C20.418848991394043,487.04188537597656,19.895288785298664,475.39267985026044,19.633508682250977,466.4921569824219C19.37172857920329,457.5916341145833,19.633508682250977,451.3089090983073,19.633508682250977,443.71728515625C19.633508682250977,436.1256612141927,19.37172857920329,429.58115641276044,19.633508682250977,420.9424133300781C19.895288785298664,412.3036702473958,20.94240919748942,401.3089090983073,21.20418930053711,391.88482666015625C21.465969403584797,382.4607442220052,21.465969403584797,373.29844156901044,21.20418930053711,364.3979187011719C20.94240919748942,355.4973958333333,19.50261878967285,347.5131072998047,19.633508682250977,338.481689453125C19.7643985748291,329.4502716064453,21.596858660380047,320.0261688232422,21.98952865600586,310.20941162109375C22.382198651631672,300.3926544189453,21.98952865600586,289.65967814127606,21.98952865600586,279.5811462402344C21.98952865600586,269.5026143391927,21.858638445536297,260.99476369222003,21.98952865600586,249.73822021484375C22.120418866475422,238.48167673746744,22.64397970835368,223.29842885335287,22.774869918823242,212.04188537597656C22.905760129292805,200.78534189860025,23.03665002187093,192.53927357991537,22.774869918823242,182.19895935058594C22.513089815775555,171.8586451212565,21.335079511006672,161.6492156982422,21.20418930053711,150C21.073299090067547,138.3507843017578,21.46596844991048,122.77486928304036,21.98952865600586,112.30366516113281C22.513088862101238,101.83246103922527,22.38219960530599,95.41884867350261,24.345550537109375,87.17277526855469C26.30890146891276,78.92670186360677,29.450262705485027,68.97905731201172,33.76963424682617,62.82722473144531"
                 fill="red"></path>
-            </svg>
+            </svg> -->
+
 
             <!-- fond blanc image -->
             <!-- <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -44,39 +60,86 @@
             </svg> -->
 
 
-            <span class="switch_line sub_title"></span>
+            <!-- <span class="switch_line sub_title"></span> -->
+
             <!-- <svg class="switch_svg" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.dev/svgjs" viewBox="0 0 600 100"><path d="M592.1466064453125,72.25131225585938C497.7748832702637,68.06283124287923,95.15706952412923,51.439791997273765,6.282722473144531,46.335079193115234C-82.59162457784016,41.2303663889567,43.062828063964844,41.49214553833008,58.9005241394043,41.6230354309082C74.73822021484375,41.75392532348633,86.78010241190593,44.371726989746094,101.30889892578125,47.120418548583984C115.83769543965657,49.869110107421875,129.97382609049478,54.973822911580406,146.07330322265625,58.11518478393555C162.17278035481772,61.25654665629069,184.0314178466797,65.83769989013672,197.90576171875,65.96858978271484C211.7801055908203,66.09947967529297,219.3717244466146,61.51832580566406,229.31936645507812,58.9005241394043C239.26700846354166,56.28272247314453,247.1204071044922,53.403141021728516,257.59161376953125,50.26177978515625C268.0628204345703,47.120418548583984,282.32984924316406,40.18324661254883,292.1466064453125,40.0523567199707C301.96336364746094,39.92146682739258,305.3665059407552,45.54973920186361,316.4921569824219,49.4764404296875C327.61780802408856,53.40314165751139,347.38219197591144,63.48167419433594,358.9005126953125,63.61256408691406C370.41883341471356,63.74345397949219,376.3088836669922,51.70156987508138,385.6020812988281,50.26177978515625C394.89527893066406,48.82198969523112,404.05760192871094,53.40314292907715,414.6596984863281,54.97382354736328C425.2617950439453,56.544504165649414,438.2198994954427,58.11518351236979,449.21466064453125,59.68586349487305C460.2094217936198,61.256543477376304,470.28795369466144,63.219892501831055,480.6282653808594,64.39790344238281C490.9685770670573,65.57591438293457,503.0104522705078,67.2774887084961,511.25653076171875,66.7539291381836C519.5026092529297,66.2303695678711,522.9057820638021,61.649216969807945,530.104736328125,61.25654602050781C537.3036905924479,60.86387507120768,547.3822021484375,62.69633356730143,554.4502563476562,64.39790344238281C561.518310546875,66.09947331746419,566.2303365071615,70.15706380208333,572.5130615234375,71.4659652709961C578.7957865397135,72.77486673990886,686.5183296203613,76.43979326883952,592.1466064453125,72.25131225585938C497.7748832702637,68.06283124287923,95.15706952412923,51.439791997273765,6.282722473144531,46.335079193115234" fill="hsl(353, 98%, 41%)" fill-opacity="1"></path><defs><linearGradient id="SvgjsLinearGradient1003"><stop stop-color="hsl(340, 45%, 50%)" offset="0"></stop><stop stop-color="hsl(340, 45%, 80%)" offset="1"></stop></linearGradient><radialGradient id="SvgjsRadialGradient1004"><stop stop-color="hsl(340, 45%, 50%)" offset="0"></stop><stop stop-color="hsl(340, 45%, 80%)" offset="1"></stop></radialGradient></defs></svg> -->
-            <span class="phrase">PHRASE TYPE <i>Tu exito es inevitable</i> </span>
+
+            <div class="phrase text txtDay">
+              <p :class="dark ? 'txtDark' : 'txtDay'">
+                 <i>{{ pageData[0].subTitle_1 }}</i>
+              </p>
+            </div>
+          </div>
           </div>
           <!-- <div class=" switch_dynamic"> -->
-
           <!-- <div style="height: 150px; overflow: hidden;" ><svg viewBox="0 0 500 150" preserveAspectRatio="none" style="height: 100%; width: 100%;"><path d="M0.00,49.98 C149.99,150.00 271.49,-49.98 500.00,49.98 L500.00,0.00 L0.00,0.00 Z" stroke="red" stroke-width="3" fill="none"></path></svg></div>
           -->
-
-
           <!-- </div> -->
           <span class="switch_line sub_title"></span>
 
           <div class="bloc_left p-2 col-12 col-lg-6 text-center">
             <!-- <span class="switch_line" v-if="pageData[0].p_1"></span> -->
 
-            <p class="description_bio text_p">{{ pageData[0].p_1 }}</p>
+            <p class="description_bio text_p texte dif3" :class="dark ? 'txtDark' : 'txtDay'">{{ pageData[0].p_1 }}</p>
+            <!-- <div class="b_right bulle_1">
+              <div class="quote-wrapper qw_1">
+                <blockquote class="text paraf_1 texte">
 
+                  <p> {{ pageData[0].p_1 }}</p>
+                 
+                </blockquote>
+              </div>
+            </div> -->
             <!-- <span class="switch_line " v-if="pageData[0].p_2"></span> -->
 
-            <p class="description_bio text_p">{{ pageData[0].p_2 }}</p>
+            <p class="description_bio text_p texte" :class="dark ? 'txtDark' : 'txtDay'">{{ pageData[0].p_2 }}</p>
+            <!-- <div class="b_right bulle_2">
+              <div class="quote-wrapper qw_2">
+                <blockquote class="text paraf_2 texte">
 
+                  <p> {{ pageData[0].p_2 }}</p>
+                
+                </blockquote>
+              </div>
+            </div> -->
             <!-- <span class="switch_line " v-if="pageData[0].p_3"></span> -->
 
-            <p class="description_bio text_p">{{ pageData[0].p_3 }}</p>
+            <p class="description_bio text_p texte" :class="dark ? 'txtDark' : 'txtDay'">{{ pageData[0].p_3 }}</p>
+            <!-- <div class="b_right bulle_3">
+              <div class="quote-wrapper qw_3">
+                <blockquote class="text paraf_3 texte">
+
+                  <p> {{ pageData[0].p_3 }}</p>
+                
+                </blockquote>
+              </div>
+            </div> -->
 
             <!-- <span class="switch_line " v-if="pageData[0].p_4"></span> -->
 
-            <p class="description_bio text_p">{{ pageData[0].p_4 }}</p>
+            <p class="description_bio text_p texte" :class="dark ? 'txtDark' : 'txtDay'">{{ pageData[0].p_4 }}</p>
+            <!-- <div class="b_right bulle_4">
+              <div class="quote-wrapper qw_4">
+                <blockquote class="text paraf_4 texte">
+
+                  <p> {{ pageData[0].p_4 }}</p>
+                
+                </blockquote>
+              </div>
+            </div> -->
 
             <!-- <span class="switch_line " v-if="pageData[0].p_5"></span> -->
 
-            <p class="description_bio text_p">{{ pageData[0].p_5 }}</p>
+            <p class="description_bio text_p texte" :class="dark ? 'txtDark' : 'txtDay'">{{ pageData[0].p_5 }}</p>
+            <!-- <div class="b_right bulle_5">
+              <div class="quote-wrapper qw_5">
+                <blockquote class="text paraf_5 texte">
+
+                  <p> {{ pageData[0].p_5 }}</p>
+                
+                </blockquote>
+              </div>
+            </div> -->
 
             <!-- <span class="switch_line"></span> -->
           </div>
@@ -87,18 +150,26 @@
         </div> -->
         </div>
       </div>
+
       <div class="row otherShows">
-        <h2 class="title_2">{{ pageData[0].title_2 }}</h2>
+        <div class="bgTitleSCl">
+        <h2 class="title_2" :class="dark ? 'txtDark' : 'txtDay'">{{ pageData[0].title_2 }}</h2>
+      </div>
         <div class="bloc_loop_otherShows col-12">
           <div class="bloc_img col-6 col-sm-4" v-for="i in imgData" :key="i._id">
+            
             <img class="img_display" :src="i.imageUrl" alt="" v-motion-slide-visible-once-bottom>
-            <p class="img_text"> {{ i.showName }}</p>
+            <div class="bgTitleShow">
+            <p class="img_text text txtDark" > {{ i.showName }}</p>
+          </div>
           </div>
         </div>
       </div>
       <div class="footer" v-motion-slide-visible-once-bottom>
 
-        <foot />
+        <div class="container-fluid-footer">
+          <foot />
+        </div>
       </div>
     </div>
   </div>
@@ -108,6 +179,8 @@
 import navbar from "../components/nav_bar.vue";
 import foot from "../components/footer.vue";
 import { mapState } from "vuex";
+import {ref} from "vue";
+import dataCookies from "../js/cookies"
 
 export default {
   name: "bio",
@@ -115,6 +188,7 @@ export default {
   data: function () {
     return {
       navbarOk: false,
+      dark:ref(""),
     };
   },
 
@@ -134,11 +208,28 @@ export default {
 
     this.getNavData();
   },
-  methods: {
-    FileUpload(event) {
-      this.fileSelected = event.target.files[0];
-    },
+  beforeMount: function () {
+    console.log("BEFORE MOUNT BIO");
+    this.getLocation()
+  },
 
+  methods: {
+    
+    getLocation() {
+      this.$store.dispatch("getLoc")
+        .then((res) => {
+          this.DataCookies()
+        })
+    },
+    async DataCookies() {
+      let dataTheme = await dataCookies();
+      console.log("DATATHEME CALENDAR", dataTheme);
+      this.theme = dataTheme.theme
+      // this.bgColor = dataTheme.bgColor
+      this.bgColor = dataTheme.bgColor
+      this.dark = dataTheme.dark
+      
+    },
     getPageData() {
       const n = "bio";
       this.$store.dispatch("getPageData", n)
@@ -171,25 +262,22 @@ export default {
 @import url("https://fonts.googleapis.com/css2?family=Unna&display=swap");
 @import url("../styles/bloc_nav.css");
 @import url("../styles/font.css");
+@import url("../styles/theme.css");
+@import url("../styles/bloc-nav-c.css");
+/* @import url("../styles/bulles.css"); */
+
+
 /* .anim{
   background: url("../assets/design/testAnim.svg");
   width: 100%;
   height:150px;
   background-repeat: no-repeat;
 } */
-.bloc_nav{
-  background-color: rgba(0, 0, 0,.5);
-  position:fixed;
-  top:20px;
-  left:0;
-  right:0;
-  z-index:2000;
-  align-items: center;
-}
-.bloc {
+
+/* .bloc {
   
   background-color:white;
-}
+} */
 
 svg {
   display: none;
@@ -214,15 +302,151 @@ svg {
   top: 20px;
   z-index: 1000;
 } */
+
+.bloc_header_2 {
+  display: flex;
+  width: 90%;
+
+  height: auto;
+  flex-direction: column;
+  object-fit: cover;
+  position: relative;
+
+}
+
 .bloc_img_text {
   position: relative;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
 
-  margin: 20px auto 20px;
+  align-items: center;
+
+  /* margin: 80px auto 20px; */
+  padding-top:80px;
   /* height:100vh; */
 }
+.bloc_right{
+  display:flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+.dif1 {
+  position: relative;
+  top: 30%;
+}
+.bgTitleCl,
+.bgTitleSCl,
+.bgTitleSyn,
+.bgTitleShow,
+.bgTitleAct {
+  position: relative;
+  margin: auto;
+  width: 250px;
+  height: 80px;
+  background-color: var(--bgTitle);
+}
 
+/* .bgTitleSyn */
+.bgTitleCl
+,.bgTitleShow
+
+{ 
+  clip-path: polygon(0% 0%, 100% 15%, 100% 100%, 0% 85%);
+}
+
+.bgTitleAct,
+.bgTitleSCl {
+  clip-path: polygon(0% 15%, 100% 0%, 100% 85%, 0% 100%);
+}
+.bgTitleAct>h1,
+.bgTitleCl>h1,
+.bgTitleSCl>h2,
+.bgTitleSyn>h1 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color:white;
+}
+.bgTitleSCl {
+  width:70%;
+  height:90px
+}
+.bgTitleShow{
+  display:flex;
+  position:relative;
+  width:70%;
+  height:40px;
+  margin-top:10px;
+  align-items: center;
+}
+.bgTitleShow > p{
+  width:max-content;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color:white;
+  margin:0px 
+}
+/* .bgTitleSCl>h2{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color:white;
+} */
+.bgTitleAct{
+
+}
+/* .dif2 {
+  display: flex;
+  flex-wrap: wrap;
+  text-align: center;
+  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+  background-color: chocolate;
+
+  height: 200px;
+
+
+  
+  background-size: cover;
+  background-position: top;
+  position: relative;
+
+  
+} */
+
+/* .dif3{
+  shape-outside: polygon(
+    2% 0%,
+    100% 0%,
+    100% 100%,
+    2% 100%,
+    50% 94%,
+    76.6% 82.7%,
+    94% 65.6%,
+    100% 50%,
+    94% 32.6%,
+    76.6% 17.3%,
+    50% 6%
+    );
+  shape-margin: 7%;
+} */
+
+/* .deco_img_fond {
+
+  width: 100%;
+  height: 200px;
+  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+  background-color: chocolate;
+
+  
+} */
+/* .img_head{
+  margin-bottom:30px
+} */
 .img_text {
   font-size: 16px;
   /* color:white; */
@@ -234,12 +458,29 @@ svg {
 }
 
 .phrase {
-  margin-top: 20px
+  display:flex;
+  margin-top: 20px;
+  color:rgb(62, 1, 1);
+  align-items: center;
+  
+}
+
+.title_1_mobile {
+  position: absolute;
+  width:auto;
+  height:auto;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 50px;
+
 }
 
 .title_1 {
   position: absolute;
-  top: 74%;
+  width:auto;
+  height:auto;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   margin: 20px auto;
@@ -249,19 +490,23 @@ svg {
    
     5px 7px 5px rgba(0, 0, 0, .40), 5px 12px 10px rgba(0, 0, 0, .30), 5px 17px 20px rgba(0, 0, 0, .20), 5px 22px 30px rgba(0, 0, 0, .10);
   color: rgb(246, 244, 244); */
-color:white;
+  /* color: white; */
   font-size: 50px;
   background-color: transparent;
 }
 
+/* .title_mobile {
+  position: relative;
+  top:10%;
+} */
 .title_2 {
   margin-bottom: 30px;
-  text-shadow:
-    /*relieve*/
+  /* text-shadow:
+   
     0 1px 0 rgb(200, 200, 200), 0 2px 0 rgb(190, 190, 190), 0 3px 0 rgb(180, 180, 180), 0 4px 0 rgb(175, 175, 175), 0 5px 0 rgb(180, 180, 180), 0 6px 0 rgb(190, 190, 190),
-    /*sombra*/
-    5px 7px 5px rgba(0, 0, 0, .40), 5px 12px 10px rgba(0, 0, 0, .30), 5px 17px 20px rgba(0, 0, 0, .20), 5px 22px 30px rgba(0, 0, 0, .10);
-  color: white;
+   
+    5px 7px 5px rgba(0, 0, 0, .40), 5px 12px 10px rgba(0, 0, 0, .30), 5px 17px 20px rgba(0, 0, 0, .20), 5px 22px 30px rgba(0, 0, 0, .10); */
+  /* color: white; */
   font-size: calc(25px + 2vw);
 }
 
@@ -279,13 +524,7 @@ color:white;
   background-size: contain;
 }
 
-.bloc_header_2 {
-  display: flex;
-  flex-direction: column;
-  object-fit: cover;
-  position: relative;
-  height: 100vh;
-}
+
 
 .bloc_left {
   display: flex;
@@ -296,11 +535,11 @@ color:white;
 
 .description_bio {
   text-align: center;
-color:rgb(1, 1, 1);
+
   padding: 0px 30px;
 }
 
-.container {
+.container-fluid {
   position: relative;
 }
 
@@ -334,6 +573,8 @@ p {
 
 .img_display {
   width: 100%;
+  position:relative;
+  z-index: 1;
 
 }
 
@@ -341,32 +582,39 @@ p {
 
 
 .img_thumb {
+  width: 100%;
   /* position: sticky;
     top: 50px; */
-  position: absolute;
+  /* position: absolute;
   width: 70%;
   top: 38%;
-  left: 50%;
+  left: 50%; */
   /* border:5px solid white; */
-  border-radius: 10px;
-  border-bottom-right-radius: 30%;
+  border-radius: 10%;
+  /* border-bottom-right-radius: 30%;
   border-top-left-radius: 30%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%); */
   background-color: white;
 
-  /* margin: 40px auto 30px; */
+  margin: 40px auto 30px;
 }
 
 .bloc_loop_otherShows {
   display: flex;
-
-  flex-direction: row;
+  /* flex-direction: row; */
+  flex-direction: column;
   flex-wrap: wrap;
+  justify-content: space-between;
+  /* margin:0 30px; */
 }
 
 .bloc_img {
   object-fit: cover;
   overflow: hidden;
+  width:250px;
+  height:auto;
+  margin:20px auto
+
 }
 
 .img_display {
@@ -380,14 +628,43 @@ p {
   /* background-color: rgba(255, 255, 255, 0.6); */
 }
 
+.container-fluid-footer {
+  width: 100vw;
+  margin: 0 auto
+}
+
 /* } */
 @media screen and (min-width:576px) and (max-height:500px) {
+  .phrase {
+    display: block;
+  }
+
   .bloc_header_2 {
+    width:100%;
     display: flex;
     flex-direction: row;
     object-fit: cover;
     align-items: center;
+    justify-content: space-evenly;
+
   }
+
+  .img_head {
+    width: 50%;
+
+  }
+  .bloc_right{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width:40%;
+}
+  /* .deco_img_fond {
+    width: 100%;
+    display: block;
+    position:relative;
+    border: 1px solid blue;
+  } */
 
   .bloc_header_2>h1 {
     /* margin-left:10%; */
@@ -400,11 +677,34 @@ p {
     object-fit: cover;
     object-position: top;
   }
+
+  .title_1_mobile, .title {
+    width:auto;
+    height:auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%)
+  }
+  .bloc_loop_otherShows {
+    flex-direction:row;
+  }
+  .bgTitleSCl {
+  width:500px;
+  height:110px
+}
 }
 
-@media screen and (min-width:756px) and (min-height:500px) {
-  .title_mobile {
+@media screen and (min-width:768px) and (min-height:500px) {
+  .header{
+    padding-top:50px;
+  }
+  /* .dif2 {
     display: none;
+  } */
+
+  .bloc_header_2 {
+    width: 100%;
   }
 
   svg {
@@ -414,7 +714,9 @@ p {
     height: 60vh;
 
   }
-
+.dif2{
+  display:none;
+}
   .svg_title {
     margin-top: 50px;
     transform: scale(.7, .5)
@@ -422,10 +724,10 @@ p {
 
   .title {
     display: flex;
-    height: 50px;
+    height: auto;
     position: relative;
     width: 100%;
-    margin: 0 auto;
+    margin: 50px auto 30px;
     align-items: center;
 
   }
@@ -433,54 +735,126 @@ p {
   .sub_title {
     display: none;
   }
+  .bgTitleSCl {
+  width:500px;
+  height:110px
+}
+.bgTitleCl{
+  width:400px;
+ height:120px;
+}
+.bgTitleClT{
+  width:250px;
+ height:50px;
 
-  .img_thumb {
-    position: absolute;
-    /* height: 450px; */
-    /* top: 50%;
-    left: 50%; */
-    top: 53%;
-    left: 49%;
-    object-fit: cover;
-    object-position: top;
+}
+.bgTitleClT{
+  position:relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -0%);
+  clip-path: polygon(0% 50%, 100% 50%, 100% 100%, 0% 100%);
+  background: var(--bgTitle);
+  z-index:2;
+  
+}
+.title_1_1,.title_1_2{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -60%);
+  font-size:50px
+ 
+}
+.title_1_1{
+  
+  color:white;
+  z-index:2;
+
+}
+.title_1_2{
+  color:var(--bgTitle);
+  z-index:1;
+  background-color: azure;
+  padding: 0 16px
+  /* text-shadow: 5px 5px 13px rgb(251, 249, 249),-5px -5px 13px rgb(246, 236, 236); ; */
+}
+.title_1{
+  margin:0;
+}
+  /* .img_thumb {
+    width: 300px;
     border: 1px solid white;
     border-radius: 10px;
     padding: 0px;
     background-color: rgb(255, 253, 253);
-  }
+  } */
 
   .bloc_img_text {
-    display: flex;
-    flex-direction: row;
-    margin-top: 60px;
-
+   padding-top:50px
   }
 
-  .bloc_header_2 {
+  /* .bloc_header_2 {
     display: flex;
     flex-direction: row;
+    justify-content: space-evenly;
     object-fit: cover;
     align-items: center;
-    /* width:50%; */
+   
+    height: 80vh;
+  } */
+  .bloc_header_2 {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    object-fit: cover;
+    align-items: center;
     height: 80vh;
   }
+.phrase{
+  margin:0 auto 50px;
+  font-size: 30px;
+}
+.phrase > p{
 
-  .bloc_header_2>h1 {
+  font-size: 24px;
+}
+  .bloc_header_2 > h1 {
     margin: 0 auto;
     padding-bottom: 5px;
     border-bottom: 2px solid red;
   }
-
+.phrase{
+  height:auto;
+}
+.bloc_loop_otherShows {
+    flex-direction:row;
+    gap:20px;
+    margin-top:30px
+  }
   .otherShows {}
 }
 
+@media screen and (min-width:768px) and (min-height:1000px) {
+  .bloc_img_text {
+   padding-top:0px
+  }
+}
+
 @media screen and (min-width:992px) {
+
+  .bloc_img_text {
+   padding-top:0px;
+   height:auto
+  }
   .bloc_header_2 {
     display: flex;
     flex-direction: column-reverse;
     width: 50%;
+    
     object-fit: cover;
     align-items: center;
+   
   }
 
   .bloc_header_2>h1 {
@@ -490,12 +864,33 @@ p {
   .bloc_img_text {
     display: flex;
     flex-direction: row;
+    height: auto;
+    margin-top:20px
   }
+  .bgTitleSCl {
+  width:500px;
+  height:130px;
+  z-index:0
+}
+.bgTitleSCl2{
+  width:700px;
+  height:130px;
+}
+.img_head{
+  width:80%;
+  height:max-content;
+}
+.img_thumb{
+  width:85%;
+  margin:0 auto;
+
+  
+}
 }
 
 @media screen and (min-width:1024px) {
   .header {
-    height: 100vh;
+    /* height: 100vh; */
   }
 
   .bloc_header_2 {
@@ -517,34 +912,56 @@ p {
 
   }
 
-  .img_thumb {
-    /* position: absolute;
+  /* .img_thumb {
+    position: absolute;
     top: 50%;
     left: 48%;
     height: 80vh;
     object-fit: cover;
     object-position: top;
-    ; */
+    ;
+    margin: 80px -50px auto auto;
+  } */
 
+  .phrase > p > i {
+    display: flex;
+    font:25px;
   }
 
   .title_1 {
-    font-size:40px;
+    font-size: 40px;
   }
 
   .otherShows {
-    margin-top: 150px;
+    margin-top: 30px;
   }
 }
 
 @media screen and (min-width:1220px) {
+  .bloc_header_2 {
+   width:40%
+  }
+  .bloc_left{
+    width:60%;
+   
+   
+  }
+  .bloc_left > p{
+  
+    padding:0 80px 0 50px
+  }
   .otherShows {
-    margin-top: 0px;
+    margin-top: 50px;
+  }
+  .bloc_loop_otherShows{
+    max-width: 1000px;
+    margin:0 auto;
+    margin-top:50px
   }
 
   .bloc_img_text {
 
-    margin-top: 100px;
+    /* margin-top: 100px; */
   }
 
   svg {
@@ -564,7 +981,7 @@ p {
 
   .bloc_img_text {
 
-    margin-top: 200px;
+    /* margin-top: 200px; */
   }
 
   svg {
@@ -576,17 +993,16 @@ p {
 
   }
 
-  .img_thumb {
-    /* position: absolute;
+  /* .img_thumb {
+    position: absolute;
     top: 50%;
     left: 48%;
     height: 40vh;
     object-fit: cover;
-    object-position: top; */
-    height:40vh;
-   width: auto;
+    object-position: top;
+    height: 40vh;
+    width: auto;
     object-fit: contain;
 
-  }
-}
-</style>
+  } */
+}</style>

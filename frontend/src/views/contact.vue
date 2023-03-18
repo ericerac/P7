@@ -1,6 +1,6 @@
 <template>
   <div class="fond">
-    <div class="container">
+    <div class="container-fluid bloc_page">
       <div class="bloc_nav " v-if="navbarOk">
         <navbar namePage="contact"/>
       </div>
@@ -26,9 +26,9 @@
           </div>
         </div>
       </div>
-      <div class=" row  col-12  footer">
+      <div class="container-fluid-footer">
         <foot />
-      </div>
+    </div>
     </div>
   </div>
 </template>
@@ -88,6 +88,8 @@ export default {
 </script>
 
 <style scoped>
+@import url("../styles/bloc-nav-c.css");
+@import url("../styles/bloc_nav.css");
 p {
   margin: 0;
   padding: 0;
@@ -100,25 +102,10 @@ p {
   /* background-image: url("../assets/images/abstrait-fond-d-ecra.png"); */
 }
 
-.container {
-  position:absolute;
-  top:0;
-  right:0;
-  bottom:0;
-  left:0;
+.bloc_page {
+  height:100vh;
  
 }
-.bloc_nav {
-    position: fixed;
-    width:40%;
-    top: 30px;
-    right: 30px;
-   
-
-
-    z-index: 1230;
-}
-
 .bloc_header {
 
   width: 100%;
@@ -190,11 +177,11 @@ img {
 
 }
 
-.footer {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
+.container-fluid-footer {
+  position:absolute;
+  bottom:0;
+    width: 100vw;
+    margin: 0 auto
 }
 
 @media screen and (min-width:768px) and (max-height:440px){
@@ -214,7 +201,6 @@ img {
 .bloc_text {
   width: 50%;
  margin-top:25%;
- 
 }
 img {
  
@@ -240,5 +226,17 @@ width:50%
     flex-direction: row;
     align-items: center;
   }
+}
+@media screen and (min-width:1220px) {
+  .bloc_header{
+    height:100vh
+}
+img{
+  width:100%;
+  height:auto;
+}
+.b_mail{
+ justify-content: center;
+}
 }
 </style>

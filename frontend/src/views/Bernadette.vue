@@ -1,15 +1,15 @@
 <template>
-  <div>
-    <div class="container text-center">
+  <div class="fond texte" :class="{ bgDark: dark }">
+    <div class="container-fluid text-center ">
       <div class="bloc_nav " v-if="navbarOk" >
-        <navbar namePage="bernadette"/>
+        <navbar namePage="bernadette" :dark = "dark" @theme ="dark=($event)"/>
       </div>
       <div class="row">
-        <div class="bloc_page col-12">
+        <div class="bloc_page col-12 ">
           <div class="bloc_title">
             <span><img src="../assets/design/arabesc_1.png" alt=""></span>
             <!-- <span><img src="../assets/images/vector-graphics-arabesque-500_262.jpg" alt=""></span> -->
-          <h1 class="title_text">{{ pageData[0].title_1 }}</h1>
+          <h1 class="title_text title_texte" :class="dark ? 'txtDark' : 'txtDay'">{{ pageData[0].title_1 }}</h1>
           <span><img src="../assets/design/arabesc_1.png" alt=""></span>
         </div>
           <div class="img_left col-lg-12 col-xl-12">
@@ -20,15 +20,15 @@
             <!-- <div class="line"></div> -->
             <div class="arabesc"><img src="../assets/design/arabesc_1.png" alt=""> </div>
             <div class="sous_titre ">
-              <h4 class="fw-light title_text"><i>{{ pageData[0].subTitle_1 }}</i> </h4>
+              <h4 class="fw-light title_texte" :class=" dark ? 'txtDark' : 'txtDay' "><i>{{ pageData[0].subTitle_1 }}</i> </h4>
             </div>
             <div class="synopsis col-10 col-sm-6">
-              <p v-if="pageData[0].synopsis"> {{ pageData[0].synopsis }} </p>
-              <p v-if="!pageData[0].synopsis"> {{ pageData[0].synopsis_1 }} {{ pageData[0].synopsis_2 }}</p>
+              <p v-if="pageData[0].synopsis" :class="dark ? 'txtDark' : 'txtDay'"> {{ pageData[0].synopsis }} </p>
+              <p v-if="!pageData[0].synopsis" :class="dark ? 'txtDark' : 'txtDay'"> {{ pageData[0].synopsis_1 }} {{ pageData[0].synopsis_2 }}</p>
             </div>
             <!-- <div class="line"></div> -->
             <div class="arabesc"><img src="../assets/design/arabesc_1.png" alt=""> </div>
-            <div class="bloc_down mb-3">
+            <div class="bloc_down mb-3 texte">
               <div class="video ">
 
                 <iframe class=" video_frame " src="https://player.vimeo.com/video/354194975"
@@ -37,31 +37,31 @@
                   allowfullscreen=""></iframe>
               </div>
 
-              <div class="bloc_reverse ">
+              <div class="bloc_reverse texte">
                 <!-- <div class="line"></div> -->
                 <div class="fiches col-12">
                   <div class="fiche_art col-12 col-md-8 col-lg-7 col-xl-6 text-center">
-                    <h6 class="title_text"><strong>- Fiche artistique -</strong></h6>
-                    <ul>
-                      <li><strong>Creation et interprétation:</strong> Marta Renyer</li>
-                      <li><strong>Direction:</strong> Christophe Thellier</li>
-                      <li> <strong>Accompagnement choréographique:</strong> Janna Grulichova i Muriel Deville</li>
-                      <li> <strong>Scénographie et accessoires:</strong>  Eric Rieu</li>
-                      <li><strong>Costume:</strong>  Marta Renyer</li>
-                      <li><strong>Production:</strong>  Marta Renyer i Cia. Toc Toc Théâtre</li>
-                      <li><strong>Suport:</strong>  Centre Cívic Sarrià</li>
-                      <li>Première 2018</li>
+                    <h6 class="title_texte " :class="dark ? 'txtDark' : 'txtDay'"><strong>- Fiche artistique -</strong></h6>
+                    <ul class="li">
+                      <li class="li_fiche" :class="dark ? 'txtDark' : 'txtDay'" ><strong>Creation et interprétation: </strong> Marta Renyer</li>
+                      <li class="li_fiche" :class="dark ? 'txtDark' : 'txtDay'"><strong>Direction: </strong> Christophe Thellier</li>
+                      <li class="li_fiche" :class="dark ? 'txtDark' : 'txtDay'"> <strong>Accompagnement choréographique: </strong> Janna Grulichova i Muriel Deville</li>
+                      <li class="li_fiche" :class="dark ? 'txtDark' : 'txtDay'"> <strong>Scénographie et accessoires: </strong>  Eric Rieu</li>
+                      <li class="li_fiche" :class="dark ? 'txtDark' : 'txtDay'"><strong>Costume: </strong>  Marta Renyer</li>
+                      <li class="li_fiche" :class="dark ? 'txtDark' : 'txtDay'"><strong>Production: </strong>  Marta Renyer i Cia. Toc Toc Théâtre</li>
+                      <li class="li_fiche" :class="dark ? 'txtDark' : 'txtDay'"><strong>Suport: </strong>  Centre Cívic Sarrià</li>
+                      <li class="li_fiche" :class="dark ? 'txtDark' : 'txtDay'">Première 2018</li>
                     </ul>
                   </div>
 
                   <div class="fiche_basic col-12 col-md-4 col-lg-5 col-xl-6 text-center">
-                    <h6 class="title_text"><strong>- Info basique -</strong></h6>
+                    <h6 class="title_texte" :class="dark ? 'txtDark' : 'txtDay'"><strong>- Info basique -</strong></h6>
                     <ul>
-                      <li>Número gala</li>
-                      <li>Clown gestuel</li>
-                      <li>Sans text</li>
-                      <li>7 mn</li>
-                      <li>Tout public</li>
+                      <li class="li_fiche" :class="dark ? 'txtDark' : 'txtDay'">Número gala</li>
+                      <li class="li_fiche" :class="dark ? 'txtDark' : 'txtDay'">Clown gestuel</li>
+                      <li class="li_fiche" :class="dark ? 'txtDark' : 'txtDay'">Sans text</li>
+                      <li class="li_fiche" :class="dark ? 'txtDark' : 'txtDay'">7 mn</li>
+                      <li class="li_fiche" :class="dark ? 'txtDark' : 'txtDay'">Tout public</li>
                     </ul>
                     <!-- <a class="btn_dossier" href="./assets/files/Fitxes KAKOS.pdf" download>
             Descarregar fitxa tècnica >
@@ -81,7 +81,9 @@
       </div>
       <!-- <div class="cadre" v-bind:style="{ background: 'url(' + background + ')' }"> </div> -->
     </div>
-    <foot />
+    <div class="container-fluid-footer">
+        <foot />
+    </div>
   </div>
 </template>
 
@@ -90,22 +92,16 @@ const FormData = require("form-data");
 
 // import { axios } from "axios";
 import { mapState } from "vuex";
+import { ref } from "vue";
 
 
 
 import navbar from "../components/nav_bar.vue"
 import foot from "../components/footer.vue"
+import dataCookies from "../js/cookies"
 
 
 
-// const viewWidth = ()=>{
-//   if(window.innerWidth < 576){
-//     console.log("VIEWPORT",window.innerWidth );
-//   }else {
-//     console.log("VIEWPORT LARGE",window.innerWidth );
-//   }
-// }
-// viewWidth();
 
 export default {
   name: "Bernadette",
@@ -113,14 +109,19 @@ export default {
     return {
       background: "",
       navbarOk: false,
+      dark:ref("")
      
     }
   },
-  created: function () {
 
+  created: function () {
     this.getNavData();
     this.getPageData();
+  },
 
+  beforeMount: function () {
+    console.log("BEFORE MOUNT BERNADETTE");
+    this.getLocation()
   },
 
   computed: {
@@ -143,6 +144,22 @@ export default {
     changeWidth (event) {
       // this.background = this.pageData[0].imageUrl;
       // console.log("CHANGE WIDTH", this.background);
+    },
+
+    getLocation() {
+      this.$store.dispatch("getLoc")
+        .then((res) => {
+          this.DataCookies()
+        })
+    },
+    async DataCookies() {
+      let dataTheme = await dataCookies();
+      console.log("DATATHEME CALENDAR", dataTheme);
+      this.theme = dataTheme.theme
+      // this.bgColor = dataTheme.bgColor
+      this.bgColor = dataTheme.bgColor
+      this.dark = dataTheme.dark
+      
     },
 
     getPageData() {
@@ -175,27 +192,30 @@ export default {
 @import url("../styles/bloc_nav.css");
 @import url('https://fonts.googleapis.com/css2?family=Noto+Serif&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Sawarabi+Mincho&display=swap');
+@import url('../styles/theme.css');
 @import url('../styles/font.css');
+@import url("../styles/bloc-nav-c.css");
 
 
-/* .title_text{
-  position:absolute;
-} */
+
 h1 {
   
   font-weight: bold;
   margin-bottom: 20px;
 }
 
-h6 {
-  color: rgba(0, 0, 0, .5)
-}
+/* h6, h4, h1, .li_fiche {
+ color: var(--txtB)
+} */
 
 .container-fluid {
   width: auto;
 }
 
-
+.container-fluid-footer {
+    width: 100vw;
+    margin: 0 auto
+}
 
 .video_frame {
   margin: 0 auto;
@@ -227,10 +247,13 @@ align-items: center;
   width: 100%;
   height: auto;
 }
+.arabesc{
 
+}
 iframe {
   width: 340px;
   height: 215px;
+  border:1px solid white
 }
 .img_left {
   display: flex;
@@ -242,6 +265,7 @@ iframe {
 .img_principale {
   width: 100%;
   height: auto;
+  max-width: 800px;
   /* margin-left: 70px; */
 }
 
@@ -264,6 +288,10 @@ iframe {
   /* padding-left: 2rem; */
  
 }
+.li_fiche{
+width:auto;
+
+}
 .synopsis {
   margin: 2rem 1rem;
   /* text-align: left; */
@@ -278,20 +306,26 @@ iframe {
 }
 
 ul {
+  
+  
   margin: 0 auto;
   padding: 0;
   font-weight: 100;
-
+/* overflow: hidden; */
+text-align: left;
+line-height: 26px;
 
 }
 
 li {
-  color: rgba(0, 0, 0, .6);
+  display:flex;
+  flex-wrap: wrap;
+  /* color: rgba(0, 0, 0, .6); */
   font-size: 14px;
   font-family: 'Sawarabi Mincho', serif;
 }
 li > strong {
-  color: rgba(0, 0, 0, .8);
+  /* color: rgba(0, 0, 0, .8); */
 }
 .video {
   margin: 0 auto;
@@ -329,14 +363,7 @@ li > strong {
 
 @media screen and (min-width:768px) and (max-height:440px) {
 
-  .bloc_nav{
-position:fixed;
-width:100%;
-left:0;
-align-items: center;
-
-    z-index: 1230;
-}
+  
 
   .bloc_page {
   display: flex;
@@ -361,18 +388,14 @@ width: 100%;
 
 }
 @media screen and (min-width:768px) and (min-height:500px){
-  .bloc_nav{
-    position: fixed;
-    top:0;    
-    right:0;
-    left:0;    
-z-index: 1000;
-}
+ .img_principale{
+  width:70%
+ }
   .fiches{
     flex-direction: row;
   }
   .bloc_page {
-    margin-top:30px
+    margin-top:60px
   }
   .bloc_title > span{
 display:block;
@@ -390,10 +413,23 @@ font-size: 40px;
   align-items: center;
   margin:20px auto 30px
 }
+.bloc_reverse{
+  margin-top:50px
+}
+}
+@media screen and (min-width :1024px) {
+
+  .fiche_art{
+    padding-left:50px
+  }
+  .bloc_title > h1{
+margin-top:30px;
+font-size: 40px;
+}
 }
 @media screen and (min-width :1280px) {
-  .bloc_page {
-    margin-top:50px
+  .img_principale{
+    width:60%;
   }
   .bloc_title{
     margin:40px auto 30px

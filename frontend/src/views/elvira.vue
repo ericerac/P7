@@ -1,50 +1,59 @@
 <template>
-    <div class="container master">
+     <div class="fond bdDay" :class="{ bgDark: dark }">
+    <div class="container master" >
         <div class="  bloc_nav " v-if="navbarOk">
-            <navbar namePage="elvira"/>
+            <navbar namePage="elvira" :dark = "dark" @theme ="dark=($event)"/>
         </div>
         <div class="row">
             <div class="bloc_thumb">
                 <div class="bloc_img">
                     <img :src="pageData[0].imageUrl" alt="" class="img_thumb">
                     <div class="title">
-                        <h1 id="title_1">
-                            {{ pageData[0].title_1 }}
+                        <h1 id="title_1" :class="dark ? 'txtDark' : 'txtDay'">
+                            {{  pageData[0].title_1 }}
                         </h1>
-                        <p class="sub_title_1">Mettre un sous-titre pour remplir l'espace</p>
+                        <!-- <p class="sub_title_1">Mettre un sous-titre pour remplir l'espace</p> -->
+                        <!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -100 480.75 200">
+<path id="vague" fill="none" stroke="transparent"  d="M.36,90.6c44.09-46,109.57-98.57,182-88.81C257.49,11.92,271,78.85,348.25,90.6c95.57,14.54,119-81.74,230.15-85.82C683.51.93,697.28,86.67,808.54,87.61c109.2.92,119.91-81.46,229.25-86.82,134.34-6.58,155.42,100.19,279.57,89,114.46-10.31,163.52-104.74,260.11-77,37.71,10.82,87.6,58.49,102.89,77" />
+<text font size="35px">  
+  <textPath id="chemin" href="#vague" startOffset="100">
+    {{ pageData[0].title_1 }} {{ pageData[0].title_1 }}
+  </textPath>
+</text>
+</svg> -->
                     </div>
                 </div>
                 <div class="bloc_text_thumb ">
 
                     <span class="line"></span>
-                    <div class="bloc_synopsis">
+                    <div class="bloc_synopsis" :class="dark ? 'txtDark' : 'txtDay'">
                         <h2>- {{ pageData[0].subTitle_1 }} -</h2>
                         <div class="bloc_sinopsis_text">
-                            <h3 class="title_sinopsis">Sinopsis</h3>
-                            <p class="sinopsis">{{ pageData[0].synopsis_1 }}</p>
-                            <p>{{ pageData[0].synopsis_2 }}</p>
+                            <h3 class="title_sinopsis" :class="dark ? 'txtDark' : 'txtDay'">Sinopsis</h3>
+                            <p class="sinopsis" :class="dark ? 'txtDark' : 'txtDay'">{{ pageData[0].synopsis_1 }}</p>
+                            <p :class="dark ? 'txtDark' : 'txtDay'">{{ pageData[0].synopsis_2 }}</p>
                         </div>
                     </div>
                     <div class="bloc_text_video">
                         <div class="fiches">
-                            <div class="fiche_art fiche">
+                            <div class="fiche_art fiche" :class="dark ? 'txtDark' : 'txtDay'">
                                 <h4> {{ pageData[0].p_0 }}</h4>
-                                <p><strong>{{ pageData[0].p_1 }} </strong> {{ pageData[0].p_2 }}</p>
-                                <p><strong>{{ pageData[0].p_3 }}</strong> {{ pageData[0].p_4 }}</p>
-                                <p><strong>{{ pageData[0].p_5 }} </strong> {{ pageData[0].p_6 }}</p>
-                                <p><strong>{{ pageData[0].p_7 }} </strong> {{ pageData[0].p_8 }}</p>
-                                <p><strong>{{ pageData[0].p_9 }}</strong> {{ pageData[0].p_10 }}</p>
-                                <p><strong>{{ pageData[0].p_11 }} </strong> {{ pageData[0].p_12 }}</p>
-                                <p><strong>{{ pageData[0].p_13 }} </strong> {{ pageData[0].p_14 }} </p>
-                                <p>{{ pageData[0].p_15 }}</p>
-                                <p>{{ pageData[0].p_16 }}</p>
+                                <p :class="dark ? 'txtDark' : 'txtDay'"><strong>{{ pageData[0].p_1 }} </strong> {{ pageData[0].p_2 }}</p>
+                                <p :class="dark ? 'txtDark' : 'txtDay'"><strong>{{ pageData[0].p_3 }}</strong> {{ pageData[0].p_4 }}</p>
+                                <p :class="dark ? 'txtDark' : 'txtDay'"><strong>{{ pageData[0].p_5 }} </strong> {{ pageData[0].p_6 }}</p>
+                                <p :class="dark ? 'txtDark' : 'txtDay'"><strong>{{ pageData[0].p_7 }} </strong> {{ pageData[0].p_8 }}</p>
+                                <p :class="dark ? 'txtDark' : 'txtDay'"><strong>{{ pageData[0].p_9 }}</strong> {{ pageData[0].p_10 }}</p>
+                                <p :class="dark ? 'txtDark' : 'txtDay'"><strong>{{ pageData[0].p_11 }} </strong> {{ pageData[0].p_12 }}</p>
+                                <p :class="dark ? 'txtDark' : 'txtDay'"><strong>{{ pageData[0].p_13 }} </strong> {{ pageData[0].p_14 }} </p>
+                                <p :class="dark ? 'txtDark' : 'txtDay'">{{ pageData[0].p_15 }}</p>
+                                <p :class="dark ? 'txtDark' : 'txtDay'">{{ pageData[0].p_16 }}</p>
                             </div>
                             <div class="info_basic fiche">
-                                <h4>{{ pageData[0].p_17 }}</h4>
-                                <p>{{ pageData[0].p_18 }}</p>
-                                <p>{{ pageData[0].p_19 }}</p>
-                                <p>{{ pageData[0].p_20 }}</p>
-                                <p>{{ pageData[0].p_21 }}</p>
+                                <h4 :class="dark ? 'txtDark' : 'txtDay'">{{ pageData[0].p_17 }}</h4>
+                                <p :class="dark ? 'txtDark' : 'txtDay'">{{ pageData[0].p_18 }}</p>
+                                <p :class="dark ? 'txtDark' : 'txtDay'">{{ pageData[0].p_19 }}</p>
+                                <p :class="dark ? 'txtDark' : 'txtDay'">{{ pageData[0].p_20 }}</p>
+                                <p :class="dark ? 'txtDark' : 'txtDay'">{{ pageData[0].p_21 }}</p>
                             </div>
 
                         </div>
@@ -66,13 +75,15 @@
     <div class="container-fluid-footer">
         <foot />
     </div>
+    </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
+import { ref } from 'vue'
 import navbar from "../components/nav_bar.vue"
 import foot from "../components/footer.vue"
-
+import dataCookies from "../js/cookies"
 export default {
     name: "Elvira",
     data() {
@@ -82,6 +93,8 @@ export default {
             color: "red",
             title_shadow: "",
             title_1: "",
+            dark:ref("")
+
         }
     },
     mounted: function () {
@@ -100,6 +113,10 @@ export default {
 
 
     },
+    beforeMount: function () {
+    console.log("BEFORE MOUNT PORTADA");
+    this.getLocation()
+  },
     created: function () {
 
         this.getNavData();
@@ -114,29 +131,43 @@ export default {
             navData: "navData"
         }),
 
-        Title_1: function () {
-            console.log("COMPUTED PGAEDAT");
-            if (this.pageData) {
-                this.title_1 = this.pageData[0].title_1;
-                let title = this.pageData[0].title_1;
-                const titleId = document.getElementById('title_1');
-                console.log("TIT ELEMENT DOM ", title);
-                this.typeEffect({ title: titleId, txt: title })
-            }
-        }
+        // Title_1: function () {
+        //     console.log("COMPUTED PGAEDAT");
+        //     if (this.pageData) {
+        //         this.title_1 = this.pageData[0].title_1;
+        //         let title = this.pageData[0].title_1;
+        //         const titleId = document.getElementById('title_1');
+        //         console.log("TIT ELEMENT DOM ", title);
+        //         this.typeEffect({ title: titleId, txt: title })
+        //     }
+        // }
     },
     components: {
         navbar,
         foot,
     },
     methods: {
+        getLocation() {
+      this.$store.dispatch("getLoc")
+        .then((res) => {
+          this.DataCookies()
+        })
+    },
 
+    async DataCookies() {
+      let dataTheme = await dataCookies();
+      console.log("DATATHEME CALENDAR", dataTheme);
+      this.theme = dataTheme.theme
+      this.dark = dataTheme.dark
+    },
 
         typeEffect(element, speed, next) {
 
             const title = element.title; // element DOM
             const t = element.txt;  // Data Content
-            console.log("ELEMENTS", title, t);
+          
+            // console.log("ELEMENTS", title, t);
+        
 
             if (element.title) {
                 console.log("TYPETEXT TITLE", title);
@@ -218,6 +249,8 @@ let x = "";
 <style scoped>
 @import url("../styles/bloc_nav.css");
 @import url("../styles/font.css");
+@import url("../styles/theme.css");
+@import url("../styles/bloc-nav-c.css");
 
 *,
 ::after,
@@ -230,17 +263,6 @@ let x = "";
 .master {
     position: relative;
 }
-
-.bloc_nav {
-    position: fixed;
-    top: 30px;
-    right: 30px;
-   
-
-
-    z-index: 1230;
-}
-
 .bloc_thumb {
     margin: 30px auto;
 }
@@ -314,6 +336,7 @@ p {
 
 .sinopsis {
     padding-top: 0;
+    /* color:rgb(62, 1, 1) */
 
 }
 
@@ -373,13 +396,6 @@ iframe {
 }
 
 @media screen and (min-width:768px) and (max-height:500px) {
-    .bloc_nav {
-        position: fixed;
-        margin: 0 auto;
-        top: 0px;
-        left: 20px;
-
-    }
 
     .bloc_thumb {
         margin-top: 20vh;
@@ -404,13 +420,16 @@ iframe {
 
 @media screen and (min-width:768px) and (min-height:1000px) {
     .bloc_img {
-        width: 50%;
-        margin: 0 auto;
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        margin: 70px auto;
+        align-items: center;
 
     }
 
     .img_thumb {
-        width: 100%;
+        width: 50%;
         height: auto;
         margin: 0 auto;
         object-fit: cover;
@@ -434,13 +453,7 @@ iframe {
 }
 
 @media screen and (min-width:992px) and (max-height:650px) {
-    .bloc_nav {
-        position: fixed;
-        margin: 0 auto;
-        top: 0px;
-        left: 0px;
-
-    }
+   
 
     .fiches {
         flex-direction: row-reverse;
@@ -486,14 +499,7 @@ iframe {
         margin-top: 50px;
     }
 
-    .bloc_nav {
-        position: fixed;
-        margin: 0 auto;
-        top: 0px;
-        left: 0px;
-
-    }
-
+   
     .fiches {
         flex-direction: row-reverse;
     }
@@ -547,15 +553,6 @@ margin-top:170px;
 }
 .bloc_img{
     width:50%
-}
-.bloc_nav {
-    position: fixed;
-    top: 30px;
-    right: 30px;
-    left:30px;
-
-
-    z-index: 1230;
 }
 
 }

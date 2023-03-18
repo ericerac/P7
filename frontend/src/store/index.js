@@ -3,15 +3,16 @@
 //---------------------------------------//
 //---------------------------------------//
 //---------------------------------------//
-import { createApp } from "vue";
+
 import { createStore } from "vuex";
 const commit = require("vuex");
-import { useRouter, useRoute } from 'vue-router'
+import { useRouter, useRoute } from "vue-router";
 const myRouter = useRouter();
 import { router } from "../../src/router";
 import Vuex from "vuex";
 
 import Vue from "vue";
+import { ref } from "vue";
 
 import { useCookies } from "vue3-cookies";
 const { cookies } = useCookies();
@@ -35,8 +36,8 @@ const instance = axios.create({
 
 instance.interceptors.request.use(
   function (config) {
-    console.log(" INTER REQ CONFIG", config);
-    console.log(" INTER REQ CONFIG", config.data);
+    // console.log(" INTER REQ CONFIG", config);
+    // console.log(" INTER REQ CONFIG", config.data);
 
     // if(!config.data){
     //   console.log(" INTER REQ config data ----> ","FALSE");
@@ -59,7 +60,6 @@ instance.interceptors.request.use(
     return Promise.reject(error);
   }
 );
-
 
 // // --------------------------------------------------------------//
 // // -----------------*** INTERCEPTORS RESPONSE ***----------------//
@@ -100,8 +100,12 @@ instance.interceptors.response.use(
       store.commit("ModalMessage", response.data.message);
     } else if (response.status == 200) {
       console.log("RESP 200", response);
-    }else if (response.status == 200 && response.data.message == "OK"){
-      store.commit("AuthAdmin",true)
+      if(response.data.message == "Card effacé"){
+        store.commit("ModalSucces", true);
+        store.commit("ModalMessage", response.data.message);
+      }
+    } else if (response.status == 200 && response.data.message == "OK") {
+      store.commit("AuthAdmin", true);
     }
 
     return response;
@@ -114,8 +118,8 @@ instance.interceptors.response.use(
     // console.log("ERROR INTER", error.response.data.error);
     // store.commit("ModalError", true);
 
-    if (error.response.status == 401) {
-      store.commit("ModalMessage", error.response.data.error);
+    if (error.response.status == 401 || error.error == 401) {
+      store.commit("ModalMessage", "Requete non autorisée");
       store.commit("ModalError", true);
       // console.log("MODAL MESSAGE", error.response.data.error);
     } else if (error.response.status == 429) {
@@ -128,9 +132,7 @@ instance.interceptors.response.use(
       store.commit("ModalMessage", "page not found");
     } else if (error.response.data.error) {
       store.commit("ModalMessage", error.response.data.error.text);
-    } else if ((res.status = 404)) {
-      store.commit("ModalMessage", "Ça marche pas");
-    }
+    } 
 
     // ----------------------------------------------//
 
@@ -138,22 +140,80 @@ instance.interceptors.response.use(
   }
 );
 
+//  const viewWidth= () => {
+//   if (window.navigator) {
+//      console.log("NAVIGATOR----->", window);
+//     // console.log("NAVIGATOR LANGUAGE----->", window.clientInformation.language);
+//    let dataBrowser = {
+// screenHeight: window.innerHeight,
+// screenWidth: window.innerWidth,
+// browserLanguage: window.navigator.language,
+// browser:window.clientInformation.userAgentData.brands[1].brand,
+// browserVersion:window.clientInformation.userAgentData.brands[1].version,
+
+//     }
+//     console.log("SCREEN USER",dataBrowser);
+//     store.commit("dataUser",dataBrowser)
+//
+//   } else {
+//     console.log("SANS NAVIGATOR");
+//   }
+//  }
+//  viewWidth();
+
+// const geoloc = ()=>{
+//   return new Promise((resolve, reject) => {
+//     axios
+//       .get(`https://api.bigdatacloud.net/data/ip-geolocation?ip=212.106.239.92&localityLanguage=en&key=bdc_fb0cd78789724292ba4ec846a10c55ed`)
+//       .then((res) => {
+
+//          console.log("RESPONSE GEOLOC DATA----->", res.data);
+
+//          let userData = {
+//           locality : res.data.location.localityName,
+//           country : res.data.country.name,
+//           IpAdress : res.data.ip,
+//           date: res.data.location.timeZone.localTime.split("T")[0],
+//           hour: res.data.location.timeZone.localTime.split("T")[1].split(".")[0],
+//          }
+//          let hour = res.data.location.timeZone.localTime.split("T")[1].split(".")[0].split(":")[0];
+//          if(hour >= 18){
+//           console.log("IL FAIT NUIT");
+//          }else{
+//           console.log("------- IL FAIT JOUR ----------");
+//          }
+//         let ahora = new Date();
+
+//          console.log("USER DATA ------> ", userData);
+//         return resolve(res);
+
+//       })
+//       .catch((err) => {
+//         reject(err);
+//       });
+// })
+// }
+// geoloc();
 // // --------------------------------------------------------------//
 
 const store = createStore({
   setup() {
-    const router = useRouter()
-    const route = useRoute()
+    const router = useRouter();
+    const route = useRoute();
+    // const Post = ref(getPageData(10))
+    // return Post
   },
   state: {
     status: false,
     loading: false,
-    pageData: "",
+    pageData: [],
     token: "",
     doLogin: "",
     dologout: "",
     userName: "",
+
     auth: "",
+
     modalMessage: "",
     modalError: false,
     modalSucces: false,
@@ -163,16 +223,24 @@ const store = createStore({
     auth: false,
     cardCalSelect: "",
     navData: "",
-    lang:"",
-    linkNewPassword:"",
-    namePage:"",
+    lang: "",
+    linkNewPassword: "",
+    namePage: "",
+    newPost: "",
+    postSelected: "",
+    postUpdate: "",
+    geoLoc: "",
+
+    light: "",
+    userTime: "",
+    userLocalHour: "",
+    dataUser: "",
   },
   modules: {},
   //----------------------------------------------------------------------------------//
   //----------------------------------*** MUTATION ***---------------------------------//
   //----------------------------------------------------------------------------------//
   mutations: {
-    
     AuthAdmin: (state, val) => {
       console.log("MUT ADMIN AUTH", val);
       state.auth = val;
@@ -205,6 +273,17 @@ const store = createStore({
     },
     PageData: (state, val) => {
       state.pageData = val;
+    },
+    NewPost: (state, val) => {
+      state.newPost = val;
+    },
+    PostSelected: (state, val) => {
+      console.log("POST SELECTED MUTATION POst", val);
+      state.postSelected = val;
+    },
+    PostUpdate: (state, val) => {
+      console.log("POST SELECTED MUTATION Update", val);
+      state.postUpdate = val;
     },
     ModalError: (state, val) => {
       console.log("ModalError", val);
@@ -240,7 +319,29 @@ const store = createStore({
     NamePage: (state, val) => {
       state.namePage = val;
     },
-    
+    GeoLocation: (state, val) => {
+      state.geoLoc = val;
+      $cookies.set("userIp", JSON.stringify(val));
+    },
+    LocalUserHour: (state, val) => {
+      state.userLocalHour = val;
+      $cookies.set("userHour", JSON.stringify(val));
+    },
+    Theme: (state, val) => {
+      console.log(" MUT THEME_1-----> ", val);
+      if ($cookies.get("userTime") === null) {
+        console.log(" MUT THEME_2-----> ", val);
+        $cookies.set("userTime", JSON.stringify(val), "1h");
+      }
+      // state.light = "dark"
+      // if(val == "dark"){
+      //   state.theme.texte = "white";
+      //   state.theme.backLight = "black";
+      // }else{
+      //   state.theme.texte = "black";
+      //   state.theme.backLight = "white";
+      // }
+    },
   },
 
   computed: {},
@@ -252,9 +353,9 @@ const store = createStore({
   actions: {
     //----------------UTILITIES---------------//
 
-    disconnect() {
-       $cookies.remove("user","lang");
-       
+    disconnect({ commit }) {
+      $cookies.remove("user"), "userTime";
+      commit("AuthAdmin", false);
     },
 
     PreviewClose: ({ commit }, val) => {
@@ -266,83 +367,151 @@ const store = createStore({
       this.fileSelected = event.target.files[0];
     },
 
+    viewWidth({ commit }) {
+      if (window.navigator) {
+        console.log("NAVIGATOR----->", window);
+        // console.log("NAVIGATOR LANGUAGE----->", window.clientInformation.language);
+        let dataBrowser = {
+          screenHeight: window.innerHeight,
+          screenWidth: window.innerWidth,
+          browserLanguage: window.navigator.language,
+          browser: window.clientInformation.userAgentData.brands[1].brand,
+          browserVersion:
+            window.clientInformation.userAgentData.brands[1].version,
+        };
+        console.log("SCREEN USER", dataBrowser);
+        this.dataUser = dataBrowser;
+        // this.isActive = false
+      } else {
+        console.log("SANS NAVIGATOR");
+      }
+    },
+
+    getLoc({ commit }) {
+      let userTime = $cookies.get("userTime");
+      console.log("USERTIME COOKIES VALUE", userTime);
+      if (userTime) {
+        console.log(" NOT DISPATCH GET LOC");
+        let timeZone = $cookies.get("userHour");
+        //  commit("Theme",timeZone)
+        return;
+      }
+      return new Promise((resolve, reject) => {
+        axios
+          .get(
+            `https://api.bigdatacloud.net/data/ip-geolocation?ip=212.106.239.92&localityLanguage=en&key=bdc_fb0cd78789724292ba4ec846a10c55ed`
+          )
+          .then((res) => {
+            console.log("RESPONSE GEOLOC DATA----->", res.data);
+
+            let userData = {
+              locality: res.data.location.localityName,
+              country: res.data.country.name,
+              IpAdress: res.data.ip,
+              date: res.data.location.timeZone.localTime.split("T")[0],
+              hour: res.data.location.timeZone.localTime
+                .split("T")[1]
+                .split(".")[0],
+            };
+            commit("GeoLocation", res.data.ip);
+            commit("LocalUserHour", userData.hour);
+            let hour = res.data.location.timeZone.localTime
+              .split("T")[1]
+              .split(".")[0]
+              .split(":")[0];
+            if (hour >= 18 || hour <= 6) {
+              commit("Theme", "dark");
+              console.log("IL FAIT NUIT");
+            } else {
+              commit("Theme", "day");
+              console.log("------- IL FAIT JOUR ----------");
+            }
+            let ahora = new Date();
+
+            console.log("USER DATA ------> ", userData);
+            return resolve(res);
+          })
+          .catch((err) => {
+            reject(err);
+          });
+      });
+    },
+
     //----------------* GET ADMIN AUTH *----------------//
-    getAdminAuth:({commit}) =>{
-      let that = this;
+    getAdminAuth: ({ commit }, c) => {
       return new Promise((resolve, reject) => {
         instance
           .get(`inici/ver/AdminAuth`)
           .then((res) => {
-          
-             commit("AuthAdmin", true);
+            console.log("RES GET AUTH", res);
+            commit("AuthAdmin", true);
             resolve(res);
             console.log("RESPONSE GET STORE ADMIN AUTH", res);
-return
+            return;
           })
           .catch((err) => {
-            console.log("ERROR AUTH ADMIN INDEX ",err.response.status);
-            if(err.response.status == 401){
-              window.location.href = "http://localhost:8080/portada"
+            console.log("ERROR AUTH ADMIN INDEX ", err.response.status);
+            if (err.response.status == 401) {
+              window.location.href = "http://localhost:8080/portada";
               //  that.$router.Push("/login");
             }
-           
+
             reject(err);
           });
       });
     },
     //----------------* GET PAGE DATA 2 *---------------//
-    getPageData: async({ commit }, n) => {
+
+    getPageData: ({ commit }, n) => {
+      
+      console.log(" PAGE GET PAGE DATA", n);
 
       let lang = "";
-commit("loading",true)
-      if ($cookies.get("lang")) {
+      commit("loading", true);
+      if (n == "post") {
+        lang = "cat";
+      } else if (n == "calendar") {
+        
+        lang = "free";
+      }else if ($cookies.get("lang")) {
         let l = $cookies.get("lang");
         lang = l.lang;
-        console.log("COOKIES LANG GET PAGE INDEX---->", lang);
       } else {
         lang = "cat";
       }
-      
-      
+
       return new Promise((resolve, reject) => {
         instance
           .get(`inici?name=${n}&lang=${lang}`)
           .then((res) => {
-            commit("loading",false)
+            commit("loading", false);
             commit("PageData", res.data);
             commit("NamePage", n);
-      
-            // console.log("RESPONSE GET STORE", res.data);
+
+            console.log("RESPONSE GET PAGE DATA STORE", res.data);
             let ahora = Date.now();
             // console.log("HEURE DU CHARGEMENT DATE NOW +18---->", ahora);
             return resolve(res);
-
           })
           .catch((err) => {
             reject(err);
           });
-       
       });
-
-        
-      
     },
     //----------------* GET NAV DATA *---------------//
-    getNavData: ({ commit },l ) => {
+    getNavData: ({ commit }, l) => {
       let lang = l;
-      let n =   "navbar"
+      let n = "navbar";
       if ($cookies.get("lang")) {
         let l = $cookies.get("lang");
         lang = l.lang;
-        console.log("COOKIES LANG---->", lang);
+        // console.log("COOKIES LANG---->", lang);
       } else {
         lang = "cat";
       }
-      
-        console.log("Retardée de 3 seconde.");
-      
+
       return new Promise((resolve, reject) => {
-        console.log("GET NAV DATA", n);
+        // console.log("GET NAV DATA", n);
         instance
           .get(`inici/nav?name=${n}&lang=${lang}`)
           .then((res) => {
@@ -355,13 +524,12 @@ commit("loading",true)
             reject(err);
           });
       });
-   
     },
     //----------------* GET IMG DATA *---------------//
 
     getImgData: ({ commit }, n) => {
       return new Promise((resolve, reject) => {
-        console.log("GET IMG DATA", n);
+        // console.log("GET IMG DATA", n);
         instance
           .get(`inici/img?name=${n}`)
           .then((res) => {
@@ -395,18 +563,16 @@ commit("loading",true)
 
     forgotPassword: ({ commit }, data) => {
       const email = data.email;
-      console.log("EMAIL FORGOT PASSWORD STORE",email);
+      console.log("EMAIL FORGOT PASSWORD STORE", email);
       return new Promise((resolve, reject, res) => {
         instance
-          .post("/inici/forgot-password",
-          data)
+          .post("/inici/forgot-password", data)
           .then((res) => {
-            if(res){
-
-              console.log("RES FORGOT",res);
-              commit("LinkNewPassword",res)
+            if (res) {
+              console.log("RES FORGOT", res);
+              commit("LinkNewPassword", res);
             }
-           
+
             console.log("REPONSE", res);
             resolve(res);
           })
@@ -419,13 +585,12 @@ commit("loading",true)
       const email = data.email;
       return new Promise((resolve, reject, res) => {
         instance
-          .post("/inici/forgot-password",
-          {
-            email:email,
+          .post("/inici/forgot-password", {
+            email: email,
           })
           .then((res) => {
-            console.log("RES FORGOT",res);
-           
+            console.log("RES FORGOT", res);
+
             console.log("REPONSE", res);
             resolve(res);
           })
@@ -434,7 +599,6 @@ commit("loading",true)
           });
       });
     },
-
 
     loginPost: ({ commit }, userData) => {
       console.log("LOGIN POST STORE");
@@ -480,7 +644,7 @@ commit("loading",true)
       });
     },
 
-    //------------- CREATE-------------------_//
+    //------------- CREATE DATE-------------------_//
 
     createDate: ({ commit }, data) => {
       return new Promise((resolve, reject) => {
@@ -501,9 +665,26 @@ commit("loading",true)
     createPost: ({ commit }, data) => {
       return new Promise((resolve, reject) => {
         instance
-          .post("/inici/create?page=post_page", data, {})
+          .post("/inici/create?page=post", data, {})
           .then((response) => {
-            commit("blogPost", response.data);
+            commit("NewPost", response.data);
+            resolve(response);
+          })
+          .catch((err) => {
+            reject(err);
+          });
+      });
+    },
+
+ //------------- CREATE IMG-------------------_//
+
+    createImg: ({ commit }, data) => {
+console.log("DATA FORM CREATE IMG",data);
+      return new Promise((resolve, reject) => {
+        instance
+          .post("/inici/cal/create?page=img", data, {})
+          .then((response) => {
+            // commit("NewImg", response.data);
             resolve(response);
           })
           .catch((err) => {
@@ -532,10 +713,12 @@ commit("loading",true)
       });
     },
 
-    getIpClient:   async  () => {
+
+
+    getIpClient: async () => {
       try {
-        const response = await axios.get('https://api.ipify.org?format=json');
-        console.log("ADRESSE IP",response);
+        const response = await axios.get("https://api.ipify.org?format=json");
+        console.log("ADRESSE IP", response);
       } catch (error) {
         console.error(error);
       }

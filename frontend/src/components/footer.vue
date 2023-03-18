@@ -3,7 +3,7 @@
         <div class="BackGround" style="height: 150px; overflow: hidden;"><svg viewBox="0 0 500 150"
                 preserveAspectRatio="none" style="height: 100%; width: 100%;">
                 <path d="M0.00,49.98 C182.28,130.77 349.20,-49.98 500.00,49.98 L500.00,150.00 L0.00,150.00 Z"
-                    style="stroke: none; fill: red;"></path>
+                    style="stroke: none; fill: rgb(145,1,1);"></path>
             </svg>
             <div class="row col-12">
                 <div class="foot justify-content-around mb-2">
@@ -18,23 +18,24 @@
         </ul>
     </div> -->
                         <div class=" contact col-12">
-                            <ul>
-                                <li class="col-4 list_foot">info@martarenyer.com</li>
-                                <li class="col-4 list_foot">+34 628920670</li>
+                            
                                 <ul class="col-4 justify-content-center social_media">
-                                    <li class="col-3 social"><a href="https://www.facebook.com/CiaMartaRenyer/"
+                                    <li class="col-2 social"><a href="https://www.facebook.com/CiaMartaRenyer/"
                                             title="Suivez sur Facebook" target="_blank"><img class="icon "
                                                 src="../assets/logo/facebook_White.png" alt=""></a></li>
-                                    <li class="col-3 social"><a href="https://www.instagram.com/martarenyer/"
+                                    <li class="col-2 social"><a href="https://www.instagram.com/martarenyer/"
                                             title="Suivez sur Instagram" target="_blank"><img class="icon "
                                                 src="../assets/logo/instagram_white.png" alt=""></a></li>
-                                    <li class="col-3 social"><a
+                                    <li class="col-2 social"><a
                                             href="https://vimeo.com/335715002?utm_source=email&amp;utm_medium=vimeo-cliptranscode-201504&amp;utm_campaign=28749"
                                             title="Suivez sur Vimeo" target="_blank"><img class="icon "
                                                 src="../assets/logo/vimeo_white.png" alt=""></a></li>
 
                                 </ul>
-                            </ul>
+                                <div class="copyright">
+          <router-link to="/login" target="_blank"><span class="text txtDark" :class="{ txtDark: dark }">@WistitiWeb.com</span></router-link>
+
+        </div>
                         </div>
                     </div>
                 </div>
@@ -53,11 +54,11 @@ export default {
 <style scoped>
 .foot {
     position: absolute;
-    bottom:0;
+    bottom:10px;
     left:0;
     right:0;
     width: 100%;
-    height: 100px;
+   
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
     display: flex;
@@ -75,11 +76,19 @@ export default {
 }
 
 .bloc_total {
+    position:relative;
     display: flex;
     flex-direction: row;
     justify-content: center;
+    padding:0;
+    
 }
-
+.copyright{
+position:absolute;
+bottom:-17px;
+right:5px;
+color:white;
+}
 .logo {
     width: 50px;
     height: 50px;

@@ -1,7 +1,7 @@
 <template>
 
 
-  <!-- <loader v-if="loading"/> -->
+  <loader v-if="loading"/>
   <!-- <div v-if="modal">
 <ModalMessageVue />
 </div> -->
@@ -83,7 +83,9 @@ export default {
 html {
   /* background-color: rgb(252, 217, 164); */
 }
-
+html{
+  background: black;
+}
 * {
   margin: 0;
   padding: 0;

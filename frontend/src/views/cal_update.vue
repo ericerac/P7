@@ -168,6 +168,7 @@
 
 <script>
 import { mapState } from "vuex";
+import { ref } from "vue";
 
 // const prev = require ("../components/img_preview.vue")
 // import prev from "../components/img_preview.vue";
@@ -237,18 +238,30 @@ export default {
     // ModalSucces,
    
   },
-  watch: {},
+  watch: {
+   pageData(newValue, oldValue) {
+    this.pageData = newValue;
+    console.log("NEW PAGEDATA",newValue);
+  }
+  },
 
   computed: {
     ...mapState({
       modal: "modal",
       modalMessage: "modalMessage",
       // modalSucces:"modalSucces",
-      pageData: "pageData",
+      pageData:"pageData",
       preview_component: "preview_component",
     }),
+    page(){
+
+  return this.pageData
+
+    },
   },
-  watcher: {},
+  watcher: {
+
+  },
   props: {
     item: { type: Object }
   },
@@ -413,7 +426,12 @@ export default {
 
         .then((response) => {
           if (response.status == 200) {
-            console.log("RESPONSE DEL CARD", response);
+
+            let newCal = this.pageData.filter(item => item._id != x);
+
+            console.log("FILTER", newCal);
+            this.pageData = newCal
+            // console.log("RESPONSE DEL CARD", response);
             alert("Votre Date a bien été modifié");
             //  this.$router.push("/profil")
           }

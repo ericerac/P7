@@ -1,0 +1,28 @@
+/* .fond{
+background-color: rgb(14, 14, 14);
+} */
+
+/* .texteDay{
+    color:black;
+}
+.texteDark{
+  
+    color:rgb(248, 245, 245);
+}
+
+.texte{
+    color:rgb(62, 1, 1);
+    font-weight: 400;
+} */
+.bgDay{
+    background-color: #f76363;
+  }
+  .bgDark{
+    background-color: #0f0f0f;
+  }
+  .txtDay{
+  color:#3e0101;
+  }
+  .txtDark{
+  color:#f1f1f1;
+  }

@@ -78,8 +78,10 @@ const routes = [
     
   },
   {
-    name: "ad1920384756ytrdehdk",
+    name: "pageAdmin",
     path: "/ad1920384756ytrdehdk",
+    // name: "ad1920384756ytrdehdk",
+    // path: "/ad1920384756ytrdehdk",
     meta:{
       requireAuth:true,
 
@@ -112,11 +114,24 @@ const routes = [
       
     },
     component: () => import("../views/blog.vue"),
+    // children: [
+    //   { path: '', 
+    //   component: () => import("../components/blog_post.vue"),
+    //   meta:{
+    //     requireAuth:true,
+    //   },
+    // },
+    // ]
   },
   {
     name: "elvira",
     path: "/elvira",
     component: () => import("../views/elvira.vue"),
+  },
+  {
+    name: "creation",
+    path: "/creation",
+    component: () => import("../views/creation.vue"),
   },
   {
     name: "forgotPassword",

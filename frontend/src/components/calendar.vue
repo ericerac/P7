@@ -1,5 +1,13 @@
-<template lang="cat">
-    <div class=" master_nav col-12 text-center justify-content-center">
+
+
+
+Vue.component('my-calendar', {
+    data: function () {
+      return {
+        count: 0
+      }
+    },
+    template: '<div class="container col-12 text-center justify-content-center">
         <header class="row col-12">
             
             <navbar class="nav_bar" v-if="isActive" >
@@ -48,103 +56,5 @@
     
 
         </header>
-    </div>
-</template>
-
-
-
-<script>
-
-
-import { mapState } from "vuex";
-import { useCookies } from "vue3-cookies";
-import { boolean } from "webidl-conversions";
-import {ref, toRef} from "vue"
-const { cookies } = useCookies();
-
-
-
-export default {
-  name: "navBar",
-  
-  
-  data() {
-    return {
-      isActive: "",
-      logoOn: false,
-      // page:$attrs.pageName,
-      dark:ref(""),
-
-    };
-  },
-  beforeMount: function () {
-
-    this.viewWidth();
-
-  },
-  computed: {
-    ...mapState({
-      navData: "navData",
-      // namePage:"",
-      // lang:"lang",
-    }),
-
-
-
-  },
-  props: {
-    namePage: {
-      type:String,
-      required: true,
-    validator: function (value) {
-      return [
-        'syncing',
-        'synced',
-        'version-conflict',
-        'error'
-      ].indexOf(value) !== -1
-    }
-    },
-    dark: {
-      type:Boolean,
-      required: true,}
-  },
-  modules: {
-    // navDisplay: "navDisplay",
-  },
-  methods: {
-
-    viewWidth() {
-      if (window.innerWidth < 576) {
-        console.log("VIEWPORT", window.innerWidth);
-        this.isActive = false;
-        this.logoOn = false;
-      } else {
-        console.log("VIEWPORT LARGE", window.innerWidth);
-        this.isActive = true
-        this.logoOn = true;
-      }
-    },
-
-    lang(l) {
-      console.log("LANGUE---->", l);
-      cookies.set("lang", JSON.stringify({ "lang": l }));
-
-      location.reload();
-    },
-  },
-
-};
-</script>
-
-
-<style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Unna&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Sawarabi+Mincho&display=swap');
-@import url('../styles/bloc_nav.css');
-
-
-/* .idioma {
-      cursor: pointer;
-    } */
-</style>
+    </div>'
+  })
