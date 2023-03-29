@@ -1,19 +1,27 @@
 
 
-const FileUpload =  (event,inp) => {
-    console.log("EVENT ARG FILEUPLOAD MODUL", event,inp);
-    let inputSelected ="";
-    // let file = event.target.files[0];
-    let iR = inp.forEach((input, index) => {
-        let file = input.files[0]
-        console.log("FILE FILEUPLOAD MODUL", input.files[0],index);
-        if (file) {
+// const FileUpload =  (event,inp) => {
+//     console.log("EVENT ARG FILEUPLOAD MODUL", event,inp);
+//     let inputSelected ="";
+//     // let file = event.target.files[0];
+//     let iR = inp.forEach((input, index) => {
+//         let file = input.files[0]
+//         console.log("FILE FILEUPLOAD MODUL", input.files[0],index);
+//         if (file) {
 
-            inputSelected = index;
-        }
-return inputSelected
-      });
-}
+//             inputSelected = index;
+//         }
+// return inputSelected
+//       });
+// }
+
+// export default  FileUpload
+
+
+// ***********************************************************
+// ***********************************************************
+    
+
 
 // export default function FileUpload(event,inp) {
 //     const isLoading = ref(true);
@@ -39,35 +47,49 @@ return inputSelected
 
 
 
-// const FileUpload = async (event,inp) => {
-//     console.log("EVENT ARG FILEUPLOAD MODUL", event,inp);
-//     var input = event.target;
-//     console.log("EVENT TARGET FILEUPLOAD MODUL", event.target);
-//     if (input.files) {
-//         var reader = new FileReader();
-//         var preview ="";
-//          reader.onload =  await ((e) => {
-//            preview = e.target.result;
-//             console.log("EVENT TARGET RESULT MODUL", preview);
-        
-//         })
-//         let image = input.files[0];
-//         await reader.readAsDataURL(input.files[0]);
-//         console.log("INPUT FILE [0] MODUL", image);
-//     }
-//     let fileSelected = "";
-//     let OnefileSelected = "";
-//     let fileName = "";
-//     const data =
-//     {
-//         fileSelected: event.target.files[0],
-//         OnefileSelected: fileSelected.File,
-//         fileName: OnefileSelected.name,
-//         filePreview:preview,
-        
-//     }
-//     console.log("RETURN DATA MODUL", data);
-//     return data
-// }
+// ***********************************************************
+// ***********************************************************
+
+
+
+
+const FileUpload =  ((event) => {
+   
+    var input = event.target;
+    console.log("EVENT TARGET FILEUPLOAD MODUL", event.target);
+    console.log("EVENT TARGET FILEUPLOAD MODUL", event);
+    
+
+    let fileSelected = "";
+    let preview=""
+    let filess="";
+
+    var reader = new FileReader();
+   
+
+
+          
+
+        reader.onload =  ((e) => {
+               return preview = e.target.result;
+                  console.log("EVENT TARGET RESULT MODUL", preview);
+              
+              })
+              reader.readAsDataURL(input.files[0]);
+                 
+                  const data = 
+              {
+                  
+                  fileName: event.target.files[0].name,
+                   filePreview:reader.onload,
+                   fileSelected: event.target.files[0],
+                   
+                  }
+          return data
+          
+           
+          
+ 
+})
 
 export default  FileUpload

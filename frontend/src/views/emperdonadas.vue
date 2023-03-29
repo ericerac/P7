@@ -1,10 +1,10 @@
 <template>
 
-  <div class="container-fluid master fond bgDay" :class="dark ? 'bgDark' : 'bgDay'">
+  <div class="container-fluid master fond bgDay" :class="darkTheme ? 'bgDark' : 'bgDay'">
 
-    <div class="bloc_nav" v-if="navbarOk">
+    <!-- <div class="bloc_nav" v-if="navbarOk">
       <navbar namePage="emperdonadas" :dark = "dark" @theme ="dark=($event)"/>
-    </div>
+    </div> -->
 
     <div class="row img_thumb col-12">
       <img :src="pageData[0].imageUrl" alt="retrato les emperdonadas con Marta Renyer" width="640" height="360" />
@@ -12,7 +12,7 @@
 
     <div class="row title text" >
       <h1 class="txtDay" 
-      :class="dark ? 'txtDark' : 'txtDay'"
+      :class="darkTheme ? 'txtDark' : 'txtDay'"
       >{{ pageData[0].title_1 }}</h1>
     </div>
 
@@ -21,7 +21,7 @@
         <div class="bgTitleCl  ">
           <h5>{{ pageData[0].p_1 }}</h5>
         </div>
-        <p class="txtDay" :class="dark ? 'txtDark' : 'txtDay'">
+        <p class="txtDay" :class="darkTheme ? 'txtDark' : 'txtDay'">
           {{ pageData[0].p_2 }}, {{ pageData[0].p_3 }} y {{ pageData[0].p_4 }}
         </p>
       </div>
@@ -30,7 +30,7 @@
         <div class="bgTitleAct">
           <h5>{{ pageData[0].p_5 }}</h5>
         </div>
-        <p class="txtDay" :class="dark ? 'txtDark' : 'txtDay'">
+        <p class="txtDay" :class="darkTheme ? 'txtDark' : 'txtDay'">
           {{ pageData[0].p_6 }}, {{ pageData[0].p_7 }}, {{ pageData[0].p_8 }}
         </p>
       </div>
@@ -40,19 +40,16 @@
           <h5>Synopsis</h5>
         </div>
         <div class="text_desc texte" :class="{ text_open: open_text }" @click="open_text = !open_text">
-          <p class="txtDay" :class="dark ? 'txtDark' : 'txtDay'">{{ pageData[0].synopsis_1 }}</p>
+          <p class="txtDay" :class="darkTheme ? 'txtDark' : 'txtDay'">{{ pageData[0].synopsis_1 }}</p>
         </div>
-        <p class="suite text txtDay" @click="open_text = !open_text" :class="dark ? 'txtDark' : 'txtDay'">
+        <p class="suite text txtDay" @click="open_text = !open_text" :class="darkTheme ? 'txtDark' : 'txtDay'">
           <em><small>lire la suite</small></em>
         </p>
       </div>
 
     </div>
 
-    <div class="container-fluid-footer">
-      <foot />
-    </div>
-
+    
   </div>
 </template>
 
@@ -62,9 +59,9 @@ import { mapState } from "vuex";
 // import { delire } from "../modules/script";
 // delire("PATATE FROIDE");
 
-import navbar from "../components/nav_bar.vue";
-import foot from "../components/footer.vue";
-import dataCookies from "../js/cookies"
+// import navbar from "../components/nav_bar.vue";
+// import foot from "../components/footer.vue";
+// import dataCookies from "../js/cookies"
 
 export default {
   name: "emperdonadas",
@@ -72,30 +69,26 @@ export default {
     return {
       open_text: false,
       navbarOk: false,
-      
-      theme: "",
-      // bgColor: "",
-      // texteColor: "",
       dark: false,
     };
 
   },
   components: {
-    navbar,
-    foot,
+    
   },
   computed: {
     ...mapState({
       pageData: "pageData",
       navData: "navData",
+      darkTheme:"darkTheme"
     }),
-    themeStyle() {
-      return {
-        bgDark: this.fondo,
-        textDark: this.fondo,
-      }
+    // themeStyle() {
+    //   return {
+    //     bgDark: this.fondo,
+    //     textDark: this.fondo,
+    //   }
 
-    }
+    // }
   },
 
   beforeMount: function () {
@@ -104,29 +97,29 @@ export default {
 
   created: function () {
     console.log("CREATED");
-    this.getLocation()
-    this.getNavData();
+    // this.getLocation()
+    // this.getNavData();
     this.getPageData();
   },
 
   methods: {
 
-    getLocation() {
-      this.$store.dispatch("getLoc")
-        .then((res) => {
-          this.DataCookies()
-        })
-    },
+    // getLocation() {
+    //   this.$store.dispatch("getLoc")
+    //     .then((res) => {
+    //       this.DataCookies()
+    //     })
+    // },
 
-    DataCookies() {
-      let dataTheme = dataCookies();
-      console.log("DATATHEME CALENDAR", dataTheme);
-      this.theme = dataTheme.theme
-      this.dark = dataTheme.dark
-      // this.bgColor = dataTheme.bgColor
-      // this.texteColor = dataTheme.textColor
+    // DataCookies() {
+    //   let dataTheme = dataCookies();
+    //   console.log("DATATHEME CALENDAR", dataTheme);
+    //   this.theme = dataTheme.theme
+    //   this.dark = dataTheme.dark
+    //   // this.bgColor = dataTheme.bgColor
+    //   // this.texteColor = dataTheme.textColor
       
-    },
+    // },
     getPageData() {
       const n = "emperdonadas";
       this.$store.dispatch("getPageData", n).then((res) => {
@@ -217,7 +210,7 @@ p {
 }
 
 .synopsis {
-  margin-bottom: 20px;
+  padding-bottom: 20px;
   text-align: center;
 
 }
@@ -303,7 +296,9 @@ p {
     width: 50%;
     text-indent: 50px;
   }
-
+  .master{
+    padding-top:80px
+  }
   .text_open {
     display: block;
     width: 50%;
@@ -312,6 +307,7 @@ p {
 }
 
 @media screen and (min-width:1980px) {
+  
   .text_desc {
     width: 50%;
     text-indent: 50px;

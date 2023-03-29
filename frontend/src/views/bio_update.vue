@@ -307,17 +307,26 @@ export default {
             let that = this
             let inp = document.querySelectorAll('input[type=file]');
 
+            let File = event.target.files[0];
+            this.fileName = File.name
             // let inp1 = document.querySelector('input[type=file]').files[0];
 
-            let iR = inp.forEach((input, index) => {
-                let files = input.files[0];
+            let tabInput=[]
 
-                if (files) {
-                    this.inputSelected = index;
-                    console.log(" INPUT SELECTED", index);
-                }
+      let iR = inp.forEach((input, index) => {
+        let files = input.files[0];
 
-            });
+         tabInput.push(files)
+
+        if (files == File) {
+
+          this.inputFile = files.name;
+
+          // console.log("INPUT SELECTED", index, files);
+
+          this.inputSelected = index;
+        }
+      });
 
             var input = event.target;
             if (input.files) {
@@ -332,8 +341,7 @@ export default {
 
             // ************ DONE **********************************
 
-            let File = event.target.files[0];
-            this.fileName = File.name
+            
             // let fileC = await compressFile(File);
             // this.fileSelected = fileC
             // console.log("RETURN FILEE COMPRESSED---_>",fileC)

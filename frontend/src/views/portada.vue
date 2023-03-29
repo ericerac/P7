@@ -1,9 +1,10 @@
 <template>
-  <div class="fond bdDay" :class="{ bgDark: dark }">
+  <div class="fond bdDay" :class="{ bgDark: darkTheme }">
+ 
     <div class="container text-center sticky_bloc">
-      <div class="bloc_nav" v-if="navbarOk">
+      <!-- <div class="bloc_nav" v-if="navbarOk">
         <navbar namePage="portada" :dark = "dark" @theme ="dark=($event)"/>
-      </div>
+      </div> -->
 
       <div class="row bloc_thumb pt-5 pb-5">
         <div class="  col-lg-6 col-xl-6 left-bloc">
@@ -18,7 +19,7 @@
             <!-- </div> -->
             <!-- <img src="../assets/logo/download.gif"> -->
           </div>
-          <div class="subTitle_name item2 text " :class="dark ? 'txtDark' : 'txtDay'">
+          <div class="subTitle_name item2 text " :class="darkTheme ? 'txtDark' : 'txtDay'">
             <p>{{ pageData[0].subTitle_1 }}</p>
           </div>
           <div class="line item3"></div>
@@ -49,8 +50,8 @@
     <!-- ------------- BLOC ESPECTACLE ------------ -->
     <div class="container  text-center
       ">
-
-      <div class="row txt-espectacle text ">
+     
+      <div class="row txt-espectacle text bgTitleClT">
         <h2 class="titles">ESPECTACLES</h2>
       </div>
       <div class="row  col-12 " id="spectacle" v-motion-slide-visible-once-bottom>
@@ -65,27 +66,27 @@
 
             <router-link v-if="index == 0" to="/kakos">
               <img class=" img-spectacle  rounded-circle col-12 " :src="i.imageUrl" alt="" />
-              <h3 class="showName text " :class="dark ? 'txtDark' : 'txtDay'">{{ i.showName }} </h3>
+              <h3 class="showName text " :class="darkTheme ? 'txtDark' : 'txtDay'">{{ i.showName }} </h3>
             </router-link>
 
             <router-link v-if="index == 1" to="/emperdonadas">
               <img class=" img-spectacle  rounded-circle col-12 " :src="i.imageUrl" alt="" />
-              <h3 class="showName text " :class="dark ? 'txtDark' : 'txtDay'">{{ i.showName }} </h3>
+              <h3 class="showName text " :class="darkTheme ? 'txtDark' : 'txtDay'">{{ i.showName }} </h3>
             </router-link>
 
             <router-link v-if="index == 2" to="/bernadette">
               <img class=" img-spectacle  rounded-circle col-12 " :src="i.imageUrl" alt="" />
-              <h3 class="showName text " :class="dark ? 'txtDark' : 'txtDay'">{{ i.showName }} </h3>
+              <h3 class="showName text " :class="darkTheme ? 'txtDark' : 'txtDay'">{{ i.showName }} </h3>
             </router-link>
 
             <router-link v-if="index == 3" to="/creation">
               <img class=" img-spectacle  rounded-circle col-12 " :src="i.imageUrl" alt="" />
-              <h3 class="showName text " :class="dark ? 'txtDark' : 'txtDay'">{{ i.showName }} </h3>
+              <h3 class="showName text " :class="darkTheme ? 'txtDark' : 'txtDay'">{{ i.showName }} </h3>
             </router-link>
 
             <router-link v-if="index == 4" to="/elvira">
               <img class=" img-spectacle  rounded-circle col-12 " :src="i.imageUrl" alt="" />
-              <h3 class="showName text txtDay" :class="{ txtDark: dark }">{{ i.showName }} </h3>
+              <h3 class="showName text txtDay" :class="{ txtDark: darkTheme }">{{ i.showName }} </h3>
             </router-link>
           </div>
 
@@ -100,11 +101,11 @@
 
         </div> -->
       </div>
-      <p id="demo"></p>
+      <!-- <p id="demo"></p> -->
     </div>
-    <div class="container-fluid-footer">
+    <!-- <div class="container-fluid-footer">
       <foot />
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -112,11 +113,11 @@
 <script>
 import { mapGetters, mapState } from "vuex";
 import {ref, toRef} from "vue"
-import navbar from "../components/nav_bar.vue"
-import foot from "../components/footer.vue"
+// import navbar from "../components/nav_bar.vue"
+// import foot from "../components/footer.vue"
 import NameTitle from "../components/name_title.vue"
 import vIntersect from "vue-intersection-observer";
-import dataCookies from "../js/cookies"
+ import dataCookies from "../js/cookies"
 
 // LOCALISATION UTILISATEUR
 // console.log("Welcome to our visitors from "+ geoplugin_city() +", "+geoplugin_countryName()) 
@@ -128,27 +129,33 @@ export default {
     return {
       home: false,
       navbarOk: false,
-     
       dark:ref(""),
+      // darkTheme:"",
     };
   },
-  // props: ['portada'],
+ 
   mounted: () => {
-    console.log(" MOUNT");
-
-  },
+    // console.log(" MOUNT");
+    // window.addEventListener('scroll', this.handleScroll);
+   
+    },
+    beforeDestroy() {
+        window.removeEventListener('scroll', this.handleScroll);
+    },
+    
 
   beforeMount: function () {
-    console.log("BEFORE MOUNT PORTADA");
-    this.getLocation()
+    // console.log("BEFORE MOUNT PORTADA");
+    
   },
 
   created: function () {
     // this.viewWidth();
     // this.getIpClient();
- 
+     this.getLocation()
+    this. viewWidth()
     this.getPageData();
-    this.getNavData();
+    //  this.getNavData();
 
 
   },
@@ -164,16 +171,13 @@ export default {
       status: "status",
       userLocalHour: "userLocalHour",
      loading:"loading",
+     darkTheme:"darkTheme"
       
     }),
   },
 
   watch: {
-    
-
-
-
-    theme(n, o) {
+    darkTheme(n, o) {
       console.log("WATCH THEME ", n);
     }
     // namePage(n, o) {
@@ -184,8 +188,8 @@ export default {
   },
 
   components: {
-    navbar,
-    foot,
+    // navbar,
+    // foot,
     vIntersect,
     NameTitle,
 
@@ -193,9 +197,15 @@ export default {
 
   methods: {
 
-    FileUpload(event) {
-      this.fileSelected = event.target.files[0];
-    },
+    // handleScroll() {
+    //         console.log('scroll');
+    //         const { scrollTop, scrollHeight, clientHeight } =
+    //             document.documentElement;
+    //         const scrolled = (scrollTop / (scrollHeight - clientHeight)) * 100;
+    //         this.scrollPosition = Math.round(scrolled);
+    //     },
+
+    
 
     getLocation() {
       this.$store.dispatch("getLoc")
@@ -206,12 +216,14 @@ export default {
 
     async DataCookies() {
       let dataTheme = await dataCookies();
-      console.log("DATATHEME CALENDAR", dataTheme);
-      this.theme = dataTheme.theme
-      this.dark = dataTheme.dark
+      // console.log("DATATHEME CALENDAR", dataTheme);
+      // this.darkTheme = dataTheme.theme
+      // this.dark = dataTheme.dark
     },
 
     getPageData() {
+
+      console.log("NAME  GET PAGE DATA");
       const n = "portada";
       this.$store.dispatch("getPageData", n)
         .then((res) => {
@@ -221,40 +233,61 @@ export default {
         })
     },
 
-    getImgData(np) {
-      console.log("NAME PAGE GET IMG DATA", np);
-      this.$store.dispatch("getImgData", np)
-    },
+    // getImgData(np) {
+    //    console.log("NAME PAGE GET IMG DATA", np);
+    //   this.$store.dispatch("getImgData", np)
+    // },
 
-    getNavData() {
-      const n = "navbar";
-      this.$store.dispatch("getNavData", n)
-        .then((res) => {
-          if (res) {
+    // getNavData() {
+    //   const n = "navbar";
+    //   this.$store.dispatch("getNavData", n)
+    //     .then((res) => {
+    //       if (res) {
 
-            this.navbarOk = true
+    //         this.navbarOk = true
 
 
-          }
-        });
-      console.log("REQUET GET NAV BAR PAGE DATA-----> ", n);
-    },
+    //       }
+    //     });
+    //   // console.log("REQUET GET NAV BAR PAGE DATA-----> ", n);
+    // },
 
     // ******** INFORMATION FUNCTION.......
 
+    // viewWidth() {
+    //   // console.log("NAVIGATOR----->", window);
+    //   if (window.navigator) {
+    //     console.log("NAVIGATOR----->", window);
+    //     console.log("NAVIGATOR LANGUAGE----->", window.clientInformation.language);
+       
+    //   } else {
+    //     // console.log("SANS NAVIGATOR");
+    //   }
+    // },
     viewWidth() {
       if (window.navigator) {
         console.log("NAVIGATOR----->", window);
-        console.log("NAVIGATOR LANGUAGE----->", window.clientInformation.language);
-        this.isActive = false
+        // console.log("NAVIGATOR LANGUAGE----->", window.clientInformation.language);
+        let dataBrowser = {
+          screenHeight: window.innerHeight,
+          screenWidth: window.innerWidth,
+          browserLanguage: window.navigator.language,
+          browserMobile: window.clientInformation.userAgentData.mobile,
+
+          browserVendor:
+            window.navigator.vendor,
+        };
+        console.log("SCREEN USER", dataBrowser);
+        // this.dataUser = dataBrowser;
+        // this.isActive = false
       } else {
         console.log("SANS NAVIGATOR");
       }
     },
 
-    getLoc() {
-      this.$store.dispatch("getLoc")
-    },
+    // getLoc() {
+    //   this.$store.dispatch("getLoc")
+    // },
     // getIpClient() {
     //   this.$store.dispatch("getIpClient")
     // },
@@ -265,9 +298,10 @@ export default {
 </script>
 
 <style scoped>
-@import url("../styles/bloc_nav.css");
+/* @import url("../styles/bloc_nav.css"); */
 @import url("../styles/theme.css");
-@import url("../styles/bloc-nav-c.css");
+@import url("../styles/font.css");
+/* @import url("../styles/bloc-nav-c.css"); */
 
 .nameTitleC {
   width: 300px;
@@ -282,10 +316,27 @@ svg {
   stroke-width: 18;
 }
 #title_1{
-  
+ 
   text-shadow: 0px 3px 3px rgb(251, 93, 93),0px 5px 23px rgb(251, 93, 93), 5px 0px 23px rgb(254, 102, 102);
  
 }
+.bgTitleClT{
+  position:relative;
+  /* top: 50%;
+  left: 50%;
+  transform: translate(-50%, -0%); */
+  clip-path: polygon(0% 0%, 100% 15%, 100% 100%, 0% 85%);
+  background: var(--bgTitle);
+  /* background: rgba(165, 42, 42, 1); */
+  z-index:2;
+ 
+}
+.bgTitleClT{
+  margin:0 auto;
+  width:calc( 300px + 3vw);
+  height:100px
+}
+
 svg text {
   /* text-transform: uppercase; */
   animation: stroke 2s forwards;
@@ -345,6 +396,11 @@ svg text {
 .svg_trans {}
 
 .titles {
+  position:absolute;
+ top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size:var(--fontSizeTitleH2);
   color: white;
   text-shadow: 0 0 30px #f92424, 0px 0px 50px rgba(251, 41, 41, 0.5), 0 0 150px #EC637B, 0 0 30px #f92424;
 }
@@ -387,6 +443,7 @@ a {
 .title_name>h1 {
   text-shadow: 0 0 30px #f92424, 0px 0px 50px rgba(251, 41, 41, 0.5), 0 0 150px #EC637B, 0 0 30px #f92424;
   color: #f2eeee;
+ 
 }
 
 h1 {
@@ -412,10 +469,10 @@ h1 {
   text-align: right;
 }
 
-.container-fluid-footer {
+/* .container-fluid-footer {
   width: 100vw;
   margin: 0 auto
-}
+} */
 
 .img_back {
 
@@ -762,7 +819,7 @@ li {
 
 
   .bloc_thumb {
-    margin-top: 40px;
+    margin-top: 0px;
     margin-bottom: 100px;
 
   }

@@ -6,8 +6,10 @@
 :root{
     --color_button: rgba(173, 173, 173, 0.5);
     --fontSizeTitleH1: calc(25px + 3vh);
+    --fontSizeTitleH2: calc(25px + 1vh);
     --bgTitle: rgba(165, 42, 42, 1);
     --txtB:  #3e0101;
+    --bgColor:"white"
   }
   /* .text{
     color:v-bind(texteColor);

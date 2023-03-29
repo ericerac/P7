@@ -1,6 +1,6 @@
 <template>
     <div class="container-fluid bloc_total">
-        <div class="BackGround" style="height: 150px; overflow: hidden;"><svg viewBox="0 0 500 150"
+        <div class="BackGround " :class="{ backFoot: dark }" style="height: 150px; overflow: hidden;"><svg viewBox="0 0 500 150"
                 preserveAspectRatio="none" style="height: 100%; width: 100%;">
                 <path d="M0.00,49.98 C182.28,130.77 349.20,-49.98 500.00,49.98 L500.00,150.00 L0.00,150.00 Z"
                     style="stroke: none; fill: rgb(145,1,1);"></path>
@@ -46,8 +46,20 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
-
+    name:"footer",
+    props: {
+    
+    dark: {
+      type:Boolean,
+      required: true,}
+  },
+//   computed:{
+//     ...mapState({
+// darkTheme:"darkTheme"
+//     })
+//   }
 }
 </script>
 
@@ -67,14 +79,18 @@ export default {
     color: white;
     /* border-top: 1px solid white; */
     margin: 0 auto;
+    
 }
 
 .BackGround {
     width: 100%;
     position:relative;
    
+   
 }
-
+.backFoot{
+    background:rgb(22, 23, 29);
+}
 .bloc_total {
     position:relative;
     display: flex;

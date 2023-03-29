@@ -15,10 +15,10 @@ background-color: rgb(14, 14, 14);
     font-weight: 400;
 } */
 .bgDay{
-    background-color: #f76363;
+    background-color:rgb(250,250,250);
   }
   .bgDark{
-    background-color: #0f0f0f;
+    background-color: rgb(19,19,19);
   }
   .txtDay{
   color:#3e0101;

@@ -1,15 +1,15 @@
 <template>
-     <div class="fond bdDay" :class="{ bgDark: dark }">
+     <div class="fond bdDay" :class="{ bgDark: darkTheme }">
     <div class="container master" >
-        <div class="  bloc_nav " v-if="navbarOk">
+        <!-- <div class="  bloc_nav " v-if="navbarOk">
             <navbar namePage="elvira" :dark = "dark" @theme ="dark=($event)"/>
-        </div>
+        </div> -->
         <div class="row">
             <div class="bloc_thumb">
                 <div class="bloc_img">
                     <img :src="pageData[0].imageUrl" alt="" class="img_thumb">
                     <div class="title">
-                        <h1 id="title_1" :class="dark ? 'txtDark' : 'txtDay'">
+                        <h1 id="title_1" :class="darkTheme ? 'txtDark' : 'txtDay'">
                             {{  pageData[0].title_1 }}
                         </h1>
                         <!-- <p class="sub_title_1">Mettre un sous-titre pour remplir l'espace</p> -->
@@ -26,34 +26,34 @@
                 <div class="bloc_text_thumb ">
 
                     <span class="line"></span>
-                    <div class="bloc_synopsis" :class="dark ? 'txtDark' : 'txtDay'">
+                    <div class="bloc_synopsis" :class="darkTheme ? 'txtDark' : 'txtDay'">
                         <h2>- {{ pageData[0].subTitle_1 }} -</h2>
                         <div class="bloc_sinopsis_text">
-                            <h3 class="title_sinopsis" :class="dark ? 'txtDark' : 'txtDay'">Sinopsis</h3>
-                            <p class="sinopsis" :class="dark ? 'txtDark' : 'txtDay'">{{ pageData[0].synopsis_1 }}</p>
-                            <p :class="dark ? 'txtDark' : 'txtDay'">{{ pageData[0].synopsis_2 }}</p>
+                            <h3 class="title_sinopsis" :class="darkTheme ? 'txtDark' : 'txtDay'">Sinopsis</h3>
+                            <p class="sinopsis" :class="darkTheme ? 'txtDark' : 'txtDay'">{{ pageData[0].synopsis_1 }}</p>
+                            <p :class="darkTheme ? 'txtDark' : 'txtDay'">{{ pageData[0].synopsis_2 }}</p>
                         </div>
                     </div>
                     <div class="bloc_text_video">
                         <div class="fiches">
-                            <div class="fiche_art fiche" :class="dark ? 'txtDark' : 'txtDay'">
+                            <div class="fiche_art fiche" :class="darkTheme ? 'txtDark' : 'txtDay'">
                                 <h4> {{ pageData[0].p_0 }}</h4>
-                                <p :class="dark ? 'txtDark' : 'txtDay'"><strong>{{ pageData[0].p_1 }} </strong> {{ pageData[0].p_2 }}</p>
-                                <p :class="dark ? 'txtDark' : 'txtDay'"><strong>{{ pageData[0].p_3 }}</strong> {{ pageData[0].p_4 }}</p>
-                                <p :class="dark ? 'txtDark' : 'txtDay'"><strong>{{ pageData[0].p_5 }} </strong> {{ pageData[0].p_6 }}</p>
-                                <p :class="dark ? 'txtDark' : 'txtDay'"><strong>{{ pageData[0].p_7 }} </strong> {{ pageData[0].p_8 }}</p>
-                                <p :class="dark ? 'txtDark' : 'txtDay'"><strong>{{ pageData[0].p_9 }}</strong> {{ pageData[0].p_10 }}</p>
-                                <p :class="dark ? 'txtDark' : 'txtDay'"><strong>{{ pageData[0].p_11 }} </strong> {{ pageData[0].p_12 }}</p>
-                                <p :class="dark ? 'txtDark' : 'txtDay'"><strong>{{ pageData[0].p_13 }} </strong> {{ pageData[0].p_14 }} </p>
-                                <p :class="dark ? 'txtDark' : 'txtDay'">{{ pageData[0].p_15 }}</p>
-                                <p :class="dark ? 'txtDark' : 'txtDay'">{{ pageData[0].p_16 }}</p>
+                                <p :class="darkTheme ? 'txtDark' : 'txtDay'"><strong>{{ pageData[0].p_1 }} </strong> {{ pageData[0].p_2 }}</p>
+                                <p :class="darkTheme ? 'txtDark' : 'txtDay'"><strong>{{ pageData[0].p_3 }}</strong> {{ pageData[0].p_4 }}</p>
+                                <p :class="darkTheme ? 'txtDark' : 'txtDay'"><strong>{{ pageData[0].p_5 }} </strong> {{ pageData[0].p_6 }}</p>
+                                <p :class="darkTheme ? 'txtDark' : 'txtDay'"><strong>{{ pageData[0].p_7 }} </strong> {{ pageData[0].p_8 }}</p>
+                                <p :class="darkTheme ? 'txtDark' : 'txtDay'"><strong>{{ pageData[0].p_9 }}</strong> {{ pageData[0].p_10 }}</p>
+                                <p :class="darkTheme ? 'txtDark' : 'txtDay'"><strong>{{ pageData[0].p_11 }} </strong> {{ pageData[0].p_12 }}</p>
+                                <p :class="darkTheme ? 'txtDark' : 'txtDay'"><strong>{{ pageData[0].p_13 }} </strong> {{ pageData[0].p_14 }} </p>
+                                <p :class="darkTheme ? 'txtDark' : 'txtDay'">{{ pageData[0].p_15 }}</p>
+                                <p :class="darkTheme ? 'txtDark' : 'txtDay'">{{ pageData[0].p_16 }}</p>
                             </div>
                             <div class="info_basic fiche">
-                                <h4 :class="dark ? 'txtDark' : 'txtDay'">{{ pageData[0].p_17 }}</h4>
-                                <p :class="dark ? 'txtDark' : 'txtDay'">{{ pageData[0].p_18 }}</p>
-                                <p :class="dark ? 'txtDark' : 'txtDay'">{{ pageData[0].p_19 }}</p>
-                                <p :class="dark ? 'txtDark' : 'txtDay'">{{ pageData[0].p_20 }}</p>
-                                <p :class="dark ? 'txtDark' : 'txtDay'">{{ pageData[0].p_21 }}</p>
+                                <h4 :class="darkTheme ? 'txtDark' : 'txtDay'">{{ pageData[0].p_17 }}</h4>
+                                <p :class="darkTheme ? 'txtDark' : 'txtDay'">{{ pageData[0].p_18 }}</p>
+                                <p :class="darkTheme ? 'txtDark' : 'txtDay'">{{ pageData[0].p_19 }}</p>
+                                <p :class="darkTheme ? 'txtDark' : 'txtDay'">{{ pageData[0].p_20 }}</p>
+                                <p :class="darkTheme ? 'txtDark' : 'txtDay'">{{ pageData[0].p_21 }}</p>
                             </div>
 
                         </div>
@@ -61,29 +61,27 @@
                             <div class="video">
                                 <iframe :src="pageData[0].linkVideo" width="620" height="460" frameborder="0"
                                     allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
-                                <!-- <p><a href="https://vimeo.com/373748069">EL GRAN CABARET ELVIRA_MARTA RENYER</a> from <a
-                                    href="https://vimeo.com/martaaa">MartaRenyer</a> on <a
-                                    href="https://vimeo.com">Vimeo</a>.</p> -->
+                                
                             </div>
-                            <button>{{ pageData[0].file }}</button>
+                            <!-- <button>{{ pageData[0].file }}</button> -->
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="container-fluid-footer">
+    <!-- <div class="container-fluid-footer">
         <foot />
-    </div>
+    </div> -->
     </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
 import { ref } from 'vue'
-import navbar from "../components/nav_bar.vue"
-import foot from "../components/footer.vue"
-import dataCookies from "../js/cookies"
+// import navbar from "../components/nav_bar.vue"
+// import foot from "../components/footer.vue"
+// import dataCookies from "../js/cookies"
 export default {
     name: "Elvira",
     data() {
@@ -115,11 +113,11 @@ export default {
     },
     beforeMount: function () {
     console.log("BEFORE MOUNT PORTADA");
-    this.getLocation()
+    // this.getLocation()
   },
     created: function () {
 
-        this.getNavData();
+        // this.getNavData();
         this.getPageData();
 
     },
@@ -128,7 +126,8 @@ export default {
         ...mapState({
             imgData: "imgData",
             pageData: "pageData",
-            navData: "navData"
+            navData: "navData",
+            darkTheme:"darkTheme"
         }),
 
         // Title_1: function () {
@@ -143,23 +142,23 @@ export default {
         // }
     },
     components: {
-        navbar,
-        foot,
+        // navbar,
+        // foot,
     },
     methods: {
-        getLocation() {
-      this.$store.dispatch("getLoc")
-        .then((res) => {
-          this.DataCookies()
-        })
-    },
+    //     getLocation() {
+    //   this.$store.dispatch("getLoc")
+    //     .then((res) => {
+    //       this.DataCookies()
+    //     })
+    // },
 
-    async DataCookies() {
-      let dataTheme = await dataCookies();
-      console.log("DATATHEME CALENDAR", dataTheme);
-      this.theme = dataTheme.theme
-      this.dark = dataTheme.dark
-    },
+    // async DataCookies() {
+    //   let dataTheme = await dataCookies();
+    //   console.log("DATATHEME CALENDAR", dataTheme);
+    //   this.theme = dataTheme.theme
+    //   this.dark = dataTheme.dark
+    // },
 
         typeEffect(element, speed, next) {
 
@@ -231,26 +230,26 @@ let x = "";
                 })
             console.log("REQUET GET ACCUEIL PAGE DATA-----> ", n);
         },
-        getNavData() {
-            const n = "navbar";
-            this.$store.dispatch("getNavData", n)
-                .then((res) => {
-                    if (res) {
-                        this.navbarOk = true
-                    }
-                });
-            console.log("REQUET GET NAV BAR PAGE DATA-----> ", n);
-        },
+        // getNavData() {
+        //     const n = "navbar";
+        //     this.$store.dispatch("getNavData", n)
+        //         .then((res) => {
+        //             if (res) {
+        //                 this.navbarOk = true
+        //             }
+        //         });
+        //     console.log("REQUET GET NAV BAR PAGE DATA-----> ", n);
+        // },
 
     },
 };
 </script>
 
 <style scoped>
-@import url("../styles/bloc_nav.css");
+/* @import url("../styles/bloc_nav.css"); */
 @import url("../styles/font.css");
 @import url("../styles/theme.css");
-@import url("../styles/bloc-nav-c.css");
+/* @import url("../styles/bloc-nav-c.css"); */
 
 *,
 ::after,
@@ -261,7 +260,7 @@ let x = "";
 }
 
 .master {
-    position: relative;
+    /* position: relative; */
 }
 .bloc_thumb {
     margin: 30px auto;
@@ -350,12 +349,6 @@ h4 {
     text-indent: 0px;
 }
 
-/* .video{
-    width:320px;
-    height:260px;
-    margin:0 auto;
-   
-} */
 iframe {
     width: 100%;
     height: 260px;
@@ -380,7 +373,6 @@ iframe {
     .bloc_img {
         width: 60%;
         margin: 0 auto;
-
     }
 
     h1 {
@@ -393,6 +385,7 @@ iframe {
         object-fit: cover;
         object-position: 0px -130px;
     }
+
 }
 
 @media screen and (min-width:768px) and (max-height:500px) {
@@ -453,7 +446,6 @@ iframe {
 }
 
 @media screen and (min-width:992px) and (max-height:650px) {
-   
 
     .fiches {
         flex-direction: row-reverse;
@@ -505,7 +497,7 @@ iframe {
     }
 }
 
-@media screen and (min-width:1200px) {
+@media screen and (min-width:1220px) {
     .bloc_img {
         display: flex;
         flex-direction: column;
@@ -543,17 +535,27 @@ iframe {
         margin: 30px auto;
     }
 }
-@media screen and (min-width:1980px) {
+@media screen and (min-width:1920px) {
 .bloc_thumb{
 flex-direction: row;
-margin-top:170px;
+margin-top:-20px;
 }
 .bloc_synopsis{
-    width:50%;
+    width:70%;
+    margin:0 auto 70px
 }
-.bloc_img{
-    width:50%
+h1{
+    margin:0
 }
+.bloc_img {
+        display: flex;
+        flex-direction: row;
+        gap:50px;
+        justify-content: space-evenly;
+        height: 100vh;
+        width:80%;
+        align-items:center ;
 
+    }
 }
 </style>

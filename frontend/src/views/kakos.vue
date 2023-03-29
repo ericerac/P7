@@ -1,9 +1,9 @@
 <template>
   <!-- <bgKakos/> -->
-  <div class="container-fluid fond texte" :class="{ bgDark: dark }">
-  <div class="bloc_nav " v-if="navbarOk">
+  <div class="container-fluid fond texte" :class="{ bgDark: darkTheme }">
+  <!-- <div class="bloc_nav " v-if="navbarOk">
     <navBar namePage="kakos" :dark = "dark" @theme ="dark=($event)"/>
-  </div>
+  </div> -->
     <div class="row g-0">
       <!-- <div class="slider">
        
@@ -28,7 +28,7 @@
         <div class="header col-12">
           <!-- <img class="header_img col-12" :src="i.imageUrl" alt=""> -->
           <div class="header_title">
-            <h1 class="text" :class="dark ? 'txtDark' : 'txtDay'">{{ i.title_1 }}</h1>
+            <h1 class="text" :class="darkTheme ? 'txtDark' : 'txtDay'">{{ i.title_1 }}</h1>
           </div>
 
         </div>
@@ -52,12 +52,12 @@
         <div class="bloc_thumb ">
           <div class=" bloc_info col-12">
             <div class="bloc_sinopsis">
-              <h6 class="title_info_sinopsis col-2 text" :class="dark ? 'txtDark' : 'txtDay'"><strong>Sinopsis</strong> 
+              <h6 class="title_info_sinopsis col-2 text" :class="darkTheme ? 'txtDark' : 'txtDay'"><strong>Sinopsis</strong> 
                 </h6>
                 <div class="bloc_text_synopsis">
                   <div>
                   <img class="guillemet_start guillemet" src="../assets/design/Guiillemet_Start.webp" alt="guillemet_start"> </div>
-                <p class="sinopsis text" :class="dark ? 'txtDark' : 'txtDay'">
+                <p class="sinopsis text" :class="darkTheme ? 'txtDark' : 'txtDay'">
               {{ i.synopsis_1 }}
             </p>
             <div>
@@ -65,14 +65,14 @@
             </div>
             </div>
             <div class="bloc_fiche_art">
-              <h6 class="title_info text" :class="dark ? 'txtDark' : 'txtDay'"><strong>{{ i.p_1 }}</strong> </h6>
-              <p class="text" :class="dark ? 'txtDark' : 'txtDay'">{{ i.p_2 }}
+              <h6 class="title_info text" :class="darkTheme ? 'txtDark' : 'txtDay'"><strong>{{ i.p_1 }}</strong> </h6>
+              <p class="text" :class="darkTheme ? 'txtDark' : 'txtDay'">{{ i.p_2 }}
               </p>
-              <p class="text" :class="dark ? 'txtDark' : 'txtDay'">{{ i.p_3 }}
+              <p class="text" :class="darkTheme ? 'txtDark' : 'txtDay'">{{ i.p_3 }}
               </p>
-              <p class="text" :class="dark ? 'txtDark' : 'txtDay'">{{ i.p_4 }}</p>
-              <p class="text" :class="dark ? 'txtDark' : 'txtDay'">{{ i.p_5 }}</p>
-              <p class="text" :class="dark ? 'txtDark' : 'txtDay'">{{ i.p_6 }}
+              <p class="text" :class="darkTheme ? 'txtDark' : 'txtDay'">{{ i.p_4 }}</p>
+              <p class="text" :class="darkTheme ? 'txtDark' : 'txtDay'">{{ i.p_5 }}</p>
+              <p class="text" :class="darkTheme ? 'txtDark' : 'txtDay'">{{ i.p_6 }}
               </p>
             </div>
           </div>
@@ -82,24 +82,24 @@
       <div class=" container-fluid fiches">
         <div class="row">
           <div class="fiche_art col-10">
-            <span class="title_fiche text" type="button" @click="open_fiche = !open_fiche" :class="dark ? 'txtDark' : 'txtDay'">Fitxa artística
+            <span class="title_fiche text" type="button" @click="open_fiche = !open_fiche" :class="darkTheme ? 'txtDark' : 'txtDay'">Fitxa artística
             </span>
             <div class="bloc_text_fiche" id="fiche" v-if="open_fiche">
              
-              <p class="text" :class="dark ? 'txtDark' : 'txtDay'"> <strong>Creació i interpretació:</strong> Emma Bassas, Marta Renyer i La Maria Rosa
+              <p class="text" :class="darkTheme ? 'txtDark' : 'txtDay'"> <strong>Creació i interpretació:</strong> Emma Bassas, Marta Renyer i La Maria Rosa
               </p>
-              <p class="text" :class="dark ? 'txtDark' : 'txtDay'"><strong>Direcció:</strong> Sergi Estebanell
+              <p class="text" :class="darkTheme ? 'txtDark' : 'txtDay'"><strong>Direcció:</strong> Sergi Estebanell
               </p>
-              <p class="text" :class="dark ? 'txtDark' : 'txtDay'"><strong>Assessors creatius:</strong> Marta Sitjà, Adrian Schvarzstein I Judit Martin
+              <p class="text" :class="darkTheme ? 'txtDark' : 'txtDay'"><strong>Assessors creatius:</strong> Marta Sitjà, Adrian Schvarzstein I Judit Martin
               </p>
-              <p class="text" :class="dark ? 'txtDark' : 'txtDay'"><strong>Escenografía:</strong> Eric Rieu i Las Kakofónikas
+              <p class="text" :class="darkTheme ? 'txtDark' : 'txtDay'"><strong>Escenografía:</strong> Eric Rieu i Las Kakofónikas
               </p>
-              <p class="text" :class="dark ? 'txtDark' : 'txtDay'"><strong>Vestuari:</strong> Lluna Albert i Las Kakofónikas
+              <p class="text" :class="darkTheme ? 'txtDark' : 'txtDay'"><strong>Vestuari:</strong> Lluna Albert i Las Kakofónikas
               </p>
-              <p class="text" :class="dark ? 'txtDark' : 'txtDay'"><strong>Disseny i Assessoría de peluquería:</strong> Fafá Franco
+              <p class="text" :class="darkTheme ? 'txtDark' : 'txtDay'"><strong>Disseny i Assessoría de peluquería:</strong> Fafá Franco
               </p>
-              <p class="text" :class="dark ? 'txtDark' : 'txtDay'"><strong>Producció:</strong>Producció: Las Kakofonias</p>
-              <p class="text" :class="dark ? 'txtDark' : 'txtDay'"><strong>Suport a la Creació:</strong>Suport a la Creació: Circ Cric, Festival Internacional Pallasses
+              <p class="text" :class="darkTheme ? 'txtDark' : 'txtDay'"><strong>Producció:</strong>Producció: Las Kakofonias</p>
+              <p class="text" :class="darkTheme ? 'txtDark' : 'txtDay'"><strong>Suport a la Creació:</strong>Suport a la Creació: Circ Cric, Festival Internacional Pallasses
                 Circ Cric, Fundació la
                 Plana, La Farinera del Clot, Centre Cultural Sant Jaume Premià de Dalt, Centre Civic
                 Can Felipa.
@@ -110,9 +110,9 @@
 
       </div>
     </div>
-    <div class="container-fluid-footer">
+    <!-- <div class="container-fluid-footer">
         <foot />
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -120,10 +120,10 @@
 import { mapState } from 'vuex';
 import { ref } from 'vue';
 import navBar from "../components/nav_bar.vue"
-import foot from "../components/footer.vue"
+// import foot from "../components/footer.vue"
 
-import ImgKakos from "../components/ImgKakos.vue"
-import dataCookies from "../js/cookies"
+// import ImgKakos from "../components/ImgKakos.vue"
+// import dataCookies from "../js/cookies"
 
 
 export default {
@@ -140,18 +140,16 @@ export default {
       currentSlide: 0,
 timing:"",
 
-theme: "",
-            bgColor:"",
-            texteColor:""
+
     }
   },
   beforeMount: function (){
-    this.getLocation()
+    // this.getLocation()
    
   },
   created: function () {
 
-    this.getNavData();
+    // this.getNavData();
     this.getPageData();
     this.getImgData();
 
@@ -166,34 +164,35 @@ theme: "",
       pageData: "pageData",
       navData: "navData",
       imgData: "imgData",
+      darkTheme:"darkTheme"
       // theme:"theme"
     }),
 
   },
   components: {
     navBar,
-    foot,
+    // foot,
   
     
   },
   methods: {
 
-    getLocation(){
-            this.$store.dispatch("getLoc")
-            .then((res)=>{
-              console.log("RETURN GETLOC");
-                    this.DataCookies()
-            })
-        },
+    // getLocation(){
+    //         this.$store.dispatch("getLoc")
+    //         .then((res)=>{
+    //           console.log("RETURN GETLOC");
+    //                 this.DataCookies()
+    //         })
+    //     },
 
 
-        async DataCookies() {
-      let dataTheme = await dataCookies();
-      console.log("DATATHEME CALENDAR", dataTheme);
-      this.theme = dataTheme.theme
-      this.bgColor = dataTheme.bgColor
-      this.dark = dataTheme.dark
-    },
+    //     async DataCookies() {
+    //   let dataTheme = await dataCookies();
+    //   console.log("DATATHEME CALENDAR", dataTheme);
+    //   this.theme = dataTheme.theme
+    //   this.bgColor = dataTheme.bgColor
+    //   this.dark = dataTheme.dark
+    // },
 
 
 //     timeSlide(val) {
@@ -435,10 +434,10 @@ margin-right: 0;
 
 }
  /* *********** FOOTER  *********** */
- .container-fluid-footer {
+ /* .container-fluid-footer {
     width: 100vw;
     margin: 0 auto
-}
+} */
 
 @media screen and (min-width:768px){
   /* .bloc_nav{

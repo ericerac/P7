@@ -106,7 +106,7 @@
 
               <label for="submit"></label>
               <input type="button" name="submit" class="btn btn_up btn_all" keyUp="enter" value="Update"
-                @click="updateBio(pageData[0]._id)">
+                @click="updatePage(pageData[0]._id)">
             </div>
           </div>
         </div>

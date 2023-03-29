@@ -1,0 +1,198 @@
+/* ------------------------ ANIMATION ---------------------- */
+.app-card-on{
+    opacity:1;
+    transform: translateY(0px) ; 
+    transition: cubic-bezier(0.5, 0, 0, 1) ;
+    transition-duration: .3s;
+   
+  }
+
+@keyframes img_on{
+    0% {
+        
+        transform: translateY(-500px) scale(0) rotate(.1turn);
+        opacity: 0;
+    }
+    20% {
+        
+        transform:translateY(-400px) scale(0.3) rotate(.2turn);
+        opacity: 0;
+    }
+    40% {
+        
+        transform: translateY(-300px)scale(.5) rotate(.4turn);
+        opacity: 0;
+    }
+    60% {
+        
+        transform: translateY(-200px)scale(.7) rotate(.6turn);
+        opacity: 0;
+    }
+    80% {
+        
+        transform:  translateY(-100px)scale(.8) rotate(.8turn);
+        opacity: 0;
+    }
+    100% {
+       
+        transform:translateY(0) scale(1) rotate(1turn);
+        opacity: 1;
+    }
+    
+  
+  }
+  @keyframes img_on_xxl{
+    0% {
+        
+        transform: rotate(.5turn) scale(0.1);
+        opacity: 0;
+    }
+    
+    
+    100% {
+       
+        transform: scale(1) ;
+        opacity: 1;
+    }
+    
+  
+  }
+  
+  @keyframes img_right{
+    0% {
+        
+        transform:translateY(-800px) scale(1) rotate(.05turn);
+        opacity: 0;
+    }
+    5% {
+        
+        transform:translateY(-800px) scale(1) rotate(-.02turn);
+        opacity: 0;
+    }
+    10% {
+        
+        transform:translateY(-800px) scale(1) rotate(.1turn);
+        opacity: 0;
+    }
+    60% {
+        
+        transform:translateY(-800px) scale(1) rotate(.1turn);
+        opacity: 0;
+    }
+    80% {
+        
+        transform:translateY(-800px) scale(1) rotate(.1turn);
+        opacity: 0;
+    }
+    100% {
+       
+        transform:translateY(0) scale(1) rotate(.3turn);
+        opacity: 1;
+    }
+    
+  
+  }
+  @keyframes title_on{
+    0% {
+        
+        transform:translateY(800px) scale(1) ;
+        opacity: 0;
+    }
+    
+    100% {
+        transform:translateY(0px) scale(1) ;
+        opacity: 1;
+    }
+    
+  
+  }
+  
+  @keyframes line-left{
+    0% {
+        transform:translateX(-200px) scale(1) ;
+        opacity: 1;        
+    }
+  }
+  @keyframes line-right{
+    0% {
+        transform:translateX(200px) scale(1) ;
+        opacity: 1;        
+    }
+  }
+  
+  @keyframes logo_line_on{
+    0% {
+        
+        transform: scale(0) ;
+        opacity: 0;
+    }
+    50% {
+        
+        transform: scale(1) ;
+        opacity: 0;
+    }
+    70% {
+        
+        transform: scale(1.1) ;
+        opacity: 0;
+    }
+    80% {
+        
+        transform: scale(1.2) ;
+        opacity: 1;
+    }
+    90% {
+        
+        transform: scale(1.1) ;
+        opacity: 1;
+    }
+  
+    
+    100% {
+        transform: scale(1) ;
+        opacity: 1;
+    }
+    
+  
+  }
+  @keyframes s_title{
+    0% {
+        
+        transform: scale(0) ;
+        opacity: 0;
+    }
+    50% {
+        
+        transform: scale(.2) ;
+        opacity: 0;
+    }
+    60% {
+        
+        transform: scale(.3) ;
+        opacity: 0;
+    }
+    70% {
+        
+        transform: scale(.4) ;
+        opacity: 0;
+    }
+    80% {
+        
+        transform: scale(1.2) ;
+        opacity: 1;
+    }
+    90% {
+        
+        transform: scale(.9) ;
+        opacity: 1;
+    }
+  
+    
+    100% {
+        transform: scale(1) ;
+        opacity: 1;
+
+    }
+    
+  
+  }

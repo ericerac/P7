@@ -12,21 +12,18 @@
 </div>
 </template>
 <style scoped>
-body{
-    padding:0;
-    margin:0;
-    width:100%;
-    height:100vh;
-    background:radial-gradient(#9b59b6, #8e44ad);
-}
+
 .bloc{
     width:100vw;
     height:100vh;
-position: absolute;
+position: fixed;
 top:0;
 right:0;
 bottom:0;
 left:0;
+z-index:10;
+background-color: rgba(0, 0, 0,.5);
+
 }
 .wrapper{
     width:200px;
@@ -35,6 +32,10 @@ left:0;
     left:50%;
     top:50%;
     transform: translate(-50%, -50%);
+    z-index:100;
+}
+.wrapper > span{
+    text-shadow: 3px 3px 13px black -3px -3px 13px black;;
 }
 .circle{
     width:20px;
@@ -45,6 +46,7 @@ left:0;
     left:15%;
     transform-origin: 50%;
     animation: circle .5s alternate infinite ease;
+    z-index:100;
 }
 
 @keyframes circle{

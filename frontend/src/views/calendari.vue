@@ -1,11 +1,9 @@
 <template>
-    <div class="fond" :class="{ bgDark: dark }">
+    <!-- <div class="fond" :class="{ bgDark: darkTheme }"> -->
+    <div class="fond" :class=" { bgDark: darkTheme }">
 
         <div class="containe text-center">
-            <div class="bloc_nav" v-if="navbarOk">
-                <navbar namePage="cal" :dark = "dark" @theme ="dark=($event)" />
-              
-            </div>
+
             <div class="row card_calendar_row text-center">
 
 
@@ -22,64 +20,50 @@
 
                 </div>
                 <div class="Title">
-                    <h3 class="text">Calendari</h3>
+                    <h3 class="text" :class="{ txtDark: darkTheme }">Calendari</h3>
                 </div>
                 <div class="bloc col-12 p-lg-3 p-xl-5 text-center">
                     <div class="legende col-12 m-auto">
-                        <div class="date col-3 col-lg-2 item headCard text" :class="{ txtDark: dark }">Date</div>
-                        <div class="spectacle col-3 item headCard text" :class="{ txtDark: dark }">Espectacle</div>
-                        <div class="date col-3 col-lg-3 item headCard text" :class="{ txtDark: dark }">Esdeveniment</div>
-                        <div class="lloc col-3 col-lg-4 item headCard text" :class="{ txtDark: dark }">Lloc</div>
+                        <div class="date col-3 col-lg-2 item headCard text" :class="{ txtDark: darkTheme }">Date</div>
+                        <div class="spectacle col-3 item headCard text" :class="{ txtDark: darkTheme }">Espectacle</div>
+                        <div class="date col-3 col-lg-3 item headCard text" :class="{ txtDark: darkTheme }">Esdeveniment
+                        </div>
+                        <div class="lloc col-3 col-lg-4 item headCard text" :class="{ txtDark: darkTheme }">Lloc</div>
                         <div class="info_add item"></div>
                     </div>
 
 
                     <div v-for="d in filterDate" :key="d.id">
 
-                        <div class="bloc_date mt-1 mb-1" :title=d.info_top>
+                        <div class="bloc_date  mt-1 mb-1" :title=d.info_top>
 
                             <a class="date_cal mt-2 mb-2 col-12 g-0" :href=d.link_event target="_blank"
-                                :class="dateTimestamp(d.day) < dateNow ? 'datePass' : ''">
-                                <div class="date_date col-3 col-lg-2 item  text" :class="{ txtDark: dark }">{{ dayWeek(d.day) }} {{ date(d.day) }} <br>
+                                :style="getClassStyle(d.day)">
+
+                                <!-- :class="dateTimestamp(d.day) < dateNow ? 'datePass' : ''"> -->
+                                <div class="date_date col-3 col-lg-2 item  text" :class="darkTheme ? 'txtDark' : 'txtDay'">
+                                    {{ dayWeek(d.day) }} {{ date(d.day) }} <br>
                                     {{
                                         hourDefined(d.hour) }}
                                 </div>
-                                <div class="spectacle_name col-3 col-lg-2 item text" :class="{ txtDark: dark }">{{ d.show_name }}</div>
-                                <div class="date col-3 col-lg-3 item text" :class="{ txtDark: dark }">{{ d.event }}</div>
-                                <div class="lloc_lloc col-3 col-lg-4 flex-wrap item text" :class="{ txtDark: dark }">{{ d.detail }}</div>
+                                <div class="spectacle_name col-3 col-lg-2 item text"
+                                    :class="darkTheme ? 'txtDark' : 'txtDay'">{{ d.show_name }}</div>
+                                <div class="date col-3 col-lg-3 item text" :class="darkTheme ? 'txtDark' : 'txtDay'">{{
+                                    d.event }}</div>
+                                <div class="lloc_lloc col-3 col-lg-4 flex-wrap item text"
+                                    :class="darkTheme ? 'txtDark' : 'txtDay'">{{ d.detail }}</div>
                                 <div class="info_top item  text"></div>
                             </a>
 
-                            <button v-if="admin" type="action" @click="updateCal(d._id)" class="btn_edit text">
+                            <!-- <button v-if="admin" type="action" @click="updateCal(d._id)" class="btn_edit text">
                                 edit</button>
                             <button v-if="admin && calComp && cardCalSelect[0]._id == d._id" type="action"
-                                @click="calComp = false" class="btn_edit text"> close</button>
+                                @click="calComp = false" class="btn_edit text"> close</button> -->
                         </div>
-                        <calCompo v-if="calComp && cardCalSelect[0]._id == d._id" />
 
                     </div>
 
-                    <!-- "  2e VERSION   " -->
-                    <!-- "  2e VERSION   " -->
-                    <!-- "  2e VERSION   " -->
 
-                    <!-- <table>
-                    <tr>
-                        <th>Date</th>
-                        <th>Espectacle</th>
-                        <th>Esdeveniment</th>
-                        <th>Lloc</th>
-                    </tr>
-                    <tr :class="dateTimestamp(d.day) < dateNow ? 'datePass' : ''" v-for="d in filterDate" :key="d.id">
-                        <td>{{ dayWeek(d.day) }} {{ date(d.day) }} - {{ d.hour }}</td>
-                        <td>{{ d.show_name }}</td>
-                        <td>{{ d.event }}</td>
-                        <td>{{ d.detail }}</td>
-
-                    </tr>
-
-
-                </table> -->
 
 
                     <button v-if="admin" type="action" class="btn_create col-12 text"> New Date</button>
@@ -87,29 +71,18 @@
                 </div>
 
             </div>
-            <div class="footer" v-motion-slide-visible-once-bottom>
-                <div class="container-fluid-footer">
-                    <foot />
-                </div>
-            </div>
 
         </div>
     </div>
 </template>
   
 <script>
-import { axios } from "axios";
-import { mapGetters, mapState } from "vuex";
+
+import { mapGetters, mapState, mapActions } from "vuex";
 import { ref, reactive } from "vue";
 import moment from 'moment';
-import navbar from "../components/nav_bar.vue";
-import foot from "../components/footer.vue"
 import calCompo from "../components/cal_component.vue"
-import dataCookies from "../js/cookies"
-
-
-
-
+import Script from "../js/script.js"
 
 export default {
     name: "calendar",
@@ -128,102 +101,189 @@ export default {
             monthShow: "",
             whereShow: "",
 
-            dark: "",
-            bgColor: "rgba(245, 245, 220, .7)",
-            bgPassColor: "rgba(250, 139, 139, 0.4)",
+            dark: ref(false),
+
+            bdDark: "rgba(11, 19, 19, 1) ",
+
+            dateData: "",
         }
     },
-//     setup(){
-   
-//     const dateNow = reactive({
-//       dayDate:"",
-      
-//     })
-    
-//     return { ...toRefs(dateNow), dayDate }
-//   },
 
     beforeMount: function () {
-        // console.log("BEFORE MOUNT");
-        this.getLocation()
+    },
+    beforeUpdate: function () {
+        console.log("ACTIONED");
     },
     created: function () {
-        console.log("CREATED");
-       this.dateToday();
-        this.getNavData();
+        this.dateToday();
         this.getPageData();
-      
-    },
-    props: {
 
     },
+    mounted: function () {
+
+    },
+
+    props: {
+    },
+
     computed: {
-        ...mapState({
-            accueilData: "accueilData",
-            pageData: "pageData",
-            cardCalSelect: "cardCalSelect"
-        }),
+        ...mapState(
+            // [
+            //     "dataPageModul", "darkTheme","pageData"
+            // ]
+            // ,
+            {
+                accueilData: "accueilData",
+                pageData: "pageData",
+                cardCalSelect: "cardCalSelect",
+                darkTheme: "darkTheme"
+            }),
 
         filterDate() {
+
             if (this.pageData) {
+                this.dateData = true;
                 let PageDat = this.pageData;
                 let date = "";
                 for (let d of PageDat) {
                     date = new Date(d.day);
                     let day = date.getDay()
-                    // console.log("BOUCLE FOR IN", date);
                 }
-
 
                 return this.pageData.sort((a, b) => (a.day > b.day ? 1 : -1)).reverse();
 
             }
+            // if (this.dataPageModul) {
+            //     this.dateData = true;
+            //     let PageDat = this.dataPageModul.pageData;
+            //     let date = "";
+            //     for (let d of PageDat) {
+            //         date = new Date(d.day);
+            //         let day = date.getDay()
+            //     }
+
+            //     return this.dataPageModul.pageData.sort((a, b) => (a.day > b.day ? 1 : -1)).reverse();
+
+            // }
+        },
+        theme(){
+            // if(darkTheme == false || darkTheme.dark == false){
+            //     this.dark == false
+            // }
         },
         nextShow() {
             if (this.pageData) {
                 let nextS = this.pageData.map(function (day, index) {
                     return (day)
-
                 })
-
             }
-
         },
-        
+        // nextShow() {
+        //     if (this.dataPageModul.pageData) {
+        //         let nextS = this.dataPageModul.pageData.map(function (day, index) {
+        //             return (day)
+        //         })
+        //     }
+        // },
 
 
     },
-    
+
     components: {
-        navbar,
-        foot,
         calCompo,
     },
     watch: {
-        pageData(n, o) { // selection date content info badge
-            if(this.pageData){
-                console.log("NEXT DAY",this.pageData);
-                let nextS = this.pageData.map(function (day, index) {
-                    return (day.day)
-                })
-                let hoy = new Date()
-                let bolos = moment(hoy).format("YYYY-MM-DD");
-                let next = this.pageData.find(d => d.day > bolos)
-                let bolo = next.day
-                this.monthShow = moment(bolo).format('MMM', 'ca')
-                this.dayShow = this.dayWeek(bolo)
-                this.dateShow = moment(bolo).format('DD', 'ca')
-                this.whereShow = next.detail;
-            } else {
-                console.log("NOT DATA FROM PAGE");
-            }
+        dataPageModul(n, o) {
+            this.infoShow()
+        },
 
-        }
+
     },
     modules: {
 
     },
     methods: {
+
+        ...mapActions('dataPageModul', ['getPageData']),
+
+        scroller(x) {
+            Script(x)
+        },
+
+        infoShow() { // selection date content info badge
+            if (this.pageData) {
+                // console.log("dataDate", this.dataPageModul.pageData);
+                // console.log("NEXT DAY",this.pageData);
+                let nextS = this.pageData.map(function (day, index) {
+                    return (day.day)
+                })
+                let hoy = new Date()
+                let bolos = moment(hoy).format("YYYY-MM-DD");
+                // console.log("BOLOS", bolos);
+                let next = this.pageData.filter(d => d.day > bolos)
+                //  console.log("POST BOLOS", next);
+                let bolo = next.reverse()[0].day
+                this.monthShow = moment(bolo).format('MMM', 'ca')
+                this.dayShow = this.dayWeek(bolo)
+                this.dateShow = moment(bolo).format('DD', 'ca')
+                this.whereShow = next[0].detail;
+            } else {
+                // console.log("NOT DATA FROM PAGE");
+            }
+
+        },
+        // infoShow() { // selection date content info badge
+        //     if (this.dataPageModul.pageData) {
+        //         // console.log("dataDate", this.dataPageModul.pageData);
+        //         // console.log("NEXT DAY",this.pageData);
+        //         let nextS = this.dataPageModul.pageData.map(function (day, index) {
+        //             return (day.day)
+        //         })
+        //         let hoy = new Date()
+        //         let bolos = moment(hoy).format("YYYY-MM-DD");
+        //         // console.log("BOLOS", bolos);
+        //         let next = this.dataPageModul.pageData.filter(d => d.day > bolos)
+        //         //  console.log("POST BOLOS", next);
+        //         let bolo = next.reverse()[0].day
+        //         this.monthShow = moment(bolo).format('MMM', 'ca')
+        //         this.dayShow = this.dayWeek(bolo)
+        //         this.dateShow = moment(bolo).format('DD', 'ca')
+        //         this.whereShow = next[0].detail;
+        //     } else {
+        //         // console.log("NOT DATA FROM PAGE");
+        //     }
+
+        // },
+
+
+        getClassStyle(d) {
+            if (this.dateTimestamp(d) < this.dateNow) {
+                console.log("GET CLASS DARK ");
+                if (this.darkTheme == true) {
+                    console.log("GET CLASS DARK TRUE");
+                    return {
+                        background: 'rgba(250, 19, 99, 0.2)'
+                    }
+                } else {
+                    return {
+                        background: 'rgba(250, 19, 99, 0.3)'
+                    }
+                }
+            } else if (this.dateTimestamp(d) > this.dateNow) {
+
+                if (this.darkTheme == true) {
+                    console.log("GET CLASS DARK TRUE");
+                    return {
+                        background: 'rgba(250, 19, 99, 0.4)'
+                    }
+                } else {
+                    return {
+                        background: 'white'
+                    }
+                }
+            }
+        },
+
         hourDefined(h) {
 
             if (h != "undefined") {
@@ -232,75 +292,41 @@ export default {
                 return "por definir"
             }
         },
-        
+
         dateToday() {
             //******* UTIL *********
 
             let ahora = Date.now();
             // console.log("HEURE DU CHARGEMENT DATE NOW +18---->", ahora);
             let date = new Date(ahora)
-        //    console.log("NEW DATE NOW", date);
+            //    console.log("NEW DATE NOW", date);
             const timestamp = date.getTime();
             this.dateNow = timestamp
         },
 
         dateTimestamp(val) {
-            
+
             const ddate = new Date(val);
             const timestamp = ddate.getTime();
             // console.log("TIMESTAMP CALENDAR DATE", val);
             // console.log("TIMESTAMP CALENDAR DATE", timestamp);
             return timestamp;
         },
-        getLocation(){
-            this.$store.dispatch("getLoc")
-            .then((res)=>{
-               
-              this.DataCookies()
-            })
-        },
 
-        async DataCookies() {
-
-            let dataTheme = await dataCookies();
-        //    console.log("DATATHEME CALENDAR",dataTheme);
-            this.dark = dataTheme.dark
-            if(this.theme = true){
-
-                //   this.bgColor =  "rgba(250, 139, 139, 0.7)"
-                  this.bgColor =  "rgba(250, 109, 99, 0.6)"
-                //  this.bgPassColor = "#fa8b8b66";
-                  this.bgPassColor = "rgba(250, 19, 99, 0.3) ";
-            }
-
-        },
         // ****************************************
-
 
         getPageData() {
             const n = "calendar";
-           
-            this.$store.dispatch("getPageData", n)
-            .then((res)=>{
-                if(res){
-                   
-                }
-            })
 
-            // console.log("REQUET GET CALENDAR PAGE DATA-----> ", n);
-        },
-        getNavData() {
-            const n = "navbar";
-            this.$store.dispatch("getNavData", n)
+            // this.$store.dispatch("dataPageModul/getPageData", n)
+            this.$store.dispatch("getPageData", n)
                 .then((res) => {
                     if (res) {
-                        this.navbarOk = true
-                        return
+                        // console.log("retour dispatch calendar");
+                        this.infoShow()
                     }
-                });
-            // console.log("REQUET GET NAV BAR PAGE DATA-----> ", n);
+                })
         },
-
 
         dayWeek(value) {
             let d = new Date(value);
@@ -341,10 +367,11 @@ export default {
         dateMonth(value) {
 
             return moment(value).format('MMM', 'ca')
-            return moment(value).format("MM");
-            // console.log("MONTH DATEMONTH", month);
-            return month;
+            // return moment(value).format("MM");
+            // // console.log("MONTH DATEMONTH", month);
+            // return month;
         },
+
         date(value) {
             return moment(value).format("DD/MM/YYYY");
         },
@@ -367,12 +394,20 @@ export default {
 @import url("../styles/bloc-nav-c.css");
 @import url("../styles/bloc_nav.css");
 @import url("../styles/theme.css");
+@import url("../styles/font.css");
+@import url("../styles/anim.css");
 
 a {
     list-style: none;
     /* color: black; */
     text-decoration: none;
 }
+
+/* ********** TEST CLASS BG ************* */
+.classPassDark {
+    background-color: rgba(250, 19, 99, 0.2);
+}
+
 
 /* ********** CONTAIN INFO ************* */
 
@@ -402,7 +437,7 @@ a {
     -webkit-animation-fill-mode: forwards;
     text-align: center;
     font-size: 25px;
-    background: red;
+    background: rgb(165, 42, 42, 1);
     border-radius: 20px;
 }
 
@@ -452,18 +487,9 @@ a {
 
 /* ********** END CONTAIN INFO ************* */
 
-
-#app {
-    background-color: rgba(125, 2, 187, 0.318);
-}
-
 .fond {
     position: relative;
-    /* background: v-bind(bgColor); */
-}
 
-.text {
-    /* color: v-bind(texteColor) */
 }
 
 .card_calendar_row {
@@ -493,26 +519,15 @@ a {
 }
 
 .bloc_date {
+    /* opacity: 0;
+    transform: translateY(-30px); */
     display: flex;
     flex-direction: row;
     align-items: center;
     width: 100%;
 }
 
-table {
-    margin-bottom: 0 auto 2rem;
-    width: 100%;
-    max-width: 1100px;
-}
 
-td,
-th {
-    border-bottom: 1px solid black;
-    padding: 5px 0;
-    background-color: rgba(250, 235, 215, .6);
-    font-size: 16px;
-    margin-bottom: 3px;
-}
 
 .legende {
     display: flex;
@@ -545,6 +560,13 @@ th {
     padding: 5px 0;
 }
 
+.date_cal:hover {
+    transform: scaleY(1.1) scaleX(1.05);
+
+    box-shadow: 1px 2px 13px grey;
+    transition: .2s;
+}
+
 .datePass {
     /* background-color: #fa8b8b66; */
     background-color: v-bind(bgPassColor);
@@ -568,15 +590,6 @@ th {
     margin: 0 auto
 }
 
-.footer {
-    /* position:relative;
-    bottom:0;
-    left:0;
-    right:0; */
-    /* margin-left: 0;
-    width: 100%; */
-} 
-
 @media screen and (min-width:768px) and (max-height:500px) {
     .img_top img {
         width: 100%;
@@ -594,10 +607,7 @@ th {
 
 @media screen and (min-width:768px) and (min-height:500px) {
 
-    /* .bloc_date{
-        width:90%;
-        margin:0 auto;
-    } */
+
     .bloc {
         width: 90%;
         margin: 0 auto;
@@ -612,10 +622,7 @@ th {
 
 @media screen and (min-width:1440px) {
 
-    /* .bloc_date{
-        width:90%;
-        margin:0 auto;
-    } */
+
     .bloc {
         width: 70%;
         margin: 0 auto;
@@ -625,20 +632,21 @@ th {
         top: 100px;
         left: 12%;
     }
-    .img_top{
-       
-        margin-top:70px;
+
+    .img_top {
+
+        margin-top: 70px;
     }
-    .img_top > img{
-       
-       width:400px
+
+    .img_top>img {
+
+        width: 400px
     }
+
     .legende {
         top: 110px
     }
 }
 
-@media screen and (min-width:1980px) {
-    .legende {}
-    
-}</style>
+@media screen and (min-width:1980px) {}
+</style>

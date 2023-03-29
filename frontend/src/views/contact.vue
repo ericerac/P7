@@ -1,9 +1,9 @@
 <template>
   <div class="fond">
     <div class="container-fluid bloc_page">
-      <div class="bloc_nav " v-if="navbarOk">
+      <!-- <div class="bloc_nav " v-if="navbarOk">
         <navbar namePage="contact"/>
-      </div>
+      </div> -->
       <div class="row col-12 bloc_header">
         <div class="bloc_img">
           <img src="../assets/images/terrasse.jpg" alt="Image d'une terrasse de café foto de Natishia">
@@ -26,17 +26,17 @@
           </div>
         </div>
       </div>
-      <div class="container-fluid-footer">
+      <!-- <div class="container-fluid-footer">
         <foot />
-    </div>
+    </div> -->
     </div>
   </div>
 </template>
 
 <script>
 
-import navbar from "../components/nav_bar.vue"
-import foot from "../components/footer.vue"
+// import navbar from "../components/nav_bar.vue"
+// import foot from "../components/footer.vue"
 
 export default {
   name: "contact",
@@ -46,12 +46,12 @@ export default {
     }
   },
   components: {
-    navbar,
-    foot,
+    // navbar,
+    // foot,
   },
   created: function () {
 
-    this.getNavData();
+    // this.getNavData();
     this.getPageData();
 
   },
@@ -72,24 +72,24 @@ export default {
         })
       console.log("REQUET GET ACCUEIL PAGE DATA-----> ", n);
     },
-    getNavData() {
-      const n = "navbar";
-      this.$store.dispatch("getNavData", n)
-        .then((res) => {
-          if (res) {
-            this.navbarOk = true
-          }
-        });
-      console.log("REQUET GET NAV BAR PAGE DATA-----> ", n);
-    },
+    // getNavData() {
+    //   const n = "navbar";
+    //   this.$store.dispatch("getNavData", n)
+    //     .then((res) => {
+    //       if (res) {
+    //         this.navbarOk = true
+    //       }
+    //     });
+    //   console.log("REQUET GET NAV BAR PAGE DATA-----> ", n);
+    // },
 
   },
 }
 </script>
 
 <style scoped>
-@import url("../styles/bloc-nav-c.css");
-@import url("../styles/bloc_nav.css");
+/* @import url("../styles/bloc-nav-c.css");
+@import url("../styles/bloc_nav.css"); */
 p {
   margin: 0;
   padding: 0;

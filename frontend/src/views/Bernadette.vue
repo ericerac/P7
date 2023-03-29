@@ -1,15 +1,15 @@
 <template>
-  <div class="fond texte" :class="{ bgDark: dark }">
+  <div class="fond texte" :class="{ bgDark: darkTheme }">
     <div class="container-fluid text-center ">
-      <div class="bloc_nav " v-if="navbarOk" >
+      <!-- <div class="bloc_nav " v-if="navbarOk" >
         <navbar namePage="bernadette" :dark = "dark" @theme ="dark=($event)"/>
-      </div>
+      </div> -->
       <div class="row">
         <div class="bloc_page col-12 ">
           <div class="bloc_title">
             <span><img src="../assets/design/arabesc_1.png" alt=""></span>
             <!-- <span><img src="../assets/images/vector-graphics-arabesque-500_262.jpg" alt=""></span> -->
-          <h1 class="title_text title_texte" :class="dark ? 'txtDark' : 'txtDay'">{{ pageData[0].title_1 }}</h1>
+          <h1 class="title_text title_texte" :class="darkTheme ? 'txtDark' : 'txtDay'">{{ pageData[0].title_1 }}</h1>
           <span><img src="../assets/design/arabesc_1.png" alt=""></span>
         </div>
           <div class="img_left col-lg-12 col-xl-12">
@@ -20,11 +20,11 @@
             <!-- <div class="line"></div> -->
             <div class="arabesc"><img src="../assets/design/arabesc_1.png" alt=""> </div>
             <div class="sous_titre ">
-              <h4 class="fw-light title_texte" :class=" dark ? 'txtDark' : 'txtDay' "><i>{{ pageData[0].subTitle_1 }}</i> </h4>
+              <h4 class="fw-light title_texte" :class=" darkTheme ? 'txtDark' : 'txtDay' "><i>{{ pageData[0].subTitle_1 }}</i> </h4>
             </div>
             <div class="synopsis col-10 col-sm-6">
-              <p v-if="pageData[0].synopsis" :class="dark ? 'txtDark' : 'txtDay'"> {{ pageData[0].synopsis }} </p>
-              <p v-if="!pageData[0].synopsis" :class="dark ? 'txtDark' : 'txtDay'"> {{ pageData[0].synopsis_1 }} {{ pageData[0].synopsis_2 }}</p>
+              <p v-if="pageData[0].synopsis" :class="darkTheme ? 'txtDark' : 'txtDay'"> {{ pageData[0].synopsis }} </p>
+              <p v-if="!pageData[0].synopsis" :class="darkTheme ? 'txtDark' : 'txtDay'"> {{ pageData[0].synopsis_1 }} {{ pageData[0].synopsis_2 }}</p>
             </div>
             <!-- <div class="line"></div> -->
             <div class="arabesc"><img src="../assets/design/arabesc_1.png" alt=""> </div>
@@ -39,29 +39,29 @@
 
               <div class="bloc_reverse texte">
                 <!-- <div class="line"></div> -->
-                <div class="fiches col-12">
+                <div class="fiches col-12 col-xxl-8">
                   <div class="fiche_art col-12 col-md-8 col-lg-7 col-xl-6 text-center">
-                    <h6 class="title_texte " :class="dark ? 'txtDark' : 'txtDay'"><strong>- Fiche artistique -</strong></h6>
+                    <h6 class="title_texte " :class="darkTheme ? 'txtDark' : 'txtDay'"><strong>- Fiche artistique -</strong></h6>
                     <ul class="li">
-                      <li class="li_fiche" :class="dark ? 'txtDark' : 'txtDay'" ><strong>Creation et interprétation: </strong> Marta Renyer</li>
-                      <li class="li_fiche" :class="dark ? 'txtDark' : 'txtDay'"><strong>Direction: </strong> Christophe Thellier</li>
-                      <li class="li_fiche" :class="dark ? 'txtDark' : 'txtDay'"> <strong>Accompagnement choréographique: </strong> Janna Grulichova i Muriel Deville</li>
-                      <li class="li_fiche" :class="dark ? 'txtDark' : 'txtDay'"> <strong>Scénographie et accessoires: </strong>  Eric Rieu</li>
-                      <li class="li_fiche" :class="dark ? 'txtDark' : 'txtDay'"><strong>Costume: </strong>  Marta Renyer</li>
-                      <li class="li_fiche" :class="dark ? 'txtDark' : 'txtDay'"><strong>Production: </strong>  Marta Renyer i Cia. Toc Toc Théâtre</li>
-                      <li class="li_fiche" :class="dark ? 'txtDark' : 'txtDay'"><strong>Suport: </strong>  Centre Cívic Sarrià</li>
-                      <li class="li_fiche" :class="dark ? 'txtDark' : 'txtDay'">Première 2018</li>
+                      <li class="li_fiche" :class="darkTheme ? 'txtDark' : 'txtDay'" ><strong>Creation et interprétation: </strong> Marta Renyer</li>
+                      <li class="li_fiche" :class="darkTheme ? 'txtDark' : 'txtDay'"><strong>Direction: </strong> Christophe Thellier</li>
+                      <li class="li_fiche" :class="darkTheme ? 'txtDark' : 'txtDay'"> <strong>Accompagnement choréographique: </strong> Janna Grulichova i Muriel Deville</li>
+                      <li class="li_fiche" :class="darkTheme ? 'txtDark' : 'txtDay'"> <strong>Scénographie et accessoires: </strong>  Eric Rieu</li>
+                      <li class="li_fiche" :class="darkTheme ? 'txtDark' : 'txtDay'"><strong>Costume: </strong>  Marta Renyer</li>
+                      <li class="li_fiche" :class="darkTheme ? 'txtDark' : 'txtDay'"><strong>Production: </strong>  Marta Renyer i Cia. Toc Toc Théâtre</li>
+                      <li class="li_fiche" :class="darkTheme ? 'txtDark' : 'txtDay'"><strong>Suport: </strong>  Centre Cívic Sarrià</li>
+                      <li class="li_fiche" :class="darkTheme ? 'txtDark' : 'txtDay'">Première 2018</li>
                     </ul>
                   </div>
 
                   <div class="fiche_basic col-12 col-md-4 col-lg-5 col-xl-6 text-center">
-                    <h6 class="title_texte" :class="dark ? 'txtDark' : 'txtDay'"><strong>- Info basique -</strong></h6>
+                    <h6 class="title_texte" :class="darkTheme ? 'txtDark' : 'txtDay'"><strong>- Info basique -</strong></h6>
                     <ul>
-                      <li class="li_fiche" :class="dark ? 'txtDark' : 'txtDay'">Número gala</li>
-                      <li class="li_fiche" :class="dark ? 'txtDark' : 'txtDay'">Clown gestuel</li>
-                      <li class="li_fiche" :class="dark ? 'txtDark' : 'txtDay'">Sans text</li>
-                      <li class="li_fiche" :class="dark ? 'txtDark' : 'txtDay'">7 mn</li>
-                      <li class="li_fiche" :class="dark ? 'txtDark' : 'txtDay'">Tout public</li>
+                      <li class="li_fiche" :class="darkTheme ? 'txtDark' : 'txtDay'">Número gala</li>
+                      <li class="li_fiche" :class="darkTheme ? 'txtDark' : 'txtDay'">Clown gestuel</li>
+                      <li class="li_fiche" :class="darkTheme ? 'txtDark' : 'txtDay'">Sans text</li>
+                      <li class="li_fiche" :class="darkTheme ? 'txtDark' : 'txtDay'">7 mn</li>
+                      <li class="li_fiche" :class="darkTheme ? 'txtDark' : 'txtDay'">Tout public</li>
                     </ul>
                     <!-- <a class="btn_dossier" href="./assets/files/Fitxes KAKOS.pdf" download>
             Descarregar fitxa tècnica >
@@ -81,9 +81,9 @@
       </div>
       <!-- <div class="cadre" v-bind:style="{ background: 'url(' + background + ')' }"> </div> -->
     </div>
-    <div class="container-fluid-footer">
+    <!-- <div class="container-fluid-footer">
         <foot />
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -96,9 +96,9 @@ import { ref } from "vue";
 
 
 
-import navbar from "../components/nav_bar.vue"
-import foot from "../components/footer.vue"
-import dataCookies from "../js/cookies"
+// import navbar from "../components/nav_bar.vue"
+// import foot from "../components/footer.vue"
+// import dataCookies from "../js/cookies"
 
 
 
@@ -115,20 +115,21 @@ export default {
   },
 
   created: function () {
-    this.getNavData();
+    // this.getNavData();
     this.getPageData();
   },
 
   beforeMount: function () {
     console.log("BEFORE MOUNT BERNADETTE");
-    this.getLocation()
+    // this.getLocation()
   },
 
   computed: {
     ...mapState({
-      accueilData: "accueilData",
+      // accueilData: "accueilData",
       pageData: "pageData",
-      navData:"navData"
+      // navData:"navData",
+      darkTheme:"darkTheme"
     }),
     // computedBack: function () {
     //   this.background = this.pageData[0].imageUrl;
@@ -136,8 +137,8 @@ export default {
     // }
   },
   components: {
-    navbar,
-    foot,
+    // navbar,
+    // foot,
   },
   methods: {
 
@@ -146,21 +147,21 @@ export default {
       // console.log("CHANGE WIDTH", this.background);
     },
 
-    getLocation() {
-      this.$store.dispatch("getLoc")
-        .then((res) => {
-          this.DataCookies()
-        })
-    },
-    async DataCookies() {
-      let dataTheme = await dataCookies();
-      console.log("DATATHEME CALENDAR", dataTheme);
-      this.theme = dataTheme.theme
-      // this.bgColor = dataTheme.bgColor
-      this.bgColor = dataTheme.bgColor
-      this.dark = dataTheme.dark
+    // getLocation() {
+    //   this.$store.dispatch("getLoc")
+    //     .then((res) => {
+    //       this.DataCookies()
+    //     })
+    // },
+    // async DataCookies() {
+    //   let dataTheme = await dataCookies();
+    //   console.log("DATATHEME CALENDAR", dataTheme);
+    //   this.theme = dataTheme.theme
+    //   // this.bgColor = dataTheme.bgColor
+    //   this.bgColor = dataTheme.bgColor
+    //   this.dark = dataTheme.dark
       
-    },
+    // },
 
     getPageData() {
       const n = "bernadette";
@@ -172,16 +173,16 @@ export default {
         })
       console.log("REQUET GET ACCUEIL PAGE DATA-----> ", n);
     },
-    getNavData() {
-      const n = "navbar";
-      this.$store.dispatch("getNavData", n)
-        .then((res) => {
-          if (res) {
-            this.navbarOk = true
-          }
-        });
-      console.log("REQUET GET NAV BAR PAGE DATA-----> ", n);
-    },
+    // getNavData() {
+    //   const n = "navbar";
+    //   this.$store.dispatch("getNavData", n)
+    //     .then((res) => {
+    //       if (res) {
+    //         this.navbarOk = true
+    //       }
+    //     });
+    //   console.log("REQUET GET NAV BAR PAGE DATA-----> ", n);
+    // },
     
   },
 };
@@ -189,12 +190,12 @@ export default {
 
 <style  scoped>
 @import url('https://fonts.googleapis.com/css2?family=Amatic+SC&display=swap');
-@import url("../styles/bloc_nav.css");
 @import url('https://fonts.googleapis.com/css2?family=Noto+Serif&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Sawarabi+Mincho&display=swap');
 @import url('../styles/theme.css');
 @import url('../styles/font.css');
-@import url("../styles/bloc-nav-c.css");
+/* @import url("../styles/bloc_nav.css");
+@import url("../styles/bloc-nav-c.css"); */
 
 
 
@@ -420,7 +421,11 @@ font-size: 40px;
 @media screen and (min-width :1024px) {
 
   .fiche_art{
-    padding-left:50px
+    padding-left:50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+   
   }
   .bloc_title > h1{
 margin-top:30px;
@@ -428,6 +433,10 @@ font-size: 40px;
 }
 }
 @media screen and (min-width :1280px) {
+  .bloc_reverse{
+    display:flex;
+  justify-content: center;
+}
   .img_principale{
     width:60%;
   }

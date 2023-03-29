@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluid" v-if="auth == true">
+  <div class="container-fluid master_bloc" v-if="auth == true">
     <div class="row">
       <ul class="liste m-t-2">
         <li @click="disconnect()">Admin </li>
@@ -313,10 +313,10 @@ this.$router.push("/portada")
 </script>
 
 <style scoped>
-.container {
+.container-fluid {
   /* background-color: rgba(255, 191, 0, .3); */
   height: auto;
-  min-height: 800px;
+  min-height: 100vh;
 
 }
 

@@ -1,9 +1,9 @@
 <template>
-  <div class="bloc fond" :class="{ bgDark: dark }">
+  <div class="bloc fond" :class="{ bgDark: darkTheme }">
     <div class="containe p-0 mt-0 text-center">
-      <div class="bloc_nav" v-if="navbarOk">
+      <!-- <div class="bloc_nav" v-if="navbarOk">
         <navbar namePage="bio" :dark = "dark" @theme ="dark=($event)"/>
-      </div>
+      </div> -->
       <div class="anim"></div>
 
       <div class="header col-lg-12">
@@ -25,9 +25,9 @@
           </div> -->
 
           <div class="bgTitleClT  ">
-          <h1 class="title_1_1  " :class=" [dark ? txtDark : txtDay] ">{{ pageData[0].title_1 }}</h1>
+          <h1 class="title_1_1  " :class=" [darkTheme ? txtDark : txtDay] ">{{ pageData[0].title_1 }}</h1>
         </div>
-        <h1 class="title_1_2  " :class=" [dark ? txtDark : txtDay] ">{{ pageData[0].title_1 }}</h1>
+        <h1 class="title_1_2  " :class=" [darkTheme ? txtDark : txtDay] ">{{ pageData[0].title_1 }}</h1>
         </div>
 
         <div class="row col-12 bloc_img_text">
@@ -39,7 +39,7 @@
             </div>
 <div class="bloc_right">
             <div class="bgTitleCl dif2">
-              <h1 class="title_1_mobile texte txtDay" :class="dark ? 'txtDark' : 'txtDay'">{{ pageData[0].title_1 }}</h1>
+              <h1 class="title_1_mobile texte " :class="darkTheme ? 'txtDark' : 'txtDay'">{{ pageData[0].title_1 }}</h1>
             </div>
 
             <!-- fond rouge image -->
@@ -64,8 +64,8 @@
 
             <!-- <svg class="switch_svg" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.dev/svgjs" viewBox="0 0 600 100"><path d="M592.1466064453125,72.25131225585938C497.7748832702637,68.06283124287923,95.15706952412923,51.439791997273765,6.282722473144531,46.335079193115234C-82.59162457784016,41.2303663889567,43.062828063964844,41.49214553833008,58.9005241394043,41.6230354309082C74.73822021484375,41.75392532348633,86.78010241190593,44.371726989746094,101.30889892578125,47.120418548583984C115.83769543965657,49.869110107421875,129.97382609049478,54.973822911580406,146.07330322265625,58.11518478393555C162.17278035481772,61.25654665629069,184.0314178466797,65.83769989013672,197.90576171875,65.96858978271484C211.7801055908203,66.09947967529297,219.3717244466146,61.51832580566406,229.31936645507812,58.9005241394043C239.26700846354166,56.28272247314453,247.1204071044922,53.403141021728516,257.59161376953125,50.26177978515625C268.0628204345703,47.120418548583984,282.32984924316406,40.18324661254883,292.1466064453125,40.0523567199707C301.96336364746094,39.92146682739258,305.3665059407552,45.54973920186361,316.4921569824219,49.4764404296875C327.61780802408856,53.40314165751139,347.38219197591144,63.48167419433594,358.9005126953125,63.61256408691406C370.41883341471356,63.74345397949219,376.3088836669922,51.70156987508138,385.6020812988281,50.26177978515625C394.89527893066406,48.82198969523112,404.05760192871094,53.40314292907715,414.6596984863281,54.97382354736328C425.2617950439453,56.544504165649414,438.2198994954427,58.11518351236979,449.21466064453125,59.68586349487305C460.2094217936198,61.256543477376304,470.28795369466144,63.219892501831055,480.6282653808594,64.39790344238281C490.9685770670573,65.57591438293457,503.0104522705078,67.2774887084961,511.25653076171875,66.7539291381836C519.5026092529297,66.2303695678711,522.9057820638021,61.649216969807945,530.104736328125,61.25654602050781C537.3036905924479,60.86387507120768,547.3822021484375,62.69633356730143,554.4502563476562,64.39790344238281C561.518310546875,66.09947331746419,566.2303365071615,70.15706380208333,572.5130615234375,71.4659652709961C578.7957865397135,72.77486673990886,686.5183296203613,76.43979326883952,592.1466064453125,72.25131225585938C497.7748832702637,68.06283124287923,95.15706952412923,51.439791997273765,6.282722473144531,46.335079193115234" fill="hsl(353, 98%, 41%)" fill-opacity="1"></path><defs><linearGradient id="SvgjsLinearGradient1003"><stop stop-color="hsl(340, 45%, 50%)" offset="0"></stop><stop stop-color="hsl(340, 45%, 80%)" offset="1"></stop></linearGradient><radialGradient id="SvgjsRadialGradient1004"><stop stop-color="hsl(340, 45%, 50%)" offset="0"></stop><stop stop-color="hsl(340, 45%, 80%)" offset="1"></stop></radialGradient></defs></svg> -->
 
-            <div class="phrase text txtDay">
-              <p :class="dark ? 'txtDark' : 'txtDay'">
+            <div class="phrase text ">
+              <p :class="darkTheme ? 'txtDark' : 'txtDay'">
                  <i>{{ pageData[0].subTitle_1 }}</i>
               </p>
             </div>
@@ -80,7 +80,7 @@
           <div class="bloc_left p-2 col-12 col-lg-6 text-center">
             <!-- <span class="switch_line" v-if="pageData[0].p_1"></span> -->
 
-            <p class="description_bio text_p texte dif3" :class="dark ? 'txtDark' : 'txtDay'">{{ pageData[0].p_1 }}</p>
+            <p class="description_bio text_p  dif3" :class="darkTheme ? 'txtDark' : 'txtDay'">{{ pageData[0].p_1 }}</p>
             <!-- <div class="b_right bulle_1">
               <div class="quote-wrapper qw_1">
                 <blockquote class="text paraf_1 texte">
@@ -92,7 +92,7 @@
             </div> -->
             <!-- <span class="switch_line " v-if="pageData[0].p_2"></span> -->
 
-            <p class="description_bio text_p texte" :class="dark ? 'txtDark' : 'txtDay'">{{ pageData[0].p_2 }}</p>
+            <p class="description_bio text_p " :class="darkTheme ? 'txtDark' : 'txtDay'">{{ pageData[0].p_2 }}</p>
             <!-- <div class="b_right bulle_2">
               <div class="quote-wrapper qw_2">
                 <blockquote class="text paraf_2 texte">
@@ -104,7 +104,7 @@
             </div> -->
             <!-- <span class="switch_line " v-if="pageData[0].p_3"></span> -->
 
-            <p class="description_bio text_p texte" :class="dark ? 'txtDark' : 'txtDay'">{{ pageData[0].p_3 }}</p>
+            <p class="description_bio text_p " :class="darkTheme ? 'txtDark' : 'txtDay'">{{ pageData[0].p_3 }}</p>
             <!-- <div class="b_right bulle_3">
               <div class="quote-wrapper qw_3">
                 <blockquote class="text paraf_3 texte">
@@ -117,7 +117,7 @@
 
             <!-- <span class="switch_line " v-if="pageData[0].p_4"></span> -->
 
-            <p class="description_bio text_p texte" :class="dark ? 'txtDark' : 'txtDay'">{{ pageData[0].p_4 }}</p>
+            <p class="description_bio text_p " :class="darkTheme ? 'txtDark' : 'txtDay'">{{ pageData[0].p_4 }}</p>
             <!-- <div class="b_right bulle_4">
               <div class="quote-wrapper qw_4">
                 <blockquote class="text paraf_4 texte">
@@ -130,7 +130,7 @@
 
             <!-- <span class="switch_line " v-if="pageData[0].p_5"></span> -->
 
-            <p class="description_bio text_p texte" :class="dark ? 'txtDark' : 'txtDay'">{{ pageData[0].p_5 }}</p>
+            <p class="description_bio text_p " :class="darkTheme ? 'txtDark' : 'txtDay'">{{ pageData[0].p_5 }}</p>
             <!-- <div class="b_right bulle_5">
               <div class="quote-wrapper qw_5">
                 <blockquote class="text paraf_5 texte">
@@ -153,7 +153,7 @@
 
       <div class="row otherShows">
         <div class="bgTitleSCl">
-        <h2 class="title_2" :class="dark ? 'txtDark' : 'txtDay'">{{ pageData[0].title_2 }}</h2>
+        <h2 class="title_2" :class="darkTheme ? 'txtDark' : 'txtDay'">{{ pageData[0].title_2 }}</h2>
       </div>
         <div class="bloc_loop_otherShows col-12">
           <div class="bloc_img col-6 col-sm-4" v-for="i in imgData" :key="i._id">
@@ -165,22 +165,22 @@
           </div>
         </div>
       </div>
-      <div class="footer" v-motion-slide-visible-once-bottom>
+      <!-- <div class="footer" v-motion-slide-visible-once-bottom>
 
         <div class="container-fluid-footer">
           <foot />
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
 
 <script>
-import navbar from "../components/nav_bar.vue";
-import foot from "../components/footer.vue";
+// import navbar from "../components/nav_bar.vue";
+// import foot from "../components/footer.vue";
 import { mapState } from "vuex";
 import {ref} from "vue";
-import dataCookies from "../js/cookies"
+// import dataCookies from "../js/cookies"
 
 export default {
   name: "bio",
@@ -193,43 +193,43 @@ export default {
   },
 
   components: {
-    navbar,
-    foot,
+    // navbar,
+    // foot,
   },
 
   computed: {
     ...mapState({
       pageData: "pageData",
       imgData: "imgData",
+      darkTheme:"darkTheme"
     }),
+    
   },
   created: function () {
     this.getPageData();
-
-    this.getNavData();
+    // this.DataCookies()
+    // this.getNavData();
   },
   beforeMount: function () {
     console.log("BEFORE MOUNT BIO");
-    this.getLocation()
+    // this.getLocation()
   },
 
   methods: {
+
     
-    getLocation() {
-      this.$store.dispatch("getLoc")
-        .then((res) => {
-          this.DataCookies()
-        })
-    },
-    async DataCookies() {
-      let dataTheme = await dataCookies();
-      console.log("DATATHEME CALENDAR", dataTheme);
-      this.theme = dataTheme.theme
-      // this.bgColor = dataTheme.bgColor
-      this.bgColor = dataTheme.bgColor
-      this.dark = dataTheme.dark
-      
-    },
+    
+    // getLocation() {
+    //   this.$store.dispatch("getLoc")
+    //     .then((res) => {
+         
+    //     })
+    // },
+    // async DataCookies() {
+    //   let dataTheme = await dataCookies();
+    //   this.dark = dataTheme.dark
+    // },
+    
     getPageData() {
       const n = "bio";
       this.$store.dispatch("getPageData", n)
@@ -242,17 +242,18 @@ export default {
         });
       console.log("REQUET GET ACCUEIL PAGE DATA-----> ", n);
     },
-    getNavData() {
-      const n = "navbar";
-      this.$store.dispatch("getNavData", n).then((res) => {
-        if (res) {
-          if (res) {
-            this.navbarOk = true;
-          }
-        }
-      });
-      console.log("REQUET GET NAV BAR PAGE DATA-----> ", n);
-    },
+
+    // getNavData() {
+    //   const n = "navbar";
+    //   this.$store.dispatch("getNavData", n).then((res) => {
+    //     if (res) {
+    //       if (res) {
+    //         this.navbarOk = true;
+    //       }
+    //     }
+    //   });
+    //   console.log("REQUET GET NAV BAR PAGE DATA-----> ", n);
+    // },
   },
 };
 </script>
@@ -260,11 +261,12 @@ export default {
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Sawarabi+Mincho&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Unna&display=swap");
-@import url("../styles/bloc_nav.css");
+/* @import url("../styles/bloc_nav.css"); */
 @import url("../styles/font.css");
 @import url("../styles/theme.css");
-@import url("../styles/bloc-nav-c.css");
-/* @import url("../styles/bulles.css"); */
+/* @import url("../styles/bloc-nav-c.css"); */
+@import url('https://fonts.googleapis.com/css2?family=Philosopher&display=swap');
+
 
 
 /* .anim{
@@ -532,6 +534,13 @@ svg {
   justify-content: center;
   padding: 1rem;
 }
+.bloc_left > p::first-letter{
+  
+  font-size: 25px;
+  font-family: 'Philosopher', sans-serif;
+
+}
+
 
 .description_bio {
   text-align: center;
@@ -931,7 +940,9 @@ p {
   .title_1 {
     font-size: 40px;
   }
-
+.bloc_left >p{
+  padding: 0 60px 0 0;
+}
   .otherShows {
     margin-top: 30px;
   }
@@ -953,6 +964,11 @@ p {
   .otherShows {
     margin-top: 50px;
   }
+  .bgTitleSCl {
+  width:450px;
+  height:170px;
+  z-index:0
+}
   .bloc_loop_otherShows{
     max-width: 1000px;
     margin:0 auto;
@@ -979,10 +995,11 @@ p {
     margin-top: 0px;
   }
 
-  .bloc_img_text {
-
-    /* margin-top: 200px; */
-  }
+  .bgTitleSCl {
+  width:440px;
+  height:165px;
+  z-index:0
+}
 
   svg {
     position: relative;
@@ -1005,4 +1022,27 @@ p {
     object-fit: contain;
 
   } */
-}</style>
+}
+  @media screen and (min-width:1920px) {
+.title{
+  margin-bottom: 0px;
+  margin-top:70px
+}
+.bloc_img_text {
+
+ margin-top: 20px; 
+}
+.bloc_left > p{
+  
+    padding:0 250px 0 170px;
+    margin:30px auto
+  }
+  .bgTitleSCl {
+  width:600px;
+  height:180px;
+  z-index:0
+}
+
+}
+
+</style>

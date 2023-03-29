@@ -12,17 +12,17 @@ let dataCookies = () => {
     }
     if ($cookies.get("userTime")) {
         dataTheme.theme = $cookies.get("userTime");
-        console.log("THEME COOKIES:JS",dataTheme.theme)
+        // console.log("THEME COOKIES:JS",dataTheme.theme)
 
         if(dataTheme.theme === '"day"'){
-            dataTheme.bgColor =  "#f1f1f1";
-            dataTheme.textColor = " rgb(62, 1, 1)";
+            // dataTheme.bgColor =  "#f1f1f1";
+            // dataTheme.textColor = " rgb(62, 1, 1)";
             dataTheme.dark = false
             // dataTheme.bgColor = " rgb(62, 1, 1)" ;
             // dataTheme.textColor ="#f1f1f1" ;
         }else if(dataTheme.theme === '"dark"'){
-            dataTheme.bgColor = "black";
-            dataTheme.textColor = "#f1f1f1";
+            // dataTheme.bgColor = "black";
+            // dataTheme.textColor = "#f1f1f1";
             dataTheme.dark = true
         }
     }

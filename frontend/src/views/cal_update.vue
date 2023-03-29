@@ -497,13 +497,13 @@ input[type="date"],[type="time"]{
     background-color: #0080ff;
     padding: 5px;
     appearance: none;
-    /* transform: translate(-50%,-50%); */
+    
     
     font-family: "Roboto Mono",monospace;
     color: #ffffff;
     font-size: 18px;
     border: 1px solid white;
-    /* border:none; */
+   
     outline: 1px solid rgb(3, 26, 232);
     border-radius: 5px;
     box-shadow: 2px 2px 2px 0.2rem rgba(1, 32, 65, 0.25);
@@ -581,10 +581,6 @@ label {
   width: 100%;
 }
 
-.date_picker {
-  width: 200px;
-}
-
 .mode {
   font-size: 12px;
   text-align: end;
@@ -604,5 +600,20 @@ label {
   width:32%;
 }
   
+}
+@media screen and (min-width:1024px) {
+  .col-lg-4{
+  width:30%;
+}
+.bloc_update{
+ justify-content: center;
+ 
+  }
+}
+@media screen and (min-width:1280px) {
+  .col-lg-4{
+  width:25%;
+}
+
 }
 </style>

@@ -39,31 +39,31 @@
             <!-- <div class=" group_btn_img"> -->
 
 
-              <label for="image" class="btn_upload">
-                <figure>
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="17" viewBox="0 0 20 17">
-                    <path
-                      d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z">
-                    </path>
-                  </svg>
-                </figure> 
-                <input class="btn_upload_file" type="file" name="image" id="image" ref="file" @change="FileUpload"
-                  accept="image/png, image/jpeg, image/jpg, image/gif, image/webp" />
-                 <p class="fileName" v-if="fileName && 0 === inputSelected">{{ fileName }}</p> 
-                 <!-- <span class>{{ fileName }}</span> -->
-              </label>
+            <label for="image" class="btn_upload">
+              <figure>
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="17" viewBox="0 0 20 17">
+                  <path
+                    d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z">
+                  </path>
+                </svg>
+              </figure>
+              <input class="btn_upload_file" type="file" name="image" id="image" ref="file" @change="FileUpload"
+                accept="image/png, image/jpeg, image/jpg, image/gif, image/webp" />
+              <p class="fileName" v-if="fileName && 0 === inputSelected">{{ fileName }}</p>
+              <!-- <span class>{{ fileName }}</span> -->
+            </label>
             <!-- </div> -->
           </div>
 
-          <div class="btn-action ">
+          <div class="btn-action homeBtn">
 
-            <label class="" for="submit">
-            <input type="button" name="submit" class="btn btn_up btn_all" keyUp="enter"
-              value="Update" @click="updatePage()">
+            <label class="home" for="submit">
+              <input type="button" name="submit" class="btn btn_up btn_all" keyUp="enter" value="Update"
+                @click="updatePage()">
             </label>
-            <label class="" for="retour">
-            <input type="button" name="retour" class="btn btn_cancel btn_all" keyUp="enter"
-              value="Cancel" @click="FileCancel">
+            <label class="home" for="retour">
+              <input type="button" name="retour" class="btn btn_cancel btn_all" keyUp="enter" value="Cancel"
+                @click="FileCancel">
             </label>
           </div>
         </div>
@@ -102,17 +102,17 @@
 
 
                   <label for="image" class="btn_upload">
-                <figure>
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="17" viewBox="0 0 20 17">
-                    <path
-                      d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z">
-                    </path>
-                  </svg>
-                </figure> 
-                <input class="btn_upload_file" type="file" name="image" id="image" ref="file" @change="FileUpload"
-                  accept="image/png, image/jpeg, image/jpg, image/gif, image/webp" />
-                 <p class="fileName" v-if="fileName && index === inputSelected -1">{{ fileName }}</p> 
-              </label>
+                    <figure>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="17" viewBox="0 0 20 17">
+                        <path
+                          d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z">
+                        </path>
+                      </svg>
+                    </figure>
+                    <input class="btn_upload_file" type="file" name="image" id="image" ref="file" @change="FileUpload"
+                      accept="image/png, image/jpeg, image/jpg, image/gif, image/webp" />
+                    <p class="fileName" v-if="fileName && index === inputSelected - 1">{{ fileName }}</p>
+                  </label>
                   <!-- <span v-if="i._id ">{{ OnefileSelected }}</span> -->
                 </div>
               </div>
@@ -120,15 +120,15 @@
           </div>
           <div class="btn-action ">
 
-<label class="" for="submit">
-<input type="button" name="submit" class="btn btn_up btn_all" keyUp="enter"
-  value="Update" @click="updateImg(i._id)">
-</label>
-<label class="" for="retour">
-<input type="button" name="retour" class="btn btn_cancel btn_all" keyUp="enter"
-  value="Cancel" @click="FileCancel">
-</label>
-</div>
+            <label class="" for="submit">
+              <input type="button" name="submit" class="btn btn_up btn_all" keyUp="enter" value="Update"
+                @click="updateImg(i._id)">
+            </label>
+            <label class="" for="retour">
+              <input type="button" name="retour" class="btn btn_cancel btn_all" keyUp="enter" value="Cancel"
+                @click="FileCancel">
+            </label>
+          </div>
         </div>
       </div>
       <!-- </div> -->
@@ -175,22 +175,36 @@ export default {
   },
 
   methods: {
-
+    inputSelectedChange() {
+      console.log("INPUT CAHNGE");
+      this.inputSelected = "";
+    },
 
     FileUpload(event) {
-      let that = this
+      let that = this;
+      this.inputSelected = "";
+      console.log("INPUT DESELECTED-->", this.inputSelected);
       let inp = document.querySelectorAll('input[type=file]');
 
+      let File = event.target.files[0];
+      this.fileName = File.name
       // let inp1 = document.querySelector('input[type=file]').files[0];
+
+      let tabInput=[]
 
       let iR = inp.forEach((input, index) => {
         let files = input.files[0];
 
-        if (files) {
-          this.inputSelected = index;
-          console.log(" INPUT SELECTED",index);
-        }
+         tabInput.push(files)
 
+        if (files == File) {
+
+          this.inputFile = files.name;
+
+          // console.log("INPUT SELECTED", index, files);
+
+          this.inputSelected = index;
+        }
       });
 
       var input = event.target;
@@ -205,9 +219,8 @@ export default {
 
 
       // ************ DONE **********************************
+
       
-      let File = event.target.files[0];
-      this.fileName = File.name
       new Compressor(File, {
         quality: 0.6,
         success(result) {
@@ -227,7 +240,8 @@ export default {
       this.fileSelected = "";
       this.fileName = "";
       this.preview = "";
-      console.log("FILECANCEL");
+      this.inputSelected = "",
+        console.log("FILECANCEL");
     },
 
     indexCard(x) {
@@ -387,7 +401,13 @@ label {
   width: 200px;
 
 }
-
+.homeBtn{
+  display: flex;
+  flex-direction: column;
+}
+.home{
+  width:100px
+}
 .bloc-page {
   width: 90%;
   margin: 0 auto;
@@ -464,7 +484,7 @@ width: 20%;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-align-items: center;
+  align-items: center;
   width: 100%;
 }
 
@@ -473,7 +493,7 @@ align-items: center;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  gap:20px;
+  gap: 20px;
 }
 
 .bloc_img {
@@ -565,8 +585,12 @@ align-items: center;
     overflow: visible;
     border: none;
   } */
-
+  .homeBtn{
+  display: flex;
+  flex-direction: row;
+}
   .input_label {
     flex-direction: row;
   }
-}</style>
+}
+</style>

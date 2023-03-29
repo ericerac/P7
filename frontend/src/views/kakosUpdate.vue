@@ -58,7 +58,7 @@
 
 
 
-        <p class="info_slider">Valider la mise à jour à chaque changement d'image </p>
+        <p class="info_slider">Valider la mise à jour à chaque changement d'image,<br> Cambia l'imatge per les 3 idiomes a l'hora. </p>
         <div class="bloc_img_slider">
           <div class="loop" v-for="(img, index) in imgData" :key="`item-${index}`">
 
@@ -79,21 +79,23 @@
                     </path>
                   </svg>
                 </figure>
-                <input class="btn_upload_file" type="file" name="image" id="image" ref="file" @change="FileUpload"
-                  accept="image/png, image/jpeg, image/jpg, image/gif, image/webp" />
+                <input class="btn_upload_file" type="file" name="image" id="image" ref="file" @click="letInput"
+                  @change="FileUpload" accept="image/png, image/jpeg, image/jpg, image/gif, image/webp" />
                 <span class="fileName" v-if="fileName && index === inputSelected && addKakosC == false">{{ fileName
                 }}</span>
               </label>
 
 
-
-              <div class="btn_action">
+<!-- <BtnUpDelCan @updateImg="updateImg(img._id)" @cancelFileSelected="cancelFileSelected()" @delImg="delImg(img._id)"/>
+              -->
+<div class="btn_action">
 
 
                 <button class="btn btn_up btn_all" @click="updateImg(img._id)">Update</button>
                 <button class="btn btn_cancel btn_all" @click="cancelFileSelected()">Cancel</button>
                 <button class="btn btn_del btn_all" @click="delImg(img._id)">Delete</button>
               </div>
+
             </div>
           </div>
         </div>
@@ -175,7 +177,7 @@ import FileUpload from "../js/fileUpload";
 import Compressor from 'compressorjs';
 
 import ImgKakos from '../components/ImgKakos.vue';
-
+import BtnUpDelCan from '../components/btnUpDelCan.vue';
 
 export default {
   name: "kakos",
@@ -187,7 +189,8 @@ export default {
       fileSelected: "",
       inputSelected: ref(""),
       addKakosC: ref(false),
-
+      inputFile: ref(""),
+      tabInput:[],
     }
   },
 
@@ -200,100 +203,41 @@ export default {
     }),
   },
   components: {
-    ImgKakos
+    ImgKakos,
+    BtnUpDelCan
   },
   methods: {
-    addImg() {
-      console.log("ADD KAKOS");
-    },
-
-
-
-    //     async FileUpload(event) {
-    //       let that = this;
-    //       let files="";
-    //       let imp=""
-    //       let inp = document.querySelectorAll('input[type=file]');
-    // // console.log("EVENT----->",event.target.files[0]);
-
-    //       // let inp1 = document.querySelector('input[type=file]').files[0];
-
-    //       let iR = inp.forEach((input, index) => {
-    //         files = input.files[0];
-    //         imp = input
-
-
-    //         if (files) {
-    //           console.log("INPUT----->",input.files[0]);
-    //           // console.log("INPUT SELECTED",index,files);
-    //           this.inputSelected = index;
-    //         }
-
-    //       });
-
-    //       // var input = event.target;
-    //       let input = files;
-    //       if (files) {
-    //         var reader = new FileReader();
-    //         reader.onload = (e) => {
-    //           console.log("E TARGET",e);
-    //           this.preview = e.target.result;
-    //         }
-
-    //         reader.readAsDataURL(files);
-    //       }
-
-
-    //       // ************ DONE **********************************
-
-    //       // let File = event.target.files[0];
-    //         // this.fileName = files.name
-
-    //       new Compressor(imp.files[0], {
-    //         quality: 0.6,
-    //         success(result) {
-    //           console.log("SUCCESS COMPRESSOR", result);
-    //           that.fileSelected = result
-    //         },
-    //         error(err) {
-    //           console.log(err.message);
-    //         },
-    //       });
-
-    //     },
-
+    
 
     async FileUpload(event) {
       let that = this;
       let inp = document.querySelectorAll('input[type=file]');
-      console.log("EVENT----->", event);
-      // let inp1 = document.querySelector('input[type=file]').files[0];
+
+      let File = event.target.files[0];
+      this.fileName = File.name
+
+      let tabInput=[]
 
       let iR = inp.forEach((input, index) => {
         let files = input.files[0];
 
-        if (files) {
-          console.log("INPUT SELECTED", index, files);
+         tabInput.push(files)
+
+        if (files == File) {
+          this.inputFile = files.name;
           this.inputSelected = index;
         }
-
       });
 
-      var input = event.target;
-      if (input.files) {
-        var reader = new FileReader();
+      if (event.target.files) {
+        let reader = new FileReader();
         reader.onload = (e) => {
           this.preview = e.target.result;
         }
-        this.image = input.files[0];
-        reader.readAsDataURL(input.files[0]);
+        reader.readAsDataURL(event.target.files[0]);
       }
 
-
       // ************ DONE **********************************
-
-      let File = event.target.files[0];
-      this.fileName = File.name
 
       new Compressor(File, {
         quality: 0.6,
@@ -308,13 +252,11 @@ export default {
 
     },
 
-
-
-
     cancelFileSelected(event) {
       this.fileSelected = "";
       this.fileName = "";
       this.preview = "";
+      this.tabInput=[];
       console.log("CANCEL FILE IMAGE SELECTED", this.fileSelected, this.fileName);
     },
 
@@ -373,18 +315,16 @@ export default {
       this.$store
         .dispatch("updatePage", {
           data: bodyFormData,
-          // page: `${process.env.VUE_APP_PAGE1_NAME}`
+        
           page: "kakos"
         })
 
         .then((response) => {
-          if (response.status == 200) {
-            // console.log("RESPONSE CALUPDATE 2", response);
+          // if (response.status == 200) {
+             console.log("RESPONSE BioUPDATE IMG");
             //     location.reload();
             file = null;
-
-
-          }
+            cancelFileSelected()
         })
         .catch((response) => {
 
@@ -454,67 +394,67 @@ export default {
     },
 
 
-  createImg() {
-    let bodyFormData = new FormData();
-let imgNumber = this.imgData.length + 1;
-    if (this.fileSelected) {
-      bodyFormData.append("image", this.fileSelected, this.fileSelected.name);
-      bodyFormData.append("img", imgNumber );
-      bodyFormData.append("page", "kakos");
-    } else {
-      window.alert("Selectionne une image, non ?")
-      return
-    }
-    this.$store
-      .dispatch(
-        "createImg", 
-        bodyFormData,
-      )
-      .then((response) => {
-        if (response) {
-        console.log("RETURM RESPONSE ",response);
-          
-          this.addKakosC = false
+    createImg() {
+      let bodyFormData = new FormData();
+      let imgNumber = this.imgData.length + 1;
+      if (this.fileSelected) {
+        bodyFormData.append("image", this.fileSelected, this.fileSelected.name);
+        bodyFormData.append("img", imgNumber);
+        bodyFormData.append("page", "kakos");
+      } else {
+        window.alert("Selectionne une image, non ?")
+        return
+      }
+      this.$store
+        .dispatch(
+          "createImg",
+          bodyFormData,
+        )
+        .then((response) => {
+          if (response) {
+            console.log("RETURM RESPONSE ", response);
 
-        }
+            this.addKakosC = false
 
-      })
-      .catch((response) => {
+          }
 
-
-      });
-  },
-
-  
+        })
+        .catch((response) => {
 
 
-delImg(x){
-  let del =  window.confirm("Quel dommage ! Supprimer ? sur? ");
-    if(!del){
-      return
-    }
+        });
+    },
 
-  this.$store
-  .dispatch("delCard", {
+
+
+
+    delImg(x) {
+      let del = window.confirm("Quel dommage ! Supprimer ? sur? ");
+      if (!del) {
+        return
+      }
+
+      this.$store
+        .dispatch("delCard", {
           idCard: x,
           page: "img",
         })
 
-      .then((response) => {
-        if (response.status == 200) {
-        
-          file = null;
+        .then((response) => {
+          if (response.status == 200) {
 
-        }
+            file = null;
 
-      })
-      .catch((response) => {
+          }
+
+        })
+        .catch((response) => {
 
 
-      });
-}
+        });
+    }
 
-},
+  },
 }
 </script>
 
@@ -574,6 +514,7 @@ delImg(x){
   width: 100%;
   padding-bottom: 10px;
   background-color: #f0f0f0;
+  border: 2px dashed blue;
 }
 
 .info_slider {
@@ -592,7 +533,7 @@ delImg(x){
 }
 
 .bloc_loop {
-  border: 1px solid black;
+  border: 2px dashed black;
   margin-top: 20px
 }
 
@@ -693,7 +634,13 @@ label {
   }
 }
 
-@media screen and (min-width:1140px) {
+@media screen and (min-width:768px) and (min-height:500px) {
+  .loop {
+    width: 45%
+  }
+}
+
+@media screen and (min-width:1024px) {
 
   .bloc_img_slider {
     display: flex;
@@ -705,7 +652,7 @@ label {
   .loop {
     display: flex;
     flex-direction: row;
-    width: 200px;
+    width: 250px;
     border: 1px solid black;
   }
 
@@ -717,8 +664,9 @@ label {
 
   .img_diapo {
 
-    width: 200px;
-    height: 200px
+    width: 100%;
+    height: 250px;
+    object-fit: contain;
   }
 
   .header {

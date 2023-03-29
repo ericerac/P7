@@ -1,79 +1,115 @@
-<template>
+<template >
+  <loader v-if="loading" />
 
 
-  <loader v-if="loading"/>
-  <!-- <div v-if="modal">
-<ModalMessageVue />
-</div> -->
-   <!-- <bgKakos/> -->
-   <!-- <div class="nav"><navbar /></div> -->
-   
-<!-- <routerView  v-slot="{ Component }">
-  <transition name="route" mode="out-in" appear>
-  <component :is="Component">
+  <div class="bloc_nav" v-if="navbarOk && namePage != 'post' ">
+    <navbar :namePage="namePage" :dark="dark" @theme="dark = ($event)" />
+  </div>
 
-  </component>
-
-  </transition>
-</routerView> -->
-
-<routerView/>
-  <!-- <router-view class="view">
-    <bgKakos />
-  </router-view> -->
-
+  <routerView />
+  <div class="container-fluid-footer">
+    <foot :dark="dark" />
+  </div>
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapMutations } from 'vuex';
 import loader from './components/loader.vue';
-import   navbar from './components/nav_bar.vue';
-// import bgKakos from './components/bgKakos.vue';
+import navbar from './components/nav_bar.vue';
+import foot from './components/footer.vue';
+import dataCookies from "./js/cookies"
+import { ref, toRef } from "vue"
+
 
 
 export default {
   name: 'App',
   data: function () {
     return {
-      // detailUser: "",
-      // modalMessageVue: "modalMessage",
+      navbarOk: false,
+      dark: ref(""),
+      backGround: ref("")
     };
   },
   components: {
-     loader,
-     navbar ,
-    //  bgKakos,
+    loader,
+    navbar,
+    foot,
+
   },
   created: function () {
     this.getNavData();
+    this.getLocation()
   },
   computed: {
     ...mapState({
       loading: "loading",
       time: "time",
-      bgKakos: "bgKakos"
+      namePage: "namePage",
+      darkTheme: "darkTheme",
+      langPage:"langPage"
 
-    })
+    }),
+    ...mapMutations(["Theme"]),
+
+
+
   },
-  methods:{
+  watch: {
+    dark(n, o) {
+      if (n == true) {
+        console.log("WATCH DARK TRUE", n);
+        this.dark = true
+        this.backGround = "rgb(22, 23, 29)"
+        this.$store.commit("Theme", this.dark);
+      }
+      else if (n == false) {
+        this.dark = false;
+        this.backGround = "white"
+        this.$store.commit("Theme", this.dark);
+      }
+      console.log("WATCH DARK APP", n, o);
+    },
+    langPage(n,o){
+      console.log("LANG PAGE APP NEW",n);
+      console.log("LANG PAGE APP OLD",o);
+    }
+
+  },
+  methods: {
     getNavData() {
       const n = "navbar";
       this.$store.dispatch("getNavData", n).then((res) => {
         if (res) {
-          if (res) {
+          console.log("RES GET NAV BAR APP");
             this.navbarOk = true;
-          }
+          
         }
       });
-      console.log("REQUET GET NAV BAR PAGE DATA-----> ", n);
     },
-   },
 
+    getLocation() {
+      this.$store.dispatch("getLoc")
+        .then((res) => {
+          this.DataCookies()
+        })
+    },
 
+    async DataCookies() {
+      let dataTheme = await dataCookies();
+      this.dark = dataTheme.dark
+      this.$store.commit("Theme", dataTheme.dark);
+
+    },
+  },
 }
 </script>
 
 <style >
+@import url("./styles/bloc_nav.css");
+@import url("./styles/bloc-nav-c.css");
+@import url("./styles/theme.css");
+
 .view {
   margin: auto;
   background-color: black;
@@ -83,9 +119,9 @@ export default {
 html {
   /* background-color: rgb(252, 217, 164); */
 }
-html{
-  background: black;
-}
+
+html {}
+
 * {
   margin: 0;
   padding: 0;
@@ -97,19 +133,27 @@ html{
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  background-color: transparent;
+  /* background-color: transparent; */
   margin-top: 0px;
   background-attachment: fixed;
   margin: auto;
-
+  background-color: v-bind(backGround);
+  /* background-color:rgb(22, 23, 29); */
+  /* background: black; */
 }
-.nav{
+
+.container-fluid-footer {
+  width: 100vw;
+  margin: 0 auto
+}
+
+/* .nav{
   position:fixed;
   top:20px;
   right:30px;
   left:30px;
   z-index:1222;
-}
+} */
 li {
   list-style: none;
 }
@@ -120,17 +164,17 @@ li {
   opacity: 0;
   transform: translateX(200px)
 }
+
 .route-enter-active {
   transition: all .3s ease-out
 }
 
 .route-leave-to {
-  opacity:0;
+  opacity: 0;
   transform: translateX(-200px);
 }
+
 .route-leave-active {
   transition: all .3s ease-in
 }
-
-
 </style>

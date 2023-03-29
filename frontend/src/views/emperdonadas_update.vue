@@ -162,6 +162,7 @@ export default {
     methods: {
 
         async  FileUpload(event) {
+            let that = this
       let inp = document.querySelectorAll('input[type=file]');
 
       // let inp1 = document.querySelector('input[type=file]').files[0];
@@ -196,7 +197,7 @@ export default {
         quality: 0.6,
         success(result) {
           console.log("SUCCESS COMPRESSOR", result);
-          this.fileSelected = result
+          that.fileSelected = result
         },
         error(err) {
           console.log(err.message);
@@ -356,7 +357,7 @@ label {
 }
 
 .master {
-    height: 100vh;
+    height: auto;
 }
 
 /* .img_principale{

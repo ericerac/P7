@@ -7,7 +7,7 @@
             <img class="check" src="" alt="" />
             <h6>Succés</h6>
             <p>{{ modalMessage }}</p>
-            <button @click="ModalSucces(false)">fermer</button>
+            <button @click="ModalSucces(false)">Close</button>
           </div>
           <div class="close">
             <img class="close-img" src="" alt="" />

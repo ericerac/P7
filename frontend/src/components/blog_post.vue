@@ -3,7 +3,7 @@
         <div class="row ">
             <div class="bloc_post">
                 <div class="bloc_img_text">
-
+<div class="prevSpace">
                     <div class="img_ulpoaded">
 
                         <template v-if="preview">
@@ -17,18 +17,18 @@
 
                         </template>
                         <span class="fileName"> {{ this.fileName }}</span>
-
+                    </div>
                     </div>
                     <div class="bloc_btn_img">
-                        <div class="btn_upL">
-                            <label for="image" class="btn_upload">
+                        <div class="btn_upL btn_Publish">
+                            <label for="image" class="">
                                 <input type="file" name="image" id="image" ref="file" @change="FileUpload"
                                     accept="image/png, image/jpeg, image/jpg, image/gif, image/webp" hidden />Upload
                                 image
                             </label>
 
                         </div>
-                        <div class="btn_cancel" @click="cancelFileSelected()">
+                        <div class="btn_cancel btn_Publish" @click="cancelFileSelected()">
 
                             Cancel
                         </div>
@@ -62,7 +62,11 @@
                                 placeholder="texte...">
                                  </textarea>
                         </div>
-
+                        <div class="title">
+                            <label for="link">Link
+                                <input class="input_title" name="link" type="text" v-model="Link" placeholder="Link" />
+                            </label>
+                        </div>
                     </div>
                 </div>
                 <div class="btn_Publish">
@@ -79,6 +83,7 @@
 
 import fileUpload from "../js/fileUpload.js";
 import { mapState } from "vuex";
+import Compressor from 'compressorjs';
 export default {
     data() {
         return {
@@ -118,49 +123,59 @@ export default {
     },
     methods: {
 
-          async FileUpload(event) {
-            console.log("EVENT ", event);
+        async FileUpload(event) {
+      let that = this
+      let inp = document.querySelectorAll('input[type=file]');
 
-            //  const data = await fileUpload(event)
-            // console.log("RESPONSE DU MODULE POST PAGE", data.fileSelected.name);
-            // this.fileSelected = data.fileSelected;
-            // this.fileName = data.fileSelected.name;
-            // this.OnefileSelected = data.fileSelected.name;
-            // const fileBlobPreview = data.fileSelected.filePreview;
-            // console.log("PREVIEW POST PAGE",data.fileSelected.filePreview);
-            // this.preview = fileBlobPreview;
-// console.log("RETURN FILE JS",data);
-            
-            // *** PREVIEW
+      // let inp1 = document.querySelector('input[type=file]').files[0];
 
-            var input = event.target;
-            if (input.files) {
-                var reader = new FileReader();
-                reader.onload = (e) => {
-                    this.preview = e.target.result;
-                }
-                this.image = input.files[0];
-                reader.readAsDataURL(input.files[0]);
-            }
+      let iR = inp.forEach((input, index) => {
+        let files = input.files[0];
 
-            this.fileSelected = event.target.files[0];
-            this.OnefileSelected = this.fileSelected.name;
-            this.fileName = this.fileSelected.name;
+        if (files) {
+          this.inputSelected = index;
+          console.log(" INPUT SELECTED", index);
+        }
+
+      });
+
+      var input = event.target;
+      if (input.files) {
+        var reader = new FileReader();
+        reader.onload = (e) => {
+          this.preview = e.target.result;
+        }
+        this.image = input.files[0];
+        reader.readAsDataURL(input.files[0]);
+      }
 
 
+      // ************ DONE **********************************
 
+      let File = event.target.files[0];
+      this.fileName = File.name
+      new Compressor(File, {
+        quality: 0.6,
+        success(result) {
+          console.log("SUCCESS COMPRESSOR", result);
+          that.fileSelected = result
         },
-
-        cancelFileSelected(event) {
-            this.fileSelected = "";
-            this.fileName = "";
-            console.log(
-                "CANCEL FILE IMAGE SELECTED",
-                this.fileSelected,
-                this.fileName,
-                this.preview = null
-            );
+        error(err) {
+          console.log(err.message);
         },
+      });
+
+    },
+
+
+    cancelFileSelected(event) {
+
+      this.fileSelected = "";
+      this.fileName = "";
+      this.preview = "";
+      console.log("FILECANCEL");
+    },
+
         filterInput(x) {
 
             if (!this.fileSelected && !this.Texte1 && !this.Title) {
@@ -396,12 +411,17 @@ textarea {
     width: 90%;
     height: 200px;
 }
-
-.bloc_img_text {
+.prevSpace{
     position: relative;
+    width:100%;
+    height:220px;
+    border:1px solid blue;
+}
+.bloc_img_text {
+    
     width: 100%;
-    height: 60vh;
-    min-height: 500px;
+    /* height: 60vh; */
+    min-height: auto;
     margin-top: 0;
     /* border: 1px solid blue; */
     box-shadow: 2px 2px 10px white;
@@ -417,7 +437,7 @@ textarea {
     /* border: 1px solid red; */
     border-radius: 10px;
 
-    margin-bottom: 15px;
+   
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -436,7 +456,8 @@ textarea {
 .img_ulpoaded {
     position: absolute;
     width: 100%;
-    height: 200px;
+    height:auto;
+    max-height: 200px;
     top: 0;
     left: 0;
     right: 0;
@@ -480,5 +501,29 @@ textarea {
     box-shadow: 2px 2px 10px white;
 
 
+}
+@media screen and (min-width:768px) and (max-height:500px) {
+    .bloc_post{
+        flex-direction: row;
+        width:650px;
+        margin:20px auto
+    }
+    .bloc_img_text {
+        flex-direction: row;
+    }
+    .btn_Publish{
+        width:50px
+    }
+    .bloc_btn_img{
+        display:flex;
+        flex-direction: column;
+        width:100px;
+        justify-content: space-around;
+        height:100%
+    }
+    .btn_Publish>button{
+        border:1px solid black;
+       
+    }
 }
 </style>

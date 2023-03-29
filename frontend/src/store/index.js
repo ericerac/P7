@@ -11,8 +11,10 @@ const myRouter = useRouter();
 import { router } from "../../src/router";
 import Vuex from "vuex";
 
+import dataPageModul from "./modules/dataPageModul.js";
+
 import Vue from "vue";
-import { ref } from "vue";
+
 
 import { useCookies } from "vue3-cookies";
 const { cookies } = useCookies();
@@ -44,6 +46,7 @@ instance.interceptors.request.use(
     //   store.commit("ModalMessage", "C'est ici qu'il faut arreter la requete en cas de body");
     //   throw new axios.Cancel('Operation canceled by the user.');
     // }
+    console.log("INTER REQUEST CONFIG",config);
 
     if ($cookies.get("user")) {
       const AuthUser = $cookies.get("user");
@@ -68,8 +71,8 @@ instance.interceptors.request.use(
 instance.interceptors.response.use(
   function (response) {
     const supp = response.data.message;
-    console.log("RESPONSE", response);
-    console.log("RESPONSE STATUS", response.status);
+    // console.log("RESPONSE", response);
+    // console.log("RESPONSE STATUS", response.status);
 
     // console.log("RESPONSE INTER", supp);
 
@@ -207,6 +210,7 @@ const store = createStore({
     status: false,
     loading: false,
     pageData: [],
+    blogData:"",
     token: "",
     doLogin: "",
     dologout: "",
@@ -231,34 +235,40 @@ const store = createStore({
     postUpdate: "",
     geoLoc: "",
 
+    langPage:"",
     light: "",
     userTime: "",
     userLocalHour: "",
     dataUser: "",
+
+    darkTheme:"",
   },
-  modules: {},
+  modules: {
+    // dataPageModul : dataPageModul
+
+  },
   //----------------------------------------------------------------------------------//
   //----------------------------------*** MUTATION ***---------------------------------//
   //----------------------------------------------------------------------------------//
   mutations: {
     AuthAdmin: (state, val) => {
-      console.log("MUT ADMIN AUTH", val);
+      // console.log("MUT ADMIN AUTH", val);
       state.auth = val;
       // eslint-disable-next-line no-undef
     },
     loading: (state, val) => {
-      console.log("MUT USER loading", val);
+      // console.log("MUT USER loading", val);
       state.loading = val;
       // eslint-disable-next-line no-undef
     },
     logUser: (state, val) => {
-      console.log("MUT USER LOG USER", val);
+      // console.log("MUT USER LOG USER", val);
       state.user = val;
       // eslint-disable-next-line no-undef
       $cookies.set("user", JSON.stringify(val), "1h");
     },
     logToken: (state, val) => {
-      console.log("MUT USER LOG TOKEN", val);
+      // console.log("MUT USER LOG TOKEN", val);
       state.token = val;
       state.auth = true;
       // $cookies.set("user", JSON.stringify(val.token)), "1h";
@@ -274,31 +284,34 @@ const store = createStore({
     PageData: (state, val) => {
       state.pageData = val;
     },
+    BlogData: (state, val) => {
+      state.blogData = val;
+    },
     NewPost: (state, val) => {
       state.newPost = val;
     },
     PostSelected: (state, val) => {
-      console.log("POST SELECTED MUTATION POst", val);
+      // console.log("POST SELECTED MUTATION POst", val);
       state.postSelected = val;
     },
     PostUpdate: (state, val) => {
-      console.log("POST SELECTED MUTATION Update", val);
+      // console.log("POST SELECTED MUTATION Update", val);
       state.postUpdate = val;
     },
     ModalError: (state, val) => {
-      console.log("ModalError", val);
+      // console.log("ModalError", val);
       state.modalError = val;
     },
     ModalMessage: (state, val) => {
-      console.log("ModalMessage", val);
+      // console.log("ModalMessage", val);
       state.modalMessage = val;
     },
     ModalSucces: (state, val) => {
-      console.log("ModalSucces", val);
+      // console.log("ModalSucces", val);
       state.modalSucces = val;
     },
     PreviewClose: (state, val) => {
-      console.log("PREVIEW CLOSE INDEX MUT", val);
+      // console.log("PREVIEW CLOSE INDEX MUT", val);
       state.preview_component = val;
     },
     CalUpdate: (state, val) => {
@@ -319,6 +332,9 @@ const store = createStore({
     NamePage: (state, val) => {
       state.namePage = val;
     },
+    LangPage: (state, val) => {
+      state.langPage = val;
+    },
     GeoLocation: (state, val) => {
       state.geoLoc = val;
       $cookies.set("userIp", JSON.stringify(val));
@@ -328,19 +344,12 @@ const store = createStore({
       $cookies.set("userHour", JSON.stringify(val));
     },
     Theme: (state, val) => {
-      console.log(" MUT THEME_1-----> ", val);
+       console.log(" MUT THEME_1-----> ", val);
       if ($cookies.get("userTime") === null) {
-        console.log(" MUT THEME_2-----> ", val);
+        // console.log(" MUT THEME_2-----> ", val);
         $cookies.set("userTime", JSON.stringify(val), "1h");
       }
-      // state.light = "dark"
-      // if(val == "dark"){
-      //   state.theme.texte = "white";
-      //   state.theme.backLight = "black";
-      // }else{
-      //   state.theme.texte = "black";
-      //   state.theme.backLight = "white";
-      // }
+      state.darkTheme = val
     },
   },
 
@@ -356,15 +365,6 @@ const store = createStore({
     disconnect({ commit }) {
       $cookies.remove("user"), "userTime";
       commit("AuthAdmin", false);
-    },
-
-    PreviewClose: ({ commit }, val) => {
-      console.log("PREVIEW CLOSE INDEX", val);
-      commit("PreviewClose", val);
-    },
-
-    FileUpload(event) {
-      this.fileSelected = event.target.files[0];
     },
 
     viewWidth({ commit }) {
@@ -389,9 +389,9 @@ const store = createStore({
 
     getLoc({ commit }) {
       let userTime = $cookies.get("userTime");
-      console.log("USERTIME COOKIES VALUE", userTime);
+      // console.log("USERTIME COOKIES VALUE", userTime);
       if (userTime) {
-        console.log(" NOT DISPATCH GET LOC");
+         console.log(" NOT DISPATCH GET LOC");
         let timeZone = $cookies.get("userHour");
         //  commit("Theme",timeZone)
         return;
@@ -421,14 +421,14 @@ const store = createStore({
               .split(":")[0];
             if (hour >= 18 || hour <= 6) {
               commit("Theme", "dark");
-              console.log("IL FAIT NUIT");
+              // console.log("IL FAIT NUIT");
             } else {
               commit("Theme", "day");
               console.log("------- IL FAIT JOUR ----------");
             }
             let ahora = new Date();
 
-            console.log("USER DATA ------> ", userData);
+            // console.log("USER DATA ------> ", userData);
             return resolve(res);
           })
           .catch((err) => {
@@ -443,14 +443,14 @@ const store = createStore({
         instance
           .get(`inici/ver/AdminAuth`)
           .then((res) => {
-            console.log("RES GET AUTH", res);
+            // console.log("RES GET AUTH", res);
             commit("AuthAdmin", true);
             resolve(res);
-            console.log("RESPONSE GET STORE ADMIN AUTH", res);
+            // console.log("RESPONSE GET STORE ADMIN AUTH", res);
             return;
           })
           .catch((err) => {
-            console.log("ERROR AUTH ADMIN INDEX ", err.response.status);
+            // console.log("ERROR AUTH ADMIN INDEX ", err.response.status);
             if (err.response.status == 401) {
               window.location.href = "http://localhost:8080/portada";
               //  that.$router.Push("/login");
@@ -464,14 +464,13 @@ const store = createStore({
 
     getPageData: ({ commit }, n) => {
       
-      console.log(" PAGE GET PAGE DATA", n);
+      // console.log(" PAGE GET PAGE DATA", n);
 
       let lang = "";
       commit("loading", true);
       if (n == "post") {
         lang = "cat";
       } else if (n == "calendar") {
-        
         lang = "free";
       }else if ($cookies.get("lang")) {
         let l = $cookies.get("lang");
@@ -486,9 +485,13 @@ const store = createStore({
           .then((res) => {
             commit("loading", false);
             commit("PageData", res.data);
+            if(n == "blog"){
+              commit("BlogData", res.data);
+            }
             commit("NamePage", n);
+            commit("LangPage", lang);
 
-            console.log("RESPONSE GET PAGE DATA STORE", res.data);
+            // console.log("RESPONSE GET PAGE DATA STORE", res.data);
             let ahora = Date.now();
             // console.log("HEURE DU CHARGEMENT DATE NOW +18---->", ahora);
             return resolve(res);
@@ -498,8 +501,12 @@ const store = createStore({
           });
       });
     },
+
+
     //----------------* GET NAV DATA *---------------//
     getNavData: ({ commit }, l) => {
+      console.log("GET NAV BAR INDEX",l);
+      commit("loading", true);
       let lang = l;
       let n = "navbar";
       if ($cookies.get("lang")) {
@@ -515,10 +522,11 @@ const store = createStore({
         instance
           .get(`inici/nav?name=${n}&lang=${lang}`)
           .then((res) => {
+            commit("loading", false);
             commit("NavData", res.data);
             resolve(res);
 
-            console.log("RESPONSE NAV DATA STORE", res.data);
+            // console.log("RESPONSE NAV DATA STORE", res.data);
           })
           .catch((err) => {
             reject(err);
@@ -536,7 +544,7 @@ const store = createStore({
             commit("ImgData", res.data);
             resolve(res);
 
-            console.log("RESPONSE IMG DATA STORE", res.data);
+            // console.log("RESPONSE IMG DATA STORE", res.data);
           })
           .catch((err) => {
             reject(err);
@@ -552,7 +560,7 @@ const store = createStore({
           .then((res) => {
             commit("Status", true);
 
-            console.log("REPONSE", res);
+            // console.log("REPONSE", res);
             resolve(res);
           })
           .catch((err) => {
@@ -563,7 +571,7 @@ const store = createStore({
 
     forgotPassword: ({ commit }, data) => {
       const email = data.email;
-      console.log("EMAIL FORGOT PASSWORD STORE", email);
+      // console.log("EMAIL FORGOT PASSWORD STORE", email);
       return new Promise((resolve, reject, res) => {
         instance
           .post("/inici/forgot-password", data)
@@ -573,7 +581,7 @@ const store = createStore({
               commit("LinkNewPassword", res);
             }
 
-            console.log("REPONSE", res);
+            // console.log("REPONSE", res);
             resolve(res);
           })
           .catch((err) => {
@@ -601,13 +609,13 @@ const store = createStore({
     },
 
     loginPost: ({ commit }, userData) => {
-      console.log("LOGIN POST STORE");
+      // console.log("LOGIN POST STORE");
       return new Promise((resolve, reject) => {
         instance
           .post("/inici/coconexion", userData)
           .then((response) => {
             //  setHeaders(response.data.token)
-            console.log("RESP LOGIN INDEX", response.data);
+            // console.log("RESP LOGIN INDEX", response.data);
             commit("logUser", response.data);
             commit("logToken", response.data.token);
             // commit("Logon", response.data.userLogon);
@@ -623,12 +631,12 @@ const store = createStore({
 
     updatePage: ({ commit }, data) => {
       const page = data.page;
-      console.log("INDEX UPDATE PAGE DATA", data);
+      // console.log("INDEX UPDATE PAGE DATA", data);
       let lang = "";
       if ($cookies.get("lang")) {
         let l = $cookies.get("lang");
         lang = l.lang;
-        console.log("COOKIES LANG---->", lang);
+        // console.log("COOKIES LANG---->", lang);
       } else {
         lang = "cat";
       }
@@ -679,7 +687,7 @@ const store = createStore({
  //------------- CREATE IMG-------------------_//
 
     createImg: ({ commit }, data) => {
-console.log("DATA FORM CREATE IMG",data);
+// console.log("DATA FORM CREATE IMG",data);
       return new Promise((resolve, reject) => {
         instance
           .post("/inici/cal/create?page=img", data, {})
@@ -715,14 +723,15 @@ console.log("DATA FORM CREATE IMG",data);
 
 
 
-    getIpClient: async () => {
-      try {
-        const response = await axios.get("https://api.ipify.org?format=json");
-        console.log("ADRESSE IP", response);
-      } catch (error) {
-        console.error(error);
-      }
-    },
+    // getIpClient: async () => {
+    //   try {
+    //     const response = await axios.get("https://api.ipify.org?format=json");
+    //     console.log("ADRESSE IP", response);
+    //   } catch (error) {
+    //     console.error(error);
+    //   }
+    // },
+
   }, // fin actions
 }); // fin Store
 
