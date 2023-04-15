@@ -269,9 +269,18 @@ p {
     flex-direction: column;
     justify-content: space-between;
   }
+  .img_thumb{
+    padding-top:70px;
+  }
+}
+@media screen and (min-width:992px) {
+  
 }
 
 @media screen and (min-width:1220px) {
+  .img_thumb{
+    padding-top:80px
+  }
   .bloc_text {
     margin: 50px auto;
   }
@@ -289,7 +298,7 @@ p {
 
 @media screen and (min-width:1440px) {
   .img_thumb {
-    margin: 100px auto;
+    margin:  auto;
   }
 
   .text_desc {

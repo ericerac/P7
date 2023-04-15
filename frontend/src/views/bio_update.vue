@@ -29,12 +29,7 @@
                 <p class="fileName" v-if="fileName && 0 === inputSelected">{{ fileName }}</p>
             </label>
             <div class="btn-action">
-                <!-- <div class="btn_update">
-
-                  <label for="submit"></label>
-                  <input type="button" name="submit" class="btn btn_up btn_all" keyUp="enter" value="Update"
-                    @click="updateBio(pageData[0]._id)">
-                </div> -->
+                
                 <div class="btn_update">
                     <label for="retour"></label>
                     <input type="button" name="retour" class="btn btn_del btn_all" keyUp="enter" value="Cancel"
@@ -59,15 +54,18 @@
 
                 </div>
                 <label for="p1" class="label_area">Paragraphe 1 <em>(330 caractères)</em> </label>
-                <textarea rows="10" cols="50" name="p1" type="text" class="description_bio p" v-model="pageData[0].p_1">
-                                    </textarea>{{ p1 }}
-                <label for="p1">Paragraphe 2</label>
+                <textarea rows="10" cols="50" name="p1" type="text" class="description_bio p" v-model="page.p_1">
+                                    </textarea>
+                <!-- <textarea rows="10" cols="50" name="p1" type="text" class="description_bio p" v-model="pageData[0].p_1">
+                                    </textarea> -->
+                                    {{ p1 }}
+                <label for="p2">Paragraphe 2</label>
                 <textarea rows="10" cols="50" name="p2" type="text" class="description_bio p" v-model="pageData[0].p_2">
                                     </textarea>
-                <label for="p1">Paragraphe 3</label>
+                <label for="p3">Paragraphe 3</label>
                 <textarea rows="10" cols="50" name="p3" type="text" class="description_bio p" v-model="pageData[0].p_3">
                                     </textarea>
-                <label for="p1">Paragraphe 4</label>
+                <label for="p4">Paragraphe 4</label>
                 <textarea rows="10" cols="50" name="p4" type="text" class="description_bio p" v-model="pageData[0].p_4">
                                     </textarea>
                 <div class="bloc_tilte_2">
@@ -76,8 +74,7 @@
                         <input type="text" name="img_text" v-model="pageData[0].title_2" />
                     </label>
                 </div>
-                <!-- <button @click="updateBio(pageData[0]._id)">Update</button> -->
-                <!-- <button class="btn btn_up btn_all" @click="updateBio(pageData[0]._id)">Update</button> -->
+                
                 <div class="btn_action">
                     <div class="btn_update">
 
@@ -103,10 +100,7 @@
                             <div class="bloc_btn">
                                 <div class="group_btn_img">
                                     <div>
-                                        <!-- <label for="image1" class="btn_upload">
-                                            Choisir une image</label>
-                                            <input type="file" name="image" id="image1"  @change="FileUpload"
-                                                accept="image/png, image/jpeg, image/jpg" hidden /> -->
+                                        
                                         <label for="image" class="btn_upload">
                                             <figure>
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="17"
@@ -124,7 +118,7 @@
                                             </p>
                                         </label>
                                     </div>
-                                    <!-- <span>{{ fileName }}</span> -->
+                                 
                                 </div>
                                 <div class="label">
                                     <label for="img_text">{{ i.showName }} {{ index }}
@@ -132,7 +126,7 @@
                                     </label>
                                 </div>
 
-                                <!-- <span>{{ i._id }}</span>  info only -->
+                               
                                 <div class="btn-action">
 
 
@@ -154,9 +148,9 @@
                         <div class="bloc_new_card" v-if="newCard">
                             <div class="img_card">
                                 <div class="bloc_img">
-                                    <template v-if="preview && index + 1 === inputSelected">
+                                    <template v-if="preview && inputSelected == imgLength +1">
 
-                                        <img :src="preview" class="img_display" />
+                                        <img :src="preview" class="img_display_create" />
 
                                     </template>
                                 </div>
@@ -193,7 +187,7 @@
                                     <div class="btn-action">
 
 
-                                        <button class="btn btn_up btn_all" @click="CreateCard()">Create</button>
+                                        <button class="btn btn_up btn_all" @click="CreateImg()">Create</button>
                                         <button class="btn btn_cancel btn_all" @click="FileCancel">Cancel</button>
 
                                     </div>
@@ -229,9 +223,17 @@ export default {
             preview: ref(""),
             fileSelected: "",
             NewShowName: "",
+            paraf:[],
+            paraf:"",
         };
     },
-
+    mounted:function(){
+        let paraf = document.getElementsByClassName("p")
+        for (let i of paraf) {
+            this.paraf.push(i)
+           console.log("PARAF",i);
+    }
+    },
     computed: {
         ...mapState({
             pageData: "pageData",
@@ -259,6 +261,8 @@ export default {
         //         console.log("COMPUTED PQ1 ",p1Q);
         //     }
         // }
+
+
     },
 
     watch: {
@@ -274,6 +278,18 @@ export default {
                 this.calcLength()
             }
         },
+        // pageData: {
+        //     deep: true,
+        //     handler(n, o) {
+        //         for (let i in this.pageData[0]) {
+        //             // console.log(i);
+        //         }
+        //         // flag that the user made changes
+        //         console.log("WATCH PAGEDATA NEW", n);
+        //         console.log("WATCH PAGEDATA OLD", o[0]);
+        //         this.calcLength()
+        //     }
+        // },
 
         // p1Q() {
 
@@ -290,19 +306,58 @@ export default {
 
 
     methods: {
-        calcLength() {
-            let imp = document.getElementsByClassName("p")
-            //  let inp = document.getElementsByName("p1")[0]
+        imgState(iData) {
 
-            for (let i of imp) {
-                i.addEventListener('change', (e) => {
+                return iData.length;
 
-                    console.log(e)
-                }
-                )
-            }
         },
 
+        calcLength() {
+            
+            
+let parafChanged = (()=>{
+
+
+
+            for (let i of this.paraf) {
+                i.addEventListener('change', (e) => {
+                    let paraf= document.getElementsByName( `${e.target.name}`)
+                    parafChanged = e.target.name;
+                    console.log(e)
+                    e.target.classList.add('border') 
+                    console.log(paraf[0].value)
+                    let dataParafChanged = {
+                        name:e.target.name,
+                        value:paraf[0].value
+                    }
+                  this.testParaf(dataParafChanged)
+                }
+                )
+               
+            }
+        })
+        parafChanged();
+       
+    },
+    testParaf(x){
+        let paraff= x.name.split("").join("_")
+        let ParafChanged = x.value
+       let parafOrigin = "";
+  console.log("parafCHANGED",paraff );
+  
+ 
+  for(let i in this.pageData[0]){
+  if(i == paraff){
+    parafOrigin = this.pageData[0][i]
+  };
+}
+console.log("PARAF ORIGIN",parafOrigin);
+if(parafOrigin.length == ParafChanged.length ){
+    alert("tout va bien")
+}
+
+      
+    },
         async FileUpload(event) {
             let that = this
             let inp = document.querySelectorAll('input[type=file]');
@@ -341,10 +396,6 @@ export default {
 
             // ************ DONE **********************************
 
-            
-            // let fileC = await compressFile(File);
-            // this.fileSelected = fileC
-            // console.log("RETURN FILEE COMPRESSED---_>",fileC)
 
             new Compressor(File, {
                 quality: 0.6,
@@ -507,13 +558,49 @@ export default {
                 })
                 .catch((response) => { });
         },
+
+        CreateImg(){
+            let bodyFormData = new FormData();
+            // const imgLength = this.imgState(this.imgData)
+            // const imgNumber = imgLength + 1;
+let imgNumber = this.imgLength + 1;
+console.log("IMG NUMBER CREATE",imgNumber);
+if (this.fileSelected) {
+    bodyFormData.append("image", this.fileSelected, this.fileSelected.name);
+   
+    bodyFormData.append("name", "img");
+    bodyFormData.append("showName", this.NewShowName);
+    bodyFormData.append("img", imgNumber);
+    bodyFormData.append("page", "bio");
+    bodyFormData.append("link", "");
+} else {
+   
+    alert("il n'y a pas d'image!")
+    return
+}
+
+this.$store
+    .dispatch("createImg", bodyFormData,{})
+
+    .then((response) => {
+        if (response.status == 200) {
+             console.log("CREATED ", response);
+            //     location.reload();
+            file = null;
+        }
+    })
+    .catch((response) => { });
+        },
+
     }, //fin actions
 };
 </script>
 
 <style scoped>
 @import url("../styles/btn.css");
-
+.border{
+    outline: 2px solid red
+}
 .row {
     border: 2px solid black;
     margin: 5px 0;
@@ -564,7 +651,7 @@ textarea {
     margin: 5px auto;
     background: rgba(rgb(249, 87, 87), rgb(120, 250, 120), rgb(3, 3, 246), .3);
 }
-
+.bloc_img 
 .img_card {
     display: flex;
     width: 100%;
@@ -576,7 +663,11 @@ textarea {
 
 
 }
-
+.img_display_create{
+    width:100%;
+    height:auto;
+    max-height:300px
+}
 .bloc_btn>div {
     background: transparent;
 }

@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluid master_bloc" v-if="auth == true">
+  <div class="container-fluid master_bloc" v-if="auth == true" :class="{bgDark : darkTheme}">
     <div class="row">
       <ul class="liste m-t-2">
         <li @click="disconnect()">Admin </li>
@@ -104,7 +104,7 @@ import Kakos from "../views/kakosUpdate.vue"
 import ModalSucces from "../components/ModalSucces.vue";
 import ModalError from "../components/ModalError.vue";
 
-import { mapGetters, mapState } from "vuex";
+import { mapGetters, mapState, mapMutations } from "vuex";
 
 import { useCookies } from "vue3-cookies";
 const { cookies } = useCookies();
@@ -132,6 +132,9 @@ export default {
   beforeMount: function() {
     this.getAdminAuth()
   },
+  created:function(){
+    this.$store.commit("NamePage","adminPage")
+  },
   computed: {
     ...mapState({
       modal: "modal",
@@ -142,9 +145,11 @@ export default {
       pageData: "pageData",
       imgData: "imgData",
       auth: "auth",
+      darkTheme:"darkTheme"
 
 
     }),
+    ...mapMutations(["NamePage"]),
   },
 
   components: {
@@ -313,6 +318,7 @@ this.$router.push("/portada")
 </script>
 
 <style scoped>
+@import url("../styles/theme.css");
 .container-fluid {
   /* background-color: rgba(255, 191, 0, .3); */
   height: auto;

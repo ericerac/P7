@@ -21,9 +21,6 @@ const { cookies } = useCookies();
 
 import axios from "axios";
 
-// let userId = "";
-// let userToken = "";
-
 // // --------------------------------------------------------------//
 // // -----------------*** INSTANCE ***----------------//
 // // --------------------------------------------------------------//
@@ -38,14 +35,7 @@ const instance = axios.create({
 
 instance.interceptors.request.use(
   function (config) {
-    // console.log(" INTER REQ CONFIG", config);
-    // console.log(" INTER REQ CONFIG", config.data);
-
-    // if(!config.data){
-    //   console.log(" INTER REQ config data ----> ","FALSE");
-    //   store.commit("ModalMessage", "C'est ici qu'il faut arreter la requete en cas de body");
-    //   throw new axios.Cancel('Operation canceled by the user.');
-    // }
+    
     console.log("INTER REQUEST CONFIG",config);
 
     if ($cookies.get("user")) {
@@ -143,68 +133,14 @@ instance.interceptors.response.use(
   }
 );
 
-//  const viewWidth= () => {
-//   if (window.navigator) {
-//      console.log("NAVIGATOR----->", window);
-//     // console.log("NAVIGATOR LANGUAGE----->", window.clientInformation.language);
-//    let dataBrowser = {
-// screenHeight: window.innerHeight,
-// screenWidth: window.innerWidth,
-// browserLanguage: window.navigator.language,
-// browser:window.clientInformation.userAgentData.brands[1].brand,
-// browserVersion:window.clientInformation.userAgentData.brands[1].version,
 
-//     }
-//     console.log("SCREEN USER",dataBrowser);
-//     store.commit("dataUser",dataBrowser)
-//
-//   } else {
-//     console.log("SANS NAVIGATOR");
-//   }
-//  }
-//  viewWidth();
-
-// const geoloc = ()=>{
-//   return new Promise((resolve, reject) => {
-//     axios
-//       .get(`https://api.bigdatacloud.net/data/ip-geolocation?ip=212.106.239.92&localityLanguage=en&key=bdc_fb0cd78789724292ba4ec846a10c55ed`)
-//       .then((res) => {
-
-//          console.log("RESPONSE GEOLOC DATA----->", res.data);
-
-//          let userData = {
-//           locality : res.data.location.localityName,
-//           country : res.data.country.name,
-//           IpAdress : res.data.ip,
-//           date: res.data.location.timeZone.localTime.split("T")[0],
-//           hour: res.data.location.timeZone.localTime.split("T")[1].split(".")[0],
-//          }
-//          let hour = res.data.location.timeZone.localTime.split("T")[1].split(".")[0].split(":")[0];
-//          if(hour >= 18){
-//           console.log("IL FAIT NUIT");
-//          }else{
-//           console.log("------- IL FAIT JOUR ----------");
-//          }
-//         let ahora = new Date();
-
-//          console.log("USER DATA ------> ", userData);
-//         return resolve(res);
-
-//       })
-//       .catch((err) => {
-//         reject(err);
-//       });
-// })
-// }
-// geoloc();
 // // --------------------------------------------------------------//
 
 const store = createStore({
   setup() {
     const router = useRouter();
     const route = useRoute();
-    // const Post = ref(getPageData(10))
-    // return Post
+   
   },
   state: {
     status: false,

@@ -5,7 +5,7 @@
         Vous êtes sur la page: <strong>{{ pageData[0].name }}.{{ pageData[0].lang }}</strong></span>
       <div class="bloc_page col-12">
         <div class="title mb-3">
-          <h1>{{ pageData[0].title_1 }} </h1>
+          <h1 :class="{bgDark : darkTheme}">{{ pageData[0].title_1 }} </h1>
           <label for="Titre"> Titre
             <input type="text" class="inputVideo" name="Titre" v-model="pageData[0].title_1">
           </label>

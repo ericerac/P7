@@ -2,7 +2,7 @@
   <loader v-if="loading" />
 
 
-  <div class="bloc_nav" v-if="navbarOk && namePage != 'post' ">
+  <div class="bloc_nav" v-if="navbarOk && namePage != 'post' && namePage != 'adminPage' ">
     <navbar :namePage="namePage" :dark="dark" @theme="dark = ($event)" />
   </div>
 
@@ -18,8 +18,8 @@ import loader from './components/loader.vue';
 import navbar from './components/nav_bar.vue';
 import foot from './components/footer.vue';
 import dataCookies from "./js/cookies"
-import { ref, toRef } from "vue"
-
+import { ref, toRef, reactive, computed } from "vue"
+import { useHead } from '@vueuse/head'
 
 
 export default {
@@ -28,15 +28,43 @@ export default {
     return {
       navbarOk: false,
       dark: ref(""),
-      backGround: ref("")
+      backGround: ref(""),
+      siteDat:"site data test description"
     };
   },
+
   components: {
     loader,
     navbar,
     foot,
 
   },
+
+//   setup()
+//   {
+// const siteData = reactive({
+//   title:"WwbSite test meta",
+//   description:" description test page mais ne fonctionne pas avec les data",
+// })
+
+// useHead({
+//   title:"web test meta title",
+//   meta:[{
+//     name:'description',
+//     //  content:" web test description"
+//     content:computed(()=> siteData.description)
+//   }]
+// })
+//   },
+
+  // beforeCreate(){
+  // // adding title for current view/page using vue-i18n
+  // let title = document.createElement(`title`)
+  // title.innerText = (`something`)
+
+  // document.querySelector(`head`).appendChild(title)
+  // },
+
   created: function () {
     this.getNavData();
     this.getLocation()
@@ -48,13 +76,10 @@ export default {
       namePage: "namePage",
       darkTheme: "darkTheme",
       langPage:"langPage"
-
     }),
     ...mapMutations(["Theme"]),
-
-
-
   },
+
   watch: {
     dark(n, o) {
       if (n == true) {

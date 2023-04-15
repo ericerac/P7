@@ -98,8 +98,8 @@
               </p>
               <p class="text" :class="darkTheme ? 'txtDark' : 'txtDay'"><strong>Disseny i Assessoría de peluquería:</strong> Fafá Franco
               </p>
-              <p class="text" :class="darkTheme ? 'txtDark' : 'txtDay'"><strong>Producció:</strong>Producció: Las Kakofonias</p>
-              <p class="text" :class="darkTheme ? 'txtDark' : 'txtDay'"><strong>Suport a la Creació:</strong>Suport a la Creació: Circ Cric, Festival Internacional Pallasses
+              <p class="text" :class="darkTheme ? 'txtDark' : 'txtDay'"><strong>Producció:</strong> Las Kakofonias</p>
+              <p class="text" :class="darkTheme ? 'txtDark' : 'txtDay'"><strong>Suport a la Creació:</strong>  Circ Cric, Festival Internacional Pallasses
                 Circ Cric, Fundació la
                 Plana, La Farinera del Clot, Centre Cultural Sant Jaume Premià de Dalt, Centre Civic
                 Can Felipa.
@@ -560,7 +560,7 @@ iframe{
 }
 }
 @media screen and (min-width:1140px) and (min-height:800px) and (max-height:900px) {
-  .bloc_info{
+  .bloc_info {
   background-color: rgba(110, 110, 110,.2);
   padding: 10px 0 ;
   margin-top:20px;
@@ -568,6 +568,17 @@ iframe{
   width:70%;
   box-shadow: 5px 5px 20px;
   margin:50px auto;
+}
+.bloc_text_fiche{
+  background-color: rgba(110, 110, 110,.2);
+  padding: 30px 60px ;
+  margin-top:20px;
+  border-radius:30px 0 30px 0;
+  width:90%;
+  box-shadow: 5px 5px 20px;
+  margin:50px auto;
+  text-align: start;
+  line-height: 30px;
 }
 iframe{
   width:70%

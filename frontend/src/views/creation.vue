@@ -1,57 +1,28 @@
 <template>
-    <div class="fond" :class="darkTheme ? 'bgDark' : 'bgDay'">
-        <!-- <div class="bloc_nav" v-if="navbarOk">
-            <navbar namePage="creation" :dark="dark" @theme="dark = ($event)" />
-        </div> -->
+    <div class="fond " :class="darkTheme ? 'bgDark' : 'bgDay'">
+    <!-- <div class="fond bgdTheme" > -->
+        
         <div class="bloc_master">
             <div class="header">
                 <div class="text_info">
 
                     <a href="http://www.martarenyer.com" target="_blank">Page en création</a>
-                    <!-- <img src="../assets/logo/download.gif"> -->
+                   
                 </div>
 
             </div>
-            <!-- <div class="main">
-                <div class="words word-1">
-                    <span>P</span>
-                    <span>A</span>
-                    <span>G</span>
-                    <span>I</span>
-                    <span>N</span>
-                    <span>E</span>
-
-                </div>
-
-                <div class="words word-2">
-                    <span>E</span>
-                    <span>N</span>
-                </div>
-
-                <div class="words word-3">
-                    <span>C</span>
-                    <span>R</span>
-                    <span>E</span>
-                    <span>A</span>
-                    <span>C</span>
-                    <span>I</span>
-                    <span>Ó</span>
-                </div>
-            </div> -->
+            
         </div>
-        <!-- <div class="container-fluid-footer">
-            <foot />
-        </div> -->
+       
     </div>
 </template>
 
 <script>
 
-// import navbar from "../components/nav_bar.vue";
-// import foot from "../components/footer.vue";
+
 import { mapState, mapMutations } from "vuex";
 import { ref } from "vue";
-// import dataCookies from "../js/cookies"
+
 
 export default {
     name: "creation",
@@ -60,6 +31,7 @@ export default {
         return {
             // navbarOk: false,
             dark: ref(""),
+            // bgTheme:ref("")
         };
     },
     components: {
@@ -73,7 +45,11 @@ export default {
             //   pageData: "pageData",
             //   imgData: "imgData",
         }),
-        ...mapMutations(["NamePage"])
+        ...mapMutations(["NamePage"]),
+
+        
+      
+   
     },
     created: function () {
         this.$store.commit("NamePage","creation")
@@ -81,31 +57,32 @@ export default {
         // this.getLocation()
         // this.getNavData();
     },
+    mounted: function () {
+        // this.BgTheme()
+    },
+    watch: {
+
+        // darkTheme(){
+        //     if(this.darkTheme == true){
+        //     this.bgTheme = "rgb( 100,100,100)"}
+        //     else{
+        //         console.log("MOUNTED CREATION DARKTHEME FALSE");
+        //         this.bgTheme = "blue"
+        //     }
+        // }
+    },
 
     methods: {
-        // getNavData() {
-        //     const n = "navbar";
-        //     this.$store.dispatch("getNavData", n).then((res) => {
-        //         if (res) {
-        //             if (res) {
-        //                 this.navbarOk = true;
-        //             }
-        //         }
-        //     });
-        //     console.log("REQUET GET NAV BAR PAGE DATA-----> ", n);
-        // },
-        // getLocation() {
-        //     this.$store.dispatch("getLoc")
-        //         .then((res) => {
-        //             this.DataCookies()
-        //         })
-        // },
-
-        // async DataCookies() {
-        //     let dataTheme = await dataCookies();
-        //     this.dark = dataTheme.dark
-
-        // },
+        // BgTheme() {
+        //     console.log("MOUNTED CREATION BG THEME");
+        //     if(this.darkTheme == true){
+        //         console.log("MOUNTED CREATION DARKTHEME TRUE");
+        //         this.bgTheme = "rgb( 100,100,100)"
+        //     }else{
+        //         console.log("MOUNTED CREATION DARKTHEME FALSE");
+        //         this.bgTheme = "blue"
+        //     }
+        // }
     },
 
 }
@@ -115,6 +92,12 @@ export default {
 /* @import url("../styles/bloc_nav.css"); */
 @import url("../styles/theme.css");
 /* @import url("../styles/bloc-nav-c.css"); */
+
+/* TEST */
+/* .bgdTheme{
+background:v-bind(bgTheme)
+} */
+/* FIN TEST */
 
 .fond {
     /* background: #f4d03f; */

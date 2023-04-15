@@ -11,6 +11,11 @@ module.exports = {
   }
 },
 module.exports = {
+  transpileDependencies: [
+      'vue-meta',
+  ],
+}
+module.exports = {
   devServer: {
     compress: true,
     disableHostCheck: true,

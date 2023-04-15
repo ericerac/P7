@@ -6,7 +6,6 @@
 
             <div class="row card_calendar_row text-center">
 
-
                 <div class="img_top">
                     <img src="../assets/images/vintage-alt-illustration.png" alt="">
                 </div>
@@ -17,7 +16,6 @@
                         <span> {{ dateShow }} </span>
                         <span> de {{ monthShow }} </span>
                     </div>
-
                 </div>
                 <div class="Title">
                     <h3 class="text" :class="{ txtDark: darkTheme }">Calendari</h3>
@@ -31,7 +29,6 @@
                         <div class="lloc col-3 col-lg-4 item headCard text" :class="{ txtDark: darkTheme }">Lloc</div>
                         <div class="info_add item"></div>
                     </div>
-
 
                     <div v-for="d in filterDate" :key="d.id">
 
@@ -112,7 +109,7 @@ export default {
     beforeMount: function () {
     },
     beforeUpdate: function () {
-        console.log("ACTIONED");
+        
     },
     created: function () {
         this.dateToday();
@@ -133,7 +130,6 @@ export default {
             // ]
             // ,
             {
-                accueilData: "accueilData",
                 pageData: "pageData",
                 cardCalSelect: "cardCalSelect",
                 darkTheme: "darkTheme"
@@ -178,15 +174,6 @@ export default {
                 })
             }
         },
-        // nextShow() {
-        //     if (this.dataPageModul.pageData) {
-        //         let nextS = this.dataPageModul.pageData.map(function (day, index) {
-        //             return (day)
-        //         })
-        //     }
-        // },
-
-
     },
 
     components: {
@@ -196,7 +183,6 @@ export default {
         dataPageModul(n, o) {
             this.infoShow()
         },
-
 
     },
     modules: {
@@ -232,30 +218,7 @@ export default {
             }
 
         },
-        // infoShow() { // selection date content info badge
-        //     if (this.dataPageModul.pageData) {
-        //         // console.log("dataDate", this.dataPageModul.pageData);
-        //         // console.log("NEXT DAY",this.pageData);
-        //         let nextS = this.dataPageModul.pageData.map(function (day, index) {
-        //             return (day.day)
-        //         })
-        //         let hoy = new Date()
-        //         let bolos = moment(hoy).format("YYYY-MM-DD");
-        //         // console.log("BOLOS", bolos);
-        //         let next = this.dataPageModul.pageData.filter(d => d.day > bolos)
-        //         //  console.log("POST BOLOS", next);
-        //         let bolo = next.reverse()[0].day
-        //         this.monthShow = moment(bolo).format('MMM', 'ca')
-        //         this.dayShow = this.dayWeek(bolo)
-        //         this.dateShow = moment(bolo).format('DD', 'ca')
-        //         this.whereShow = next[0].detail;
-        //     } else {
-        //         // console.log("NOT DATA FROM PAGE");
-        //     }
-
-        // },
-
-
+        
         getClassStyle(d) {
             if (this.dateTimestamp(d) < this.dateNow) {
                 console.log("GET CLASS DARK ");
@@ -489,16 +452,19 @@ a {
 
 .fond {
     position: relative;
-
 }
 
 .card_calendar_row {
 
     margin-top: 0px
 }
-
+.img_top{
+    margin:auto
+}
 .img_top img {
-    width: 350px;
+
+    width:350px;
+    width: calc(300px + 8vw);
     height: auto;
     object-fit: cover;
     overflow: hidden;
@@ -519,8 +485,7 @@ a {
 }
 
 .bloc_date {
-    /* opacity: 0;
-    transform: translateY(-30px); */
+
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -543,7 +508,7 @@ a {
 }
 
 .item {
-    /* border:1px solid blue; */
+   
 
 }
 
@@ -568,7 +533,6 @@ a {
 }
 
 .datePass {
-    /* background-color: #fa8b8b66; */
     background-color: v-bind(bgPassColor);
 }
 
@@ -592,8 +556,9 @@ a {
 
 @media screen and (min-width:768px) and (max-height:500px) {
     .img_top img {
-        width: 100%;
-        max-width: 600px;
+        /* width: 100%;
+        max-width: 600px; */
+       
         height: auto;
         object-fit: cover;
         overflow: hidden;
@@ -618,6 +583,10 @@ a {
     .legende {
         top: 80px;
     }
+    .img_top>img {
+
+        width: 600px
+    }
 }
 
 @media screen and (min-width:1440px) {
@@ -640,7 +609,7 @@ a {
 
     .img_top>img {
 
-        width: 400px
+        /* width: 700px */
     }
 
     .legende {

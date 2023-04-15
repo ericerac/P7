@@ -61,18 +61,19 @@ const routes = [
     path: "/portada",
     meta:{
       title:"Marta Renyer Home",
+      
      
       
-      // metaTags: [
-      //   {
-      //     name: 'description',
-      //     content: 'the best spectacle'
-      //   },
-      //   {
-      //     property: 'og:description',
-      //     content: 'the best spectacle'
-      //   }
-      // ],
+      metaTags: [
+        {
+          name: 'description',
+          content: 'the best spectacle'
+        },
+        {
+          property: 'og:description',
+          content: 'the best spectacle'
+        }
+      ],
     },
     component: () => import("../views/portada.vue"),
     
@@ -111,6 +112,7 @@ const routes = [
     path: "/blog",
     meta:{
       title:"Marta Renyer Blog",
+    
       
     },
     component: () => import("../views/blog.vue"),
@@ -162,8 +164,10 @@ router.beforeEach((to,from,next)=>{
   } else{
     next();
   }
-  // document.title = to.meta?.title ?? 'Default Title';
-  // document.metaTags = to.meta?.metaTags ?? 'default value'
+  document.title = to.meta?.title ?? 'Marta Renyer';
+  document.metaTags = to.meta?.metaTags ?? 'default value'
+  
+ 
   
 
 });

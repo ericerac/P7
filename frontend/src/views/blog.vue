@@ -1,5 +1,5 @@
 <template>
-    <div class="fond" id="start">
+    <div class="fond" id="start" :class="{ bgDark: darkTheme }">
         <div class="compo" v-if="compo == true">
             <blog_post @changeCompo="CompoDisplay" />
         </div>
@@ -45,7 +45,7 @@
                             </div>
                             <div class="textBloc">
                                 <a href="post.link">
-                                    <h2 class="titleDesktop">{{ post.title_1 }} {{ index }} </h2>
+                                    <h2 class="titleDesktop">{{ post.title_1 }}  </h2>
                                 </a>
                                 <div v-if="dPost(post.p_1) == true" class="text_desc " :class="{ text_open: open_text }"
                                     @click="open_text = !open_text">
@@ -134,7 +134,8 @@ export default {
             pageData: "pageData",
             navData: "navData",
             newPost: "newPost",
-            blogData:"blogData"
+            blogData:"blogData",
+            darkTheme:"darkTheme",
         }),
         ...mapMutations(["PageData", "PostSelected", "PostUpdate"]),
 
@@ -299,7 +300,7 @@ export default {
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Sacramento&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap');
-/* @import url("../styles/bulles.css"); */
+@import url("../styles/theme.css");
 
 /* <!-- HTML !-->
 <button class="button-92" role="button">Button 92</button> */
@@ -593,10 +594,10 @@ p {
 .fond {
     position: relative;
     color: white;
-    background: #1c1c1c;
+    /* background: #1c1c1c; */
     /* background-image: url("../assets/design/circle-scatter-haikei\ \(1\).svg"); */
-    background: rgb(56, 56, 56);
-    background: rgb(252, 252, 252);
+    /* background: rgb(56, 56, 56); */
+    /* background: rgb(252, 252, 252); */
     /* background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 35%, rgba(0, 212, 255, 1) 100%);
     background: linear-gradient(90deg, rgba(131, 58, 180, .5) 0%, rgba(253, 29, 29, .5) 50%, rgba(252, 176, 69, .5) 100%);
     background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(237, 57, 237, 1) 35%, rgba(151, 0, 255, 1) 100%);
@@ -635,7 +636,7 @@ p {
     flex-direction: column;
     width: 100%;
     height: auto;
-    margin-top: 70px;
+    padding-top: 70px;
     /* border: 1px solid rgb(255, 55, 55); */
     /* background-image: url("../assets/design/Note.svg"); */
     background-repeat: no-repeat;
@@ -917,32 +918,30 @@ h2 {
 
     }
 
-    .paraf {
+    .paragraf {
         width: 95%;
-        min-width: 500px;
-        margin: 10px auto 10px 10px;
+        margin: 10px auto 30px ;
         text-align: justify;
         padding: 20px 0;
         text-indent: 30px;
         border-radius: 10px;
 
     }
-
-    .oval {
-        float: left;
-        margin: 0;
-        margin-right: 10px;
+    .textBloc{
+        max-width: 550px;
+        margin: 10px auto 10px ;
     }
-
-    .bloc_post_text {
-        width: 100%;
-        margin-left: 20px;
-        height: 100%
+    .titleDesktop{
+        margin-left:30px
     }
-
+.imgPost{
+width:100%;
+max-height:400px;
+object-fit: contain;
+}
 }
 
-@media screen and (min-width:768px) and (min-height:768px) {
+@media screen and (min-width:768px) and (max-height:550px) {
     .blocImg {
         display: block;
         min-width: 90%;
@@ -961,30 +960,9 @@ h2 {
     .post_card {
         width: 80%;
     }
-
-    .blocImg {
-
-        max-width: 90%;
-        min-width: 90%;
-        margin-bottom: 30px;
-    }
-
-    .paraf {
-        width: 75%;
-
-        min-width: 500px;
-        margin: 10px 0 10px auto;
-        text-align: justify;
-        padding: 20px 0;
-        text-indent: 30px;
-        border-radius: 10px;
-
-    }
-
-    .oval {
-        margin-right: 30px;
-    }
-
+.paragraf{
+    padding-top: 10px;
+}
 }
 
 @media (min-width:1220px) {}
@@ -993,16 +971,6 @@ h2 {
 
 @media (min-width:1920px) {
 
-    .blocImg {
-
-        max-width: 80%;
-        min-width: 80%;
-        margin-bottom: 30px;
-    }
-
-    .paraf {
-        width: 65%;
-    }
 
 }
 
@@ -1019,7 +987,7 @@ h2 {
 
 .titleDesktop {
     font-size: calc(25px + 1.5vh);
-    margin-bottom: 30px;
+    margin-bottom: 0px;
     font-family: 'Playfair Display', serif;
     /* text-transform: uppercase; */
 }
@@ -1056,6 +1024,8 @@ h2 {
 }
 
 .imgBloc {
+    display:flex;
+    align-items: center;
     width: 90%;
     height: auto;
     margin: auto;
@@ -1065,6 +1035,8 @@ h2 {
 }
 
 .textBloc {
+    display:flex;
+    flex-direction: column;
     width: 100%;
     height: auto;
     text-align: left;
@@ -1117,7 +1089,8 @@ h2 {
     .imgBloc {
         width: 300px;
         min-width: 300px;
-        height: 300px;
+        height:auto;
+        max-height: 300px;
        
     }
 }

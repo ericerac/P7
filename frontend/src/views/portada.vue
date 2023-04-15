@@ -29,7 +29,7 @@
         <div class="col-12 col-md-6 col-lg-6 right_bloc">
           <div class="img_back ">
 
-            <img class="img_principale" :src="pageData[0].imageUrl" alt="image" />
+            <img width="457" height="600" class="img_principale" :src="pageData[0].imageUrl" alt="image" />
 
           </div>
         </div>
@@ -54,7 +54,7 @@
       <div class="row txt-espectacle text bgTitleClT">
         <h2 class="titles">ESPECTACLES</h2>
       </div>
-      <div class="row  col-12 " id="spectacle" v-motion-slide-visible-once-bottom>
+      <div class="row  col-12 bloc_img_especatcle" id="spectacle" v-motion-slide-visible-once-bottom>
 
         <div class="espectacle-bloc col-12 col-md-6 col-lg-4 col-xl-3" v-for="(i, index) in imgData" :key="i._id">
 
@@ -65,7 +65,7 @@
             <span class="span2"></span>
 
             <router-link v-if="index == 0" to="/kakos">
-              <img class=" img-spectacle  rounded-circle col-12 " :src="i.imageUrl" alt="" />
+              <img class=" img-spectacle  rounded-circle col-12 " :src="i.imageUrl" alt="i.showName" />
               <h3 class="showName text " :class="darkTheme ? 'txtDark' : 'txtDay'">{{ i.showName }} </h3>
             </router-link>
 
@@ -112,13 +112,13 @@
  <!-- ************* SCRIPT ************* -->
 <script>
 import { mapGetters, mapState } from "vuex";
-import {ref, toRef} from "vue"
+import {ref, toRef, reactive, computed} from "vue"
 // import navbar from "../components/nav_bar.vue"
 // import foot from "../components/footer.vue"
 import NameTitle from "../components/name_title.vue"
 import vIntersect from "vue-intersection-observer";
  import dataCookies from "../js/cookies"
-
+ import { useHead } from '@vueuse/head'
 // LOCALISATION UTILISATEUR
 // console.log("Welcome to our visitors from "+ geoplugin_city() +", "+geoplugin_countryName()) 
 
@@ -130,10 +130,26 @@ export default {
       home: false,
       navbarOk: false,
       dark:ref(""),
-      // darkTheme:"",
+     descriptionPage:ref("Pagina amb lliste d'espectacles i accesos als espectacles i les seves desciptcions i imatges"),
     };
   },
- 
+  
+setup()
+  {
+const siteData = reactive({
+  title:"WwbSite test meta",
+  description:" Pagina amb lliste i accesos als espectacles de Marta Renyer actriu i pallassa, i les seves desciptcions i imatges",
+})
+
+useHead({
+  title:"Martas Renyer Inici web",
+  meta:[{
+    name:'description',
+    content:computed(()=> siteData.description)
+  }]
+})
+  },
+
   mounted: () => {
     // console.log(" MOUNT");
     // window.addEventListener('scroll', this.handleScroll);
@@ -298,10 +314,10 @@ export default {
 </script>
 
 <style scoped>
-/* @import url("../styles/bloc_nav.css"); */
+
 @import url("../styles/theme.css");
 @import url("../styles/font.css");
-/* @import url("../styles/bloc-nav-c.css"); */
+
 
 .nameTitleC {
   width: 300px;
@@ -485,7 +501,8 @@ h1 {
 }
 
 .img_principale {
-  width: 100%
+  width: 100%;
+  height:auto;
 }
 
 .randow_data {
@@ -534,16 +551,23 @@ li {
   align-items: center;
   height: 90vh;
 }
-
+.bloc_img_especatcle{
+  display: flex;
+  width:100%;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
 .espectacle-bloc {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  flex-direction: row;
+  justify-content: space-evenly;
   padding: 0;
   width: 100%;
   height: auto;
   margin: 0 auto;
 }
+
 
 .bloc-img-spect {
   position: relative;
@@ -608,7 +632,7 @@ li {
   height: 240px;
   margin: 0 auto;
   object-fit: cover;
-
+border-radius: 50%;
   padding: 0px;
   /* box-shadow: 0 0 10px rgb(252, 48, 48,.5), 0 0 15px rgb(252, 48, 48,.5), 0 0 30px rgb(252, 48, 48,.5) ; */
   border: 3px solid red;
