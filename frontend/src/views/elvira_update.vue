@@ -1,7 +1,7 @@
 <template>
     <div class="container master">
         <div class="row">
-            <span class="form-title" v-if="pageData[0].name">
+            <span class="form-title" v-if="pageData[0].name" :class="darkTheme ? 'txtDark' : 'txtDay'">
                 Vous êtes sur la page:
                 <strong>{{ pageData[0].name }}.{{ pageData[0].lang }}</strong></span>
             <div class="bloc_thumb">
@@ -32,19 +32,19 @@
                     </div>
                 </div>
                 <div class="bloc_text_thumb">
-                    <h1>{{ pageData[0].title_1 }}</h1>
+                    <h1 :class="darkTheme ? 'txtDark' : 'txtDay'">{{ pageData[0].title_1 }}</h1>
                     <input class="input_title" name="title" type="text" v-model="pageData[0].title_1"
                         placeholder="pageData[0].title_1" />
                     <span class="line"></span>
                     <div class="bloc_synopsis">
-                        <h1>{{ pageData[0].subTitle_1 }}</h1>
+                        <h1 :class="darkTheme ? 'txtDark' : 'txtDay'">{{ pageData[0].subTitle_1 }}</h1>
                         <input class="input_title" name="subTitle" type="text" v-model="pageData[0].subTitle_1"
                             placeholder="pageData[0].subTitle_1" />
                         <div class="bloc_sinopsis_text">
-                            <h3 class="title_sinopsis">Sinopsis</h3>
+                            <h3 class="title_sinopsis" :class="darkTheme ? 'txtDark' : 'txtDay'">Sinopsis</h3>
                             <textarea class="synopsisArea col-12" name="synopsis_1" id="" cols="30" rows="5"
                                 v-model="pageData[0].synopsis_1"></textarea>
-                            <label for="synopsis_2" class="label_area">Synopsis 2</label>
+                            <label for="synopsis_2" class="label_area" :class="darkTheme ? 'txtDark' : 'txtDay'">Synopsis 2</label>
                             <textarea class="synopsisArea col-12" name="synopsis_2" id="" cols="30" rows="5"
                                 v-model="pageData[0].synopsis_2"></textarea>
                         </div>
@@ -52,7 +52,7 @@
                     <div class="bloc_text_video">
                         <div class="fiches">
                             <div class="fiche_art fiche">
-                                <h4>{{ pageData[0].p_0 }}</h4>
+                                <h4 :class="darkTheme ? 'txtDark' : 'txtDay'">{{ pageData[0].p_0 }}</h4>
                                 <input name="p_1" type="text" v-model="pageData[0].p_0" placeholder="pageData[0].p_0" />
                                 <span>
                                     <input name="p_1" type="text" v-model="pageData[0].p_1" 
@@ -104,7 +104,7 @@
                                 </span>
                             </div>
                             <div class="info_basic fiche">
-                                <h4>{{ pageData[0].p_17 }}</h4>
+                                <h4 :class="darkTheme ? 'txtDark' : 'txtDay'">{{ pageData[0].p_17 }}</h4>
                                 <input name="p_1" type="text" v-model="pageData[0].p_17" 
                                 placeholder="pageData[0].p_17" />
                                 <input name="p_1" type="text" v-model="pageData[0].p_18" 
@@ -129,7 +129,7 @@
                                 <!-- <p><a href="https://vimeo.com/373748069">EL GRAN CABARET ELVIRA_MARTA RENYER</a> from <a
                                     href="https://vimeo.com/martaaa">MartaRenyer</a> on <a
                                     href="https://vimeo.com">Vimeo</a>.</p> -->
-                                <p class="linkVideo">{{ pageData[0].linkVideo }}</p>
+                                <p class="linkVideo" :class="darkTheme ? 'txtDark' : 'txtDay'">{{ pageData[0].linkVideo }}</p>
                                 <label for="linkVideo" class="link_video">
                                     <input type="text" name="linkVideo" v-model="pageData[0].linkVideo" />
                                 </label>
@@ -165,21 +165,20 @@ export default {
             fileSelected: "",
         };
     },
+    
     created: function () {
-        this.getNavData();
-        this.getPageData();
+        // this.getNavData();
+        // this.getPageData();
     },
 
     computed: {
         ...mapState({
             imgData: "imgData",
-            pageData: "pageData",
+             pageData: "pageData",
             navData: "navData",
+            darkTheme:"darkTheme"
         }),
-        // computedBack: function () {
-        //   this.background = this.pageData[0].imageUrl;
-        //   console.log("CHANGE WIDTH", this.background);
-        // }
+        
     },
     components: {},
     methods: {
@@ -240,23 +239,24 @@ export default {
             // console.log("CHANGE WIDTH", this.background);
         },
 
-        getPageData() {
-            const n = "elvira";
-            this.$store.dispatch("getPageData", n).then((res) => {
-                if (res) {
-                }
-            });
-            console.log("REQUET GET ACCUEIL PAGE DATA-----> ", n);
-        },
-        getNavData() {
-            const n = "navbar";
-            this.$store.dispatch("getNavData", n).then((res) => {
-                if (res) {
-                    this.navbarOk = true;
-                }
-            });
-            console.log("REQUET GET NAV BAR PAGE DATA-----> ", n);
-        },
+        // async getPageData() {
+        //     const n = "elvira";
+        //     this.$store.dispatch("getPageData", n).then((res) => {
+        //         if (res) {
+        //             console.log("RESPONSE GETPAGEDATA");
+        //        }
+        //     });
+            
+        // },
+        // getNavData() {
+        //     const n = "navbar";
+        //     this.$store.dispatch("getNavData", n).then((res) => {
+        //         if (res) {
+        //             this.navbarOk = true;
+        //         }
+        //     });
+        //     console.log("REQUET GET NAV BAR PAGE DATA-----> ", n);
+        // },
 
         updatePage(p) {
             let file = this.fileSelected;
@@ -374,6 +374,7 @@ export default {
 @import url("../styles/bloc_nav.css");
 @import url("../styles/font.css");
 @import url("../styles/btn.css");
+@import url("../styles/theme.css");
 
 *,
 ::after,
@@ -386,7 +387,9 @@ export default {
 .master {
     position: relative;
 }
-
+textarea{
+    padding:5px;
+}
 .bloc_nav {
     position: fixed;
     top: 30px;

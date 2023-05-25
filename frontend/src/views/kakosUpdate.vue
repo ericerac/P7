@@ -2,10 +2,9 @@
   <div class="container-fluid background">
 
     <div class="row g-0">
-      <span class="form-title" v-if="pageData[0].name">
+      <span class="form-title" v-if="pageData[0].name" :class="darkTheme ? 'txtDark' : 'txtDay'">
         Vous êtes sur la page: <strong>{{ pageData[0].name }}.{{ pageData[0].lang }}</strong></span>
       <div class="slider">
-
 
         <h1>Images </h1>
         <!-- <button @click="addImg" >Add Image</button> -->
@@ -13,7 +12,7 @@
 
         <div class="img_card" v-if="addKakosC">
           <template v-if="preview && addKakosC">
-            <!-- <p class="mb-0 img_preview">file name: {{ fileName }}</p> --> -->
+            <!-- <p class="mb-0 img_preview">file name: {{ fileName }}</p> -->
             <img :src="preview" class="img_diapo" />
 
           </template>
@@ -55,10 +54,8 @@
           </div>
         </div>
 
-
-
-
-        <p class="info_slider">Valider la mise à jour à chaque changement d'image,<br> Cambia l'imatge per les 3 idiomes a l'hora. </p>
+        <p class="info_slider">Valider la mise à jour à chaque changement d'image,<br> Cambia l'imatge per les 3 idiomes a
+          l'hora. </p>
         <div class="bloc_img_slider">
           <div class="loop" v-for="(img, index) in imgData" :key="`item-${index}`">
 
@@ -86,9 +83,9 @@
               </label>
 
 
-<!-- <BtnUpDelCan @updateImg="updateImg(img._id)" @cancelFileSelected="cancelFileSelected()" @delImg="delImg(img._id)"/>
+              <!-- <BtnUpDelCan @updateImg="updateImg(img._id)" @cancelFileSelected="cancelFileSelected()" @delImg="delImg(img._id)"/>
               -->
-<div class="btn_action">
+              <div class="btn_action">
 
 
                 <button class="btn btn_up btn_all" @click="updateImg(img._id)">Update</button>
@@ -103,13 +100,10 @@
 
       <div class="bloc_loop col-12">
 
-
-
-
         <div class="header col-12">
           <!-- <img class="header_img col-12" :src="i.imageUrl" alt=""> -->
           <div class="header_title">
-            <h2> {{ pageData[0].title_1 }}</h2>
+            <h2 :class="darkTheme ? 'txtDark' : 'txtDay'"> {{ pageData[0].title_1 }}</h2>
             <label for="title_1">Titre:
               <input type="text" class="title_1" placeholder="pageData.title_1" v-model="pageData[0].title_1">
             </label>
@@ -121,9 +115,23 @@
           <!-- ************************************* -->
         </div>
         <div class="bloc_thumb ">
+          <div class="bloc_video">
+            <div class="video">
+
+              <iframe :src="pageData[0].linkVideo" width="620" height="460" frameborder="0"
+                allow="autoplay; fullscreen; picture-in-picture" allowfullscreen>
+              </iframe>
+              <p class="linkVideo" :class="darkTheme ? 'txtDark' : 'txtDay'">{{ pageData[0].linkVideo }}
+              </p>
+              <label for="linkVideo" class="link_video">
+                <input type="text" name="linkVideo" v-model="pageData[0].linkVideo" />
+              </label>
+            </div>
+
+          </div>
           <div class=" bloc_info col-12">
             <div class="bloc_sinopsis">
-              <h6 class="title_info_sinopsis col-2"><strong>Sinopsis</strong>
+              <h6 class="title_info_sinopsis col-2" :class="darkTheme ? 'txtDark' : 'txtDay'"><strong>Sinopsis</strong>
               </h6>
               <textarea name="synopsis_1" id="synopsis_1" cols="30" rows="10" v-model="pageData[0].synopsis_1"
                 placeholder="pageData[0].synopsis_1">  </textarea>
@@ -131,26 +139,27 @@
 
             </div>
             <div class="title_fiche">
-              <h6 class="title_info "><strong> Titre: {{ pageData[0].p_1 }}</strong> </h6>
+              <h6 class="title_info " :class="darkTheme ? 'txtDark' : 'txtDay'"><strong> Titre: {{ pageData[0].p_1
+              }}</strong> </h6>
             </div>
             <div class="bloc_fiche_art">
 
-              <label for="title">{{ pageData[0].p_1 }}
+              <label for="title" :class="darkTheme ? 'txtDark' : 'txtDay'">{{ pageData[0].p_1 }}
                 <input type="text" name="title" v-model="pageData[0].p_1" placeholder="pageData[0].p_1">
               </label>
-              <label for="title">{{ pageData[0].p_2 }}
+              <label for="title" :class="darkTheme ? 'txtDark' : 'txtDay'">{{ pageData[0].p_2 }}
                 <input type="text" name="title" v-model="pageData[0].p_2" placeholder="pageData[0].p_2">
               </label>
-              <label for="title">{{ pageData[0].p_3 }}
+              <label for="title" :class="darkTheme ? 'txtDark' : 'txtDay'">{{ pageData[0].p_3 }}
                 <input type="text" name="title" v-model="pageData[0].p_3" placeholder="pageData[0].p_3">
               </label>
-              <label for="title">{{ pageData[0].p_4 }}
+              <label for="title" :class="darkTheme ? 'txtDark' : 'txtDay'">{{ pageData[0].p_4 }}
                 <input type="text" name="title" v-model="pageData[0].p_4" placeholder="pageData[0].p_4">
               </label>
-              <label for="title">{{ pageData[0].p_5 }}
+              <label for="title" :class="darkTheme ? 'txtDark' : 'txtDay'">{{ pageData[0].p_5 }}
                 <input type="text" name="title" v-model="pageData[0].p_5" placeholder="pageData[0].p_5">
               </label>
-              <label for="title">{{ pageData[0].p_6 }}
+              <label for="title" :class="darkTheme ? 'txtDark' : 'txtDay'">{{ pageData[0].p_6 }}
                 <input type="text" name="title" v-model="pageData[0].p_6" placeholder="pageData[0].p_6">
               </label>
             </div>
@@ -190,13 +199,13 @@ export default {
       inputSelected: ref(""),
       addKakosC: ref(false),
       inputFile: ref(""),
-      tabInput:[],
+      tabInput: [],
     }
   },
 
   computed: {
     ...mapState({
-
+      darkTheme: "darkTheme",
       pageData: "pageData",
       imgData: "imgData"
 
@@ -207,7 +216,7 @@ export default {
     BtnUpDelCan
   },
   methods: {
-    
+
 
     async FileUpload(event) {
       let that = this;
@@ -216,12 +225,12 @@ export default {
       let File = event.target.files[0];
       this.fileName = File.name
 
-      let tabInput=[]
+      let tabInput = []
 
       let iR = inp.forEach((input, index) => {
         let files = input.files[0];
 
-         tabInput.push(files)
+        tabInput.push(files)
 
         if (files == File) {
           this.inputFile = files.name;
@@ -256,14 +265,20 @@ export default {
       this.fileSelected = "";
       this.fileName = "";
       this.preview = "";
-      this.tabInput=[];
+      this.tabInput = [];
       console.log("CANCEL FILE IMAGE SELECTED", this.fileSelected, this.fileName);
     },
 
     updateKakos(p) {
-      let file = this.fileSelected;
+     
       let bodyFormData = new FormData();
 
+      let videoNew = this.pageData[0].linkVideo;
+      if (videoNew.include("embed")) {
+        console.log("EMBED VIDEO");
+      } else if (videoNew.include("watch")) {
+        console.log("WATCH VIDEO");
+      }
 
       if (this.fileSelected) {
 
@@ -282,6 +297,7 @@ export default {
         bodyFormData.append("synopsis_1", this.pageData[0].synopsis_1);
         bodyFormData.append("synopsis_2", this.pageData[0].synopsis_2);
         bodyFormData.append("phrase", this.pageData[0].phrase);
+        bodyFormData.append("linkVideo", this.pageData[0].linkVideo);
         bodyFormData.append("p_2", this.pageData[0].p_2);
         bodyFormData.append("p_3", this.pageData[0].p_3);
         bodyFormData.append("p_4", this.pageData[0].p_4);
@@ -302,6 +318,8 @@ export default {
         bodyFormData.append("color_subTitle_2", this.pageData[0].color_subTitle_2);
         bodyFormData.append("synopsis_1", this.pageData[0].synopsis_1);
         bodyFormData.append("synopsis_2", this.pageData[0].synopsis_2);
+        bodyFormData.append("phrase", this.pageData[0].phrase);
+        bodyFormData.append("linkVideo", this.pageData[0].linkVideo);
         bodyFormData.append("p_2", this.pageData[0].p_2);
         bodyFormData.append("p_3", this.pageData[0].p_3);
         bodyFormData.append("p_4", this.pageData[0].p_4);
@@ -315,19 +333,18 @@ export default {
       this.$store
         .dispatch("updatePage", {
           data: bodyFormData,
-        
+
           page: "kakos"
         })
 
         .then((response) => {
           // if (response.status == 200) {
-             console.log("RESPONSE BioUPDATE IMG");
-            //     location.reload();
-            file = null;
-            cancelFileSelected()
+          console.log("RESPONSE BioUPDATE IMG");
+          //     location.reload();
+          file = null;
+          cancelFileSelected()
         })
         .catch((response) => {
-
 
         });
     },
@@ -393,7 +410,6 @@ export default {
         });
     },
 
-
     createImg() {
       let bodyFormData = new FormData();
       let imgNumber = this.imgData.length + 1;
@@ -424,9 +440,6 @@ export default {
 
         });
     },
-
-
-
 
     delImg(x) {
       let del = window.confirm("Quel dommage ! Supprimer ? sur? ");
@@ -460,6 +473,7 @@ export default {
 
 <style scoped>
 @import url("../styles/btn.css");
+@import url("../styles/theme.css");
 
 .AddKakosComponent {
 
@@ -507,7 +521,8 @@ export default {
 
 .img_diapo {
   width: 90%;
-  height: 250px
+  max-height: 250px;
+  object-fit: contain;
 }
 
 .slider {
@@ -532,6 +547,14 @@ export default {
 
 }
 
+iframe{
+  width:100%;
+  height:250px;
+}
+.video{
+  width:100%;
+  height:auto;
+}
 .bloc_loop {
   border: 2px dashed black;
   margin-top: 20px
@@ -672,4 +695,5 @@ label {
   .header {
     margin-top: 30px
   }
-}</style>
+}
+</style>

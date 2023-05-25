@@ -1,36 +1,24 @@
 <template>
-  <div class="fond bdDay" :class="{ bgDark: darkTheme }">
- 
-    <div class="container text-center sticky_bloc">
-      <!-- <div class="bloc_nav" v-if="navbarOk">
-        <navbar namePage="portada" :dark = "dark" @theme ="dark=($event)"/>
-      </div> -->
+  <div class="fond bdDay" :class="{ bgDark: darkTheme }" @click="isActive == false">
 
+    <div class="container text-center sticky_bloc">
       <div class="row bloc_thumb pt-5 pb-5">
         <div class="  col-lg-6 col-xl-6 left-bloc">
           <div class="title_name item1 texte">
-            <!-- <h1 class="titles">{{ pageData[0].title_1 }}</h1> -->
-            <!-- <div class="nameTitleC">  -->
             <svg viewBox="0 0 1020 400" id="title_1" class="txtDay">
-	<text x="50%" y="50%" dy=".35em" text-anchor="middle">
-		Marta Renyer
-	</text>
-</svg>	
-            <!-- </div> -->
-            <!-- <img src="../assets/logo/download.gif"> -->
+              <text x="50%" y="50%" dy=".35em" text-anchor="middle">
+                Marta Renyer
+              </text>
+            </svg>
           </div>
           <div class="subTitle_name item2 text " :class="darkTheme ? 'txtDark' : 'txtDay'">
             <p>{{ pageData[0].subTitle_1 }}</p>
           </div>
           <div class="line item3"></div>
-
         </div>
-
         <div class="col-12 col-md-6 col-lg-6 right_bloc">
           <div class="img_back ">
-
             <img width="457" height="600" class="img_principale" :src="pageData[0].imageUrl" alt="image" />
-
           </div>
         </div>
       </div>
@@ -39,18 +27,12 @@
     <!-- SWITCH -->
 
     <div class="container switch_dynamic">
-
-      <!-- <div style="height: 150px; overflow: hidden;" ><svg viewBox="0 0 500 150" preserveAspectRatio="none" style="height: 100%; width: 100%;"><path d="M0.00,49.98 C149.99,150.00 271.49,-49.98 500.00,49.98 L500.00,0.00 L0.00,0.00 Z" stroke="red" stroke-width="3" fill="none"></path></svg></div>
-    -->
-
-      <!-- <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.dev/svgjs" viewBox="0 0 600 100"><path d="M592.1466064453125,72.25131225585938C497.7748832702637,68.06283124287923,95.15706952412923,51.439791997273765,6.282722473144531,46.335079193115234C-82.59162457784016,41.2303663889567,43.062828063964844,41.49214553833008,58.9005241394043,41.6230354309082C74.73822021484375,41.75392532348633,86.78010241190593,44.371726989746094,101.30889892578125,47.120418548583984C115.83769543965657,49.869110107421875,129.97382609049478,54.973822911580406,146.07330322265625,58.11518478393555C162.17278035481772,61.25654665629069,184.0314178466797,65.83769989013672,197.90576171875,65.96858978271484C211.7801055908203,66.09947967529297,219.3717244466146,61.51832580566406,229.31936645507812,58.9005241394043C239.26700846354166,56.28272247314453,247.1204071044922,53.403141021728516,257.59161376953125,50.26177978515625C268.0628204345703,47.120418548583984,282.32984924316406,40.18324661254883,292.1466064453125,40.0523567199707C301.96336364746094,39.92146682739258,305.3665059407552,45.54973920186361,316.4921569824219,49.4764404296875C327.61780802408856,53.40314165751139,347.38219197591144,63.48167419433594,358.9005126953125,63.61256408691406C370.41883341471356,63.74345397949219,376.3088836669922,51.70156987508138,385.6020812988281,50.26177978515625C394.89527893066406,48.82198969523112,404.05760192871094,53.40314292907715,414.6596984863281,54.97382354736328C425.2617950439453,56.544504165649414,438.2198994954427,58.11518351236979,449.21466064453125,59.68586349487305C460.2094217936198,61.256543477376304,470.28795369466144,63.219892501831055,480.6282653808594,64.39790344238281C490.9685770670573,65.57591438293457,503.0104522705078,67.2774887084961,511.25653076171875,66.7539291381836C519.5026092529297,66.2303695678711,522.9057820638021,61.649216969807945,530.104736328125,61.25654602050781C537.3036905924479,60.86387507120768,547.3822021484375,62.69633356730143,554.4502563476562,64.39790344238281C561.518310546875,66.09947331746419,566.2303365071615,70.15706380208333,572.5130615234375,71.4659652709961C578.7957865397135,72.77486673990886,686.5183296203613,76.43979326883952,592.1466064453125,72.25131225585938C497.7748832702637,68.06283124287923,95.15706952412923,51.439791997273765,6.282722473144531,46.335079193115234" fill="hsl(353, 98%, 41%)" fill-opacity="1"></path><defs><linearGradient id="SvgjsLinearGradient1003"><stop stop-color="hsl(340, 45%, 50%)" offset="0"></stop><stop stop-color="hsl(340, 45%, 80%)" offset="1"></stop></linearGradient><radialGradient id="SvgjsRadialGradient1004"><stop stop-color="hsl(340, 45%, 50%)" offset="0"></stop><stop stop-color="hsl(340, 45%, 80%)" offset="1"></stop></radialGradient></defs></svg>
-    -->
     </div>
 
     <!-- ------------- BLOC ESPECTACLE ------------ -->
     <div class="container  text-center
       ">
-     
+
       <div class="row txt-espectacle text bgTitleClT">
         <h2 class="titles">ESPECTACLES</h2>
       </div>
@@ -101,26 +83,19 @@
 
         </div> -->
       </div>
-      <!-- <p id="demo"></p> -->
     </div>
-    <!-- <div class="container-fluid-footer">
-      <foot />
-    </div> -->
   </div>
 </template>
 
  <!-- ************* SCRIPT ************* -->
 <script>
-import { mapGetters, mapState } from "vuex";
-import {ref, toRef, reactive, computed} from "vue"
-// import navbar from "../components/nav_bar.vue"
-// import foot from "../components/footer.vue"
+import { mapGetters, mapState, mapMutations } from "vuex";
+import { ref, toRef, reactive, computed } from "vue"
 import NameTitle from "../components/name_title.vue"
 import vIntersect from "vue-intersection-observer";
- import dataCookies from "../js/cookies"
- import { useHead } from '@vueuse/head'
-// LOCALISATION UTILISATEUR
-// console.log("Welcome to our visitors from "+ geoplugin_city() +", "+geoplugin_countryName()) 
+import dataCookies from "../js/cookies"
+import { useHead } from '@vueuse/head'
+
 
 export default {
   name: "portada",
@@ -129,51 +104,34 @@ export default {
     return {
       home: false,
       navbarOk: false,
-      dark:ref(""),
-     descriptionPage:ref("Pagina amb lliste d'espectacles i accesos als espectacles i les seves desciptcions i imatges"),
+      dark: ref(""),
+      descriptionPage: ref("Pagina amb lliste d'espectacles i accesos als espectacles i les seves desciptcions i imatges"),
+      isActive:ref(),
     };
   },
-  
-setup()
-  {
-const siteData = reactive({
-  title:"WwbSite test meta",
-  description:" Pagina amb lliste i accesos als espectacles de Marta Renyer actriu i pallassa, i les seves desciptcions i imatges",
-})
 
-useHead({
-  title:"Martas Renyer Inici web",
-  meta:[{
-    name:'description',
-    content:computed(()=> siteData.description)
-  }]
-})
+  setup() {
+    const siteData = reactive({
+      title: "WwbSite test meta",
+      description: " Pagina amb lliste i accesos als espectacles de Marta Renyer actriu i pallassa, i les seves desciptcions i imatges",
+    })
+
+    useHead({
+      title: "Martas Renyer Inici web",
+      meta: [{
+        name: 'description',
+        content: computed(() => siteData.description)
+      }]
+    })
   },
 
-  mounted: () => {
-    // console.log(" MOUNT");
-    // window.addEventListener('scroll', this.handleScroll);
-   
-    },
-    beforeDestroy() {
-        window.removeEventListener('scroll', this.handleScroll);
-    },
-    
-
-  beforeMount: function () {
-    // console.log("BEFORE MOUNT PORTADA");
-    
+  beforeDestroy() {
+    window.removeEventListener('scroll', this.handleScroll);
   },
 
   created: function () {
-    // this.viewWidth();
-    // this.getIpClient();
-     this.getLocation()
-    this. viewWidth()
+    this.getLocation()
     this.getPageData();
-    //  this.getNavData();
-
-
   },
 
 
@@ -186,42 +144,26 @@ useHead({
       geoLoc: "geoloc",
       status: "status",
       userLocalHour: "userLocalHour",
-     loading:"loading",
-     darkTheme:"darkTheme"
-      
+      darkTheme: "darkTheme"
+
     }),
+    ...mapMutations(["loading"])
   },
 
   watch: {
-    darkTheme(n, o) {
-      console.log("WATCH THEME ", n);
-    }
-    // namePage(n, o) {
-    //   if (n != o) {
-    //     this.getImgData(n);
-    //   }
+    // darkTheme(n, o) {
+    //   console.log("WATCH THEME ", n);
     // }
+
   },
 
   components: {
-    // navbar,
-    // foot,
     vIntersect,
     NameTitle,
 
   },
 
   methods: {
-
-    // handleScroll() {
-    //         console.log('scroll');
-    //         const { scrollTop, scrollHeight, clientHeight } =
-    //             document.documentElement;
-    //         const scrolled = (scrollTop / (scrollHeight - clientHeight)) * 100;
-    //         this.scrollPosition = Math.round(scrolled);
-    //     },
-
-    
 
     getLocation() {
       this.$store.dispatch("getLoc")
@@ -232,81 +174,23 @@ useHead({
 
     async DataCookies() {
       let dataTheme = await dataCookies();
-      // console.log("DATATHEME CALENDAR", dataTheme);
-      // this.darkTheme = dataTheme.theme
-      // this.dark = dataTheme.dark
     },
 
     getPageData() {
-
-      console.log("NAME  GET PAGE DATA");
+      this.$store.commit("loading", true)
+   
       const n = "portada";
       this.$store.dispatch("getPageData", n)
         .then((res) => {
           if (res) {
             this.$store.dispatch("getImgData", n)
+              .then((res) => {
+                this.$store.commit("loading", false)
+              })
           }
         })
     },
 
-    // getImgData(np) {
-    //    console.log("NAME PAGE GET IMG DATA", np);
-    //   this.$store.dispatch("getImgData", np)
-    // },
-
-    // getNavData() {
-    //   const n = "navbar";
-    //   this.$store.dispatch("getNavData", n)
-    //     .then((res) => {
-    //       if (res) {
-
-    //         this.navbarOk = true
-
-
-    //       }
-    //     });
-    //   // console.log("REQUET GET NAV BAR PAGE DATA-----> ", n);
-    // },
-
-    // ******** INFORMATION FUNCTION.......
-
-    // viewWidth() {
-    //   // console.log("NAVIGATOR----->", window);
-    //   if (window.navigator) {
-    //     console.log("NAVIGATOR----->", window);
-    //     console.log("NAVIGATOR LANGUAGE----->", window.clientInformation.language);
-       
-    //   } else {
-    //     // console.log("SANS NAVIGATOR");
-    //   }
-    // },
-    viewWidth() {
-      if (window.navigator) {
-        console.log("NAVIGATOR----->", window);
-        // console.log("NAVIGATOR LANGUAGE----->", window.clientInformation.language);
-        let dataBrowser = {
-          screenHeight: window.innerHeight,
-          screenWidth: window.innerWidth,
-          browserLanguage: window.navigator.language,
-          browserMobile: window.clientInformation.userAgentData.mobile,
-
-          browserVendor:
-            window.navigator.vendor,
-        };
-        console.log("SCREEN USER", dataBrowser);
-        // this.dataUser = dataBrowser;
-        // this.isActive = false
-      } else {
-        console.log("SANS NAVIGATOR");
-      }
-    },
-
-    // getLoc() {
-    //   this.$store.dispatch("getLoc")
-    // },
-    // getIpClient() {
-    //   this.$store.dispatch("getIpClient")
-    // },
 
 
   }, // fin METHODS
@@ -314,7 +198,6 @@ useHead({
 </script>
 
 <style scoped>
-
 @import url("../styles/theme.css");
 @import url("../styles/font.css");
 
@@ -324,33 +207,32 @@ useHead({
 }
 
 svg {
-  /* font-family: 'Russo One', sans-serif; */
-  /* position: absolute; 
-  top:0; */
-  
-   width:auto;
+  width: auto;
   stroke-width: 18;
 }
-#title_1{
- 
-  text-shadow: 0px 3px 3px rgb(251, 93, 93),0px 5px 23px rgb(251, 93, 93), 5px 0px 23px rgb(254, 102, 102);
- 
+
+#title_1 {
+
+  text-shadow: 0px 3px 3px rgb(251, 93, 93), 0px 5px 23px rgb(251, 93, 93), 5px 0px 23px rgb(254, 102, 102);
+
 }
-.bgTitleClT{
-  position:relative;
+
+.bgTitleClT {
+  position: relative;
   /* top: 50%;
   left: 50%;
   transform: translate(-50%, -0%); */
   clip-path: polygon(0% 0%, 100% 15%, 100% 100%, 0% 85%);
   background: var(--bgTitle);
   /* background: rgba(165, 42, 42, 1); */
-  z-index:2;
- 
+  z-index: 2;
+
 }
-.bgTitleClT{
-  margin:0 auto;
-  width:calc( 300px + 3vw);
-  height:100px
+
+.bgTitleClT {
+  margin: 0 auto;
+  width: calc(300px + 3vw);
+  height: 100px
 }
 
 svg text {
@@ -359,7 +241,7 @@ svg text {
   stroke-width: 16;
   stroke: rgb(62, 1, 1);
   font-size: 140px;
-  width:300px;
+  width: 300px;
 }
 
 @keyframes stroke {
@@ -370,7 +252,7 @@ svg text {
     stroke-dasharray: 0 40%;
     stroke-width: 5;
   }
-  
+
 
   70% {
     fill: rgba(72, 138, 20, 0);
@@ -387,7 +269,8 @@ svg text {
     fill: rgb(62, 1, 1);
     fill: rgb(250, 250, 251);
     stroke: rgba(251, 252, 253, .3);
-    stroke: rgb(62, 1, 1);;
+    stroke: rgb(62, 1, 1);
+    ;
     stroke-dashoffset: -25%;
     stroke-dasharray: 100% 0%;
     stroke-width: 2;
@@ -409,14 +292,12 @@ svg text {
   z-index: -1;
 }
 
-.svg_trans {}
-
 .titles {
-  position:absolute;
- top: 50%;
+  position: absolute;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-size:var(--fontSizeTitleH2);
+  font-size: var(--fontSizeTitleH2);
   color: white;
   text-shadow: 0 0 30px #f92424, 0px 0px 50px rgba(251, 41, 41, 0.5), 0 0 150px #EC637B, 0 0 30px #f92424;
 }
@@ -459,7 +340,7 @@ a {
 .title_name>h1 {
   text-shadow: 0 0 30px #f92424, 0px 0px 50px rgba(251, 41, 41, 0.5), 0 0 150px #EC637B, 0 0 30px #f92424;
   color: #f2eeee;
- 
+
 }
 
 h1 {
@@ -502,7 +383,7 @@ h1 {
 
 .img_principale {
   width: 100%;
-  height:auto;
+  height: auto;
 }
 
 .randow_data {
@@ -551,13 +432,15 @@ li {
   align-items: center;
   height: 90vh;
 }
-.bloc_img_especatcle{
+
+.bloc_img_especatcle {
   display: flex;
-  width:100%;
+  width: 100%;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-evenly;
 }
+
 .espectacle-bloc {
   display: flex;
   flex-direction: row;
@@ -632,7 +515,7 @@ li {
   height: 240px;
   margin: 0 auto;
   object-fit: cover;
-border-radius: 50%;
+  border-radius: 50%;
   padding: 0px;
   /* box-shadow: 0 0 10px rgb(252, 48, 48,.5), 0 0 15px rgb(252, 48, 48,.5), 0 0 30px rgb(252, 48, 48,.5) ; */
   border: 3px solid red;
@@ -804,9 +687,9 @@ border-radius: 50%;
 
 @media screen and (min-width:1440px) {
   .right_bloc {
-    margin-top:100px
-
+    margin-top: 100px
   }
+
   #spectacle {
     padding: 50px 30px 30px 30px;
     justify-content: center;

@@ -1,14 +1,12 @@
 <template>
   <div class="fond texte" :class="{ bgDark: darkTheme }">
     <div class="container-fluid text-center ">
-      <!-- <div class="bloc_nav " v-if="navbarOk" >
-        <navbar namePage="bernadette" :dark = "dark" @theme ="dark=($event)"/>
-      </div> -->
+    
       <div class="row">
         <div class="bloc_page col-12 ">
           <div class="bloc_title">
             <span><img src="../assets/design/arabesc_1.png" alt=""></span>
-            <!-- <span><img src="../assets/images/vector-graphics-arabesque-500_262.jpg" alt=""></span> -->
+          
           <h1 class="title_text title_texte" :class="darkTheme ? 'txtDark' : 'txtDay'">{{ pageData[0].title_1 }}</h1>
           <span><img src="../assets/design/arabesc_1.png" alt=""></span>
         </div>
@@ -17,7 +15,7 @@
           </div>
           <div class="bloc_text col-12 col-lg-12 col-xl-12 text-center">
 
-            <!-- <div class="line"></div> -->
+          
             <div class="arabesc"><img src="../assets/design/arabesc_1.png" alt=""> </div>
             <div class="sous_titre ">
               <h4 class="fw-light title_texte" :class=" darkTheme ? 'txtDark' : 'txtDay' "><i>{{ pageData[0].subTitle_1 }}</i> </h4>
@@ -26,7 +24,7 @@
               <p v-if="pageData[0].synopsis" :class="darkTheme ? 'txtDark' : 'txtDay'"> {{ pageData[0].synopsis }} </p>
               <p v-if="!pageData[0].synopsis" :class="darkTheme ? 'txtDark' : 'txtDay'"> {{ pageData[0].synopsis_1 }} {{ pageData[0].synopsis_2 }}</p>
             </div>
-            <!-- <div class="line"></div> -->
+       
             <div class="arabesc"><img src="../assets/design/arabesc_1.png" alt=""> </div>
             <div class="bloc_down mb-3 texte">
               <div class="video ">
@@ -38,7 +36,7 @@
               </div>
 
               <div class="bloc_reverse texte">
-                <!-- <div class="line"></div> -->
+            
                 <div class="fiches col-12 col-xxl-8">
                   <div class="fiche_art col-12 col-md-8 col-lg-7 col-xl-6 text-center">
                     <h6 class="title_texte " :class="darkTheme ? 'txtDark' : 'txtDay'"><strong>- Fiche artistique -</strong></h6>
@@ -69,38 +67,22 @@
                     <button class="btn_dossier">Dossier</button>
                   </div>
                 </div>
-
               </div>
-
               <div class="line"></div>
-
-              <!-- <button v-on:click="changeWidth()">Change</button> -->
             </div>
           </div>
         </div>
       </div>
-      <!-- <div class="cadre" v-bind:style="{ background: 'url(' + background + ')' }"> </div> -->
     </div>
-    <!-- <div class="container-fluid-footer">
-        <foot />
-    </div> -->
+    
   </div>
 </template>
 
 <script>
 const FormData = require("form-data");
 
-// import { axios } from "axios";
 import { mapState } from "vuex";
 import { ref } from "vue";
-
-
-
-// import navbar from "../components/nav_bar.vue"
-// import foot from "../components/footer.vue"
-// import dataCookies from "../js/cookies"
-
-
 
 
 export default {
@@ -115,53 +97,22 @@ export default {
   },
 
   created: function () {
-    // this.getNavData();
+   
     this.getPageData();
   },
 
   beforeMount: function () {
     console.log("BEFORE MOUNT BERNADETTE");
-    // this.getLocation()
+   
   },
 
   computed: {
     ...mapState({
-      // accueilData: "accueilData",
       pageData: "pageData",
-      // navData:"navData",
       darkTheme:"darkTheme"
     }),
-    // computedBack: function () {
-    //   this.background = this.pageData[0].imageUrl;
-    //   console.log("CHANGE WIDTH", this.background);
-    // }
-  },
-  components: {
-    // navbar,
-    // foot,
   },
   methods: {
-
-    changeWidth (event) {
-      // this.background = this.pageData[0].imageUrl;
-      // console.log("CHANGE WIDTH", this.background);
-    },
-
-    // getLocation() {
-    //   this.$store.dispatch("getLoc")
-    //     .then((res) => {
-    //       this.DataCookies()
-    //     })
-    // },
-    // async DataCookies() {
-    //   let dataTheme = await dataCookies();
-    //   console.log("DATATHEME CALENDAR", dataTheme);
-    //   this.theme = dataTheme.theme
-    //   // this.bgColor = dataTheme.bgColor
-    //   this.bgColor = dataTheme.bgColor
-    //   this.dark = dataTheme.dark
-      
-    // },
 
     getPageData() {
       const n = "bernadette";
@@ -173,19 +124,9 @@ export default {
         })
       console.log("REQUET GET ACCUEIL PAGE DATA-----> ", n);
     },
-    // getNavData() {
-    //   const n = "navbar";
-    //   this.$store.dispatch("getNavData", n)
-    //     .then((res) => {
-    //       if (res) {
-    //         this.navbarOk = true
-    //       }
-    //     });
-    //   console.log("REQUET GET NAV BAR PAGE DATA-----> ", n);
-    // },
-    
+
   },
-};
+}
 </script>
 
 <style  scoped>
@@ -194,20 +135,12 @@ export default {
 @import url('https://fonts.googleapis.com/css2?family=Sawarabi+Mincho&display=swap');
 @import url('../styles/theme.css');
 @import url('../styles/font.css');
-/* @import url("../styles/bloc_nav.css");
-@import url("../styles/bloc-nav-c.css"); */
-
-
 
 h1 {
   
   font-weight: bold;
   margin-bottom: 20px;
 }
-
-/* h6, h4, h1, .li_fiche {
- color: var(--txtB)
-} */
 
 .container-fluid {
   width: auto;
@@ -232,13 +165,7 @@ h1 {
 display:none;
 position:relative;
 }
-/* .bloc_nav{
-position:fixed;
-width:100%;
-align-items: center;
 
-    z-index: 1230;
-} */
 .bloc_down {
   display: flex;
   flex-direction: column;
@@ -267,7 +194,6 @@ iframe {
   width: 100%;
   height: auto;
   max-width: 800px;
-  /* margin-left: 70px; */
 }
 
 .arabesc {
@@ -285,9 +211,7 @@ iframe {
   display: flex;
   flex-direction: column-reverse;
   margin-top:20px;
-  /* text-align: center; */
-  /* padding-left: 2rem; */
- 
+
 }
 .li_fiche{
 width:auto;
@@ -295,7 +219,6 @@ width:auto;
 }
 .synopsis {
   margin: 2rem 1rem;
-  /* text-align: left; */
   margin: 0 auto;
 }
 
@@ -312,7 +235,6 @@ ul {
   margin: 0 auto;
   padding: 0;
   font-weight: 100;
-/* overflow: hidden; */
 text-align: left;
 line-height: 26px;
 
@@ -321,13 +243,10 @@ line-height: 26px;
 li {
   display:flex;
   flex-wrap: wrap;
-  /* color: rgba(0, 0, 0, .6); */
   font-size: 14px;
   font-family: 'Sawarabi Mincho', serif;
 }
-li > strong {
-  /* color: rgba(0, 0, 0, .8); */
-}
+
 .video {
   margin: 0 auto;
   padding: 0;
@@ -372,15 +291,9 @@ li > strong {
   margin-top:70px;
   width: 100%;
 }
-/* .bloc_title > h1{
-margin:20px;
-font-size: 30px;
-} */
+
 .bloc_down {
   display: flex;
-  /* flex-direction: row;
-  flex-wrap: wrap; */
-
 }
 .fiches{
 flex-direction: row;

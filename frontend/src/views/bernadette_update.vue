@@ -1,11 +1,11 @@
 <template>
   <div class="container text-center">
     <div class="row col-12 col-xl-6">
-      <span class="form-title">
+      <span class="form-title" :class=" [darkTheme ? 'txtDark' : 'txtDay'] ">
         Vous êtes sur la page: <strong>{{ pageData[0].name }}.{{ pageData[0].lang }}</strong></span>
       <div class="bloc_page col-12">
         <div class="title mb-3">
-          <h1 :class="{bgDark : darkTheme}">{{ pageData[0].title_1 }} </h1>
+          <h1 :class=" [darkTheme ? 'txtDark' : 'txtDay'] ">{{ pageData[0].title_1 }} </h1>
           <label for="Titre"> Titre
             <input type="text" class="inputVideo" name="Titre" v-model="pageData[0].title_1">
           </label>
@@ -42,20 +42,20 @@
           <div class="line"></div>
           <div class="sous_titre ">
 
-            <h4 class="fw-light "><i>{{ pageData[0].subTitle_1 }}</i> </h4>
-            <label for="sousTitre"> Sous Titre
+            <h4 class="fw-light " :class=" [darkTheme ? 'txtDark' : 'txtDay'] "><i>{{ pageData[0].subTitle_1 }}</i> </h4>
+            <label for="sousTitre" :class=" darkTheme ? 'txtDark' : 'txtDay' "> Sous Titre
               <input type="text" class="inputVideo" name="sousTitre" v-model="pageData[0].subTitle_1">
             </label>
           </div>
           <div class="line"></div>
           <div class="synopsis col-10 ">
-            <label for="synopsis" class="label_area">Synopsis </label>
+            <label for="synopsis" class="label_area" :class=" [darkTheme ? 'txtDark' : 'txtDay'] ">Synopsis </label>
             <textarea class="synopsisArea col-12" name="synopsis" id="" cols="30" rows="5"
               v-model="pageData[0].synopsis"></textarea>
-            <label for="synopsis_1" class="label_area">Synopsis 1</label>
+            <label for="synopsis_1" class="label_area" :class=" [darkTheme ? 'txtDark' : 'txtDay'] ">Synopsis 1</label>
             <textarea class="synopsisArea col-12" name="synopsis_1" id="" cols="30" rows="5"
               v-model="pageData[0].synopsis_1"></textarea>
-            <label for="synopsis_2" class="label_area">Synopsis 2</label>
+            <label for="synopsis_2" class="label_area" :class=" [darkTheme ? 'txtDark' : 'txtDay'] ">Synopsis 2</label>
             <textarea class="synopsisArea col-12" name="synopsis_2" id="" cols="30" rows="5"
               v-model="pageData[0].synopsis_2"></textarea>
 
@@ -65,7 +65,7 @@
           </div>
           <div class="line"></div>
           <div class="video col-12">
-            <label for="videoLink">Lien Video
+            <label for="videoLink" :class=" [darkTheme ? 'txtDark' : 'txtDay'] ">Lien Video
               <input type="text" class="inputVideo" name="videoLink" v-model="pageData[0].linkVideo">
             </label>
 
@@ -132,15 +132,13 @@ export default {
     ...mapState({
       pageData: "pageData",
       imgData: "imgData",
+      darkTheme:"darkTheme"
     }),
   },
   methods: {
     async FileUpload(event) {
       let that = this
       let inp = document.querySelectorAll('input[type=file]');
-
-      // let inp1 = document.querySelector('input[type=file]').files[0];
-
       let iR = inp.forEach((input, index) => {
         let files = input.files[0];
 
@@ -148,7 +146,6 @@ export default {
           this.inputSelected = index;
           console.log(" INPUT SELECTED", index);
         }
-
       });
 
       var input = event.target;
@@ -160,7 +157,6 @@ export default {
         this.image = input.files[0];
         reader.readAsDataURL(input.files[0]);
       }
-
 
       // ************ DONE **********************************
 
@@ -241,21 +237,15 @@ export default {
       this.$store
         .dispatch("updatePage", {
           data: bodyFormData,
-          // page: `${process.env.VUE_APP_PAGE1_NAME}`
           page: "bernadette"
         })
 
         .then((response) => {
           if (response.status == 200) {
-            // console.log("RESPONSE CALUPDATE 2", response);
-            //     location.reload();
             file = null;
-
-
           }
         })
         .catch((response) => {
-
 
         });
     },
@@ -265,13 +255,15 @@ export default {
 
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Amatic+SC&display=swap');
-
+@import url("../styles/theme.css");
 .bloc {
   width: 500px;
   height: 500px;
   border: 2px solid black
 }
-
+textarea{
+  padding:5px;
+}
 .line {
   width: 200px;
   border: 2px solid red;

@@ -29,7 +29,7 @@
                 <p class="fileName" v-if="fileName && 0 === inputSelected">{{ fileName }}</p>
             </label>
             <div class="btn-action">
-                
+
                 <div class="btn_update">
                     <label for="retour"></label>
                     <input type="button" name="retour" class="btn btn_del btn_all" keyUp="enter" value="Cancel"
@@ -43,38 +43,39 @@
             <div class="bloc_left  col-12 text-center">
                 <div class="title_subTitlte">
 
-                    <h1>{{ pageData[0].title_1 }} </h1>
+                    <h1 :class="darkTheme ? 'txtDark' : 'txtDay'">{{ pageData[0].title_1 }} </h1>
                     <label for="Titre"> Titre
                         <input type="text" class="inputVideo" name="Titre" v-model="pageData[0].title_1">
                     </label>
-                    <h2>{{ pageData[0].subTitle_1 }} </h2>
+                    <h2 :class="darkTheme ? 'txtDark' : 'txtDay'">{{ pageData[0].subTitle_1 }} </h2>
                     <label for="Titre"> Titre
                         <input type="text" class="inputVideo" name="Titre" v-model="pageData[0].subTitle_1">
                     </label>
 
                 </div>
-                <label for="p1" class="label_area">Paragraphe 1 <em>(330 caractères)</em> </label>
-                <textarea rows="10" cols="50" name="p1" type="text" class="description_bio p" v-model="page.p_1">
+                <label for="p1" class="label_area" :class="darkTheme ? 'txtDark' : 'txtDay'">Paragraphe 1 <em>(330
+                        caractères)</em> </label>
+                <textarea rows="10" cols="50" name="p1" type="text" class="description_bio p" v-model="pageData[0].p_1">
                                     </textarea>
                 <!-- <textarea rows="10" cols="50" name="p1" type="text" class="description_bio p" v-model="pageData[0].p_1">
                                     </textarea> -->
-                                    {{ p1 }}
-                <label for="p2">Paragraphe 2</label>
+                {{ p1 }}
+                <label for="p2" :class="darkTheme ? 'txtDark' : 'txtDay'">Paragraphe 2</label>
                 <textarea rows="10" cols="50" name="p2" type="text" class="description_bio p" v-model="pageData[0].p_2">
                                     </textarea>
-                <label for="p3">Paragraphe 3</label>
+                <label for="p3" :class="darkTheme ? 'txtDark' : 'txtDay'">Paragraphe 3</label>
                 <textarea rows="10" cols="50" name="p3" type="text" class="description_bio p" v-model="pageData[0].p_3">
                                     </textarea>
-                <label for="p4">Paragraphe 4</label>
+                <label for="p4" :class="darkTheme ? 'txtDark' : 'txtDay'">Paragraphe 4</label>
                 <textarea rows="10" cols="50" name="p4" type="text" class="description_bio p" v-model="pageData[0].p_4">
                                     </textarea>
                 <div class="bloc_tilte_2">
-                    <h2>{{ pageData[0].title_2 }}</h2>
+                    <h2 :class="darkTheme ? 'txtDark' : 'txtDay'">{{ pageData[0].title_2 }}</h2>
                     <label for="img_text">titre rubrique
                         <input type="text" name="img_text" v-model="pageData[0].title_2" />
                     </label>
                 </div>
-                
+
                 <div class="btn_action">
                     <div class="btn_update">
 
@@ -100,7 +101,7 @@
                             <div class="bloc_btn">
                                 <div class="group_btn_img">
                                     <div>
-                                        
+
                                         <label for="image" class="btn_upload">
                                             <figure>
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="17"
@@ -118,15 +119,16 @@
                                             </p>
                                         </label>
                                     </div>
-                                 
+
                                 </div>
                                 <div class="label">
-                                    <label for="img_text">{{ i.showName }} {{ index }}
+                                    <label for="img_text" :class="darkTheme ? 'txtDark' : 'txtDay'">{{ i.showName }} {{
+                                        index }}
                                         <input type="text" name="img_text" v-model="i.showName" />
                                     </label>
                                 </div>
 
-                               
+
                                 <div class="btn-action">
 
 
@@ -137,7 +139,7 @@
                             </div>
                         </div>
                     </div>
-
+                    <!-- NEW CARD -->
                     <div class="btn_new_card">
                         <button v-if="!newCard" @click="newCard = true">
                             new Card
@@ -148,7 +150,7 @@
                         <div class="bloc_new_card" v-if="newCard">
                             <div class="img_card">
                                 <div class="bloc_img">
-                                    <template v-if="preview && inputSelected == imgLength +1">
+                                    <template v-if="preview && inputSelected == imgLength + 1">
 
                                         <img :src="preview" class="img_display_create" />
 
@@ -170,7 +172,7 @@
                                                 <input class="btn_upload_file" type="file" name="NewImage" id="image"
                                                     ref="file" @change="FileUpload"
                                                     accept="image/png, image/jpeg, image/jpg, image/gif, image/webp" />
-                                                <p class="fileName" v-if="fileName && inputSelected == imgLength +1 ">{{
+                                                <p class="fileName" v-if="fileName && inputSelected == imgLength + 1">{{
                                                     fileName }}
                                                 </p>
                                             </label>
@@ -180,7 +182,7 @@
                                     <div class="label">
                                         <label for="img_text">Nom Espectacle
                                         </label>
-                                            <input type="text" name="img_text" v-model="NewShowName" />
+                                        <input type="text" name="img_text" v-model="NewShowName" />
                                     </div>
 
 
@@ -203,13 +205,15 @@
 
 <script>
 import { mapState } from "vuex";
-import { ref } from "vue"
+import { defineComponent, ref } from "vue"
 import Compressor from 'compressorjs';
 import FilterId from '../utils/jsonStringParse.js';
 import compressFile from '../js/compressImg.js';
 
-export default {
-    name: "ad1920384756ytrdehdk",
+export default defineComponent({
+
+    // name: "ad1920384756ytrdehdk",
+    name: "bio",
     data: function () {
         return {
             newCard: false,
@@ -223,22 +227,24 @@ export default {
             preview: ref(""),
             fileSelected: "",
             NewShowName: "",
-            paraf:[],
-            paraf:"",
+            paraf: [],
+            paraf: "",
         };
     },
-    mounted:function(){
-        let paraf = document.getElementsByClassName("p")
-        for (let i of paraf) {
-            this.paraf.push(i)
-           console.log("PARAF",i);
-    }
+
+    mounted: function () {
+        // let paraf = document.getElementsByClassName("p")
+        // for (let i of paraf) {
+        //     this.paraf.push(i)
+        //     console.log("PARAF", i);
+        // }
     },
     computed: {
         ...mapState({
             pageData: "pageData",
             imgData: "imgData",
-            loading: "loading"
+
+            darkTheme: "darkTheme"
         }),
 
         PageSate() {
@@ -253,14 +259,14 @@ export default {
                 this.imgLength = this.imgData.length;
             }
         },
-        // changeData(){
-        //     if (this.p1Q == undefined) {
+        changeData() {
+            if (this.p1Q == undefined) {
 
-        //         console.log("COMPUTED PQ1 undefined");
-        //     }else{
-        //         console.log("COMPUTED PQ1 ",p1Q);
-        //     }
-        // }
+                console.log("COMPUTED PQ1 undefined");
+            } else {
+                console.log("COMPUTED PQ1 ", p1Q);
+            }
+        }
 
 
     },
@@ -278,6 +284,7 @@ export default {
                 this.calcLength()
             }
         },
+
         // pageData: {
         //     deep: true,
         //     handler(n, o) {
@@ -307,57 +314,49 @@ export default {
 
     methods: {
         imgState(iData) {
-
-                return iData.length;
-
+            return iData.length;
         },
 
         calcLength() {
-            
-            
-let parafChanged = (()=>{
-
-
-
-            for (let i of this.paraf) {
-                i.addEventListener('change', (e) => {
-                    let paraf= document.getElementsByName( `${e.target.name}`)
-                    parafChanged = e.target.name;
-                    console.log(e)
-                    e.target.classList.add('border') 
-                    console.log(paraf[0].value)
-                    let dataParafChanged = {
-                        name:e.target.name,
-                        value:paraf[0].value
+            let parafChanged = (() => {
+                for (let i of this.paraf) {
+                    i.addEventListener('change', (e) => {
+                        let paraf = document.getElementsByName(`${e.target.name}`)
+                        parafChanged = e.target.name;
+                        console.log(e)
+                        e.target.classList.add('border')
+                        console.log(paraf[0].value)
+                        let dataParafChanged = {
+                            name: e.target.name,
+                            value: paraf[0].value
+                        }
+                        this.testParaf(dataParafChanged)
                     }
-                  this.testParaf(dataParafChanged)
+                    )
                 }
-                )
-               
-            }
-        })
-        parafChanged();
-       
-    },
-    testParaf(x){
-        let paraff= x.name.split("").join("_")
-        let ParafChanged = x.value
-       let parafOrigin = "";
-  console.log("parafCHANGED",paraff );
-  
- 
-  for(let i in this.pageData[0]){
-  if(i == paraff){
-    parafOrigin = this.pageData[0][i]
-  };
-}
-console.log("PARAF ORIGIN",parafOrigin);
-if(parafOrigin.length == ParafChanged.length ){
-    alert("tout va bien")
-}
+            })
+            parafChanged();
+        },
 
-      
-    },
+        testParaf(x) {
+            let paraff = x.name.split("").join("_")
+            let ParafChanged = x.value
+            let parafOrigin = "";
+            console.log("parafCHANGED", paraff);
+
+
+            for (let i in this.pageData[0]) {
+                if (i == paraff) {
+                    parafOrigin = this.pageData[0][i]
+                };
+            }
+            console.log("PARAF ORIGIN", parafOrigin);
+            if (parafOrigin.length == ParafChanged.length) {
+                alert("tout va bien")
+            }
+
+
+        },
         async FileUpload(event) {
             let that = this
             let inp = document.querySelectorAll('input[type=file]');
@@ -366,22 +365,22 @@ if(parafOrigin.length == ParafChanged.length ){
             this.fileName = File.name
             // let inp1 = document.querySelector('input[type=file]').files[0];
 
-            let tabInput=[]
+            let tabInput = []
 
-      let iR = inp.forEach((input, index) => {
-        let files = input.files[0];
+            let iR = inp.forEach((input, index) => {
+                let files = input.files[0];
 
-         tabInput.push(files)
+                tabInput.push(files)
 
-        if (files == File) {
+                if (files == File) {
 
-          this.inputFile = files.name;
+                    this.inputFile = files.name;
 
-          // console.log("INPUT SELECTED", index, files);
+                    // console.log("INPUT SELECTED", index, files);
 
-          this.inputSelected = index;
-        }
-      });
+                    this.inputSelected = index;
+                }
+            });
 
             var input = event.target;
             if (input.files) {
@@ -420,21 +419,6 @@ if(parafOrigin.length == ParafChanged.length ){
         },
 
 
-        getPageData() {
-            const n = "bio";
-            this.$store.dispatch("getPageData", n).then((res) => {
-                if (res) {
-                    console.log("RES GET BIO", res.data[0].name);
-                    let p = res.data[0].name;
-                    this.$store.dispatch("getImgData", p);
-                }
-            });
-            console.log("REQUET GET ACCUEIL PAGE DATA-----> ", n);
-        },
-
-        change(x) {
-            console.log("CHANGE BUTTON", x);
-        },
         //  ******************* UPDATE  *******************
 
         updateBio(x) {
@@ -559,48 +543,50 @@ if(parafOrigin.length == ParafChanged.length ){
                 .catch((response) => { });
         },
 
-        CreateImg(){
+        CreateImg() {
             let bodyFormData = new FormData();
-            // const imgLength = this.imgState(this.imgData)
-            // const imgNumber = imgLength + 1;
-let imgNumber = this.imgLength + 1;
-console.log("IMG NUMBER CREATE",imgNumber);
-if (this.fileSelected) {
-    bodyFormData.append("image", this.fileSelected, this.fileSelected.name);
-   
-    bodyFormData.append("name", "img");
-    bodyFormData.append("showName", this.NewShowName);
-    bodyFormData.append("img", imgNumber);
-    bodyFormData.append("page", "bio");
-    bodyFormData.append("link", "");
-} else {
-   
-    alert("il n'y a pas d'image!")
-    return
-}
 
-this.$store
-    .dispatch("createImg", bodyFormData,{})
+            let imgNumber = this.imgLength + 1;
+            console.log("IMG NUMBER CREATE", imgNumber);
+            if (this.fileSelected) {
+                bodyFormData.append("image", this.fileSelected, this.fileSelected.name);
 
-    .then((response) => {
-        if (response.status == 200) {
-             console.log("CREATED ", response);
-            //     location.reload();
-            file = null;
-        }
-    })
-    .catch((response) => { });
+                bodyFormData.append("name", "img");
+                bodyFormData.append("showName", this.NewShowName);
+                bodyFormData.append("img", imgNumber);
+                bodyFormData.append("page", "bio");
+                bodyFormData.append("link", "");
+            } else {
+
+                alert("il n'y a pas d'image!")
+                return
+            }
+
+            this.$store
+                .dispatch("createImg", bodyFormData, {})
+
+                .then((response) => {
+                    if (response.status == 200) {
+                        console.log("CREATED ", response);
+
+                        file = null;
+                    }
+                })
+                .catch((response) => { });
         },
 
     }, //fin actions
-};
+});
 </script>
 
 <style scoped>
 @import url("../styles/btn.css");
-.border{
+@import url("../styles/theme.css");
+
+.border {
     outline: 2px solid red
 }
+
 .row {
     border: 2px solid black;
     margin: 5px 0;
@@ -625,6 +611,7 @@ this.$store
 textarea {
     width: 400px;
     margin: 10px auto 2rem;
+    padding:5px;
 }
 
 .bloc_loop_otherShows {
@@ -651,8 +638,8 @@ textarea {
     margin: 5px auto;
     background: rgba(rgb(249, 87, 87), rgb(120, 250, 120), rgb(3, 3, 246), .3);
 }
-.bloc_img 
-.img_card {
+
+.bloc_img .img_card {
     display: flex;
     width: 100%;
     flex-direction: column;
@@ -663,11 +650,13 @@ textarea {
 
 
 }
-.img_display_create{
-    width:100%;
-    height:auto;
-    max-height:300px
+
+.img_display_create {
+    width: 100%;
+    height: auto;
+    max-height: 300px
 }
+
 .bloc_btn>div {
     background: transparent;
 }
@@ -729,5 +718,8 @@ textarea {
     .label {
         margin: 10px 0;
     }
+
 }
+
+@media screen and (min-width: 1400px) {}
 </style>

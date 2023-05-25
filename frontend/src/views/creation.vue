@@ -1,19 +1,13 @@
 <template>
     <div class="fond " :class="darkTheme ? 'bgDark' : 'bgDay'">
-    <!-- <div class="fond bgdTheme" > -->
-        
         <div class="bloc_master">
             <div class="header">
                 <div class="text_info">
-
-                    <a href="http://www.martarenyer.com" target="_blank">Page en création</a>
-                   
+                    <a >Page en création</a>
+                    <a>Page en création</a>
                 </div>
-
             </div>
-            
         </div>
-       
     </div>
 </template>
 
@@ -47,9 +41,6 @@ export default {
         }),
         ...mapMutations(["NamePage"]),
 
-        
-      
-   
     },
     created: function () {
         this.$store.commit("NamePage","creation")
@@ -89,20 +80,13 @@ export default {
 </script>
 
 <style scoped>
-/* @import url("../styles/bloc_nav.css"); */
+
 @import url("../styles/theme.css");
-/* @import url("../styles/bloc-nav-c.css"); */
 
-/* TEST */
-/* .bgdTheme{
-background:v-bind(bgTheme)
-} */
-/* FIN TEST */
-
-.fond {
-    /* background: #f4d03f; */
-    /* background: #040404; */
-    
+p{
+    padding:0;
+    margin:0;
+    color:transparent
 }
 .bloc_master {
     /* background: white; */
@@ -112,10 +96,6 @@ background:v-bind(bgTheme)
     height: 100vh;
     /* background: #040404; */
 }
-
-
-
-
 .header {
     width: 300px;
     height: auto;
@@ -125,17 +105,30 @@ background:v-bind(bgTheme)
 .text_info > a {
    color: #8f0000;
 }
+.text_info > p {
+   color: #8f0000;
+}
 
 /* BLOC ANIMATION */
 @keyframes tipsy {
-    0 {
-        transform: translateX(-50%) translateY(-50%) rotate(0deg);
+    0% {
+        transform: translateX(-50%) translateY(-50%) rotate(0deg),
     }
 
     100% {
         transform: translateX(-50%) translateY(-50%) rotate(360deg);
     }
 }
+@keyframes tipsy_text {
+    0% {
+        transform: translateX(-50%) translateY(-50%) rotate(0deg),
+    }
+
+    100% {
+        transform: translateX(-50%) translateY(-50%) rotate(360deg);
+    }
+}
+
 
 .bloc_master {
     font-family: helvetica, arial, sans-serif;
@@ -180,6 +173,30 @@ a:after {
     border-color: rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) #d9524a #d9524a;
     box-shadow: 25px 25px 25px rgba(46, 46, 49, .8);
 }
+p:before,
+p:after {
+    content: '';
+    padding: .9em .4em;
+    position: absolute;
+    left: 50%;
+    width: 100%;
+    top: 50%;
+    display: block;
+    border: 15px solid red;
+    border-radius: 20px;
+    transform: translateX(-50%) translateY(-50%) rotate(0deg);
+    animation: 9s infinite alternate ease-in-out tipsy_text;
+}
+
+p:before {
+    border-color: #d9524a #d9524a rgba(0, 0, 0, 0) rgba(0, 0, 0, 0);
+    z-index: -1;
+}
+
+p:after {
+    border-color: rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) #d9524a #d9524a;
+    box-shadow: 25px 25px 25px rgba(46, 46, 49, .8);
+}
 
 /* ANIMATION SHADOW */
 .bloc_master {
@@ -196,16 +213,10 @@ a:after {
     margin-top: 200px;
 }
 
-/* .words {
-    color: #f4d03f;
-    font-size: 0;
-    line-height: 1.5;
-} */
 
 .words span {
     font-size: 5rem;
     display: inline-block;
-    /* animation: move 3s ease-in-out infinite; */
 }
 
 @keyframes move {

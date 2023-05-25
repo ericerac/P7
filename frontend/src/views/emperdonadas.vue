@@ -1,11 +1,6 @@
 <template>
 
   <div class="container-fluid master fond bgDay" :class="darkTheme ? 'bgDark' : 'bgDay'">
-
-    <!-- <div class="bloc_nav" v-if="navbarOk">
-      <navbar namePage="emperdonadas" :dark = "dark" @theme ="dark=($event)"/>
-    </div> -->
-
     <div class="row img_thumb col-12">
       <img :src="pageData[0].imageUrl" alt="retrato les emperdonadas con Marta Renyer" width="640" height="360" />
     </div>
@@ -56,13 +51,6 @@
 <script>
 import { mapState } from "vuex";
 
-// import { delire } from "../modules/script";
-// delire("PATATE FROIDE");
-
-// import navbar from "../components/nav_bar.vue";
-// import foot from "../components/footer.vue";
-// import dataCookies from "../js/cookies"
-
 export default {
   name: "emperdonadas",
   data() {
@@ -73,53 +61,23 @@ export default {
     };
 
   },
-  components: {
-    
-  },
   computed: {
     ...mapState({
       pageData: "pageData",
       navData: "navData",
       darkTheme:"darkTheme"
     }),
-    // themeStyle() {
-    //   return {
-    //     bgDark: this.fondo,
-    //     textDark: this.fondo,
-    //   }
-
-    // }
   },
-
   beforeMount: function () {
     console.log("BEFORE MOUNT");
   },
 
   created: function () {
-    console.log("CREATED");
-    // this.getLocation()
-    // this.getNavData();
     this.getPageData();
   },
 
   methods: {
 
-    // getLocation() {
-    //   this.$store.dispatch("getLoc")
-    //     .then((res) => {
-    //       this.DataCookies()
-    //     })
-    // },
-
-    // DataCookies() {
-    //   let dataTheme = dataCookies();
-    //   console.log("DATATHEME CALENDAR", dataTheme);
-    //   this.theme = dataTheme.theme
-    //   this.dark = dataTheme.dark
-    //   // this.bgColor = dataTheme.bgColor
-    //   // this.texteColor = dataTheme.textColor
-      
-    // },
     getPageData() {
       const n = "emperdonadas";
       this.$store.dispatch("getPageData", n).then((res) => {
@@ -194,9 +152,13 @@ export default {
   width: 100%;
   height: auto;
   max-width: 900px;
-  margin: 0 auto
+  margin: 0 auto;
+ 
 }
+.img_thumb img{
 
+  box-shadow: -1px 14px 35px rgba(0,0,0,.3), 1px -11px 35px rgba(0,0,0,.3);
+}
 .title {
   margin-top: 30px;
 }
@@ -255,11 +217,6 @@ p {
     width: 100vw;
     margin: 0 auto
   }
-
-  /* .bloc_nav{
-    position:relative;
-    z-index: 123;
-  } */
 }
 
 @media screen and (min-width:756px) {

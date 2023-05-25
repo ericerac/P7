@@ -44,26 +44,19 @@ const routes = [
   {
     name: "login",
     path: "/login",
-    
     component: () => import("../components/Login .vue"),
-    
   },
   {
-    
       name: "NewPass",
       path: "/newpass",
-      
       component: () => import("../components/ResetPassW.vue"),    
-    
   },
   {
     name: "portada",
-    path: "/portada",
+    path: "/",
     meta:{
       title:"Marta Renyer Home",
-      
-     
-      
+
       metaTags: [
         {
           name: 'description',
@@ -78,14 +71,12 @@ const routes = [
     component: () => import("../views/portada.vue"),
     
   },
+  
   {
     name: "pageAdmin",
     path: "/ad1920384756ytrdehdk",
-    // name: "ad1920384756ytrdehdk",
-    // path: "/ad1920384756ytrdehdk",
     meta:{
       requireAuth:true,
-
     },
     component: () => import("@/views/AdminPage.vue"),
   },

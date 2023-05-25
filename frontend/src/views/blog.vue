@@ -3,49 +3,29 @@
         <div class="compo" v-if="compo == true">
             <blog_post @changeCompo="CompoDisplay" />
         </div>
-
-        <div class="container" >
+        <div class="container">
             <div class="header">
-                <!-- <div class="btn_head">
-                    <button @click="compo = !compo" class="open_post btn_header" v-if="admin">New Post</button>
-                    <button @click="goToP()" class="btn_retour btn_header">Retour</button>
-                </div> -->
+                <!-- <img class="imgHeader" src="../assets/images/furgoAutopista.jpg"
+                    alt="imagen de fondo sombra de furgoneta en la carretera"> -->
                 <div class="text_intro">
-                    <p>{{blogData[0].p_1}}<br>
+                    <p>{{ blogData[0].p_1 }}<br>
                         "Marta Renyer"
                     </p>
-                    <!-- <p>Mon blog est le lieu où j'écrit mes pensées de tout les jours, un lieu où il ne faut pas se poser de
-                        question.
-                        bonne lecture... <br>
-                        "Marta Renyer"
-                    </p> -->
-                  <button @click="goToP" >Home</button>
+                    <button @click="goToP">Home</button>
                 </div>
-
             </div>
             <div class="row">
-
             </div>
             <div class="row post">
-
                 <article>
                     <div class="post_card" v-for="(post, index) in displayPost" :key="post._id">
-                        <!-- <a href= "post.link" > <h2 class="titleMobile">{{ post.title_1 }} {{ index }}</h2></a> -->
-                        <!-- <div class="inter_line"></div> -->
-                        <!-- <div class="blocImg"> 
-                            <img class="oval" :src="post.imageUrl" alt="">
-                            <p class="paraf">
-                                {{ post.p_1 }}
-                            </p>
-                        </div> -->
                         <div class="blocImgText">
-
                             <div class="imgBloc">
                                 <img class="imgPost" :src="post.imageUrl" alt="">
                             </div>
                             <div class="textBloc">
                                 <a href="post.link">
-                                    <h2 class="titleDesktop">{{ post.title_1 }}  </h2>
+                                    <h2 class="titleDesktop">{{ post.title_1 }} </h2>
                                 </a>
                                 <div v-if="dPost(post.p_1) == true" class="text_desc " :class="{ text_open: open_text }"
                                     @click="open_text = !open_text">
@@ -56,34 +36,22 @@
                                     @click="open_text = !open_text">
                                     <em><small>lire la suite</small></em>
                                 </p>
-
                                 <p v-else class="paragraf">
                                     {{ post.p_1 }}
                                 </p>
                             </div>
-
                         </div>
-
-
                         <div class="date">
-                            <!-- <span :data-text="contentText(post._id)"> </span> -->
+
                             <span :data-text="dateCreated(post.createdAt)"> </span>
                         </div>
                         <div class="admin_icon" v-if="admin">
                             <span @click="del_post(post._id)">&#128465</span>
-                            <!-- <span @click="del_post">&#9999</span> -->
-
                             <span @click="update_post(post._id)">&#128394</span>
-
-
                         </div>
                     </div>
-
-
                 </article>
-
             </div>
-
         </div>
         <span @click="compo = !compo" v-if="admin" class="editPost">&#128394</span>
     </div>
@@ -119,11 +87,8 @@ export default {
     },
 
     beforeMount: function () {
-
     },
     created: function () {
-
-        // this.getNavData();
         this.getCookies();
         this.getPageData();
     },
@@ -134,8 +99,8 @@ export default {
             pageData: "pageData",
             navData: "navData",
             newPost: "newPost",
-            blogData:"blogData",
-            darkTheme:"darkTheme",
+            blogData: "blogData",
+            darkTheme: "darkTheme",
         }),
         ...mapMutations(["PageData", "PostSelected", "PostUpdate"]),
 
@@ -179,16 +144,7 @@ export default {
 
 
     },
-    watch: {
 
-        newPost(n, o) {
-
-        },
-
-
-
-
-    },
 
     components: {
         blog_post
@@ -212,12 +168,12 @@ export default {
             //         return (p.p_1.length > 200)
             //     }
             // }
-            if (x.length > 200) {
+            // if (x.length > 200) {
 
-                return true
-            } else {
-                return false
-            }
+            //     return true
+            // } else {
+            //     return false
+            // }
         },
 
         // ******* FIN ROUTAGE COMPONENT**********
@@ -226,7 +182,6 @@ export default {
 
         getCookies: function () {
             if ($cookies.get("user")) {
-
                 const c = $cookies.get("user")
                 console.log("COOKIES", c.userId);
                 if (c.userId == "63737b4daf9df497efcd5767") {
@@ -246,27 +201,18 @@ export default {
 
         //********** FIN  UTILITIES ***********
         getPageData() {
-            const n = "blog";
-            this.$store.dispatch("getPageData", n)
-                .then((res) => {
-                    if (res) {
-                        this.$store.dispatch("getPageData", "post")
-                        this.dataPage = true;
-                    }
-                })
-            console.log("REQUET GET ACCUEIL PAGE DATA-----> ", n);
+         
+            this.$store.dispatch("getPageData", "blog")
+                // .then((res) => {
+                //     if (res) {
+                //         // this.$store.dispatch("getPageData", "post")
+                //         this.dataPage = true;
+                //     }
+                // })
+            console.log("REQUET GET ACCUEIL PAGE DATA-----> ", "blog");
         },
 
-        getNavData() {
-            const n = "navbar";
-            this.$store.dispatch("getNavData", n)
-                .then((res) => {
-                    if (res) {
-                        this.navbarOk = true
-                    }
-                });
-            console.log("REQUET GET NAV BAR PAGE DATA-----> ", n);
-        },
+
 
         del_post(x) {
             let data = {
@@ -303,17 +249,11 @@ export default {
 @import url("../styles/theme.css");
 
 /* <!-- HTML !-->
-<button class="button-92" role="button">Button 92</button> */
+
 :root {
     --c: red;
 }
 
-/* CSS */
-
-/* BOUTTON 2 */
-
-/* <!-- HTML !-->
-<button class="button-73" role="button">Button 73</button> */
 
 /* CSS */
 .btn_header {
@@ -357,6 +297,14 @@ export default {
     display: none
 }
 
+.imgHeader {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: auto;
+}
+
 @media (min-width: 768px) {
     .btn_header {
         font-size: 1.5rem;
@@ -373,7 +321,7 @@ export default {
 }
 
 .text_intro {
-    position:relative;
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -383,30 +331,35 @@ export default {
     background: #FF6314;
 
 }
-.text_intro > button{
 
-    content:"retour";
-    position:absolute;
-bottom:20px;
-right:20px;
-background: white;
-color:black;
-padding:5px 10px;
-border:none;
-border-radius: 10px;
+.text_intro>button {
 
-cursor: pointer;
+    content: "retour";
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    background: white;
+    color: black;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 10px;
+
+    cursor: pointer;
 
 }
-.text_intro > button:hover{
+
+.text_intro>button:hover {
     box-shadow: 3px 3px 10px rgb(154, 0, 0);
 }
-.text_intro > button:active{
-    box-shadow:inset 1px 1px 5px red;
+
+.text_intro>button:active {
+    box-shadow: inset 1px 1px 5px red;
 }
-.text_intro > p{
-    padding:0 20px
+
+.text_intro>p {
+    padding: 0 20px
 }
+
 .btn_head {
     display: flex;
     justify-content: space-around;
@@ -415,162 +368,6 @@ cursor: pointer;
 
 }
 
-/* .quote-wrapper {
-    width: 250px;
-    height: 250px;
-    position: relative;
-   
-    overflow: hidden;
-
-} */
-
-
-
-/* .b_right {
-    display:flex;
-   width:300px;
-   height: 300px;
-   margin-left: auto 30%;
-   align-items: center;
-} */
-
-/* .text p {
-    height: 100%;
-    font-size: 17px;
-    line-height: 1.25;
-    padding: 0;
-    text-align: center;
-    font-style: italic;
-    text-shadow: 0.5px 0.5px 1px rgba(0, 0, 0, 0.3);
-}
-
-.text::before {
-    content: "";
-    width: 50%;
-    height: 100%;
-    float: left;
-    shape-outside: polygon(0 0,
-            98% 0,
-            50% 6%,
-            23.4% 17.3%,
-            6% 32.6%,
-            0 50%,
-            6% 65.6%,
-            23.4% 82.7%,
-            50% 94%,
-            98% 100%,
-            0 100%);
-    
-}
-
-.text p::before {
-    content: "";
-    width: 50%;
-    height: 100%;
-    float: right;
-    shape-outside: polygon(2% 0%,
-            100% 0%,
-            100% 100%,
-            2% 100%,
-            50% 94%,
-            76.6% 82.7%,
-            94% 65.6%,
-            100% 50%,
-            94% 32.6%,
-            76.6% 17.3%,
-            50% 6%);
-    shape-margin: 7%;
-} */
-
-/* .quote-wrapper blockquote footer {
-    width: 100%;
-    position: absolute;
-    bottom: 25px;
-    font-size: 17px;
-    text-align: center;
-    font-style: italic;
-    text-shadow: 0.5px 0.5px 1px rgba(0, 0, 0, 0.3);
-}
-
-.quote-wrapper::before {
-    content: "\201C";
-    font-size: 70px;
-    height: 42px;
-    line-height: 0.78;
-    line-height: 1;
-    position: absolute;
-    top: -48px;
-    left: 0;
-    z-index: 1;
-    font-family: sans-serif, serif;
-    color: #ccc;
-    opacity: 0.9;
-}
-
-@media (min-width: 850px) {
-    .quote-wrapper {
-        width: 270px;
-        height: 270px;
-    }
-
-    .quote-wrapper::before {
-        font-size: 300px;
-    }
-
-    .text p {
-        font-size: 21px;
-    }
-
-    .quote-wrapper blockquote footer {
-        bottom: 30px;
-    }
-} */
-
-/* *********** HEADER  END ************* */
-
-
-
-/* .b {
-    display: block;
-    position: relative;
-    width: 100%;
-    height: auto;
-    border: 1px solid red;
-    height: 350px;
-    margin: 30px auto;
-    vertical-align: middle;
-
-} */
-
-
-/* .test {
-    position: relative;
-    z-index: -1
-}
-
-p {
-    color: black
-} */
-
-/* .svg_title {
-    width: 300px;
-    height: 100px;
-    margin: 0 auto;
-} */
-
-/* svg {
-    position: fixed;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    height: 100vh
-} */
-/* .svg_text {
-
-    width: 300px
-} */
-/* FIN BULLES */
 *,
 :before,
 :after {
@@ -594,22 +391,10 @@ p {
 .fond {
     position: relative;
     color: white;
-    /* background: #1c1c1c; */
-    /* background-image: url("../assets/design/circle-scatter-haikei\ \(1\).svg"); */
-    /* background: rgb(56, 56, 56); */
-    /* background: rgb(252, 252, 252); */
-    /* background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 35%, rgba(0, 212, 255, 1) 100%);
-    background: linear-gradient(90deg, rgba(131, 58, 180, .5) 0%, rgba(253, 29, 29, .5) 50%, rgba(252, 176, 69, .5) 100%);
-    background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(237, 57, 237, 1) 35%, rgba(151, 0, 255, 1) 100%);
-    background: linear-gradient(90deg, rgba(131, 58, 180, 1) 0%, rgba(253, 29, 29, 0.06) 50%, rgba(128, 69, 252, 1) 100%);
-    background: linear-gradient(90deg, rgba(169, 58, 180, 0.27914915966386555) 0%, rgba(253, 29, 246, 1) 50%, rgba(196, 69, 252, 0.2847514005602241) 100%);
-    background: linear-gradient(90deg, rgba(169, 58, 180, 0.27914915966386555) 0%, rgba(253, 29, 29, 0.8449754901960784) 50%, rgba(196, 69, 252, 0.2847514005602241) 100%);
-   
-    background: linear-gradient(90deg, rgba(5, 5, 5, 1) 0%, rgba(253, 29, 29, 0.8449754901960784) 50%, rgba(5, 5, 5, 1) 100%);
-    */
     width: 100vw;
     height: auto;
     min-height: 110vh;
+
 }
 
 .container {
@@ -622,13 +407,13 @@ p {
     position: fixed;
     bottom: 30px;
     right: 30px;
-    width:40px;
-    height:40px;
+    width: 40px;
+    height: 40px;
     line-height: 40px;
     z-index: 100;
     background: rgba(138, 43, 226, .9);
     border-radius: 50%;
-   
+
 }
 
 .header {
@@ -637,8 +422,6 @@ p {
     width: 100%;
     height: auto;
     padding-top: 70px;
-    /* border: 1px solid rgb(255, 55, 55); */
-    /* background-image: url("../assets/design/Note.svg"); */
     background-repeat: no-repeat;
     background-position: center;
 }
@@ -646,7 +429,6 @@ p {
 article {
     width: 100%;
     position: relative;
-    /* border: 2px solid blue; */
     margin: 30px 0;
     padding: 0
 }
@@ -662,21 +444,14 @@ article {
     flex-direction: column;
     align-items: center;
     background-color: #FFFFFF;
-    /* border-radius: 40px; */
     border-style: none;
-    /* box-shadow: #ADCFFF 0 -12px 16px inset; */
     width: 100%;
     color: #000000;
-
-    /* font-family: -apple-system,sans-serif; */
     font-size: 1.2rem;
     font-weight: 600;
     letter-spacing: -.24px;
     margin: 20px auto;
-
     padding: 10px;
-
-
     user-select: none;
 
 }
@@ -693,17 +468,6 @@ article {
     font-size: 30px;
 }
 
-/* .post_card {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: rgb(251, 238, 219);
-    margin: 30px auto;
-    align-items: center;
-    border-radius: 5px;
-} */
-
 .oval {
     width: 250px;
     height: 250px;
@@ -715,18 +479,14 @@ article {
     float: left;
     margin: 30px 10px;
     shape-outside: circle();
-
     object-fit: cover;
     object-position: center;
-    /* shape-margin: 30px; */
-
 }
 
 .blocImg {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    /* margin-right: 10px; */
     margin-top: 10px;
     align-items: center;
 }
@@ -736,8 +496,6 @@ h2 {
     display: inline-block;
     color: black;
     margin-bottom: 10px;
-    /* width: 80%; */
-
 }
 
 .inter_line {
@@ -747,10 +505,12 @@ h2 {
     background-color: red;
     margin: 10px auto;
 }
-.paragraf{
+
+.paragraf {
     text-indent: 30px;
-    margin:0 auto
+    margin: 0 auto
 }
+
 .paragraf::first-letter {
     font-size: 30px;
     font-family: 'Sacramento', cursive;
@@ -800,59 +560,6 @@ h2 {
 
 }
 
-/* .img_post>img {
-    width: 100%;
-    height: 300px;
-    margin: auto;
-    object-fit: cover;
-}
-
-.bloc_text {
-    width: 100%;
-    height: 100%;
-    color: black;
-    align-items: center;
-    
-}
-
-.bloc_text>h2 {
-    display: flex;
-    flex-direction: column;
-    margin: 20px auto;
-    width: 100%;
-    flex-wrap: wrap;
-
-}
-
-.text_post > p {
-
-    width: 90%;
-    overflow: hidden;
-    margin: 0 auto;
-    text-align: justify;
-    padding: 10px
-}
-
-.text_post {
-    width: 100%;
-    overflow: hidden;
-    text-align: justify;
-    padding: 10px;
-    text-indent: 40px;
-
-}  */
-
-/* .date>span::before {
-    content: "";
-    position: absolute;
-    right: -7px;
-    top: -7px;
-    width: 50px;
-    height: auto;
-    background-color: rgb(19, 19, 19);
-    border-radius: 5px;
-    z-index: 11;
-} */
 
 .date>span::after {
     content: attr(data-text);
@@ -861,7 +568,6 @@ h2 {
     top: -7px;
     width: 50px;
     height: auto;
-    /* border: 1px solid blue; */
     color: white;
     font-size: 14px;
     overflow: hidden;
@@ -906,8 +612,6 @@ h2 {
     .post_card {
         flex-direction: column;
         align-items: center;
-        /* justify-content: space-evenly; */
-
     }
 
     .blocImg {
@@ -920,25 +624,28 @@ h2 {
 
     .paragraf {
         width: 95%;
-        margin: 10px auto 30px ;
+        margin: 10px auto 30px;
         text-align: justify;
         padding: 20px 0;
         text-indent: 30px;
         border-radius: 10px;
 
     }
-    .textBloc{
+
+    .textBloc {
         max-width: 550px;
-        margin: 10px auto 10px ;
+        margin: 10px auto 10px;
     }
-    .titleDesktop{
-        margin-left:30px
+
+    .titleDesktop {
+        margin-left: 30px
     }
-.imgPost{
-width:100%;
-max-height:400px;
-object-fit: contain;
-}
+
+    .imgPost {
+        width: 100%;
+        max-height: 400px;
+        object-fit: contain;
+    }
 }
 
 @media screen and (min-width:768px) and (max-height:550px) {
@@ -960,36 +667,30 @@ object-fit: contain;
     .post_card {
         width: 80%;
     }
-.paragraf{
-    padding-top: 10px;
-}
+
+    .paragraf {
+        padding-top: 10px;
+    }
 }
 
 @media (min-width:1220px) {}
 
 @media (min-width:1440px) {}
 
-@media (min-width:1920px) {
-
-
-}
+@media (min-width:1920px) {}
 
 /* "2E VERSION" */
 
 .blocImgText {
     display: flex;
-    flex-direction: column; 
-     justify-content: space-evenly;
-  
-    /* align-items: center; */
-    /*  */
+    flex-direction: column;
+    justify-content: space-evenly;
 }
 
 .titleDesktop {
     font-size: calc(25px + 1.5vh);
     margin-bottom: 0px;
     font-family: 'Playfair Display', serif;
-    /* text-transform: uppercase; */
 }
 
 .paragraf,
@@ -1024,7 +725,7 @@ object-fit: contain;
 }
 
 .imgBloc {
-    display:flex;
+    display: flex;
     align-items: center;
     width: 90%;
     height: auto;
@@ -1035,7 +736,7 @@ object-fit: contain;
 }
 
 .textBloc {
-    display:flex;
+    display: flex;
     flex-direction: column;
     width: 100%;
     height: auto;
@@ -1050,7 +751,7 @@ object-fit: contain;
 
 @media screen and (min-width:768px) and (max-height:450px) {
     .blocImgText {
-        
+
         flex-direction: row;
         justify-content: flex-start;
         width: 100%
@@ -1066,11 +767,12 @@ object-fit: contain;
         display: flex;
         width: 35%;
         height: 300px;
-        
+
         align-items: center;
     }
-    .imgPost{
-        margin:auto;
+
+    .imgPost {
+        margin: auto;
     }
 }
 
@@ -1089,9 +791,9 @@ object-fit: contain;
     .imgBloc {
         width: 300px;
         min-width: 300px;
-        height:auto;
+        height: auto;
         max-height: 300px;
-       
+
     }
 }
 
@@ -1121,7 +823,7 @@ object-fit: contain;
         width: 300px;
         min-width: 300px;
         height: 300px;
-      
+
     }
 }
 

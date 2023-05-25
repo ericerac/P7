@@ -1,9 +1,6 @@
 <template>
   <div class="fond">
     <div class="container-fluid bloc_page">
-      <!-- <div class="bloc_nav " v-if="navbarOk">
-        <navbar namePage="contact"/>
-      </div> -->
       <div class="row col-12 bloc_header">
         <div class="bloc_img">
           <img src="../assets/images/terrasse.jpg" alt="Image d'une terrasse de café foto de Natishia">
@@ -26,17 +23,12 @@
           </div>
         </div>
       </div>
-      <!-- <div class="container-fluid-footer">
-        <foot />
-    </div> -->
+
     </div>
   </div>
 </template>
 
 <script>
-
-// import navbar from "../components/nav_bar.vue"
-// import foot from "../components/footer.vue"
 
 export default {
   name: "contact",
@@ -45,51 +37,16 @@ export default {
       navbarOk: true,
     }
   },
-  components: {
-    // navbar,
-    // foot,
-  },
-  created: function () {
-
-    // this.getNavData();
-    this.getPageData();
-
-  },
+  
   methods: {
 
-    changeWidth(event) {
-      // this.background = this.pageData[0].imageUrl;
-      // console.log("CHANGE WIDTH", this.background);
-    },
-
-    getPageData() {
-      const n = "bernadette";
-      this.$store.dispatch("getPageData", n)
-        .then((res) => {
-          if (res) {
-
-          }
-        })
-      console.log("REQUET GET ACCUEIL PAGE DATA-----> ", n);
-    },
-    // getNavData() {
-    //   const n = "navbar";
-    //   this.$store.dispatch("getNavData", n)
-    //     .then((res) => {
-    //       if (res) {
-    //         this.navbarOk = true
-    //       }
-    //     });
-    //   console.log("REQUET GET NAV BAR PAGE DATA-----> ", n);
-    // },
 
   },
 }
 </script>
 
 <style scoped>
-/* @import url("../styles/bloc-nav-c.css");
-@import url("../styles/bloc_nav.css"); */
+
 p {
   margin: 0;
   padding: 0;
@@ -97,11 +54,10 @@ p {
 
 .fond {
   position: relative;
-  background-color: black;
+  background-color: rgb(1, 0, 0);
   height: 100vh;
-  /* background-image: url("../assets/images/abstrait-fond-d-ecra.png"); */
-}
 
+}
 .bloc_page {
   height:100vh;
  

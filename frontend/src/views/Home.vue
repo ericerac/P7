@@ -4,15 +4,13 @@
 
       <!-- //----------------------- EDITION HEADER------------------------// -->
 
-      <!-- <div class="col-lg-12 col-xl-12 card-component bg-white mb-3 pb-2 pt-1"> -->
-
       <form class="update-form col-12">
         <span class="form-title">
           Vous êtes sur la page: <strong>{{ pageData[0].name }}.{{ pageData[0].lang }}</strong></span>
         <div class="fond-form header_bloc col-12">
           <div class="bloc_info col-12 col-md-6">
 
-
+<p class="info_text">Modification necessaire pour chaque langue</p>
             <div class="form-group">
               <label>Titre 1</label>
               <input v-model="pageData[0].title_1" type="text" name="prenom" class="form-control"
@@ -76,6 +74,7 @@
 
       <div class=" row col-12 show_bloc gx-1">
         <div class="bloc_loop col-lg-4 col-xl-3  col-xxl-4 " v-for=" (i, index) in imgData" :key="i._id">
+          <p class="info_text"> Modification valable pour les 3 langues</p>
           <div class="show_info">
             <span>bloc Show nº {{ indexCard(index) }}</span>
             <div class="bloc_info col-12">
@@ -89,7 +88,6 @@
               <div class="show_img">
 
                 <div class="bloc_img">
-                  <!-- <button class="btn_delete_img">Éffacer </button> -->
                   <template v-if="preview && indexCard(index) === inputSelected">
 
                     <img :src="preview" class="" width="200" height="160" />
@@ -113,7 +111,6 @@
                       accept="image/png, image/jpeg, image/jpg, image/gif, image/webp" />
                     <p class="fileName" v-if="fileName && index === inputSelected - 1">{{ fileName }}</p>
                   </label>
-                  <!-- <span v-if="i._id ">{{ OnefileSelected }}</span> -->
                 </div>
               </div>
             </div>
@@ -131,14 +128,13 @@
           </div>
         </div>
       </div>
-      <!-- </div> -->
     </div>
   </div>
 </template>
 
 <script>
 import { mapGetters, mapState } from "vuex";
-import { ref } from "vue";
+import { defineComponent, ref } from "vue";
 import Compressor from 'compressorjs';
 import CompressFile from '../js/compressImg.js';
 
@@ -147,7 +143,7 @@ def();
 
 
 
-export default {
+export default defineComponent ({
   name: "Home",
 
   data: function () {
@@ -170,7 +166,6 @@ export default {
       modalMessage: "modalMessage",
       pageData: "pageData",
       imgData: "imgData"
-
     }),
   },
 
@@ -372,7 +367,7 @@ export default {
 
 
   }, // FIN METHODS
-};
+});
 </script>
 
 <style scoped>
@@ -388,7 +383,6 @@ input {
 
 /* START HEADER */
 .header_bloc {
-  /* border: 2px solid black; */
   display: flex;
   flex-direction: row;
   padding: 2rem;
@@ -396,7 +390,10 @@ input {
   border-radius: 10px;
   box-shadow: 3px 3px 10px;
 }
-
+.info_text{
+  background:white;
+  color:red;
+}
 label {
   width: 200px;
 
@@ -414,7 +411,6 @@ label {
   display: flex;
   justify-content: center;
   padding: 0;
-  /* border: 2px solid blue; */
 }
 
 .form-group {
@@ -429,21 +425,11 @@ label {
 
 
 }
-
-/* .btn_delete_img {
-  width: 15%;
-  height: 30px;
-} */
-
 .group_btn_img {
   display: flex;
   flex-direction: row;
   align-items: center;
 }
-
-/* .text-start{
-width: 20%;
-} */
 
 .card-component {
   width: 100%;
@@ -455,7 +441,6 @@ width: 20%;
 
 .show_bloc {
   margin: 1rem auto;
-  /* border: 2px solid green; */
   padding: 0rem;
   border-radius: 10px;
   background-color: rgba(250, 148, 31, .6);
@@ -510,50 +495,6 @@ width: 20%;
 
 }
 
-
-
-
-
-
-/* .btn_upload {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  border: 1px solid blue;
-  border-radius: 5px;
-
-  overflow: hidden;
- 
-
-} */
-
-/* .btn_upload input {
-  background-color: rgba(251, 167, 48, 0.3);
-} */
-
-
-
-/* .btn_upload:hover {
-  border: 1px solid rgb(255, 164, 164);
-  background-color: #fff;
-  transition: 200ms;
-} */
-
-
-
-
-
-
-
-/* .btn-show {
-  position: relative;
-  top: 40%;
-  transform: translateY(-30%);
-  border-radius: 10px;
-  padding: 5px 10px;
-  min-width: 80px;
-} */
-
 @media screen and (max-width:576px) {
 
   .update-form,
@@ -581,10 +522,6 @@ width: 20%;
     background-color: transparent
   }
 
-  /* .btn_upload {
-    overflow: visible;
-    border: none;
-  } */
   .homeBtn{
   display: flex;
   flex-direction: row;

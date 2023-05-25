@@ -1,15 +1,21 @@
 <template >
+  <div  :class="{ bgDark: dark }" @click="logClick(false)">
   <loader v-if="loading" />
 
-
-  <div class="bloc_nav" v-if="navbarOk && namePage != 'post' && namePage != 'adminPage' ">
-    <navbar :namePage="namePage" :dark="dark" @theme="dark = ($event)" />
+  
+  <div class="bloc_nav" v-if=" href == '/ad1920384756ytrdehdk' ">
+    
   </div>
-
+  <div class="bloc_nav" v-else>
+    <navbar :namePage="namePage" :dark="dark" @theme="dark = ($event)" 
+    :isActive="isActive" @active="isActive = ($event)"
+    />
+  </div>
   <routerView />
   <div class="container-fluid-footer">
     <foot :dark="dark" />
   </div>
+</div>
 </template>
 
 <script>
@@ -29,7 +35,8 @@ export default {
       navbarOk: false,
       dark: ref(""),
       backGround: ref(""),
-      siteDat:"site data test description"
+      siteDat:"site data test description",
+      isActive:ref(""),
     };
   },
 
@@ -40,34 +47,10 @@ export default {
 
   },
 
-//   setup()
-//   {
-// const siteData = reactive({
-//   title:"WwbSite test meta",
-//   description:" description test page mais ne fonctionne pas avec les data",
-// })
-
-// useHead({
-//   title:"web test meta title",
-//   meta:[{
-//     name:'description',
-//     //  content:" web test description"
-//     content:computed(()=> siteData.description)
-//   }]
-// })
-//   },
-
-  // beforeCreate(){
-  // // adding title for current view/page using vue-i18n
-  // let title = document.createElement(`title`)
-  // title.innerText = (`something`)
-
-  // document.querySelector(`head`).appendChild(title)
-  // },
-
   created: function () {
     this.getNavData();
-    this.getLocation()
+    this.getLocation();
+   
   },
   computed: {
     ...mapState({
@@ -83,7 +66,7 @@ export default {
   watch: {
     dark(n, o) {
       if (n == true) {
-        console.log("WATCH DARK TRUE", n);
+        // console.log("WATCH DARK TRUE", n);
         this.dark = true
         this.backGround = "rgb(22, 23, 29)"
         this.$store.commit("Theme", this.dark);
@@ -93,26 +76,35 @@ export default {
         this.backGround = "white"
         this.$store.commit("Theme", this.dark);
       }
-      console.log("WATCH DARK APP", n, o);
+      // console.log("WATCH DARK APP", n, o);
     },
-    langPage(n,o){
-      console.log("LANG PAGE APP NEW",n);
-      console.log("LANG PAGE APP OLD",o);
+    namePage(n,o){
+       console.log("NAME PAGE APP NEW",n);
+     if(n == "adminPage"){
+      console.log("namePage");
+     }
     }
 
   },
   methods: {
+    logClick(x){
+console.log("CLICK APP");
+if (this.isActive == true){
+  console.log("CLICK APP TRUE ACTIVE");
+  this.isActive = x;
+}
+    },
     getNavData() {
       const n = "navbar";
       this.$store.dispatch("getNavData", n).then((res) => {
         if (res) {
-          console.log("RES GET NAV BAR APP");
+          // console.log("RES GET NAV BAR APP");
             this.navbarOk = true;
           
         }
       });
     },
-
+   
     getLocation() {
       this.$store.dispatch("getLoc")
         .then((res) => {
@@ -122,7 +114,7 @@ export default {
 
     async DataCookies() {
       let dataTheme = await dataCookies();
-      this.dark = dataTheme.dark
+       this.dark = dataTheme.dark
       this.$store.commit("Theme", dataTheme.dark);
 
     },
@@ -141,11 +133,6 @@ export default {
   height: 100%;
 }
 
-html {
-  /* background-color: rgb(252, 217, 164); */
-}
-
-html {}
 
 * {
   margin: 0;
@@ -158,13 +145,10 @@ html {}
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  /* background-color: transparent; */
   margin-top: 0px;
   background-attachment: fixed;
   margin: auto;
   background-color: v-bind(backGround);
-  /* background-color:rgb(22, 23, 29); */
-  /* background: black; */
 }
 
 .container-fluid-footer {
@@ -172,13 +156,7 @@ html {}
   margin: 0 auto
 }
 
-/* .nav{
-  position:fixed;
-  top:20px;
-  right:30px;
-  left:30px;
-  z-index:1222;
-} */
+
 li {
   list-style: none;
 }

@@ -26,7 +26,9 @@ import axios from "axios";
 // // --------------------------------------------------------------//
 
 const instance = axios.create({
-  baseURL: "http://localhost:3000/",
+    baseURL: "http://49.13.3.226/",
+   
+  // baseURL: "http://localhost:3000/",
 });
 
 // // --------------------------------------------------------//
@@ -36,7 +38,7 @@ const instance = axios.create({
 instance.interceptors.request.use(
   function (config) {
     
-    console.log("INTER REQUEST CONFIG",config);
+     console.log("INTER REQUEST CONFIG",config);
 
     if ($cookies.get("user")) {
       const AuthUser = $cookies.get("user");
@@ -45,7 +47,7 @@ instance.interceptors.request.use(
       if (token) {
         config.headers.Authorization = `Bearer ${token}`;
       }
-    }
+    } else{}
 
     return config;
   },
@@ -61,7 +63,7 @@ instance.interceptors.request.use(
 instance.interceptors.response.use(
   function (response) {
     const supp = response.data.message;
-    // console.log("RESPONSE", response);
+     console.log("RESPONSE", response);
     // console.log("RESPONSE STATUS", response.status);
 
     // console.log("RESPONSE INTER", supp);
@@ -92,7 +94,7 @@ instance.interceptors.response.use(
       store.commit("ModalSucces", true);
       store.commit("ModalMessage", response.data.message);
     } else if (response.status == 200) {
-      console.log("RESP 200", response);
+      // console.log("RESP 200", response);
       if(response.data.message == "Card effacé"){
         store.commit("ModalSucces", true);
         store.commit("ModalMessage", response.data.message);
@@ -107,23 +109,27 @@ instance.interceptors.response.use(
   //---------------___  ERREURS  ___-------------------
 
   (error) => {
-    console.log("ERROR INTER", error);
+    // console.log("ERROR INTER", error);
     // console.log("ERROR INTER", error.response.data.error);
     // store.commit("ModalError", true);
 
     if (error.response.status == 401 || error.error == 401) {
-      store.commit("ModalMessage", "Requete non autorisée");
+      store.commit("ModalMessage", "Accés non autorisé");
       store.commit("ModalError", true);
       // console.log("MODAL MESSAGE", error.response.data.error);
     } else if (error.response.status == 429) {
       //trop de requetes trop vite
+      store.commit("ModalError", true);
       store.commit(
         "ModalMessage",
         "Nombre de requetes excessives, réessayer dans un instant "
       );
     } else if (error.response.status == 404) {
+      store.commit("ModalError", true);
       store.commit("ModalMessage", "page not found");
     } else if (error.response.data.error) {
+      console.log("ERREUR");
+      store.commit("ModalError", true);
       store.commit("ModalMessage", error.response.data.error.text);
     } 
 
@@ -133,14 +139,12 @@ instance.interceptors.response.use(
   }
 );
 
-
 // // --------------------------------------------------------------//
 
 const store = createStore({
   setup() {
     const router = useRouter();
     const route = useRoute();
-   
   },
   state: {
     status: false,
@@ -193,7 +197,7 @@ const store = createStore({
       // eslint-disable-next-line no-undef
     },
     loading: (state, val) => {
-      // console.log("MUT USER loading", val);
+      //  console.log("MUT USER loading", val);
       state.loading = val;
       // eslint-disable-next-line no-undef
     },
@@ -239,7 +243,7 @@ const store = createStore({
       state.modalError = val;
     },
     ModalMessage: (state, val) => {
-      // console.log("ModalMessage", val);
+     
       state.modalMessage = val;
     },
     ModalSucces: (state, val) => {
@@ -280,7 +284,7 @@ const store = createStore({
       $cookies.set("userHour", JSON.stringify(val));
     },
     Theme: (state, val) => {
-       console.log(" MUT THEME_1-----> ", val);
+      //  console.log(" MUT THEME_1-----> ", val);
       if ($cookies.get("userTime") === null) {
         // console.log(" MUT THEME_2-----> ", val);
         $cookies.set("userTime", JSON.stringify(val), "1h");
@@ -305,7 +309,7 @@ const store = createStore({
 
     viewWidth({ commit }) {
       if (window.navigator) {
-        console.log("NAVIGATOR----->", window);
+        // console.log("NAVIGATOR----->", window);
         // console.log("NAVIGATOR LANGUAGE----->", window.clientInformation.language);
         let dataBrowser = {
           screenHeight: window.innerHeight,
@@ -315,11 +319,11 @@ const store = createStore({
           browserVersion:
             window.clientInformation.userAgentData.brands[1].version,
         };
-        console.log("SCREEN USER", dataBrowser);
+        // console.log("SCREEN USER", dataBrowser);
         this.dataUser = dataBrowser;
         // this.isActive = false
       } else {
-        console.log("SANS NAVIGATOR");
+        // console.log("SANS NAVIGATOR");
       }
     },
 
@@ -327,7 +331,7 @@ const store = createStore({
       let userTime = $cookies.get("userTime");
       // console.log("USERTIME COOKIES VALUE", userTime);
       if (userTime) {
-         console.log(" NOT DISPATCH GET LOC");
+        //  console.log(" NOT DISPATCH GET LOC");
         let timeZone = $cookies.get("userHour");
         //  commit("Theme",timeZone)
         return;
@@ -338,7 +342,7 @@ const store = createStore({
             `https://api.bigdatacloud.net/data/ip-geolocation?ip=212.106.239.92&localityLanguage=en&key=bdc_fb0cd78789724292ba4ec846a10c55ed`
           )
           .then((res) => {
-            console.log("RESPONSE GEOLOC DATA----->", res.data);
+            // console.log("RESPONSE GEOLOC DATA----->", res.data.location.timeZone.localTime.split("T")[0]);
 
             let userData = {
               locality: res.data.location.localityName,
@@ -360,7 +364,7 @@ const store = createStore({
               // console.log("IL FAIT NUIT");
             } else {
               commit("Theme", "day");
-              console.log("------- IL FAIT JOUR ----------");
+              // console.log("------- IL FAIT JOUR ----------");
             }
             let ahora = new Date();
 
@@ -372,7 +376,6 @@ const store = createStore({
           });
       });
     },
-
     //----------------* GET ADMIN AUTH *----------------//
     getAdminAuth: ({ commit }, c) => {
       return new Promise((resolve, reject) => {
@@ -391,7 +394,6 @@ const store = createStore({
               window.location.href = "http://localhost:8080/portada";
               //  that.$router.Push("/login");
             }
-
             reject(err);
           });
       });
@@ -403,7 +405,7 @@ const store = createStore({
       // console.log(" PAGE GET PAGE DATA", n);
 
       let lang = "";
-      commit("loading", true);
+       commit("loading", true);
       if (n == "post") {
         lang = "cat";
       } else if (n == "calendar") {
@@ -419,7 +421,7 @@ const store = createStore({
         instance
           .get(`inici?name=${n}&lang=${lang}`)
           .then((res) => {
-            commit("loading", false);
+             commit("loading", false);
             commit("PageData", res.data);
             if(n == "blog"){
               commit("BlogData", res.data);
@@ -438,10 +440,9 @@ const store = createStore({
       });
     },
 
-
     //----------------* GET NAV DATA *---------------//
     getNavData: ({ commit }, l) => {
-      console.log("GET NAV BAR INDEX",l);
+      // console.log("GET NAV BAR INDEX",l);
       commit("loading", true);
       let lang = l;
       let n = "navbar";
@@ -465,6 +466,7 @@ const store = createStore({
             // console.log("RESPONSE NAV DATA STORE", res.data);
           })
           .catch((err) => {
+            commit("loading", false);
             reject(err);
           });
       });
@@ -472,17 +474,20 @@ const store = createStore({
     //----------------* GET IMG DATA *---------------//
 
     getImgData: ({ commit }, n) => {
+      commit("loading", true);
       return new Promise((resolve, reject) => {
         // console.log("GET IMG DATA", n);
         instance
           .get(`inici/img?name=${n}`)
           .then((res) => {
             commit("ImgData", res.data);
+            commit("loading", false);
             resolve(res);
 
             // console.log("RESPONSE IMG DATA STORE", res.data);
           })
           .catch((err) => {
+            commit("loading", false);
             reject(err);
           });
       });
@@ -513,7 +518,7 @@ const store = createStore({
           .post("/inici/forgot-password", data)
           .then((res) => {
             if (res) {
-              console.log("RES FORGOT", res);
+              // console.log("RES FORGOT", res);
               commit("LinkNewPassword", res);
             }
 
@@ -533,9 +538,9 @@ const store = createStore({
             email: email,
           })
           .then((res) => {
-            console.log("RES FORGOT", res);
+            // console.log("RES FORGOT", res);
 
-            console.log("REPONSE", res);
+            // console.log("REPONSE", res);
             resolve(res);
           })
           .catch((err) => {
@@ -546,6 +551,7 @@ const store = createStore({
 
     loginPost: ({ commit }, userData) => {
       // console.log("LOGIN POST STORE");
+      commit("loading", true);
       return new Promise((resolve, reject) => {
         instance
           .post("/inici/coconexion", userData)
@@ -555,9 +561,11 @@ const store = createStore({
             commit("logUser", response.data);
             commit("logToken", response.data.token);
             // commit("Logon", response.data.userLogon);
+            commit("loading", false);
             resolve(response);
           })
           .catch((err) => {
+            commit("loading", false);
             reject(err);
           });
       });
@@ -566,6 +574,7 @@ const store = createStore({
     //------------- UPDATE------------------_//
 
     updatePage: ({ commit }, data) => {
+      commit("loading", true);
       const page = data.page;
       // console.log("INDEX UPDATE PAGE DATA", data);
       let lang = "";
@@ -580,9 +589,11 @@ const store = createStore({
         instance
           .put(`/inici/update?name=${page}`, data.data, {})
           .then((res) => {
+            commit("loading", false);
             resolve(res);
           })
           .catch((err) => {
+            commit("loading", false);
             reject(err);
           });
       });
@@ -591,14 +602,17 @@ const store = createStore({
     //------------- CREATE DATE-------------------_//
 
     createDate: ({ commit }, data) => {
+      commit("loading", true);
       return new Promise((resolve, reject) => {
         instance
           .post("/inici/cal/create?page=cal", data, {})
           .then((response) => {
             commit("ArtData", response.data);
+            commit("loading", false);
             resolve(response);
           })
           .catch((err) => {
+            commit("loading", false);
             reject(err);
           });
       });
@@ -657,16 +671,6 @@ const store = createStore({
       });
     },
 
-
-
-    // getIpClient: async () => {
-    //   try {
-    //     const response = await axios.get("https://api.ipify.org?format=json");
-    //     console.log("ADRESSE IP", response);
-    //   } catch (error) {
-    //     console.error(error);
-    //   }
-    // },
 
   }, // fin actions
 }); // fin Store

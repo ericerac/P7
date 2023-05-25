@@ -1,11 +1,7 @@
 <template>
-    <!-- <div class="fond" :class="{ bgDark: darkTheme }"> -->
-    <div class="fond" :class=" { bgDark: darkTheme }">
-
+    <div class="fond" :class="{ bgDark: darkTheme }">
         <div class="containe text-center">
-
             <div class="row card_calendar_row text-center">
-
                 <div class="img_top">
                     <img src="../assets/images/vintage-alt-illustration.png" alt="">
                 </div>
@@ -29,15 +25,10 @@
                         <div class="lloc col-3 col-lg-4 item headCard text" :class="{ txtDark: darkTheme }">Lloc</div>
                         <div class="info_add item"></div>
                     </div>
-
                     <div v-for="d in filterDate" :key="d.id">
-
                         <div class="bloc_date  mt-1 mb-1" :title=d.info_top>
-
                             <a class="date_cal mt-2 mb-2 col-12 g-0" :href=d.link_event target="_blank"
                                 :style="getClassStyle(d.day)">
-
-                                <!-- :class="dateTimestamp(d.day) < dateNow ? 'datePass' : ''"> -->
                                 <div class="date_date col-3 col-lg-2 item  text" :class="darkTheme ? 'txtDark' : 'txtDay'">
                                     {{ dayWeek(d.day) }} {{ date(d.day) }} <br>
                                     {{
@@ -51,24 +42,11 @@
                                     :class="darkTheme ? 'txtDark' : 'txtDay'">{{ d.detail }}</div>
                                 <div class="info_top item  text"></div>
                             </a>
-
-                            <!-- <button v-if="admin" type="action" @click="updateCal(d._id)" class="btn_edit text">
-                                edit</button>
-                            <button v-if="admin && calComp && cardCalSelect[0]._id == d._id" type="action"
-                                @click="calComp = false" class="btn_edit text"> close</button> -->
                         </div>
-
                     </div>
-
-
-
-
                     <button v-if="admin" type="action" class="btn_create col-12 text"> New Date</button>
-
                 </div>
-
             </div>
-
         </div>
     </div>
 </template>
@@ -106,29 +84,15 @@ export default {
         }
     },
 
-    beforeMount: function () {
-    },
-    beforeUpdate: function () {
-        
-    },
     created: function () {
         this.dateToday();
         this.getPageData();
 
     },
-    mounted: function () {
-
-    },
-
-    props: {
-    },
-
+    
     computed: {
         ...mapState(
-            // [
-            //     "dataPageModul", "darkTheme","pageData"
-            // ]
-            // ,
+
             {
                 pageData: "pageData",
                 cardCalSelect: "cardCalSelect",
@@ -149,20 +113,9 @@ export default {
                 return this.pageData.sort((a, b) => (a.day > b.day ? 1 : -1)).reverse();
 
             }
-            // if (this.dataPageModul) {
-            //     this.dateData = true;
-            //     let PageDat = this.dataPageModul.pageData;
-            //     let date = "";
-            //     for (let d of PageDat) {
-            //         date = new Date(d.day);
-            //         let day = date.getDay()
-            //     }
 
-            //     return this.dataPageModul.pageData.sort((a, b) => (a.day > b.day ? 1 : -1)).reverse();
-
-            // }
         },
-        theme(){
+        theme() {
             // if(darkTheme == false || darkTheme.dark == false){
             //     this.dark == false
             // }
@@ -185,9 +138,7 @@ export default {
         },
 
     },
-    modules: {
 
-    },
     methods: {
 
         ...mapActions('dataPageModul', ['getPageData']),
@@ -198,57 +149,52 @@ export default {
 
         infoShow() { // selection date content info badge
             if (this.pageData) {
-                // console.log("dataDate", this.dataPageModul.pageData);
-                // console.log("NEXT DAY",this.pageData);
                 let nextS = this.pageData.map(function (day, index) {
                     return (day.day)
                 })
                 let hoy = new Date()
                 let bolos = moment(hoy).format("YYYY-MM-DD");
-                // console.log("BOLOS", bolos);
                 let next = this.pageData.filter(d => d.day > bolos)
-                //  console.log("POST BOLOS", next);
                 let bolo = next.reverse()[0].day
                 this.monthShow = moment(bolo).format('MMM', 'ca')
                 this.dayShow = this.dayWeek(bolo)
                 this.dateShow = moment(bolo).format('DD', 'ca')
                 this.whereShow = next[0].detail;
             } else {
-                // console.log("NOT DATA FROM PAGE");
             }
 
         },
-        
+
         getClassStyle(d) {
             if (this.dateTimestamp(d) < this.dateNow) {
                 console.log("GET CLASS DARK ");
                 if (this.darkTheme == true) {
                     console.log("GET CLASS DARK TRUE");
                     return {
+                        background: 'transparent'
+                    }
+                } else {
+                    return {
+                        background: 'rgba(250, 19, 99, 0.3)',
+                      
+                    }
+                }
+            } else if (this.dateTimestamp(d) > this.dateNow) {
+                if (this.darkTheme == true) {
+                    console.log("GET CLASS DARK TRUE");
+                    return {
+                        // background: 'rgba(250, 19, 99, 0.4)'
                         background: 'rgba(250, 19, 99, 0.2)'
                     }
                 } else {
                     return {
-                        background: 'rgba(250, 19, 99, 0.3)'
-                    }
-                }
-            } else if (this.dateTimestamp(d) > this.dateNow) {
-
-                if (this.darkTheme == true) {
-                    console.log("GET CLASS DARK TRUE");
-                    return {
-                        background: 'rgba(250, 19, 99, 0.4)'
-                    }
-                } else {
-                    return {
-                        background: 'white'
+                        background: 'white',
+                     
                     }
                 }
             }
         },
-
         hourDefined(h) {
-
             if (h != "undefined") {
                 return h
             } else {
@@ -260,9 +206,7 @@ export default {
             //******* UTIL *********
 
             let ahora = Date.now();
-            // console.log("HEURE DU CHARGEMENT DATE NOW +18---->", ahora);
             let date = new Date(ahora)
-            //    console.log("NEW DATE NOW", date);
             const timestamp = date.getTime();
             this.dateNow = timestamp
         },
@@ -271,21 +215,14 @@ export default {
 
             const ddate = new Date(val);
             const timestamp = ddate.getTime();
-            // console.log("TIMESTAMP CALENDAR DATE", val);
-            // console.log("TIMESTAMP CALENDAR DATE", timestamp);
             return timestamp;
         },
-
         // ****************************************
-
         getPageData() {
             const n = "calendar";
-
-            // this.$store.dispatch("dataPageModul/getPageData", n)
             this.$store.dispatch("getPageData", n)
                 .then((res) => {
                     if (res) {
-                        // console.log("retour dispatch calendar");
                         this.infoShow()
                     }
                 })
@@ -317,9 +254,7 @@ export default {
                 case 6:
                     jour = "Ds ";
                     break
-
             }
-            // console.log("JOUR ", jour, dd, value);
             return jour
         },
 
@@ -328,11 +263,7 @@ export default {
         },
 
         dateMonth(value) {
-
             return moment(value).format('MMM', 'ca')
-            // return moment(value).format("MM");
-            // // console.log("MONTH DATEMONTH", month);
-            // return month;
         },
 
         date(value) {
@@ -340,13 +271,10 @@ export default {
         },
 
         updateCal(x) {
-            // console.log("ID SELECT CARD", x);
             let ad = this.pageData;
             let dat = ad.filter(d => d._id == x);
-            // console.log("card SELECT ----->", dat);
             this.$store.commit("CardCalSelect", dat);
             this.calComp = true;
-
         },
 
     },
@@ -362,7 +290,7 @@ export default {
 
 a {
     list-style: none;
-    /* color: black; */
+
     text-decoration: none;
 }
 
@@ -458,12 +386,14 @@ a {
 
     margin-top: 0px
 }
-.img_top{
-    margin:auto
+
+.img_top {
+    margin: auto
 }
+
 .img_top img {
 
-    width:350px;
+    width: 350px;
     width: calc(300px + 8vw);
     height: auto;
     object-fit: cover;
@@ -471,7 +401,6 @@ a {
     z-index: -1;
     margin-top: 70px;
 }
-
 .bloc {
     /* position:relative; */
     min-height: 600px;
@@ -492,8 +421,6 @@ a {
     width: 100%;
 }
 
-
-
 .legende {
     display: flex;
     flex-direction: row;
@@ -501,17 +428,13 @@ a {
     top: 80px;
     top: 10%;
     justify-content: space-evenly;
-    background-color: rgb(255, 176, 176);
+    background-color: rgb(251, 118, 118);
     border: 1px solid red;
     box-shadow: 2px 2px 5px solid rgba(255, 0, 0, .9);
     padding: 10px 0;
+    color:white;
+    font-weight: 700;
 }
-
-.item {
-   
-
-}
-
 .date_cal {
     display: flex;
     flex-direction: row;
@@ -527,7 +450,6 @@ a {
 
 .date_cal:hover {
     transform: scaleY(1.1) scaleX(1.05);
-
     box-shadow: 1px 2px 13px grey;
     transition: .2s;
 }
@@ -535,20 +457,17 @@ a {
 .datePass {
     background-color: v-bind(bgPassColor);
 }
-
 .btn_edit {
     padding: 0 5px;
     margin-left: 5px;
     border: none;
     box-shadow: 1px 2px 3px black;
 }
-
 .btn_create {
     border: none;
     box-shadow: 1px 2px 3px black;
     background-color: rgba(165, 42, 42, .4);
 }
-
 .container-fluid-footer {
     width: 100vw;
     margin: 0 auto
@@ -556,14 +475,10 @@ a {
 
 @media screen and (min-width:768px) and (max-height:500px) {
     .img_top img {
-        /* width: 100%;
-        max-width: 600px; */
-       
         height: auto;
         object-fit: cover;
         overflow: hidden;
     }
-
     .legende {
         position: relative;
         top: 0;
@@ -571,8 +486,6 @@ a {
 }
 
 @media screen and (min-width:768px) and (min-height:500px) {
-
-
     .bloc {
         width: 90%;
         margin: 0 auto;
@@ -583,6 +496,7 @@ a {
     .legende {
         top: 80px;
     }
+
     .img_top>img {
 
         width: 600px
@@ -590,30 +504,23 @@ a {
 }
 
 @media screen and (min-width:1440px) {
-
-
     .bloc {
         width: 70%;
         margin: 0 auto;
     }
-
     .contain_info {
         top: 100px;
         left: 12%;
     }
-
     .img_top {
 
         margin-top: 70px;
     }
 
-    .img_top>img {
-
-        /* width: 700px */
-    }
-
     .legende {
-        top: 110px
+        top: 110px;
+        font-weight: 700;
+        font-size: 20px;
     }
 }
 

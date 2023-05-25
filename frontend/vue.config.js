@@ -1,7 +1,5 @@
 
-
 const Dotenv = require('dotenv-webpack');
-
 
 module.exports = {
   configureWebpack: {
@@ -10,17 +8,39 @@ module.exports = {
     ]
   }
 },
+
 module.exports = {
   transpileDependencies: [
       'vue-meta',
   ],
-}
+},
+
 module.exports = {
   devServer: {
     compress: true,
     disableHostCheck: true,
   },
 },
+
+module.exports = {
+  devServer: {
+    proxy: {
+      '^/': {
+        target: 'http://49.13.3.226:3000',
+        // target: 'http://localhost:3000',
+        changeOrigin: true
+      },
+    }
+  }
+},
+
+module.exports = {
+  devServer: {
+    port: 80,
+    host: '0.0.0.0'
+  }
+},
+
 module.exports = {
   chainWebpack: config => {
     
@@ -42,7 +62,6 @@ module.exports = {
             isCustomElement: tag => tag.startsWith('ion-')
           }
         }))
-        
   }
 }
 
@@ -64,10 +83,12 @@ module.exports = {
 
 
 const { defineConfig } = require('@vue/cli-service')
+
 module.exports = defineConfig({
   transpileDependencies: true,
   lintOnSave:false
 })
+
 module.exports = {
   lintOnSave: false
 }

@@ -100,7 +100,6 @@ export default {
             image: null,
             fileSelected: "",
             OnefileSelected: "",
-
         }
     },
     computed: {
@@ -184,8 +183,6 @@ export default {
             }
             else { }
 
-
-
             if (this.fileSelected && !this.Title && !this.Texte1) {
                 const pub = window.confirm("il vous manque un titre et un texte! Publier également ?")
                 if (pub) {
@@ -235,49 +232,36 @@ export default {
 
         sendPost(x) {
             let bodyFormData = new FormData();
-
-
             let file = this.fileSelected;
-
             console.log("file ---->", file);
-
             const filter = this.filterInput()
 
             if (this.fileSelected) {
                 bodyFormData.append("image", this.fileSelected, this.fileSelected.name);
-
                 bodyFormData.append("title_1", this.Title);
                 bodyFormData.append("color_title_1", this.ColorTitle);
                 bodyFormData.append("subTitle_1", this.subTitle);
                 bodyFormData.append("color_subTitle_1", this.ColorSubTitle);
-
                 bodyFormData.append("p_1", this.Texte1);
                 bodyFormData.append("p_2", this.Texte2);
                 bodyFormData.append("p_3", this.Texte3);
                 bodyFormData.append("link", this.Link);
-
-
                 bodyFormData.append("name", "post");
             } else {
                 bodyFormData.append("title_1", this.Title);
                 bodyFormData.append("color_title_1", this.ColorTitle);
                 bodyFormData.append("subTitle_1", this.subTitle);
                 bodyFormData.append("color_subTitle_1", this.ColorSubTitle);
-
                 bodyFormData.append("p_1", this.Texte1);
                 bodyFormData.append("p_2", this.Texte2);
                 bodyFormData.append("p_3", this.Texte3);
                 bodyFormData.append("link", this.Link);
-
                 bodyFormData.append("name", "post");
             }
-
-
             this.$store
                 .dispatch("createPost",
                     bodyFormData,
                 )
-
                 .then((response) => {
                     if (response.status == 201) {
                         console.log("RESPONSE BLOG POST SEND 2", response);
@@ -289,19 +273,10 @@ export default {
                 .catch((response) => { });
         },
 
-
         updatePost() {
             let bodyFormData = new FormData();
-
-
             let file = this.fileSelected;
-
-            console.log("file ---->", file);
-
-
-
-
-
+            // console.log("file ---->", file);
 
             if (this.fileSelected) {
                 bodyFormData.append("image", this.fileSelected, this.fileSelected.name);
@@ -310,13 +285,10 @@ export default {
                 bodyFormData.append("color_title_1", this.ColorTitle);
                 bodyFormData.append("subTitle_1", this.subTitle);
                 bodyFormData.append("color_subTitle_1", this.ColorSubTitle);
-
                 bodyFormData.append("p_1", this.postSelected[0].p_1);
                 bodyFormData.append("p_2", this.Texte2);
                 bodyFormData.append("p_3", this.Texte3);
                 bodyFormData.append("link", this.Link);
-
-
                 bodyFormData.append("name", "post");
             } else {
                 bodyFormData.append("id", this.postSelected[0]._id);
@@ -324,15 +296,12 @@ export default {
                 bodyFormData.append("color_title_1", this.ColorTitle);
                 bodyFormData.append("subTitle_1", this.subTitle);
                 bodyFormData.append("color_subTitle_1", this.ColorSubTitle);
-
                 bodyFormData.append("p_1", this.postSelected[0].p_1);
                 bodyFormData.append("p_2", this.Texte2);
                 bodyFormData.append("p_3", this.Texte3);
                 bodyFormData.append("link", this.Link);
-
                 bodyFormData.append("name", "post");
             }
-
             //             console.log("BODY FORM DATA CALUPDATE", bodyFormData.entries());
             //             for(var pair of bodyFormData.entries()) {
             //    console.log(pair[0]+ ', '+ pair[1]);
@@ -345,21 +314,16 @@ export default {
                 lang: "cat",
                 id: this.postSelected[0]._id
             }
-
             this.$store
                 .dispatch("updatePage",
-
                     data
                 )
-
                 .then((response) => {
                     if (response.status == 200) {
                         console.log("RESPONSE BLOG POST SEND 2", response);
                         //     location.reload();
                         file = null;
-
                         this.$emit('changeCompo');
-
                     }
                 })
                 .catch((response) => { });
